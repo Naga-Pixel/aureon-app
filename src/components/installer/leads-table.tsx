@@ -42,10 +42,10 @@ export function LeadsTable({ leads }: LeadsTableProps) {
 
   if (leads.length === 0) {
     return (
-      <div className="bg-white rounded-[var(--radius-lg)] p-12 text-center">
-        <div className="w-16 h-16 mx-auto mb-4 bg-[var(--color-bg)] rounded-full flex items-center justify-center">
+      <div className="bg-white rounded-[20px] p-12 text-center">
+        <div className="w-16 h-16 mx-auto mb-4 bg-[#f7f7f5] rounded-full flex items-center justify-center">
           <svg
-            className="w-8 h-8 text-[var(--color-text-muted)]"
+            className="w-8 h-8 text-[#445e5f]"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -59,7 +59,7 @@ export function LeadsTable({ leads }: LeadsTableProps) {
           </svg>
         </div>
         <h3 className="text-lg font-medium mb-2">No hay leads todavia</h3>
-        <p className="text-[var(--color-text-muted)]">
+        <p className="text-[#445e5f]">
           Los leads apareceran aqui cuando se asignen a tu cuenta.
         </p>
       </div>
@@ -67,59 +67,59 @@ export function LeadsTable({ leads }: LeadsTableProps) {
   }
 
   return (
-    <div className="bg-white rounded-[var(--radius-lg)] overflow-hidden shadow-sm">
+    <div className="bg-white rounded-[20px] overflow-hidden shadow-sm">
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-[var(--color-border)]">
-              <th className="px-6 py-4 text-left text-xs font-mono uppercase tracking-wider text-[var(--color-text-muted)]">
+            <tr className="border-b border-gray-200">
+              <th className="px-6 py-4 text-left text-xs font-mono uppercase tracking-wider text-[#445e5f]">
                 Nombre
               </th>
-              <th className="px-6 py-4 text-left text-xs font-mono uppercase tracking-wider text-[var(--color-text-muted)]">
+              <th className="px-6 py-4 text-left text-xs font-mono uppercase tracking-wider text-[#445e5f]">
                 Isla
               </th>
-              <th className="px-6 py-4 text-left text-xs font-mono uppercase tracking-wider text-[var(--color-text-muted)]">
+              <th className="px-6 py-4 text-left text-xs font-mono uppercase tracking-wider text-[#445e5f]">
                 Factura
               </th>
-              <th className="px-6 py-4 text-left text-xs font-mono uppercase tracking-wider text-[var(--color-text-muted)]">
+              <th className="px-6 py-4 text-left text-xs font-mono uppercase tracking-wider text-[#445e5f]">
                 Estado
               </th>
-              <th className="px-6 py-4 text-left text-xs font-mono uppercase tracking-wider text-[var(--color-text-muted)]">
+              <th className="px-6 py-4 text-left text-xs font-mono uppercase tracking-wider text-[#445e5f]">
                 Fecha
               </th>
-              <th className="px-6 py-4 text-right text-xs font-mono uppercase tracking-wider text-[var(--color-text-muted)]">
+              <th className="px-6 py-4 text-right text-xs font-mono uppercase tracking-wider text-[#445e5f]">
                 Acciones
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[var(--color-border)]">
+          <tbody className="divide-y divide-gray-200">
             {leads.map((lead) => (
               <tr
                 key={lead.id}
-                className="hover:bg-[var(--color-bg)]/50 transition-colors"
+                className="hover:bg-[#f7f7f5]/50 transition-colors"
               >
                 <td className="px-6 py-4">
                   <div>
                     <p className="font-medium">{lead.name}</p>
-                    <p className="text-sm text-[var(--color-text-muted)]">
+                    <p className="text-sm text-[#445e5f]">
                       {lead.email}
                     </p>
                   </div>
                 </td>
-                <td className="px-6 py-4 text-[var(--color-text-muted)]">
+                <td className="px-6 py-4 text-[#445e5f]">
                   {getIslandLabel(lead.island)}
                 </td>
                 <td className="px-6 py-4 font-medium">
                   {formatCurrency(Number(lead.monthly_bill))}/mes
                 </td>
                 <td className="px-6 py-4">{getStatusBadge(lead.status)}</td>
-                <td className="px-6 py-4 text-[var(--color-text-muted)]">
+                <td className="px-6 py-4 text-[#445e5f]">
                   {formatDate(lead.created_at)}
                 </td>
                 <td className="px-6 py-4 text-right">
                   <Link
                     href={`/installer/leads/${lead.id}`}
-                    className="inline-flex items-center gap-1 text-sm font-medium text-[var(--color-accent)] hover:text-[var(--color-primary)] transition-colors"
+                    className="inline-flex items-center gap-1 text-sm font-medium text-[#a7e26e] hover:text-[#222f30] transition-colors"
                   >
                     Ver detalles
                     <svg

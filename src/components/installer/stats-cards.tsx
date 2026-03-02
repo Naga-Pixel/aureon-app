@@ -14,8 +14,8 @@ export function StatsCards({ stats }: StatsCardsProps) {
     {
       label: "Total leads",
       value: stats.total,
-      color: "text-[var(--color-primary)]",
-      bgColor: "bg-[var(--color-bg)]",
+      color: "text-[#222f30]",
+      bgColor: "bg-[#f7f7f5]",
     },
     {
       label: "Nuevos",
@@ -42,7 +42,7 @@ export function StatsCards({ stats }: StatsCardsProps) {
       {cards.map((card) => (
         <Card key={card.label} variant="bordered">
           <CardContent className="p-6">
-            <p className="text-sm text-[var(--color-text-muted)] mb-1">
+            <p className="text-sm text-[#445e5f] mb-1">
               {card.label}
             </p>
             <p className={`text-3xl font-semibold ${card.color}`}>

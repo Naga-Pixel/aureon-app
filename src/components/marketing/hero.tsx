@@ -2,12 +2,12 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-end pb-12 md:pb-20" id="inicio">
+    <section className="relative min-h-screen flex flex-col justify-between text-white overflow-hidden" id="inicio">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-4 md:inset-6 rounded-[var(--radius-xl)] overflow-hidden">
+        <div className="absolute top-2 left-2 right-2 bottom-2 md:top-3 md:left-3 md:right-3 md:bottom-3 rounded-[20px] md:rounded-[40px] overflow-hidden">
           <video
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover opacity-90"
             autoPlay
             muted
             loop
@@ -15,42 +15,44 @@ export function Hero() {
           >
             <source src="/hero-video.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/30 to-black/50" />
         </div>
       </div>
 
       {/* Content */}
-      <div className="container relative z-10 text-white">
-        <div className="max-w-4xl mb-16">
-          <h1 className="text-[clamp(2.5rem,7vw,5.5rem)] font-light leading-[1.05] tracking-[-0.03em] mb-8">
-            El futuro de la energia solar para empresas.
+      <div className="container relative z-10 min-h-screen flex flex-col justify-between pt-[148px] pb-11">
+        {/* Main Heading */}
+        <div className="flex-1 flex items-center">
+          <h1 className="text-[clamp(3rem,10vw,7rem)] font-normal leading-[1] tracking-[-0.03em] max-w-[1070px]">
+            El futuro de la energía solar para empresas.
           </h1>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
-          <p className="text-lg md:text-xl text-white/80 max-w-lg leading-relaxed">
-            Reduce tu factura de luz hasta un 80% con energia solar.
+        {/* Bottom Content */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pt-[60px]">
+          <p className="text-[clamp(1.25rem,2vw,1.5rem)] font-light leading-[1.3] max-w-[640px] text-white/90">
+            Reduce tu factura de luz hasta un 80% con energía solar.
             Subvenciones del Gobierno de Canarias cubren hasta el 80% del coste.
           </p>
 
+          {/* CTA Button - Split style */}
           <Link
             href="#calculadora"
-            className="group flex items-center gap-4 text-lg font-medium"
+            className="group inline-flex items-stretch h-12"
           >
-            <span>Descubre tu ahorro</span>
-            <span className="relative w-12 h-12 flex items-center justify-center">
+            <span className="bg-[#222f30] text-white px-5 font-mono text-sm uppercase flex items-center rounded-l-[12px] transition-all duration-500 group-hover:bg-[#a7e26e] group-hover:text-[#222f30]">
+              Descubre tu ahorro
+            </span>
+            <span className="w-12 h-12 bg-[#a7e26e] rounded-r-[12px] flex items-center justify-center transition-all duration-500 group-hover:bg-[#222f30]">
               <svg
-                className="absolute inset-0 w-full h-full fill-white/20"
-                viewBox="0 0 48 48"
-              >
-                <circle cx="24" cy="24" r="24" />
-              </svg>
-              <svg
-                className="w-4 h-4 transition-transform group-hover:translate-x-1"
+                className="w-3 h-3 transition-colors duration-500"
                 viewBox="0 0 10 10"
-                fill="currentColor"
+                fill="none"
               >
-                <path d="M7.703 5.8H.398V4.6h7.305l-3.36-3.36.855-.84 4.8 4.8-4.8 4.8-.855-.84 3.36-3.36Z" />
+                <path
+                  d="M7.703 5.8H.398V4.6h7.305l-3.36-3.36.855-.84 4.8 4.8-4.8 4.8-.855-.84 3.36-3.36Z"
+                  className="fill-[#222f30] group-hover:fill-white transition-colors duration-500"
+                />
               </svg>
             </span>
           </Link>

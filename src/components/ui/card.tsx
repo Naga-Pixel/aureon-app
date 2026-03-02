@@ -11,11 +11,11 @@ export function Card({
   ...props
 }: CardProps) {
   const variants = {
-    default: "bg-white rounded-[var(--radius-lg)]",
+    default: "bg-white rounded-[20px]",
     elevated:
-      "bg-white rounded-[var(--radius-xl)] shadow-[0_20px_60px_rgba(34,47,48,0.1)]",
+      "bg-white rounded-[40px] shadow-[0_20px_60px_rgba(34,47,48,0.1)]",
     bordered:
-      "bg-white rounded-[var(--radius-lg)] border border-[var(--color-border)]",
+      "bg-white rounded-[20px] border border-[rgba(34,47,48,0.1)]",
   };
 
   return (

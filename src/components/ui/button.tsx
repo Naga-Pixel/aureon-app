@@ -23,25 +23,25 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center font-medium transition-all duration-300 rounded-[var(--radius-md)] focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+      "inline-flex items-center justify-center font-mono uppercase transition-all duration-300 rounded-[12px] focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
 
     const variants = {
       primary:
-        "bg-[var(--color-primary)] text-white hover:bg-[var(--color-accent)] hover:text-[var(--color-primary)] hover:-translate-y-0.5 hover:shadow-lg focus:ring-[var(--color-accent)]",
+        "bg-[#222f30] text-white hover:bg-[#a7e26e] hover:text-[#222f30] hover:-translate-y-0.5 hover:shadow-lg focus:ring-[#a7e26e]",
       secondary:
-        "bg-white text-[var(--color-primary)] border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-bg)] focus:ring-[var(--color-accent)]",
+        "bg-white text-[#222f30] border border-[rgba(34,47,48,0.1)] hover:border-[#a7e26e] hover:bg-[#f7f7f5] focus:ring-[#a7e26e]",
       accent:
-        "bg-[var(--color-accent)] text-[var(--color-primary)] hover:-translate-y-0.5 hover:shadow-[0_20px_60px_rgba(167,226,110,0.3)] focus:ring-[var(--color-accent)]",
+        "bg-[#a7e26e] text-[#222f30] hover:-translate-y-0.5 hover:shadow-[0_20px_60px_rgba(167,226,110,0.3)] focus:ring-[#a7e26e]",
       outline:
-        "border-2 border-[var(--color-primary)] text-[var(--color-primary)] bg-transparent hover:bg-[var(--color-primary)] hover:text-white focus:ring-[var(--color-primary)]",
+        "border-2 border-[#222f30] text-[#222f30] bg-transparent hover:bg-[#222f30] hover:text-white focus:ring-[#222f30]",
       ghost:
-        "text-[var(--color-primary)] hover:bg-[var(--color-bg)] focus:ring-[var(--color-accent)]",
+        "text-[#222f30] hover:bg-[#f7f7f5] focus:ring-[#a7e26e]",
     };
 
     const sizes = {
-      sm: "px-4 py-2 text-sm",
-      md: "px-6 py-3 text-base",
-      lg: "px-8 py-4 text-lg",
+      sm: "px-4 py-2 text-xs",
+      md: "px-6 py-3 text-sm",
+      lg: "px-8 py-4 text-sm",
     };
 
     return (

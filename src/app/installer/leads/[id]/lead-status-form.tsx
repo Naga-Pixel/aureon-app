@@ -57,7 +57,7 @@ export function LeadStatusForm({
     <form onSubmit={handleSubmit} className="space-y-4">
       {message && (
         <div
-          className={`p-3 rounded-[var(--radius-md)] text-sm ${
+          className={`p-3 rounded-xl text-sm ${
             message.type === "success"
               ? "bg-green-50 text-green-700 border border-green-200"
               : "bg-red-50 text-red-700 border border-red-200"

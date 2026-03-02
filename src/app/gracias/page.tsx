@@ -11,13 +11,13 @@ export default function GraciasPage() {
   return (
     <>
       <Header />
-      <main className="pt-32 pb-20 bg-[var(--color-bg)] min-h-screen flex items-center">
+      <main className="pt-32 pb-20 bg-[#f7f7f5] min-h-screen flex items-center">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center">
             {/* Success Icon */}
-            <div className="w-24 h-24 mx-auto mb-8 bg-[var(--color-accent)] rounded-full flex items-center justify-center">
+            <div className="w-24 h-24 mx-auto mb-8 bg-[#a7e26e] rounded-full flex items-center justify-center">
               <svg
-                className="w-12 h-12 text-[var(--color-primary)]"
+                className="w-12 h-12 text-[#222f30]"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -35,55 +35,55 @@ export default function GraciasPage() {
             <h1 className="text-[clamp(2rem,5vw,3.5rem)] font-light tracking-[-0.03em] mb-6">
               ¡Gracias por tu solicitud!
             </h1>
-            <p className="text-xl text-[var(--color-text-muted)] mb-8 leading-relaxed">
+            <p className="text-xl text-[#445e5f] mb-8 leading-relaxed">
               Hemos recibido tu informacion correctamente. Uno de nuestros
               expertos en energia solar se pondra en contacto contigo en las
               proximas 24 horas.
             </p>
 
             {/* What's Next */}
-            <div className="bg-white rounded-[var(--radius-xl)] p-8 md:p-10 text-left mb-10 shadow-[0_20px_60px_rgba(34,47,48,0.1)]">
+            <div className="bg-white rounded-[40px] p-8 md:p-10 text-left mb-10 shadow-[0_20px_60px_rgba(34,47,48,0.1)]">
               <h2 className="text-lg font-medium mb-6">
                 ¿Que pasara a continuacion?
               </h2>
               <div className="space-y-4">
                 <div className="flex gap-4">
-                  <div className="w-8 h-8 bg-[var(--color-accent)]/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-sm font-medium text-[var(--color-primary)]">
+                  <div className="w-8 h-8 bg-[#a7e26e]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-sm font-medium text-[#222f30]">
                       1
                     </span>
                   </div>
                   <div>
                     <h3 className="font-medium">Revision de tu solicitud</h3>
-                    <p className="text-[var(--color-text-muted)] text-sm">
+                    <p className="text-[#445e5f] text-sm">
                       Nuestro equipo analizara tus datos para preparar un
                       estudio personalizado.
                     </p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="w-8 h-8 bg-[var(--color-accent)]/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-sm font-medium text-[var(--color-primary)]">
+                  <div className="w-8 h-8 bg-[#a7e26e]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-sm font-medium text-[#222f30]">
                       2
                     </span>
                   </div>
                   <div>
                     <h3 className="font-medium">Contacto telefonico</h3>
-                    <p className="text-[var(--color-text-muted)] text-sm">
+                    <p className="text-[#445e5f] text-sm">
                       Te llamaremos para resolver cualquier duda y agendar una
                       visita tecnica si es necesario.
                     </p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="w-8 h-8 bg-[var(--color-accent)]/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-sm font-medium text-[var(--color-primary)]">
+                  <div className="w-8 h-8 bg-[#a7e26e]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-sm font-medium text-[#222f30]">
                       3
                     </span>
                   </div>
                   <div>
                     <h3 className="font-medium">Propuesta detallada</h3>
-                    <p className="text-[var(--color-text-muted)] text-sm">
+                    <p className="text-[#445e5f] text-sm">
                       Recibiras un presupuesto completo con todas las opciones
                       de financiacion y subvenciones disponibles.
                     </p>
@@ -95,7 +95,7 @@ export default function GraciasPage() {
             {/* CTA */}
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-[var(--color-primary)] font-medium hover:text-[var(--color-accent)] transition-colors"
+              className="inline-flex items-center gap-2 text-[#222f30] font-medium hover:text-[#a7e26e] transition-colors"
             >
               <svg
                 className="w-5 h-5"

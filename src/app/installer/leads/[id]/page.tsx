@@ -64,7 +64,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
       <nav>
         <Link
           href="/installer/leads"
-          className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors"
+          className="text-sm text-[#445e5f] hover:text-[#a7e26e] transition-colors"
         >
           ← Volver a leads
         </Link>
@@ -79,7 +79,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
               {statusConfig?.label || lead.status}
             </Badge>
           </div>
-          <p className="text-[var(--color-text-muted)]">
+          <p className="text-[#445e5f]">
             Creado el {formatDate(lead.created_at)}
           </p>
         </div>
@@ -96,36 +96,36 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-[var(--color-text-muted)]">
+                  <p className="text-sm text-[#445e5f]">
                     Nombre
                   </p>
                   <p className="font-medium">{lead.name}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-[var(--color-text-muted)]">
+                  <p className="text-sm text-[#445e5f]">
                     Email
                   </p>
                   <a
                     href={`mailto:${lead.email}`}
-                    className="font-medium text-[var(--color-accent)] hover:underline"
+                    className="font-medium text-[#a7e26e] hover:underline"
                   >
                     {lead.email}
                   </a>
                 </div>
                 <div>
-                  <p className="text-sm text-[var(--color-text-muted)]">
+                  <p className="text-sm text-[#445e5f]">
                     Telefono
                   </p>
                   <a
                     href={`tel:${lead.phone}`}
-                    className="font-medium text-[var(--color-accent)] hover:underline"
+                    className="font-medium text-[#a7e26e] hover:underline"
                   >
                     {lead.phone}
                   </a>
                 </div>
                 {lead.address && (
                   <div>
-                    <p className="text-sm text-[var(--color-text-muted)]">
+                    <p className="text-sm text-[#445e5f]">
                       Direccion
                     </p>
                     <p className="font-medium">{lead.address}</p>
@@ -143,7 +143,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-[var(--color-text-muted)]">
+                  <p className="text-sm text-[#445e5f]">
                     Tipo de propiedad
                   </p>
                   <p className="font-medium">
@@ -151,13 +151,13 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-[var(--color-text-muted)]">Isla</p>
+                  <p className="text-sm text-[#445e5f]">Isla</p>
                   <p className="font-medium">
                     {getLabel(lead.island, ISLANDS)}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-[var(--color-text-muted)]">
+                  <p className="text-sm text-[#445e5f]">
                     Tipo de tejado
                   </p>
                   <p className="font-medium">
@@ -165,7 +165,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-[var(--color-text-muted)]">
+                  <p className="text-sm text-[#445e5f]">
                     Plazo de instalacion
                   </p>
                   <p className="font-medium">
@@ -197,7 +197,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
               <h2 className="text-lg font-medium mb-4">Ahorro estimado</h2>
               <div className="space-y-4">
                 <div>
-                  <p className="text-sm text-[var(--color-text-muted)]">
+                  <p className="text-sm text-[#445e5f]">
                     Factura mensual
                   </p>
                   <p className="text-2xl font-semibold">
@@ -205,28 +205,28 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                   </p>
                 </div>
                 {lead.estimated_savings_monthly && (
-                  <div className="pt-4 border-t border-[var(--color-border)]">
-                    <p className="text-sm text-[var(--color-text-muted)]">
+                  <div className="pt-4 border-t border-gray-200">
+                    <p className="text-sm text-[#445e5f]">
                       Ahorro mensual
                     </p>
-                    <p className="text-xl font-semibold text-[var(--color-accent)]">
+                    <p className="text-xl font-semibold text-[#a7e26e]">
                       {formatCurrency(Number(lead.estimated_savings_monthly))}
                     </p>
                   </div>
                 )}
                 {lead.estimated_savings_annual && (
                   <div>
-                    <p className="text-sm text-[var(--color-text-muted)]">
+                    <p className="text-sm text-[#445e5f]">
                       Ahorro anual
                     </p>
-                    <p className="text-xl font-semibold text-[var(--color-accent)]">
+                    <p className="text-xl font-semibold text-[#a7e26e]">
                       {formatCurrency(Number(lead.estimated_savings_annual))}
                     </p>
                   </div>
                 )}
                 {lead.estimated_subsidy && (
                   <div>
-                    <p className="text-sm text-[var(--color-text-muted)]">
+                    <p className="text-sm text-[#445e5f]">
                       Subvencion estimada
                     </p>
                     <p className="text-xl font-semibold">
@@ -245,10 +245,10 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
               <div className="space-y-3">
                 <a
                   href={`tel:${lead.phone}`}
-                  className="flex items-center gap-3 w-full p-3 rounded-[var(--radius-md)] bg-[var(--color-bg)] hover:bg-[var(--color-accent)]/20 transition-colors"
+                  className="flex items-center gap-3 w-full p-3 rounded-xl bg-[#f7f7f5] hover:bg-[#a7e26e]/20 transition-colors"
                 >
                   <svg
-                    className="w-5 h-5 text-[var(--color-accent)]"
+                    className="w-5 h-5 text-[#a7e26e]"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -264,10 +264,10 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                 </a>
                 <a
                   href={`mailto:${lead.email}`}
-                  className="flex items-center gap-3 w-full p-3 rounded-[var(--radius-md)] bg-[var(--color-bg)] hover:bg-[var(--color-accent)]/20 transition-colors"
+                  className="flex items-center gap-3 w-full p-3 rounded-xl bg-[#f7f7f5] hover:bg-[#a7e26e]/20 transition-colors"
                 >
                   <svg
-                    className="w-5 h-5 text-[var(--color-accent)]"
+                    className="w-5 h-5 text-[#a7e26e]"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"

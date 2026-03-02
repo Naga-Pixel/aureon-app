@@ -29,7 +29,7 @@ export default async function InstallerLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg)]">
+    <div className="min-h-screen bg-[#f7f7f5]">
       <Sidebar
         installerName={installer?.contact_name}
         companyName={installer?.company_name}

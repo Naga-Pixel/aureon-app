@@ -11,8 +11,8 @@ export function Badge({
   ...props
 }: BadgeProps) {
   const variants = {
-    default: "bg-[var(--color-bg)] text-[var(--color-text)]",
-    accent: "bg-[var(--color-accent)] text-[var(--color-primary)]",
+    default: "bg-[#f7f7f5] text-[#222f30]",
+    accent: "bg-[#a7e26e] text-[#222f30]",
     success: "bg-green-100 text-green-800",
     warning: "bg-yellow-100 text-yellow-800",
     error: "bg-red-100 text-red-800",

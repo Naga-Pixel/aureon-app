@@ -56,15 +56,16 @@ export function FAQ() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 md:py-36 bg-[var(--color-bg)]"
+      className="py-[140px] bg-[#f7f7f5]"
       id="faq"
     >
       <div className="container">
         <div className="text-center mb-16 md:mb-20">
-          <span className="inline-block px-4 py-2 text-xs font-mono uppercase tracking-wider text-[var(--color-text-muted)] bg-white rounded-full mb-6">
+          <span className="inline-flex items-center gap-3 bg-white px-3 py-2 pr-4 rounded-[8px] font-mono text-sm uppercase mx-auto mb-10">
+            <span className="w-2.5 h-2.5 bg-[#a7e26e]" />
             Preguntas frecuentes
           </span>
-          <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-light tracking-[-0.03em] fade-up">
+          <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-normal tracking-[-0.03em] leading-[1.1] fade-up">
             Resolvemos tus dudas
           </h2>
         </div>
@@ -73,16 +74,16 @@ export function FAQ() {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-white rounded-[var(--radius-lg)] overflow-hidden fade-up"
+              className="bg-white rounded-[20px] overflow-hidden fade-up"
             >
               <button
                 onClick={() => toggleFaq(index)}
-                className="w-full px-8 py-6 text-left font-medium text-lg flex justify-between items-center gap-4 hover:bg-[var(--color-bg)]/50 transition-colors"
+                className="w-full px-8 py-6 text-left font-medium text-lg flex justify-between items-center gap-4 hover:bg-gray-50 transition-colors"
               >
                 <span>{faq.question}</span>
                 <span
                   className={cn(
-                    "text-2xl font-light text-[var(--color-accent)] transition-transform duration-300",
+                    "text-2xl font-light text-[#a7e26e] transition-transform duration-300",
                     activeIndex === index && "rotate-45"
                   )}
                 >
@@ -95,7 +96,7 @@ export function FAQ() {
                   activeIndex === index ? "max-h-[300px]" : "max-h-0"
                 )}
               >
-                <div className="px-8 pb-6 text-[var(--color-text-muted)] leading-relaxed">
+                <div className="px-8 pb-6 text-[#445e5f] leading-relaxed">
                   {faq.answer}
                 </div>
               </div>

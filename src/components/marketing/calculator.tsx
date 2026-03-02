@@ -54,7 +54,6 @@ export function Calculator() {
     setResults(calculatedResults);
     setShowResults(true);
 
-    // Scroll to results
     setTimeout(() => {
       document
         .getElementById("calculator-results")
@@ -65,27 +64,28 @@ export function Calculator() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 md:py-36 bg-[var(--color-bg)]"
+      className="py-[140px] bg-[#f7f7f5]"
       id="calculadora"
     >
       <div className="container">
         <div className="text-center mb-12">
-          <span className="inline-block px-4 py-2 text-xs font-mono uppercase tracking-wider text-[var(--color-text-muted)] bg-white rounded-full mb-6">
+          <span className="inline-flex items-center gap-3 bg-white px-3 py-2 pr-4 rounded-[8px] font-mono text-sm uppercase mx-auto mb-10">
+            <span className="w-2.5 h-2.5 bg-[#a7e26e]" />
             Calculadora
           </span>
-          <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-light tracking-[-0.03em] fade-up mb-4">
+          <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-normal tracking-[-0.03em] leading-[1.1] fade-up mb-4">
             Calcula tu ahorro
           </h2>
-          <p className="text-[var(--color-text-muted)] max-w-xl mx-auto">
-            Descubre cuanto puedes ahorrar con una instalacion solar
+          <p className="text-[#445e5f] max-w-xl mx-auto mt-4">
+            Descubre cuánto puedes ahorrar con una instalación solar
             personalizada para tu empresa.
           </p>
         </div>
 
-        <div className="max-w-[800px] mx-auto bg-white rounded-[var(--radius-xl)] p-8 md:p-12 shadow-[0_20px_60px_rgba(34,47,48,0.1)] fade-up">
+        <div className="max-w-[800px] mx-auto bg-[#ffffff] rounded-[40px] p-8 md:p-12 shadow-[0_20px_60px_rgba(34,47,48,0.1)] fade-up">
           <form onSubmit={handleSubmit} className="space-y-8">
             <div className="flex flex-col gap-3">
-              <label className="text-sm font-mono uppercase text-[var(--color-text-muted)] tracking-wide">
+              <label className="text-sm font-mono uppercase text-[#445e5f] tracking-wide">
                 Factura mensual de luz (€)
               </label>
               <input
@@ -94,19 +94,19 @@ export function Calculator() {
                 onChange={(e) => setMonthlyBill(e.target.value)}
                 placeholder="Ej: 2000"
                 required
-                className="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-[var(--radius-md)] px-5 py-4 text-lg focus:border-[var(--color-accent)] focus:shadow-[0_0_0_3px_rgba(167,226,110,0.2)] transition-all"
+                className="bg-[#f7f7f5] border border-[rgba(34,47,48,0.1)] rounded-[12px] px-5 py-[18px] text-lg focus:border-[#a7e26e] focus:shadow-[0_0_0_3px_rgba(167,226,110,0.2)] transition-all outline-none"
               />
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-3">
-                <label className="text-sm font-mono uppercase text-[var(--color-text-muted)] tracking-wide">
+                <label className="text-sm font-mono uppercase text-[#445e5f] tracking-wide">
                   Tipo de instalacion
                 </label>
                 <select
                   value={installationType}
                   onChange={(e) => setInstallationType(e.target.value)}
-                  className="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-[var(--radius-md)] px-5 py-4 text-lg appearance-none cursor-pointer focus:border-[var(--color-accent)] focus:shadow-[0_0_0_3px_rgba(167,226,110,0.2)] transition-all"
+                  className="bg-[#f7f7f5] border border-[rgba(34,47,48,0.1)] rounded-[12px] px-5 py-[18px] text-lg appearance-none cursor-pointer focus:border-[#a7e26e] focus:shadow-[0_0_0_3px_rgba(167,226,110,0.2)] transition-all outline-none"
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23445e5f' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
                     backgroundRepeat: "no-repeat",
@@ -123,13 +123,13 @@ export function Calculator() {
               </div>
 
               <div className="flex flex-col gap-3">
-                <label className="text-sm font-mono uppercase text-[var(--color-text-muted)] tracking-wide">
+                <label className="text-sm font-mono uppercase text-[#445e5f] tracking-wide">
                   Isla
                 </label>
                 <select
                   value={island}
                   onChange={(e) => setIsland(e.target.value)}
-                  className="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-[var(--radius-md)] px-5 py-4 text-lg appearance-none cursor-pointer focus:border-[var(--color-accent)] focus:shadow-[0_0_0_3px_rgba(167,226,110,0.2)] transition-all"
+                  className="bg-[#f7f7f5] border border-[rgba(34,47,48,0.1)] rounded-[12px] px-5 py-[18px] text-lg appearance-none cursor-pointer focus:border-[#a7e26e] focus:shadow-[0_0_0_3px_rgba(167,226,110,0.2)] transition-all outline-none"
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23445e5f' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
                     backgroundRepeat: "no-repeat",
@@ -148,65 +148,64 @@ export function Calculator() {
 
             <button
               type="submit"
-              className="w-full bg-[var(--color-primary)] text-white py-5 px-8 rounded-[var(--radius-md)] font-medium text-lg transition-all duration-300 hover:bg-[var(--color-accent)] hover:text-[var(--color-primary)] hover:-translate-y-0.5 hover:shadow-lg"
+              className="w-full bg-[#222f30] text-white py-5 px-8 rounded-[12px] font-mono text-sm uppercase transition-all duration-300 hover:bg-[#a7e26e] hover:text-[#222f30] hover:-translate-y-0.5 hover:shadow-lg"
             >
               Calcular ahorro estimado
             </button>
           </form>
 
-          {/* Results */}
           {showResults && results && (
             <div
               id="calculator-results"
-              className="mt-12 pt-12 border-t border-[var(--color-border)] animate-[fadeIn_0.6s_ease-out]"
+              className="mt-12 pt-12 border-t border-gray-200 animate-[fadeIn_0.6s_ease-out]"
             >
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="bg-[var(--color-bg)] rounded-[var(--radius-md)] p-6 text-center">
-                  <div className="text-xs font-mono uppercase text-[var(--color-text-muted)] mb-2">
+                <div className="bg-[#f7f7f5] rounded-[12px] p-6 text-center">
+                  <div className="text-xs font-mono uppercase text-[#445e5f] mb-2">
                     Ahorro mensual
                   </div>
                   <div className="text-2xl font-semibold">
                     {formatCurrency(results.monthlySavings)}
                   </div>
                 </div>
-                <div className="bg-[var(--color-accent)] rounded-[var(--radius-md)] p-6 text-center">
-                  <div className="text-xs font-mono uppercase text-[var(--color-primary)]/70 mb-2">
+                <div className="bg-[#a7e26e] rounded-[12px] p-6 text-center">
+                  <div className="text-xs font-mono uppercase text-[#222f30]/70 mb-2">
                     Ahorro anual
                   </div>
-                  <div className="text-2xl font-semibold text-[var(--color-primary)]">
+                  <div className="text-2xl font-semibold text-[#222f30]">
                     {formatCurrency(results.annualSavings)}
                   </div>
                 </div>
-                <div className="bg-[var(--color-bg)] rounded-[var(--radius-md)] p-6 text-center">
-                  <div className="text-xs font-mono uppercase text-[var(--color-text-muted)] mb-2">
-                    Subvencion estimada
+                <div className="bg-[#f7f7f5] rounded-[12px] p-6 text-center">
+                  <div className="text-xs font-mono uppercase text-[#445e5f] mb-2">
+                    Subvención estimada
                   </div>
                   <div className="text-2xl font-semibold">
                     {formatCurrency(results.estimatedSubsidy)}
                   </div>
                 </div>
-                <div className="bg-[var(--color-bg)] rounded-[var(--radius-md)] p-6 text-center">
-                  <div className="text-xs font-mono uppercase text-[var(--color-text-muted)] mb-2">
-                    Retorno inversion
+                <div className="bg-[#f7f7f5] rounded-[12px] p-6 text-center">
+                  <div className="text-xs font-mono uppercase text-[#445e5f] mb-2">
+                    Retorno inversión
                   </div>
                   <div className="text-2xl font-semibold">
-                    {results.roiYears} anos
+                    {results.roiYears} años
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-[rgba(167,226,110,0.2)] to-[rgba(206,247,158,0.1)] rounded-[var(--radius-lg)] p-10 text-center mb-8">
-                <div className="text-[var(--color-text-muted)] mb-2">
-                  Ahorro total en 25 anos
+              <div className="bg-gradient-to-br from-[rgba(167,226,110,0.2)] to-[rgba(206,247,158,0.1)] rounded-[20px] p-10 text-center mb-8">
+                <div className="text-[#445e5f] mb-2">
+                  Ahorro total en 25 años
                 </div>
-                <div className="text-5xl font-semibold text-[var(--color-primary)]">
+                <div className="text-5xl font-semibold text-[#222f30]">
                   {formatCurrency(results.totalSavings25Years)}
                 </div>
               </div>
 
               <Link
                 href="/solicitar"
-                className="block w-full bg-[var(--color-primary)] text-white py-5 px-8 rounded-[var(--radius-md)] font-medium text-lg text-center transition-all duration-300 hover:bg-[var(--color-accent)] hover:text-[var(--color-primary)] hover:-translate-y-0.5"
+                className="block w-full bg-[#222f30] text-white py-5 px-8 rounded-[12px] font-mono text-sm uppercase text-center transition-all duration-300 hover:bg-[#a7e26e] hover:text-[#222f30] hover:-translate-y-0.5"
               >
                 Solicitar estudio gratuito
               </Link>

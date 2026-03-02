@@ -54,7 +54,7 @@ export default async function LeadsPage({ searchParams }: LeadsPageProps) {
       {/* Header */}
       <div>
         <h1 className="text-2xl font-medium">Leads</h1>
-        <p className="text-[var(--color-text-muted)]">
+        <p className="text-[#445e5f]">
           Gestiona todos tus leads de energia solar.
         </p>
       </div>

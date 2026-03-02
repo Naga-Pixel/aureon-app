@@ -44,11 +44,11 @@ export function Sidebar({ installerName, companyName }: SidebarProps) {
   };
 
   return (
-    <aside className="fixed left-0 top-0 h-full w-64 bg-[var(--color-primary)] text-white flex flex-col">
+    <aside className="fixed left-0 top-0 h-full w-64 bg-[#222f30] text-[#ffffff] flex flex-col">
       {/* Logo */}
       <div className="p-6 border-b border-white/10">
         <Link href="/installer">
-          <Logo className="h-6 text-white" />
+          <Logo className="h-[17px] text-white" />
         </Link>
       </div>
 
@@ -66,10 +66,10 @@ export function Sidebar({ installerName, companyName }: SidebarProps) {
                 <Link
                   href={item.href}
                   className={cn(
-                    "flex items-center gap-3 px-4 py-3 rounded-[var(--radius-md)] transition-colors",
+                    "flex items-center gap-3 px-4 py-3 rounded-xl transition-colors",
                     isActive
-                      ? "bg-[var(--color-accent)] text-[var(--color-primary)]"
-                      : "text-white/70 hover:text-white hover:bg-white/10"
+                      ? "bg-[#a7e26e] text-[#222f30]"
+                      : "text-[#ffffff]/70 hover:text-[#ffffff] hover:bg-[#ffffff]/10"
                   )}
                 >
                   {item.icon}
@@ -82,14 +82,14 @@ export function Sidebar({ installerName, companyName }: SidebarProps) {
       </nav>
 
       {/* User Info */}
-      <div className="p-4 border-t border-white/10">
+      <div className="p-4 border-t border-[#ffffff]/10">
         <div className="px-4 py-3">
           <p className="font-medium text-sm">{installerName || "Instalador"}</p>
-          <p className="text-xs text-white/50">{companyName || "Empresa"}</p>
+          <p className="text-xs text-[#ffffff]/50">{companyName || "Empresa"}</p>
         </div>
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-[var(--radius-md)] transition-colors"
+          className="w-full flex items-center gap-3 px-4 py-3 text-[#ffffff]/70 hover:text-[#ffffff] hover:bg-[#ffffff]/10 rounded-xl transition-colors"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />

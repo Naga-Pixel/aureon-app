@@ -18,7 +18,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         {label && (
           <label
             htmlFor={textareaId}
-            className="text-sm font-[var(--font-mono)] uppercase text-[var(--color-text-muted)] tracking-wide"
+            className="text-sm font-mono uppercase text-[#445e5f] tracking-wide"
           >
             {label}
           </label>
@@ -27,11 +27,11 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           ref={ref}
           id={textareaId}
           className={cn(
-            "bg-[var(--color-bg)] border border-[var(--color-border)] rounded-[var(--radius-md)]",
-            "px-5 py-4 text-base text-[var(--color-text)] min-h-[120px] resize-y",
+            "bg-[#f7f7f5] border border-gray-200 rounded-xl",
+            "px-5 py-4 text-base text-[#222f30] min-h-[120px] resize-y w-full",
             "transition-all duration-300",
-            "placeholder:text-[var(--color-text-muted)] placeholder:opacity-60",
-            "focus:border-[var(--color-accent)] focus:ring-0 focus:shadow-[0_0_0_3px_rgba(167,226,110,0.2)]",
+            "placeholder:text-[#445e5f] placeholder:opacity-60",
+            "focus:border-[#a7e26e] focus:ring-0 focus:shadow-[0_0_0_3px_rgba(167,226,110,0.2)]",
             error && "border-red-500 focus:border-red-500 focus:shadow-[0_0_0_3px_rgba(239,68,68,0.2)]",
             className
           )}

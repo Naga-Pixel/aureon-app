@@ -74,7 +74,7 @@ export function LeadForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
       {error && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-[var(--radius-md)] text-red-700">
+        <div className="p-4 bg-red-50 border border-red-200 rounded-[12px] text-red-700">
           {error}
         </div>
       )}
@@ -189,7 +189,7 @@ export function LeadForm() {
         >
           {isSubmitting ? "Enviando..." : "Solicitar presupuesto gratuito"}
         </Button>
-        <p className="text-sm text-center text-[var(--color-text-muted)] mt-4">
+        <p className="text-sm text-center text-[#445e5f] mt-4">
           Al enviar este formulario, aceptas nuestra politica de privacidad.
         </p>
       </div>

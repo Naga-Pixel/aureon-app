@@ -50,7 +50,7 @@ export function LoginForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {(error || errorParam) && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-[var(--radius-md)] text-red-700 text-sm">
+        <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
           {error ||
             (errorParam === "no_access" &&
               "No tienes acceso a esta area. Contacta con el administrador.")}

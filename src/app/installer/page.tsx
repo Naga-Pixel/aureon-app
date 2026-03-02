@@ -48,7 +48,7 @@ export default async function InstallerDashboard() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-medium">Dashboard</h1>
-          <p className="text-[var(--color-text-muted)]">
+          <p className="text-[#445e5f]">
             Bienvenido de vuelta. Aqui tienes un resumen de tus leads.
           </p>
         </div>

@@ -1,13 +1,23 @@
 interface LogoProps {
   className?: string;
   variant?: "full" | "icon";
+  size?: "sm" | "md" | "lg";
 }
 
-export function Logo({ className, variant = "full" }: LogoProps) {
+export function Logo({ className, variant = "full", size = "sm" }: LogoProps) {
+  // Size variants - sm is the default (smaller), md is medium, lg is larger
+  const sizeClasses = {
+    sm: "h-5 md:h-6", // Default smaller size
+    md: "h-6 md:h-7",
+    lg: "h-7 md:h-8",
+  };
+
+  const finalClassName = className || sizeClasses[size];
+
   if (variant === "icon") {
     return (
       <svg
-        className={className}
+        className={finalClassName}
         viewBox="0 0 184 190"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +32,7 @@ export function Logo({ className, variant = "full" }: LogoProps) {
 
   return (
     <svg
-      className={className}
+      className={finalClassName}
       viewBox="0 0 1229.8 196.6"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

@@ -11,20 +11,20 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <main className="min-h-screen bg-[var(--color-primary)] flex items-center justify-center p-6">
+    <main className="min-h-screen bg-[#222f30] flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-10">
           <Link href="/">
-            <Logo className="h-8 mx-auto text-white" />
+            <Logo className="h-8 mx-auto text-[#ffffff]" />
           </Link>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white rounded-[var(--radius-xl)] p-8 md:p-10 shadow-2xl">
+        <div className="bg-[#ffffff] rounded-[32px] p-8 md:p-10 shadow-2xl">
           <div className="text-center mb-8">
             <h1 className="text-2xl font-medium mb-2">Panel de instaladores</h1>
-            <p className="text-[var(--color-text-muted)]">
+            <p className="text-[#445e5f]">
               Accede para gestionar tus leads
             </p>
           </div>
@@ -33,12 +33,12 @@ export default function LoginPage() {
             <LoginForm />
           </Suspense>
 
-          <div className="mt-8 pt-6 border-t border-[var(--color-border)] text-center">
-            <p className="text-sm text-[var(--color-text-muted)]">
+          <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+            <p className="text-sm text-[#445e5f]">
               ¿Problemas para acceder?{" "}
               <a
                 href="mailto:soporte@aureon.es"
-                className="text-[var(--color-primary)] hover:text-[var(--color-accent)] transition-colors"
+                className="text-[#222f30] hover:text-[#a7e26e] transition-colors"
               >
                 Contacta con soporte
               </a>
@@ -50,7 +50,7 @@ export default function LoginPage() {
         <div className="text-center mt-8">
           <Link
             href="/"
-            className="text-white/70 hover:text-white text-sm transition-colors"
+            className="text-[#ffffff]/70 hover:text-[#ffffff] text-sm transition-colors"
           >
             ← Volver a la web
           </Link>

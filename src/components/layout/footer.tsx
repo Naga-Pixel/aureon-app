@@ -23,21 +23,21 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-[var(--color-primary)] text-white py-20 px-[var(--container-padding)]">
+    <footer className="bg-[#222f30] text-[#ffffff] py-20">
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="max-w-[300px]">
             <div className="mb-6">
-              <Logo className="h-7 text-white" />
+              <Logo className="h-5 text-white" />
             </div>
-            <p className="text-white/60 leading-relaxed">
-              Energia solar para empresas en Canarias. Transforma tu negocio con
-              energia limpia y sostenible.
+            <p className="text-white/60 leading-[1.7]">
+              Energía solar para empresas en Canarias. Transforma tu negocio con
+              energía limpia y sostenible.
             </p>
           </div>
 
           <div>
-            <h4 className="font-mono text-xs uppercase tracking-wider text-white/50 mb-6">
+            <h4 className="font-mono text-xs uppercase tracking-wider text-[#ffffff]/50 mb-6">
               Navegacion
             </h4>
             <ul className="flex flex-col gap-4">
@@ -45,7 +45,7 @@ export function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-white/80 hover:text-[var(--color-accent)] transition-colors"
+                    className="text-[#ffffff]/80 hover:text-[#a7e26e] transition-colors"
                   >
                     {link.label}
                   </a>
@@ -55,7 +55,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-mono text-xs uppercase tracking-wider text-white/50 mb-6">
+            <h4 className="font-mono text-xs uppercase tracking-wider text-[#ffffff]/50 mb-6">
               Servicios
             </h4>
             <ul className="flex flex-col gap-4">
@@ -63,7 +63,7 @@ export function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-white/80 hover:text-[var(--color-accent)] transition-colors"
+                    className="text-[#ffffff]/80 hover:text-[#a7e26e] transition-colors"
                   >
                     {link.label}
                   </a>
@@ -73,7 +73,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-mono text-xs uppercase tracking-wider text-white/50 mb-6">
+            <h4 className="font-mono text-xs uppercase tracking-wider text-[#ffffff]/50 mb-6">
               Contacto
             </h4>
             <ul className="flex flex-col gap-4">
@@ -81,7 +81,7 @@ export function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-white/80 hover:text-[var(--color-accent)] transition-colors"
+                    className="text-[#ffffff]/80 hover:text-[#a7e26e] transition-colors"
                   >
                     {link.label}
                   </a>
@@ -91,27 +91,27 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-10 border-t border-white/10">
-          <p className="text-white/50 text-sm">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-10 border-t border-[#ffffff]/10">
+          <p className="text-[#ffffff]/50 text-sm">
             &copy; {new Date().getFullYear()} Aureon. Todos los derechos
             reservados.
           </p>
           <div className="flex gap-6">
             <Link
               href="/privacidad"
-              className="text-white/50 text-sm hover:text-[var(--color-accent)] transition-colors"
+              className="text-[#ffffff]/50 text-sm hover:text-[#a7e26e] transition-colors"
             >
               Politica de privacidad
             </Link>
             <Link
               href="/legal"
-              className="text-white/50 text-sm hover:text-[var(--color-accent)] transition-colors"
+              className="text-[#ffffff]/50 text-sm hover:text-[#a7e26e] transition-colors"
             >
               Aviso legal
             </Link>
             <Link
               href="/cookies"
-              className="text-white/50 text-sm hover:text-[var(--color-accent)] transition-colors"
+              className="text-[#ffffff]/50 text-sm hover:text-[#a7e26e] transition-colors"
             >
               Cookies
             </Link>

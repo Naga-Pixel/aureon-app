@@ -30,78 +30,69 @@ export function Header() {
   }, []);
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        isScrolled
-          ? "py-4 bg-[var(--color-bg)]/90 backdrop-blur-md shadow-sm"
-          : "py-6"
-      )}
-    >
-      <div className="container flex items-center justify-between">
-        <Link href="/" className="relative z-10">
+    <header className="fixed top-10 md:top-[50px] left-0 right-0 z-50 px-6 md:px-12 transition-all duration-500">
+      <div className="max-w-[1524px] mx-auto flex items-center justify-between">
+        {/* Logo */}
+        <Link
+          href="/"
+          className={cn(
+            "relative z-10 inline-flex items-center gap-2.5 px-5 py-3 rounded-[12px] border transition-all duration-600",
+            isScrolled
+              ? "bg-white/80 backdrop-blur-[14px] border-[#222f30]/5"
+              : "bg-transparent border-transparent"
+          )}
+        >
           <Logo
             className={cn(
-              "h-6 md:h-7 transition-colors duration-300",
-              isScrolled ? "text-[var(--color-primary)]" : "text-white"
+              "h-[17px] md:h-[17px] transition-colors duration-600",
+              isScrolled ? "text-[#222f30]" : "text-white"
             )}
           />
         </Link>
 
-        <div className="flex items-center gap-6">
-          <nav className="hidden md:flex items-center gap-8">
+        {/* Navigation Wrapper */}
+        <div className="flex items-center gap-3 bg-white/80 backdrop-blur-[14px] border border-[#222f30]/5 rounded-[12px] p-1 pl-3">
+          {/* Desktop Nav Links */}
+          <nav className="hidden md:flex gap-1">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className={cn(
-                  "text-sm font-medium transition-colors duration-300 hover:text-[var(--color-accent)]",
-                  isScrolled ? "text-[var(--color-text)]" : "text-white/90"
-                )}
+                className="text-[#222f30] text-sm font-mono uppercase tracking-normal px-[17px] py-2 rounded-[8px] transition-all duration-500 hover:bg-[#f7f7f5]"
               >
                 {link.label}
               </a>
             ))}
           </nav>
 
+          {/* CTA Button */}
           <Link
             href="/solicitar"
-            className={cn(
-              "relative overflow-hidden px-5 py-2.5 text-sm font-medium rounded-[var(--radius-md)] transition-all duration-300",
-              isScrolled
-                ? "bg-[var(--color-primary)] text-white hover:bg-[var(--color-accent)] hover:text-[var(--color-primary)]"
-                : "bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white hover:text-[var(--color-primary)]"
-            )}
+            className="bg-[#222f30] text-white px-5 py-3 rounded-[8px] font-mono text-sm uppercase transition-all duration-300 hover:bg-[#a7e26e] hover:text-[#222f30]"
           >
             Contacto
           </Link>
 
+          {/* Mobile Menu Button */}
           <button
-            className={cn(
-              "md:hidden relative w-6 h-6 flex flex-col justify-center gap-1.5",
-              isScrolled ? "text-[var(--color-primary)]" : "text-white"
-            )}
+            className="md:hidden flex items-center justify-center w-12 h-12 bg-[#222f30] rounded-[12px]"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Menu"
           >
-            <span
-              className={cn(
-                "block h-0.5 w-full bg-current transition-all duration-300",
-                isMobileMenuOpen && "rotate-45 translate-y-2"
-              )}
-            />
-            <span
-              className={cn(
-                "block h-0.5 w-full bg-current transition-all duration-300",
-                isMobileMenuOpen && "opacity-0"
-              )}
-            />
-            <span
-              className={cn(
-                "block h-0.5 w-full bg-current transition-all duration-300",
-                isMobileMenuOpen && "-rotate-45 -translate-y-2"
-              )}
-            />
+            <span className="relative block w-[18px] h-0.5 bg-[#a7e26e]">
+              <span
+                className={cn(
+                  "absolute left-0 w-full h-full bg-[#a7e26e] transition-all duration-300",
+                  isMobileMenuOpen ? "top-0 rotate-45" : "-top-1.5"
+                )}
+              />
+              <span
+                className={cn(
+                  "absolute left-0 w-full h-full bg-[#a7e26e] transition-all duration-300",
+                  isMobileMenuOpen ? "top-0 -rotate-45" : "top-1.5"
+                )}
+              />
+            </span>
           </button>
         </div>
       </div>
@@ -109,7 +100,7 @@ export function Header() {
       {/* Mobile Menu */}
       <div
         className={cn(
-          "md:hidden fixed inset-0 top-[72px] bg-[var(--color-primary)] transition-all duration-500",
+          "md:hidden fixed inset-0 top-[100px] bg-[#222f30] transition-all duration-500",
           isMobileMenuOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -120,7 +111,7 @@ export function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-xl font-medium text-white hover:text-[var(--color-accent)] transition-colors"
+              className="text-xl font-mono uppercase text-white hover:text-[#a7e26e] transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {link.label}
@@ -128,10 +119,10 @@ export function Header() {
           ))}
           <Link
             href="/solicitar"
-            className="mt-4 inline-flex items-center justify-center px-6 py-3 bg-[var(--color-accent)] text-[var(--color-primary)] font-medium rounded-[var(--radius-md)]"
+            className="mt-4 inline-flex items-center justify-center px-6 py-3 bg-[#a7e26e] text-[#222f30] font-mono text-sm uppercase rounded-[12px]"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Solicitar presupuesto
+            Contacto
           </Link>
         </nav>
       </div>

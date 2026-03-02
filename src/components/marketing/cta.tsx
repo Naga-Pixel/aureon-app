@@ -28,25 +28,25 @@ export function CTA() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 md:py-36 bg-[var(--color-primary)] text-white rounded-t-[var(--radius-xl)] -mt-10 relative z-10"
+      className="py-[140px] bg-[#222f30] text-white"
       id="contacto"
     >
       <div className="container">
         <div className="text-center max-w-[800px] mx-auto fade-up">
-          <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-light tracking-[-0.03em] leading-tight mb-6">
-            ¿Listo para ahorrar con energia solar?
+          <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-light tracking-[-0.03em] leading-[1.1] mb-6">
+            ¿Listo para ahorrar con energía solar?
           </h2>
           <p className="text-xl text-white/70 mb-12 leading-relaxed">
-            Solicita tu estudio gratuito y descubre cuanto puede ahorrar tu
-            empresa con energia solar. Sin compromiso.
+            Solicita tu estudio gratuito y descubre cuánto puede ahorrar tu
+            empresa con energía solar. Sin compromiso.
           </p>
           <Link
             href="/solicitar"
-            className="inline-flex items-center gap-3 bg-[var(--color-accent)] text-[var(--color-primary)] px-10 py-5 rounded-[var(--radius-md)] font-medium text-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_60px_rgba(167,226,110,0.3)]"
+            className="group inline-flex items-center gap-3 bg-[#a7e26e] text-[#222f30] px-10 py-5 rounded-[12px] font-mono text-sm uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_60px_rgba(167,226,110,0.3)]"
           >
             <span>Contactar ahora</span>
             <svg
-              className="w-5 h-5 transition-transform group-hover:translate-x-1"
+              className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
