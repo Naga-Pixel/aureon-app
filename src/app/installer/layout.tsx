@@ -17,12 +17,12 @@ export default async function InstallerLayout({
     data: { user },
   } = await supabase.auth.getUser();
 
-  let installer: { contact_name: string; company_name: string } | null = null;
+  let installer: { contact_name: string; company_name: string; role: string } | null = null;
   if (user) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data } = await (supabase as any)
       .from("installers")
-      .select("contact_name, company_name")
+      .select("contact_name, company_name, role")
       .eq("user_id", user.id)
       .single();
     installer = data;
@@ -33,6 +33,7 @@ export default async function InstallerLayout({
       <Sidebar
         installerName={installer?.contact_name}
         companyName={installer?.company_name}
+        isAdmin={installer?.role === "admin"}
       />
       <main className="ml-64 p-8">{children}</main>
     </div>

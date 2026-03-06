@@ -34,16 +34,41 @@ const navigation = [
       </svg>
     ),
   },
+  {
+    name: "Nueva Evaluación",
+    href: "/installer/assessment",
+    adminOnly: true,
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+      </svg>
+    ),
+  },
+  {
+    name: "Evaluaciones",
+    href: "/installer/assessments",
+    adminOnly: true,
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+      </svg>
+    ),
+  },
 ];
 
 interface SidebarProps {
   installerName?: string;
   companyName?: string;
+  isAdmin?: boolean;
 }
 
-export function Sidebar({ installerName, companyName }: SidebarProps) {
+export function Sidebar({ installerName, companyName, isAdmin }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
+
+  const filteredNavigation = navigation.filter(
+    (item) => !('adminOnly' in item && item.adminOnly) || isAdmin
+  );
 
   const handleLogout = async () => {
     const supabase = createClient();
@@ -64,7 +89,7 @@ export function Sidebar({ installerName, companyName }: SidebarProps) {
       {/* Navigation */}
       <nav className="flex-1 p-4">
         <ul className="space-y-1">
-          {navigation.map((item) => {
+          {filteredNavigation.map((item) => {
             const isActive =
               item.href === "/installer"
                 ? pathname === "/installer"

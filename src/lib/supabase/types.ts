@@ -282,6 +282,87 @@ export interface Database {
         };
         Update: Partial<Database["public"]["Tables"]["document_types"]["Insert"]>;
       };
+      solar_assessments: {
+        Row: {
+          id: string;
+          lead_id: string | null;
+          address_input: string;
+          business_segment: string;
+          latitude: number | null;
+          longitude: number | null;
+          formatted_address: string | null;
+          solar_api_status: string;
+          raw_api_response: Record<string, unknown> | null;
+          roof_area_m2: number | null;
+          max_array_area_m2: number | null;
+          panels_count: number | null;
+          roof_segment_count: number | null;
+          max_sunshine_hours_per_year: number | null;
+          is_manual_fallback: boolean;
+          manual_roof_area_m2: number | null;
+          cadastral_reference: string | null;
+          number_of_floors: number | null;
+          pvgis_kwh_per_kwp: number | null;
+          pvgis_optimal_angle: number | null;
+          pvgis_raw_response: Record<string, unknown> | null;
+          building_orientation: number | null;
+          lifetime_production_kwh: number | null;
+          lifetime_savings_eur: number | null;
+          degradation_rate: number | null;
+          system_size_kw: number;
+          annual_production_kwh: number;
+          annual_savings_eur: number;
+          payback_years: number | null;
+          electricity_price_eur: number;
+          total_score: number;
+          solar_potential_score: number;
+          economic_potential_score: number;
+          execution_simplicity_score: number;
+          segment_fit_score: number;
+          assessed_by: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          lead_id?: string | null;
+          address_input: string;
+          business_segment: string;
+          latitude?: number | null;
+          longitude?: number | null;
+          formatted_address?: string | null;
+          solar_api_status: string;
+          raw_api_response?: Record<string, unknown> | null;
+          roof_area_m2?: number | null;
+          max_array_area_m2?: number | null;
+          panels_count?: number | null;
+          roof_segment_count?: number | null;
+          max_sunshine_hours_per_year?: number | null;
+          is_manual_fallback?: boolean;
+          manual_roof_area_m2?: number | null;
+          cadastral_reference?: string | null;
+          number_of_floors?: number | null;
+          pvgis_kwh_per_kwp?: number | null;
+          pvgis_optimal_angle?: number | null;
+          pvgis_raw_response?: Record<string, unknown> | null;
+          building_orientation?: number | null;
+          lifetime_production_kwh?: number | null;
+          lifetime_savings_eur?: number | null;
+          degradation_rate?: number | null;
+          system_size_kw: number;
+          annual_production_kwh: number;
+          annual_savings_eur: number;
+          payback_years?: number | null;
+          electricity_price_eur: number;
+          total_score: number;
+          solar_potential_score: number;
+          economic_potential_score: number;
+          execution_simplicity_score: number;
+          segment_fit_score: number;
+          assessed_by?: string | null;
+        };
+        Update: Partial<Database["public"]["Tables"]["solar_assessments"]["Insert"]>;
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;
@@ -324,3 +405,8 @@ export type DocumentStatus =
   | "verified"
   | "rejected"
   | "not_applicable";
+
+export type SolarAssessment = Database["public"]["Tables"]["solar_assessments"]["Row"];
+export type SolarAssessmentInsert = Database["public"]["Tables"]["solar_assessments"]["Insert"];
+
+export type SolarApiStatus = "success" | "failed" | "fallback";

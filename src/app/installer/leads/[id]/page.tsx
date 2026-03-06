@@ -2,11 +2,12 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, Badge } from "@/components/ui";
+import { AssessmentCard } from "@/components/assessment";
 import { LEAD_STATUSES, PROPERTY_TYPES, ROOF_TYPES, INSTALLATION_TIMELINES } from "@/lib/constants/property-types";
 import { ISLANDS } from "@/lib/constants/islands";
 import { formatCurrency } from "@/lib/utils/calculator";
 import { LeadStatusForm } from "./lead-status-form";
-import type { Lead } from "@/lib/supabase/types";
+import type { Lead, Installer } from "@/lib/supabase/types";
 
 interface LeadDetailPageProps {
   params: Promise<{ id: string }>;
@@ -28,6 +29,20 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
   if (error || !lead) {
     notFound();
   }
+
+  // Get current installer to check if admin
+  const { data: { user } } = await supabase.auth.getUser();
+  let installer: Installer | null = null;
+  if (user) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data } = await (supabase as any)
+      .from("installers")
+      .select("*")
+      .eq("user_id", user.id)
+      .single();
+    installer = data;
+  }
+  const isAdmin = installer?.role === "admin";
 
   const getLabel = (
     value: string,
@@ -284,6 +299,9 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
               </div>
             </CardContent>
           </Card>
+
+          {/* Solar Assessment */}
+          <AssessmentCard leadId={lead.id} isAdmin={isAdmin} />
         </div>
       </div>
     </div>
