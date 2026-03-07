@@ -60,6 +60,7 @@ export function AssessmentForm({ leadId, defaultAddress, onSuccess }: Assessment
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<AssessmentInputRaw>({
     resolver: zodResolver(assessmentInputSchema),
@@ -67,15 +68,31 @@ export function AssessmentForm({ leadId, defaultAddress, onSuccess }: Assessment
       address: defaultAddress ?? '',
       businessSegment: 'hotel',
       leadId: leadId ?? null,
+      country: 'ES',
+      energyType: 'fixed',
       electricityPrice: ASSESSMENT_CONFIG.DEFAULT_ELECTRICITY_PRICE_EUR,
       numberOfFloors: 1,
     },
   });
 
+  const energyType = watch('energyType');
+  const country = watch('country');
+
   const businessSegmentOptions = BUSINESS_SEGMENTS.map(s => ({
     value: s.value,
     label: s.label,
   }));
+
+  const countryOptions = [
+    { value: 'ES', label: 'España', api: 'ESIOS (PVPC)' },
+    { value: 'DE', label: 'Alemania', api: 'Energy-Charts' },
+    { value: 'UK', label: 'Reino Unido', api: 'Octopus Agile' },
+  ];
+
+  const energyTypeOptions = [
+    { value: 'fixed', label: 'Tarifa Fija' },
+    { value: 'variable', label: `Tarifa Variable (${countryOptions.find(c => c.value === country)?.api || 'API'})` },
+  ];
 
   const checkAddress = async () => {
     const address = watch('address');
@@ -283,16 +300,76 @@ export function AssessmentForm({ leadId, defaultAddress, onSuccess }: Assessment
           error={errors.businessSegment?.message}
         />
 
-        <Input
-          label="Precio electricidad (€/kWh)"
-          type="number"
-          step="0.01"
-          min="0.01"
-          max="1"
-          {...register('electricityPrice', { valueAsNumber: true })}
-          error={errors.electricityPrice?.message}
-          helperText="Precio medio del kWh para calcular el ahorro"
-        />
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-[#222f30]">
+            País
+          </label>
+          <div className="flex gap-2">
+            {countryOptions.map((option) => (
+              <label
+                key={option.value}
+                className={`flex-1 flex flex-col items-center justify-center p-3 rounded-lg border cursor-pointer transition-colors ${
+                  country === option.value
+                    ? 'border-[#a7e26e] bg-[#a7e26e]/10 text-[#222f30]'
+                    : 'border-gray-200 hover:border-gray-300 text-[#445e5f]'
+                }`}
+              >
+                <input
+                  type="radio"
+                  value={option.value}
+                  {...register('country')}
+                  className="sr-only"
+                />
+                <span className="text-sm font-medium">{option.label}</span>
+                <span className="text-[10px] text-[#445e5f] mt-0.5">{option.api}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-[#222f30]">
+            Tipo de tarifa eléctrica
+          </label>
+          <div className="flex gap-3">
+            {energyTypeOptions.map((option) => (
+              <label
+                key={option.value}
+                className={`flex-1 flex items-center justify-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${
+                  energyType === option.value
+                    ? 'border-[#a7e26e] bg-[#a7e26e]/10 text-[#222f30]'
+                    : 'border-gray-200 hover:border-gray-300 text-[#445e5f]'
+                }`}
+              >
+                <input
+                  type="radio"
+                  value={option.value}
+                  {...register('energyType')}
+                  className="sr-only"
+                />
+                <span className="text-sm font-medium">{option.label}</span>
+              </label>
+            ))}
+          </div>
+          {energyType === 'variable' && (
+            <p className="text-xs text-[#445e5f] mt-1">
+              Se usará el precio medio diario de ESIOS (PVPC)
+            </p>
+          )}
+        </div>
+
+        {energyType === 'fixed' && (
+          <Input
+            label="Precio electricidad (€/kWh)"
+            type="number"
+            step="0.01"
+            min="0.01"
+            max="1"
+            {...register('electricityPrice', { valueAsNumber: true })}
+            error={errors.electricityPrice?.message}
+            helperText="Precio medio del kWh para calcular el ahorro"
+          />
+        )}
 
         <Input
           label="Número de plantas del edificio"

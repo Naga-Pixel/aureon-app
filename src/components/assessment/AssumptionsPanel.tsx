@@ -20,7 +20,7 @@ export interface AssumptionUpdates {
   installationCostPerKw?: number;
 }
 
-type DataSource = 'pvgis' | 'catastro' | 'inspire' | 'google' | 'default' | 'manual';
+type DataSource = 'pvgis' | 'catastro' | 'inspire' | 'google' | 'esios' | 'default' | 'manual';
 
 interface AssumptionRow {
   label: string;
@@ -40,6 +40,7 @@ const SOURCE_LABELS: Record<DataSource, { text: string; className: string }> = {
   catastro: { text: 'Catastro', className: 'bg-green-100 text-green-700' },
   inspire: { text: 'INSPIRE', className: 'bg-green-100 text-green-700' },
   google: { text: 'Google Solar', className: 'bg-purple-100 text-purple-700' },
+  esios: { text: 'ESIOS', className: 'bg-blue-100 text-blue-700' },
   default: { text: 'Supuesto', className: 'bg-amber-100 text-amber-700' },
   manual: { text: 'Manual', className: 'bg-gray-100 text-gray-700' },
 };
@@ -127,12 +128,20 @@ export function AssumptionsPanel({
       editable: false,
     },
     {
+      label: 'Tipo tarifa',
+      value: (assessment as any).energy_type === 'variable' ? 'Variable (PVPC)' : 'Fija',
+      source: (assessment as any).energy_type === 'variable' ? 'esios' : 'manual',
+      editable: false,
+    },
+    {
       label: 'Precio electricidad',
-      value: `${assessment.electricity_price_eur.toFixed(2)} €/kWh`,
+      value: `${assessment.electricity_price_eur.toFixed(4)} €/kWh`,
       editableValue: assessment.electricity_price_eur,
-      source: assessment.electricity_price_eur === ASSESSMENT_CONFIG.DEFAULT_ELECTRICITY_PRICE_EUR
-        ? 'default' : 'manual',
-      editable: true,
+      source: ((assessment as any).price_source === 'esios' ? 'esios'
+        : (assessment as any).price_source === 'fallback' ? 'default'
+        : assessment.electricity_price_eur === ASSESSMENT_CONFIG.DEFAULT_ELECTRICITY_PRICE_EUR ? 'default'
+        : 'manual') as DataSource,
+      editable: (assessment as any).energy_type !== 'variable',
       field: 'electricityPrice',
       unit: '€/kWh',
       step: 0.01,

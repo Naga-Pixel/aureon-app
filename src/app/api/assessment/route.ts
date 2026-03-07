@@ -6,6 +6,7 @@ import { getSolarData } from '@/lib/services/google-solar';
 import { getCatastroData, getBuildingDataFromReference } from '@/lib/services/catastro';
 import { getBuildingFootprint, getBuildingFootprintByCoordinates } from '@/lib/services/catastro-inspire';
 import { getPVGISData, PVGISResult } from '@/lib/services/pvgis';
+import { getElectricityPriceByCountry, getDefaultPrice, Country } from '@/lib/services/electricity-price';
 import { calculateAssessment } from '@/lib/services/assessment-scorer';
 import { ASSESSMENT_CONFIG } from '@/lib/config/assessment-config';
 import { SolarAssessmentInsert } from '@/lib/supabase/types';
@@ -26,7 +27,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { address, businessSegment, leadId, electricityPrice, numberOfFloors } = validationResult.data;
+    const { address, businessSegment, leadId, country, energyType, electricityPrice, numberOfFloors } = validationResult.data;
+
+    // Determine electricity price based on energy type and country
+    const selectedCountry = (country || 'ES') as Country;
+    let finalElectricityPrice: number;
+    let priceSource: string = 'fixed';
+
+    if (energyType === 'variable') {
+      const priceResult = await getElectricityPriceByCountry(selectedCountry);
+      finalElectricityPrice = priceResult.averagePrice;
+      priceSource = priceResult.source;
+    } else {
+      finalElectricityPrice = electricityPrice ?? getDefaultPrice(selectedCountry);
+      priceSource = 'fixed';
+    }
 
     // Get Supabase client and check authentication
     const supabase = await createClient();
@@ -189,7 +204,7 @@ export async function POST(request: NextRequest) {
       kwhPerKwp: pvgisData.kwhPerKwp, // PVGIS data for location-specific solar potential
       numberOfFloors: effectiveFloors, // For building area to roof area conversion
       businessSegment,
-      electricityPriceEur: electricityPrice ?? ASSESSMENT_CONFIG.DEFAULT_ELECTRICITY_PRICE_EUR,
+      electricityPriceEur: finalElectricityPrice,
       isManualFallback: isManualFallback || useCatastro || useInspire,
     };
 
@@ -245,7 +260,10 @@ export async function POST(request: NextRequest) {
       annual_production_kwh: calculation.annualProductionKwh,
       annual_savings_eur: calculation.annualSavingsEur,
       payback_years: calculation.paybackYears,
-      electricity_price_eur: electricityPrice ?? ASSESSMENT_CONFIG.DEFAULT_ELECTRICITY_PRICE_EUR,
+      electricity_price_eur: finalElectricityPrice,
+      energy_type: energyType,
+      price_source: priceSource,
+      country: selectedCountry,
       total_score: calculation.totalScore,
       solar_potential_score: calculation.solarPotentialScore,
       economic_potential_score: calculation.economicPotentialScore,

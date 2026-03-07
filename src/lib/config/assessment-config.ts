@@ -2,6 +2,12 @@ export const ASSESSMENT_CONFIG = {
   // Default electricity price (editable per assessment)
   DEFAULT_ELECTRICITY_PRICE_EUR: 0.20,
 
+  // Energy pricing types
+  ENERGY_TYPES: {
+    FIXED: 'fixed',
+    VARIABLE: 'variable',
+  },
+
   // System assumptions
   PANEL_WATTS: 400,
   SYSTEM_EFFICIENCY: 0.85,

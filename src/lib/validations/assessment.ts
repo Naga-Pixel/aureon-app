@@ -12,12 +12,24 @@ export const assessmentInputSchema = z.object({
     message: 'Selecciona un segmento de negocio válido',
   }),
   leadId: z.string().uuid().optional().nullable(),
+  country: z
+    .enum(['ES', 'DE', 'UK'], {
+      message: 'Selecciona un país válido',
+    })
+    .optional()
+    .default('ES'),
+  energyType: z
+    .enum(['fixed', 'variable'], {
+      message: 'Selecciona un tipo de tarifa válido',
+    })
+    .optional()
+    .default('fixed'),
   electricityPrice: z
     .number()
     .min(0.01, 'El precio debe ser mayor que 0')
     .max(1, 'El precio parece demasiado alto')
     .optional()
-    .default(0.20),
+    .nullable(),
   numberOfFloors: z
     .number()
     .int()

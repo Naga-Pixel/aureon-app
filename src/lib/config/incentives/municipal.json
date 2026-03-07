@@ -1,0 +1,293 @@
+{
+  "lastUpdated": "2026-01-15",
+  "source": "Ordenanzas Fiscales Municipales 2026",
+  "updateFrequency": "annual",
+  "nextUpdate": "2027-01-15",
+  "municipalities": {
+    "35016": {
+      "name": "Las Palmas de Gran Canaria",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 5,
+      "icio_discount_pct": 0.95
+    },
+    "35017": {
+      "name": "Mogán",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 5,
+      "icio_discount_pct": 0.50
+    },
+    "35019": {
+      "name": "San Bartolomé de Tirajana",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 3,
+      "icio_discount_pct": 0.90
+    },
+    "35024": {
+      "name": "Telde",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 5,
+      "icio_discount_pct": 0.50
+    },
+    "35004": {
+      "name": "Arucas",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 5,
+      "icio_discount_pct": 0.50
+    },
+    "35011": {
+      "name": "Ingenio",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 3,
+      "icio_discount_pct": 0.50
+    },
+    "35002": {
+      "name": "Agüimes",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 5,
+      "icio_discount_pct": 0.95
+    },
+    "35006": {
+      "name": "Arrecife",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 3,
+      "icio_discount_pct": 0.50
+    },
+    "35014": {
+      "name": "Puerto del Rosario",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 3,
+      "icio_discount_pct": 0.50
+    },
+    "35005": {
+      "name": "Antigua",
+      "ibi_discount_pct": 0.30,
+      "ibi_duration_yrs": 3,
+      "icio_discount_pct": 0.50
+    },
+    "35012": {
+      "name": "La Oliva",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 5,
+      "icio_discount_pct": 0.50
+    },
+    "35021": {
+      "name": "Teguise",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 3,
+      "icio_discount_pct": 0.50
+    },
+    "35032": {
+      "name": "Yaiza",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 5,
+      "icio_discount_pct": 0.95
+    },
+    "38038": {
+      "name": "Santa Cruz de Tenerife",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 3,
+      "icio_discount_pct": 0.90
+    },
+    "38023": {
+      "name": "San Cristóbal de La Laguna",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 5,
+      "icio_discount_pct": 0.95
+    },
+    "38006": {
+      "name": "Arona",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 3,
+      "icio_discount_pct": 0.50
+    },
+    "38001": {
+      "name": "Adeje",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 5,
+      "icio_discount_pct": 0.95
+    },
+    "38031": {
+      "name": "Puerto de la Cruz",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 5,
+      "icio_discount_pct": 0.50
+    },
+    "38017": {
+      "name": "Granadilla de Abona",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 3,
+      "icio_discount_pct": 0.50
+    },
+    "38026": {
+      "name": "Los Realejos",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 3,
+      "icio_discount_pct": 0.50
+    },
+    "38024": {
+      "name": "San Miguel de Abona",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 5,
+      "icio_discount_pct": 0.50
+    },
+    "38043": {
+      "name": "Tacoronte",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 3,
+      "icio_discount_pct": 0.50
+    },
+    "38022": {
+      "name": "Santa Cruz de La Palma",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 5,
+      "icio_discount_pct": 0.90
+    },
+    "38021": {
+      "name": "Los Llanos de Aridane",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 5,
+      "icio_discount_pct": 0.50
+    },
+    "38037": {
+      "name": "San Sebastián de la Gomera",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 5,
+      "icio_discount_pct": 0.95
+    },
+    "38046": {
+      "name": "Valle Gran Rey",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 3,
+      "icio_discount_pct": 0.50
+    },
+    "38047": {
+      "name": "Valverde",
+      "ibi_discount_pct": 0.50,
+      "ibi_duration_yrs": 5,
+      "icio_discount_pct": 0.95
+    },
+    "_default": {
+      "name": "Municipio no registrado",
+      "ibi_discount_pct": 0.30,
+      "ibi_duration_yrs": 3,
+      "icio_discount_pct": 0.50
+    }
+  },
+  "postalCodeToINE": {
+    "35001": "35016",
+    "35002": "35016",
+    "35003": "35016",
+    "35004": "35016",
+    "35005": "35016",
+    "35006": "35016",
+    "35007": "35016",
+    "35008": "35016",
+    "35009": "35016",
+    "35010": "35016",
+    "35011": "35016",
+    "35012": "35016",
+    "35013": "35016",
+    "35014": "35016",
+    "35015": "35016",
+    "35016": "35016",
+    "35017": "35016",
+    "35018": "35016",
+    "35019": "35016",
+    "35100": "35024",
+    "35110": "35019",
+    "35120": "35004",
+    "35130": "35017",
+    "35138": "35017",
+    "35200": "35024",
+    "35212": "35024",
+    "35220": "35024",
+    "35240": "35011",
+    "35250": "35011",
+    "35260": "35002",
+    "35500": "35006",
+    "35508": "35006",
+    "35509": "35006",
+    "35510": "35021",
+    "35520": "35021",
+    "35540": "35012",
+    "35550": "35024",
+    "35560": "35024",
+    "35570": "35032",
+    "35580": "35032",
+    "35600": "35014",
+    "35610": "35005",
+    "35625": "35017",
+    "35627": "35017",
+    "35629": "35017",
+    "35630": "35012",
+    "35640": "35012",
+    "35650": "35012",
+    "35660": "35012",
+    "38001": "38038",
+    "38002": "38038",
+    "38003": "38038",
+    "38004": "38038",
+    "38005": "38038",
+    "38006": "38038",
+    "38007": "38038",
+    "38008": "38038",
+    "38009": "38038",
+    "38010": "38038",
+    "38108": "38023",
+    "38109": "38023",
+    "38111": "38023",
+    "38200": "38023",
+    "38201": "38023",
+    "38202": "38023",
+    "38203": "38023",
+    "38204": "38023",
+    "38205": "38023",
+    "38206": "38023",
+    "38207": "38023",
+    "38208": "38023",
+    "38300": "38031",
+    "38350": "38043",
+    "38400": "38031",
+    "38410": "38026",
+    "38500": "38017",
+    "38530": "38017",
+    "38588": "38006",
+    "38600": "38006",
+    "38612": "38006",
+    "38620": "38024",
+    "38626": "38024",
+    "38628": "38024",
+    "38630": "38001",
+    "38640": "38001",
+    "38650": "38001",
+    "38660": "38001",
+    "38670": "38001",
+    "38677": "38001",
+    "38678": "38001",
+    "38679": "38001",
+    "38700": "38022",
+    "38710": "38022",
+    "38712": "38022",
+    "38714": "38022",
+    "38715": "38022",
+    "38720": "38021",
+    "38730": "38021",
+    "38750": "38021",
+    "38760": "38021",
+    "38800": "38037",
+    "38810": "38037",
+    "38811": "38046",
+    "38812": "38037",
+    "38820": "38046",
+    "38840": "38046",
+    "38850": "38046",
+    "38870": "38046",
+    "38900": "38047",
+    "38910": "38047",
+    "38911": "38047",
+    "38912": "38047",
+    "38913": "38047",
+    "38914": "38047",
+    "38915": "38047"
+  }
+}
