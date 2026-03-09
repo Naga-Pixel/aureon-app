@@ -1,7 +1,59 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { assessmentRatelimit, prospectingRatelimit, isRatelimitEnabled } from "@/lib/ratelimit";
+
+// Rate-limited API paths
+const RATE_LIMITED_PATHS = {
+  assessment: ["/api/assessment", "/api/battery-assessment"],
+  prospecting: ["/api/prospecting"],
+};
 
 export async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
+  // Apply rate limiting for API endpoints
+  if (isRatelimitEnabled()) {
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0] ??
+               request.headers.get("x-real-ip") ??
+               "anonymous";
+
+    // Check assessment rate limit
+    if (RATE_LIMITED_PATHS.assessment.some(path => pathname.startsWith(path))) {
+      const result = await assessmentRatelimit?.limit(ip);
+      if (result && !result.success) {
+        return NextResponse.json(
+          { error: "Demasiadas solicitudes. Por favor, espera unos segundos." },
+          {
+            status: 429,
+            headers: {
+              "X-RateLimit-Limit": String(result.limit),
+              "X-RateLimit-Remaining": String(result.remaining),
+              "X-RateLimit-Reset": String(result.reset),
+            },
+          }
+        );
+      }
+    }
+
+    // Check prospecting rate limit
+    if (RATE_LIMITED_PATHS.prospecting.some(path => pathname.startsWith(path))) {
+      const result = await prospectingRatelimit?.limit(ip);
+      if (result && !result.success) {
+        return NextResponse.json(
+          { error: "Demasiadas solicitudes. Por favor, espera unos segundos." },
+          {
+            status: 429,
+            headers: {
+              "X-RateLimit-Limit": String(result.limit),
+              "X-RateLimit-Remaining": String(result.remaining),
+              "X-RateLimit-Reset": String(result.reset),
+            },
+          }
+        );
+      }
+    }
+  }
+
   let supabaseResponse = NextResponse.next({
     request,
   });
@@ -77,5 +129,11 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/installer/:path*", "/login"],
+  matcher: [
+    "/installer/:path*",
+    "/login",
+    "/api/assessment/:path*",
+    "/api/battery-assessment/:path*",
+    "/api/prospecting/:path*",
+  ],
 };

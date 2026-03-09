@@ -6,6 +6,8 @@
  * Indicator 1001: PVPC (Precio Voluntario para el Pequeño Consumidor)
  */
 
+import { getCached, setCache } from '@/lib/cache/redis';
+
 interface ESIOSPrice {
   date: string;
   hour: number;
@@ -21,6 +23,11 @@ interface ESIOSResponse {
   };
 }
 
+interface CachedPrice {
+  prices: ESIOSPrice[];
+  averagePrice: number;
+}
+
 interface PriceResult {
   status: 'success' | 'failed';
   averagePrice: number | null; // €/kWh
@@ -33,10 +40,7 @@ const ESIOS_API_BASE = 'https://api.esios.ree.es';
 const INDICATOR_PVPC = 1001;
 const ESIOS_TIMEOUT_MS = 10000;
 const DEFAULT_PRICE_EUR_KWH = 0.20;
-
-// Simple in-memory cache (persists for server lifetime)
-const priceCache: Map<string, { prices: ESIOSPrice[]; averagePrice: number; fetchedAt: Date }> = new Map();
-const CACHE_DURATION_MS = 6 * 60 * 60 * 1000; // 6 hours
+const CACHE_TTL_SECONDS = 6 * 60 * 60; // 6 hours
 
 /**
  * Get ESIOS API token from environment
@@ -53,34 +57,16 @@ function formatDate(date: Date): string {
 }
 
 /**
- * Get today's date string
- */
-function getTodayString(): string {
-  return formatDate(new Date());
-}
-
-/**
- * Check if cache is valid
- */
-function isCacheValid(dateKey: string): boolean {
-  const cached = priceCache.get(dateKey);
-  if (!cached) return false;
-
-  const now = new Date();
-  const age = now.getTime() - cached.fetchedAt.getTime();
-  return age < CACHE_DURATION_MS;
-}
-
-/**
  * Fetch daily electricity prices from ESIOS API
  */
 export async function getElectricityPrice(date?: Date): Promise<PriceResult> {
   const targetDate = date || new Date();
   const dateString = formatDate(targetDate);
+  const cacheKey = `electricity:esios:${dateString}`;
 
-  // Check cache first
-  if (isCacheValid(dateString)) {
-    const cached = priceCache.get(dateString)!;
+  // Check Redis cache first
+  const cached = await getCached<CachedPrice>(cacheKey);
+  if (cached) {
     return {
       status: 'success',
       averagePrice: cached.averagePrice,
@@ -142,12 +128,8 @@ export async function getElectricityPrice(date?: Date): Promise<PriceResult> {
     const averagePrice = prices.reduce((sum, p) => sum + p.price, 0) / prices.length;
     const roundedAverage = Math.round(averagePrice * 10000) / 10000; // 4 decimal places
 
-    // Cache the result
-    priceCache.set(dateString, {
-      prices,
-      averagePrice: roundedAverage,
-      fetchedAt: new Date(),
-    });
+    // Cache the result in Redis
+    await setCache(cacheKey, { prices, averagePrice: roundedAverage }, CACHE_TTL_SECONDS);
 
     return {
       status: 'success',
@@ -174,6 +156,33 @@ export async function getElectricityPrice(date?: Date): Promise<PriceResult> {
 export async function getCurrentAveragePrice(): Promise<number> {
   const result = await getElectricityPrice();
   return result.averagePrice ?? DEFAULT_PRICE_EUR_KWH;
+}
+
+/**
+ * Get hourly prices for the last N days (for volatility calculation)
+ * Returns array of {price, datetime} objects
+ */
+export async function getESIOSHourlyPrices(days: number = 7): Promise<{ price: number; datetime: string }[]> {
+  const allPrices: { price: number; datetime: string }[] = [];
+
+  // Fetch prices for each day
+  for (let i = 0; i < days; i++) {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+
+    const result = await getElectricityPrice(date);
+
+    if (result.prices) {
+      for (const p of result.prices) {
+        allPrices.push({
+          price: p.price,
+          datetime: `${p.date}T${String(p.hour).padStart(2, '0')}:00:00`,
+        });
+      }
+    }
+  }
+
+  return allPrices;
 }
 
 /**

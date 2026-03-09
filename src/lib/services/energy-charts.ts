@@ -6,6 +6,8 @@
  * No API key required - public API
  */
 
+import { getCached, setCache } from '@/lib/cache/redis';
+
 interface EnergyChartsPrice {
   date: string;
   hour: number;
@@ -15,6 +17,11 @@ interface EnergyChartsPrice {
 interface EnergyChartsResponse {
   unix_seconds: number[];
   price: number[]; // €/MWh
+}
+
+interface CachedPrice {
+  prices: EnergyChartsPrice[];
+  averagePrice: number;
 }
 
 interface PriceResult {
@@ -28,10 +35,7 @@ interface PriceResult {
 const API_BASE = 'https://api.energy-charts.info/price';
 const TIMEOUT_MS = 10000;
 const DEFAULT_PRICE_EUR_KWH = 0.30; // Germany average ~€0.30/kWh
-
-// Simple in-memory cache
-const priceCache: Map<string, { prices: EnergyChartsPrice[]; averagePrice: number; fetchedAt: Date }> = new Map();
-const CACHE_DURATION_MS = 6 * 60 * 60 * 1000; // 6 hours
+const CACHE_TTL_SECONDS = 6 * 60 * 60; // 6 hours
 
 /**
  * Format date as YYYY-MM-DD
@@ -41,29 +45,17 @@ function formatDate(date: Date): string {
 }
 
 /**
- * Check if cache is valid
- */
-function isCacheValid(dateKey: string): boolean {
-  const cached = priceCache.get(dateKey);
-  if (!cached) return false;
-
-  const now = new Date();
-  const age = now.getTime() - cached.fetchedAt.getTime();
-  return age < CACHE_DURATION_MS;
-}
-
-/**
  * Fetch daily electricity prices from Energy-Charts API
  * Returns day-ahead prices for Germany
  */
 export async function getGermanyElectricityPrice(date?: Date): Promise<PriceResult> {
   const targetDate = date || new Date();
   const dateString = formatDate(targetDate);
-  const cacheKey = `de-${dateString}`;
+  const cacheKey = `electricity:energy-charts:${dateString}`;
 
-  // Check cache first
-  if (isCacheValid(cacheKey)) {
-    const cached = priceCache.get(cacheKey)!;
+  // Check Redis cache first
+  const cached = await getCached<CachedPrice>(cacheKey);
+  if (cached) {
     return {
       status: 'success',
       averagePrice: cached.averagePrice,
@@ -125,12 +117,8 @@ export async function getGermanyElectricityPrice(date?: Date): Promise<PriceResu
       : DEFAULT_PRICE_EUR_KWH;
     const roundedAverage = Math.round(averagePrice * 10000) / 10000;
 
-    // Cache the result
-    priceCache.set(cacheKey, {
-      prices,
-      averagePrice: roundedAverage,
-      fetchedAt: new Date(),
-    });
+    // Cache the result in Redis
+    await setCache(cacheKey, { prices, averagePrice: roundedAverage }, CACHE_TTL_SECONDS);
 
     return {
       status: 'success',

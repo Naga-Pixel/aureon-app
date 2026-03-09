@@ -6,6 +6,8 @@
  * No API key required for public tariff data
  */
 
+import { getCached, setCache } from '@/lib/cache/redis';
+
 interface OctopusPrice {
   date: string;
   hour: number;
@@ -23,6 +25,12 @@ interface OctopusResponse {
   }>;
 }
 
+interface CachedPrice {
+  prices: OctopusPrice[];
+  averagePrice: number;
+  averagePricePence: number;
+}
+
 interface PriceResult {
   status: 'success' | 'failed';
   averagePrice: number | null; // €/kWh
@@ -34,16 +42,12 @@ interface PriceResult {
 
 // Octopus Agile tariff product code (updates periodically)
 const AGILE_PRODUCT = 'AGILE-FLEX-22-11-25';
-const AGILE_TARIFF = 'E-1R-AGILE-FLEX-22-11-25-C'; // Region C (South England)
 const API_BASE = 'https://api.octopus.energy/v1';
 const TIMEOUT_MS = 10000;
 const DEFAULT_PRICE_PENCE = 28; // UK average ~28p/kWh
 const DEFAULT_PRICE_EUR = 0.33; // ~€0.33/kWh
 const GBP_TO_EUR = 1.17; // Approximate exchange rate
-
-// Simple in-memory cache
-const priceCache: Map<string, { prices: OctopusPrice[]; averagePrice: number; averagePricePence: number; fetchedAt: Date }> = new Map();
-const CACHE_DURATION_MS = 6 * 60 * 60 * 1000; // 6 hours
+const CACHE_TTL_SECONDS = 6 * 60 * 60; // 6 hours
 
 /**
  * Format date as YYYY-MM-DD
@@ -53,29 +57,17 @@ function formatDate(date: Date): string {
 }
 
 /**
- * Check if cache is valid
- */
-function isCacheValid(dateKey: string): boolean {
-  const cached = priceCache.get(dateKey);
-  if (!cached) return false;
-
-  const now = new Date();
-  const age = now.getTime() - cached.fetchedAt.getTime();
-  return age < CACHE_DURATION_MS;
-}
-
-/**
  * Fetch daily electricity prices from Octopus Agile tariff
  * Returns half-hourly prices for the UK
  */
 export async function getUKElectricityPrice(date?: Date, region: string = 'C'): Promise<PriceResult> {
   const targetDate = date || new Date();
   const dateString = formatDate(targetDate);
-  const cacheKey = `uk-${region}-${dateString}`;
+  const cacheKey = `electricity:octopus:${region}:${dateString}`;
 
-  // Check cache first
-  if (isCacheValid(cacheKey)) {
-    const cached = priceCache.get(cacheKey)!;
+  // Check Redis cache first
+  const cached = await getCached<CachedPrice>(cacheKey);
+  if (cached) {
     return {
       status: 'success',
       averagePrice: cached.averagePrice,
@@ -149,13 +141,12 @@ export async function getUKElectricityPrice(date?: Date, region: string = 'C'): 
     const roundedAveragePence = Math.round(averagePricePence * 100) / 100;
     const roundedAverageEur = Math.round(averagePriceEur * 10000) / 10000;
 
-    // Cache the result
-    priceCache.set(cacheKey, {
+    // Cache the result in Redis
+    await setCache(cacheKey, {
       prices,
       averagePrice: roundedAverageEur,
       averagePricePence: roundedAveragePence,
-      fetchedAt: new Date(),
-    });
+    }, CACHE_TTL_SECONDS);
 
     return {
       status: 'success',

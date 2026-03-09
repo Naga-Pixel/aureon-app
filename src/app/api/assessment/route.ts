@@ -5,7 +5,7 @@ import { geocodeAddress } from '@/lib/services/google-geocoding';
 import { getSolarData } from '@/lib/services/google-solar';
 import { getCatastroData, getBuildingDataFromReference } from '@/lib/services/catastro';
 import { getBuildingFootprint, getBuildingFootprintByCoordinates } from '@/lib/services/catastro-inspire';
-import { getPVGISData, PVGISResult } from '@/lib/services/pvgis';
+import { getPVGISData } from '@/lib/services/pvgis';
 import { getElectricityPriceByCountry, getDefaultPrice, Country } from '@/lib/services/electricity-price';
 import { calculateAssessment } from '@/lib/services/assessment-scorer';
 import { ASSESSMENT_CONFIG } from '@/lib/config/assessment-config';
@@ -76,47 +76,49 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Step 2: Get PVGIS solar irradiation data (location-specific kWh/kWp)
-    const pvgisData: PVGISResult = await getPVGISData(geocodeResult.latitude, geocodeResult.longitude);
-
-    // Step 3: Get building data from APIs
+    // Step 2: Parallel fetch - PVGIS + Google Solar (if enabled)
     const googleSolarEnabled = process.env.NEXT_PUBLIC_ENABLE_GOOGLE_SOLAR === 'true';
 
-    // Try Google Solar API first (if enabled)
-    const solarData = googleSolarEnabled && !isManualFallback
-      ? await getSolarData(geocodeResult.latitude, geocodeResult.longitude)
-      : { status: 'failed' as const, roofAreaM2: null, maxArrayAreaM2: null, panelsCount: null, roofSegmentCount: null, maxSunshineHoursPerYear: null, rawResponse: null };
+    const [pvgisData, solarData] = await Promise.all([
+      getPVGISData(geocodeResult.latitude, geocodeResult.longitude),
+      googleSolarEnabled && !isManualFallback
+        ? getSolarData(geocodeResult.latitude, geocodeResult.longitude)
+        : Promise.resolve({ status: 'failed' as const, roofAreaM2: null, maxArrayAreaM2: null, panelsCount: null, roofSegmentCount: null, maxSunshineHoursPerYear: null, rawResponse: null }),
+    ]);
 
     let catastroData = null;
     let inspireData = null;
     let useCatastro = false;
     let useInspire = false;
 
-    // If Google Solar disabled or failed, try Spanish Catastro API
+    // Step 3: If Google Solar disabled or failed, try Spanish Catastro API (parallelized)
     if (solarData.status === 'failed' && !isManualFallback) {
       // If Cartociudad returned a cadastral reference, use it directly
       if ('cadastralReference' in geocodeResult && geocodeResult.cadastralReference) {
-        catastroData = await getBuildingDataFromReference(geocodeResult.cadastralReference as string);
-        // Also try INSPIRE WFS for accurate roof footprint
-        inspireData = await getBuildingFootprint(geocodeResult.cadastralReference as string);
+        // Parallel fetch: Catastro ref lookup + INSPIRE by ref
+        const [catastroRefResult, inspireRefResult] = await Promise.all([
+          getBuildingDataFromReference(geocodeResult.cadastralReference as string),
+          getBuildingFootprint(geocodeResult.cadastralReference as string),
+        ]);
+        catastroData = catastroRefResult;
+        inspireData = inspireRefResult;
       }
 
-      // If no cadastral reference or lookup failed, try by coordinates
+      // If no cadastral reference or lookup failed, try by coordinates (parallelized)
       if (!catastroData || catastroData.status !== 'success') {
-        catastroData = await getCatastroData(geocodeResult.latitude, geocodeResult.longitude);
+        const [catastroCoordResult, inspireCoordResult] = await Promise.all([
+          getCatastroData(geocodeResult.latitude, geocodeResult.longitude),
+          getBuildingFootprintByCoordinates(geocodeResult.latitude, geocodeResult.longitude),
+        ]);
+        catastroData = catastroCoordResult;
+        if (!inspireData || inspireData.status !== 'success') {
+          inspireData = inspireCoordResult;
+        }
       }
 
-      // Try INSPIRE WFS if we have cadastral reference from Catastro lookup
-      if (!inspireData && catastroData?.cadastralReference) {
+      // If we have catastro data with ref but no INSPIRE, try INSPIRE with the ref
+      if ((!inspireData || inspireData.status !== 'success') && catastroData?.cadastralReference) {
         inspireData = await getBuildingFootprint(catastroData.cadastralReference);
-      }
-
-      // If still no INSPIRE data, try by coordinates
-      if (!inspireData || inspireData.status !== 'success') {
-        inspireData = await getBuildingFootprintByCoordinates(
-          geocodeResult.latitude,
-          geocodeResult.longitude
-        );
       }
 
       if (inspireData && inspireData.status === 'success' && inspireData.roofAreaM2) {

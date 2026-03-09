@@ -98,30 +98,34 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Step 3: Get property data from Catastro (reusing existing service)
+    // Step 3: Parallel fetch - Catastro + ESIOS price
     let catastroData = null;
     let effectivePropertyArea = propertyAreaM2;
     let effectiveFloors = numberOfFloors;
     let yearBuilt: number | null = null;
     let cadastralReference: string | null = null;
 
-    try {
-      catastroData = await getCatastroData(geocodeResult.latitude, geocodeResult.longitude);
+    // Run Catastro and ESIOS in parallel
+    const [catastroResult, electricityPriceEur] = await Promise.all([
+      getCatastroData(geocodeResult.latitude, geocodeResult.longitude).catch(error => {
+        console.error('Catastro lookup failed:', error);
+        return null;
+      }),
+      getCurrentAveragePrice(),
+    ]);
 
-      if (catastroData.status === 'success') {
-        // Use Catastro data if available and user didn't provide
-        if (!effectivePropertyArea && catastroData.buildingAreaM2) {
-          effectivePropertyArea = catastroData.buildingAreaM2;
-        }
-        if (catastroData.numberOfFloors) {
-          effectiveFloors = catastroData.numberOfFloors;
-        }
-        yearBuilt = catastroData.yearBuilt ?? null;
-        cadastralReference = catastroData.cadastralReference ?? null;
+    catastroData = catastroResult;
+
+    if (catastroData && catastroData.status === 'success') {
+      // Use Catastro data if available and user didn't provide
+      if (!effectivePropertyArea && catastroData.buildingAreaM2) {
+        effectivePropertyArea = catastroData.buildingAreaM2;
       }
-    } catch (error) {
-      console.error('Catastro lookup failed:', error);
-      // Continue without Catastro data
+      if (catastroData.numberOfFloors) {
+        effectiveFloors = catastroData.numberOfFloors;
+      }
+      yearBuilt = catastroData.yearBuilt ?? null;
+      cadastralReference = catastroData.cadastralReference ?? null;
     }
 
     // Ensure we have property area (required for consumption estimation)
@@ -154,9 +158,6 @@ export async function POST(request: NextRequest) {
     // Step 5: Get backup hours from priority
     const backupConfig = BACKUP_PRIORITIES.find(p => p.value === backupPriority);
     const backupHours = backupConfig?.hours ?? 4;
-
-    // Step 6: Get current electricity price from ESIOS (falls back to €0.20 if no API key)
-    const electricityPriceEur = await getCurrentAveragePrice();
 
     // Step 7: Calculate battery score
     const scoreResult = calculateBatteryScore({
