@@ -98,10 +98,9 @@ export async function getElectricityPrice(date?: Date): Promise<PriceResult> {
     const response = await fetch(url, {
       signal: controller.signal,
       headers: {
-        'Accept': 'application/json; application/xls',
+        'Accept': 'application/json; application/vnd.esios-api-v1+json',
         'Content-Type': 'application/json',
-        'Host': 'api.esios.ree.es',
-        'Authorization': `Token token="${token.trim()}"`,
+        'x-api-key': token.trim(),
       },
     });
 
