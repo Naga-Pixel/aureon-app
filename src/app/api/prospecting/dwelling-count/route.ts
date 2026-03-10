@@ -1,16 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 
 /**
  * Catastro Dwelling Count API
  *
- * Uses the Catastro DNPRC (Datos No Protegidos por Referencia Catastral) API
- * to get the exact number of dwellings/units in a building.
+ * Two-level lookup for reliability:
+ * 1. Check local Supabase cache (from CAT file imports)
+ * 2. Fall back to Catastro DNPRC API if not found
  *
- * The "hack": Query with 14-char parcel reference, count the returned units.
+ * The DNPRC "hack": Query with 14-char parcel reference, count the returned units.
  * Each unit has a unique 20-char reference (14 parcel + 4 unit + 2 control).
  */
 
 const CATASTRO_API = 'https://ovc.catastro.meh.es/ovcservweb/OVCSWLocalizacionRC/OVCCallejero.asmx/Consulta_DNPRC';
+
+// Initialize Supabase client (service role for write access)
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+const supabase = supabaseUrl && supabaseServiceKey
+  ? createClient(supabaseUrl, supabaseServiceKey)
+  : null;
 
 interface DwellingInfo {
   unitNumber: string;
@@ -25,12 +35,153 @@ interface DwellingCountResult {
   floors: number;
   unitsPerFloor: number;
   dwellings: DwellingInfo[];
+  source: 'cache' | 'api';
   address?: {
     street: string;
     number: string;
     municipality: string;
     province: string;
     postalCode: string;
+  };
+}
+
+/**
+ * Check local Supabase cache for dwelling count
+ */
+async function checkCache(parcelRef: string): Promise<{ totalUnits: number; floors: number } | null> {
+  if (!supabase) return null;
+
+  try {
+    const { data, error } = await supabase
+      .from('catastro_dwellings')
+      .select('total_units, floors')
+      .eq('ref_14', parcelRef)
+      .single();
+
+    if (error || !data) return null;
+
+    return {
+      totalUnits: data.total_units,
+      floors: data.floors || 1,
+    };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Cache a successful API response in Supabase
+ */
+async function cacheResult(parcelRef: string, totalUnits: number, floors: number): Promise<void> {
+  if (!supabase || totalUnits === 0) return;
+
+  try {
+    // Extract province code from parcel reference (first 2 digits after removing letters)
+    // This is a rough heuristic - CAT file imports will have accurate codes
+    const provinceCode = '35'; // Default to Las Palmas for now
+
+    await supabase
+      .from('catastro_dwellings')
+      .upsert({
+        ref_14: parcelRef,
+        total_units: totalUnits,
+        floors: floors || null,
+        province_code: provinceCode,
+        updated_at: new Date().toISOString(),
+      }, {
+        onConflict: 'ref_14',
+      });
+  } catch (error) {
+    console.error('[DwellingCount] Cache write failed:', error);
+  }
+}
+
+/**
+ * Fetch from Catastro DNPRC API
+ */
+async function fetchFromAPI(parcelRef: string): Promise<DwellingCountResult | null> {
+  const url = `${CATASTRO_API}?Provincia=&Municipio=&RC=${encodeURIComponent(parcelRef)}`;
+
+  const response = await fetch(url, {
+    headers: {
+      'Accept': 'application/xml',
+    },
+  });
+
+  if (!response.ok) {
+    return null;
+  }
+
+  const xmlText = await response.text();
+
+  // Check for errors
+  if (xmlText.includes('<cuerr>1</cuerr>') && xmlText.includes('<lerr>')) {
+    return null;
+  }
+
+  // Parse dwelling count from <cudnp>
+  const countMatch = xmlText.match(/<cudnp>(\d+)<\/cudnp>/);
+  const totalUnits = countMatch ? parseInt(countMatch[1], 10) : 0;
+
+  // Parse individual dwellings
+  const dwellings: DwellingInfo[] = [];
+  const dwellingRegex = /<rcdnp>([\s\S]*?)<\/rcdnp>/g;
+  let match;
+
+  while ((match = dwellingRegex.exec(xmlText)) !== null) {
+    const block = match[1];
+
+    // Extract unit details
+    const pc1Match = block.match(/<pc1>([^<]+)<\/pc1>/);
+    const pc2Match = block.match(/<pc2>([^<]+)<\/pc2>/);
+    const carMatch = block.match(/<car>([^<]+)<\/car>/);
+    const cc1Match = block.match(/<cc1>([^<]+)<\/cc1>/);
+    const cc2Match = block.match(/<cc2>([^<]+)<\/cc2>/);
+    const ptMatch = block.match(/<pt>([^<]+)<\/pt>/);
+    const puMatch = block.match(/<pu>([^<]+)<\/pu>/);
+
+    if (carMatch) {
+      dwellings.push({
+        unitNumber: carMatch[1],
+        floor: ptMatch ? ptMatch[1] : '00',
+        door: puMatch ? puMatch[1] : '00',
+        fullReference: `${pc1Match?.[1] || ''}${pc2Match?.[1] || ''}${carMatch[1]}${cc1Match?.[1] || ''}${cc2Match?.[1] || ''}`,
+      });
+    }
+  }
+
+  // Calculate floors (unique floor values)
+  const uniqueFloors = new Set(dwellings.map(d => d.floor));
+  const floors = uniqueFloors.size;
+  const unitsPerFloor = floors > 0 ? Math.round(totalUnits / floors) : 0;
+
+  // Extract address from first dwelling
+  let address: DwellingCountResult['address'] | undefined;
+  const streetMatch = xmlText.match(/<nv>([^<]+)<\/nv>/);
+  const numberMatch = xmlText.match(/<pnp>([^<]+)<\/pnp>/);
+  const municipalityMatch = xmlText.match(/<nm>([^<]+)<\/nm>/);
+  const provinceMatch = xmlText.match(/<np>([^<]+)<\/np>/);
+  const postalMatch = xmlText.match(/<dp>([^<]+)<\/dp>/);
+  const streetTypeMatch = xmlText.match(/<tv>([^<]+)<\/tv>/);
+
+  if (streetMatch) {
+    address = {
+      street: `${streetTypeMatch?.[1] || ''} ${streetMatch[1]}`.trim(),
+      number: numberMatch?.[1] || '',
+      municipality: municipalityMatch?.[1] || '',
+      province: provinceMatch?.[1] || '',
+      postalCode: postalMatch?.[1] || '',
+    };
+  }
+
+  return {
+    parcelReference: parcelRef,
+    totalUnits,
+    floors,
+    unitsPerFloor,
+    dwellings: dwellings.slice(0, 50), // Limit to 50 for response size
+    source: 'api',
+    address,
   };
 }
 
@@ -64,96 +215,34 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const url = `${CATASTRO_API}?Provincia=&Municipio=&RC=${encodeURIComponent(parcelRef)}`;
-
-    const response = await fetch(url, {
-      headers: {
-        'Accept': 'application/xml',
-      },
-    });
-
-    if (!response.ok) {
+    // 1. Check local cache first (fast, reliable)
+    const cached = await checkCache(parcelRef);
+    if (cached && cached.totalUnits > 0) {
+      console.log(`[DwellingCount] Cache hit for ${parcelRef}: ${cached.totalUnits} units`);
       return NextResponse.json({
-        error: 'Catastro API error',
-        status: response.status
-      }, { status: 502 });
+        parcelReference: parcelRef,
+        totalUnits: cached.totalUnits,
+        floors: cached.floors,
+        unitsPerFloor: cached.floors > 0 ? Math.round(cached.totalUnits / cached.floors) : 0,
+        dwellings: [], // Not stored in cache
+        source: 'cache',
+      });
     }
 
-    const xmlText = await response.text();
+    // 2. Fall back to DNPRC API
+    console.log(`[DwellingCount] Cache miss for ${parcelRef}, fetching from API...`);
+    const result = await fetchFromAPI(parcelRef);
 
-    // Check for errors
-    if (xmlText.includes('<cuerr>1</cuerr>') && xmlText.includes('<lerr>')) {
-      const errorMatch = xmlText.match(/<des>([^<]+)<\/des>/);
+    if (!result) {
       return NextResponse.json({
-        error: errorMatch ? errorMatch[1] : 'Catastro API error',
+        error: 'Parcel not found',
         parcelReference: parcelRef,
         totalUnits: 0
       }, { status: 404 });
     }
 
-    // Parse dwelling count from <cudnp>
-    const countMatch = xmlText.match(/<cudnp>(\d+)<\/cudnp>/);
-    const totalUnits = countMatch ? parseInt(countMatch[1], 10) : 0;
-
-    // Parse individual dwellings
-    const dwellings: DwellingInfo[] = [];
-    const dwellingRegex = /<rcdnp>([\s\S]*?)<\/rcdnp>/g;
-    let match;
-
-    while ((match = dwellingRegex.exec(xmlText)) !== null) {
-      const block = match[1];
-
-      // Extract unit details
-      const pc1Match = block.match(/<pc1>([^<]+)<\/pc1>/);
-      const pc2Match = block.match(/<pc2>([^<]+)<\/pc2>/);
-      const carMatch = block.match(/<car>([^<]+)<\/car>/);
-      const cc1Match = block.match(/<cc1>([^<]+)<\/cc1>/);
-      const cc2Match = block.match(/<cc2>([^<]+)<\/cc2>/);
-      const ptMatch = block.match(/<pt>([^<]+)<\/pt>/);
-      const puMatch = block.match(/<pu>([^<]+)<\/pu>/);
-
-      if (carMatch) {
-        dwellings.push({
-          unitNumber: carMatch[1],
-          floor: ptMatch ? ptMatch[1] : '00',
-          door: puMatch ? puMatch[1] : '00',
-          fullReference: `${pc1Match?.[1] || ''}${pc2Match?.[1] || ''}${carMatch[1]}${cc1Match?.[1] || ''}${cc2Match?.[1] || ''}`,
-        });
-      }
-    }
-
-    // Calculate floors (unique floor values)
-    const uniqueFloors = new Set(dwellings.map(d => d.floor));
-    const floors = uniqueFloors.size;
-    const unitsPerFloor = floors > 0 ? Math.round(totalUnits / floors) : 0;
-
-    // Extract address from first dwelling
-    let address: DwellingCountResult['address'] | undefined;
-    const streetMatch = xmlText.match(/<nv>([^<]+)<\/nv>/);
-    const numberMatch = xmlText.match(/<pnp>([^<]+)<\/pnp>/);
-    const municipalityMatch = xmlText.match(/<nm>([^<]+)<\/nm>/);
-    const provinceMatch = xmlText.match(/<np>([^<]+)<\/np>/);
-    const postalMatch = xmlText.match(/<dp>([^<]+)<\/dp>/);
-    const streetTypeMatch = xmlText.match(/<tv>([^<]+)<\/tv>/);
-
-    if (streetMatch) {
-      address = {
-        street: `${streetTypeMatch?.[1] || ''} ${streetMatch[1]}`.trim(),
-        number: numberMatch?.[1] || '',
-        municipality: municipalityMatch?.[1] || '',
-        province: provinceMatch?.[1] || '',
-        postalCode: postalMatch?.[1] || '',
-      };
-    }
-
-    const result: DwellingCountResult = {
-      parcelReference: parcelRef,
-      totalUnits,
-      floors,
-      unitsPerFloor,
-      dwellings: dwellings.slice(0, 50), // Limit to 50 for response size
-      address,
-    };
+    // 3. Cache successful result for next time
+    await cacheResult(parcelRef, result.totalUnits, result.floors);
 
     return NextResponse.json(result);
 
