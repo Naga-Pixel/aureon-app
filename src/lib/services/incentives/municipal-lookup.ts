@@ -8,15 +8,26 @@
  */
 
 import municipalData from '@/lib/config/incentives/municipal.json';
-import type { MunicipalIncentives, MunicipalSavings, MunicipalData } from '@/lib/types/incentives';
+import type { MunicipalIncentives, MunicipalSavings } from '@/lib/types/incentives';
 
-// Type the imported JSON
+// Type the imported JSON (extends MunicipalData with required coordinates)
+interface MunicipalDatabaseEntry {
+  name: string;
+  island: string;
+  ibi_discount_pct: number;
+  ibi_duration_yrs: number;
+  icio_discount_pct: number;
+  lat: number;
+  lon: number;
+  notes?: string;
+}
+
 interface MunicipalDatabase {
   lastUpdated: string;
   source: string;
   updateFrequency: string;
   nextUpdate: string;
-  municipalities: Record<string, MunicipalData>;
+  municipalities: Record<string, MunicipalDatabaseEntry>;
   postalCodeToINE: Record<string, string>;
 }
 
@@ -111,6 +122,40 @@ export function getAllMunicipalities(): Array<{
       name: muni.name,
       ibiDiscount: `${(muni.ibi_discount_pct * 100).toFixed(0)}% x ${muni.ibi_duration_yrs} años`,
       icioDiscount: `${(muni.icio_discount_pct * 100).toFixed(0)}%`,
+    }));
+}
+
+/**
+ * Municipal heatmap data point
+ */
+export interface MunicipalHeatmapPoint {
+  ineCode: string;
+  name: string;
+  island: string;
+  lat: number;
+  lon: number;
+  ibiDiscountPct: number;
+  ibiDurationYrs: number;
+  icioDiscountPct: number;
+  notes?: string;
+}
+
+/**
+ * Get all municipalities with coordinates for heatmap display
+ */
+export function getMunicipalitiesForHeatmap(): MunicipalHeatmapPoint[] {
+  return Object.entries(data.municipalities)
+    .filter(([code]) => code !== '_default')
+    .map(([code, muni]) => ({
+      ineCode: code,
+      name: muni.name,
+      island: muni.island,
+      lat: muni.lat,
+      lon: muni.lon,
+      ibiDiscountPct: muni.ibi_discount_pct,
+      ibiDurationYrs: muni.ibi_duration_yrs,
+      icioDiscountPct: muni.icio_discount_pct,
+      notes: muni.notes,
     }));
 }
 

@@ -50,9 +50,13 @@ export interface IRPFResult {
 // Layer 4: Municipal
 export interface MunicipalData {
   name: string;
+  island: string;
   ibi_discount_pct: number;
   ibi_duration_yrs: number;
   icio_discount_pct: number;
+  lat: number;
+  lon: number;
+  notes?: string;
 }
 
 export interface MunicipalIncentives {

@@ -21,37 +21,59 @@ const ENERGY_KEYWORDS = ['energía', 'renovable', 'solar', 'batería', 'autocons
 /**
  * 2026 Grant rates for Canary Islands
  *
- * Sources:
- * - FEDER Transición Verde 2025-2027
- * - Cabildo de Gran Canaria programs
- * - Gobierno de Canarias renewable incentives
+ * BATTERY GRANTS (Updated March 2026):
+ * - Regional (Gobierno de Canarias): €490/kWh for batteries <10kWh
+ * - Cabildo Gran Canaria: €300/kWh, max €1,000 (STACKABLE with regional)
+ * - Cabildo Fuerteventura Medida I: 50% up to €5,000 (deadline April 4, 2026)
  *
- * Updated: January 2026
+ * SOLAR GRANTS:
+ * - Rates vary by program, typically €400-500/kWp
+ *
+ * Sources:
+ * - Gobierno de Canarias BOC
+ * - Cabildo de Gran Canaria convocatorias
+ * - Cabildo de Fuerteventura Medida I (March-April 2026)
  */
 const GRANT_RATES_2026 = {
   solar: {
-    residential: 400, // €/kWp
+    residential: 400, // €/kWp (conservative estimate)
     community: 500, // €/kWp (higher for communities)
   },
   battery: {
-    residential: 350, // €/kWh
-    community: 450, // €/kWh
+    // Base regional rate - applies everywhere in Canarias
+    regional: 490, // €/kWh for batteries <10kWh
+    maxRegionalCapacity: 10, // kWh
+    // Island-specific additions
+    granCanaria: {
+      additional: 300, // €/kWh from Cabildo
+      maxAmount: 1000, // €
+    },
+    fuerteventura: {
+      percentageCap: 0.5, // 50% of project cost
+      maxAmount: 5000, // €
+      deadline: '2026-04-04',
+    },
   },
   maxPerProject: {
-    residential: 6000,
+    residential: 10000, // Increased to account for stacked grants
     community: 50000,
   },
   // Typical grant programs
   programs: [
     {
-      id: 'feder-verde-2026',
-      name: 'FEDER Transición Verde 2026',
+      id: 'canarias-regional-2026',
+      name: 'Subvención Regional Baterías',
       deadline: '2026-12-31',
     },
     {
-      id: 'cabildo-gc-2026',
-      name: 'Cabildo de Gran Canaria - Energía Solar',
+      id: 'cabildo-gc-battery-2026',
+      name: 'Cabildo Gran Canaria - Baterías',
       deadline: '2026-09-30',
+    },
+    {
+      id: 'cabildo-fv-medida-i-2026',
+      name: 'Cabildo Fuerteventura - Medida I',
+      deadline: '2026-04-04',
     },
   ],
 } as const;
@@ -119,11 +141,19 @@ async function fetchBDNSGrants(): Promise<BDNSConvocatoria[]> {
 
 /**
  * Estimate available grants for a project
+ *
+ * @param solarKwp - Solar system size in kWp
+ * @param batteryKwh - Battery capacity in kWh
+ * @param projectType - 'residential' or 'community'
+ * @param island - Optional island name for location-specific grants
+ * @param batteryCost - Optional battery cost for percentage-based grants
  */
 export async function estimateGrant(
   solarKwp: number,
   batteryKwh: number,
-  projectType: ProjectType
+  projectType: ProjectType,
+  island?: string,
+  batteryCost?: number
 ): Promise<GrantEstimate> {
   // Try to fetch live data
   const bdnsGrants = await fetchBDNSGrants();
@@ -131,9 +161,73 @@ export async function estimateGrant(
 
   const rates = GRANT_RATES_2026;
 
-  // Calculate grant amounts
+  // Calculate solar grant
   const solarGrant = solarKwp * rates.solar[projectType];
-  const batteryGrant = batteryKwh * rates.battery[projectType];
+
+  // Calculate battery grant with stacked incentives
+  let batteryGrant = 0;
+  const batteryPrograms: Grant[] = [];
+
+  if (batteryKwh > 0 && projectType === 'residential') {
+    // 1. Regional grant (applies to all Canary Islands)
+    const effectiveKwh = Math.min(batteryKwh, rates.battery.maxRegionalCapacity);
+    const regionalGrant = effectiveKwh * rates.battery.regional;
+    batteryGrant += regionalGrant;
+
+    batteryPrograms.push({
+      id: 'canarias-regional-2026',
+      name: 'Subvencion Regional Baterias',
+      solarRatePerKwp: 0,
+      batteryRatePerKwh: rates.battery.regional,
+      maxAmount: rates.battery.maxRegionalCapacity * rates.battery.regional,
+      deadline: '2026-12-31',
+      confidence: 'high',
+    });
+
+    // 2. Island-specific grants
+    if (island === 'Gran Canaria') {
+      const gcGrant = Math.min(
+        batteryKwh * rates.battery.granCanaria.additional,
+        rates.battery.granCanaria.maxAmount
+      );
+      batteryGrant += gcGrant;
+
+      batteryPrograms.push({
+        id: 'cabildo-gc-battery-2026',
+        name: 'Cabildo Gran Canaria - Baterias',
+        solarRatePerKwp: 0,
+        batteryRatePerKwh: rates.battery.granCanaria.additional,
+        maxAmount: rates.battery.granCanaria.maxAmount,
+        deadline: '2026-09-30',
+        confidence: 'high',
+      });
+    } else if (island === 'Fuerteventura' && batteryCost) {
+      // Fuerteventura uses percentage-based grant
+      const now = new Date();
+      const deadline = new Date(rates.battery.fuerteventura.deadline);
+      if (now <= deadline) {
+        const fvGrant = Math.min(
+          batteryCost * rates.battery.fuerteventura.percentageCap,
+          rates.battery.fuerteventura.maxAmount
+        );
+        batteryGrant += fvGrant;
+
+        batteryPrograms.push({
+          id: 'cabildo-fv-medida-i-2026',
+          name: 'Cabildo Fuerteventura - Medida I',
+          solarRatePerKwp: 0,
+          batteryRatePerKwh: 0, // Percentage-based
+          maxAmount: rates.battery.fuerteventura.maxAmount,
+          deadline: rates.battery.fuerteventura.deadline,
+          confidence: 'high',
+        });
+      }
+    }
+  } else if (batteryKwh > 0) {
+    // Community projects - simplified calculation
+    batteryGrant = batteryKwh * 450; // €/kWh for communities
+  }
+
   const rawTotal = solarGrant + batteryGrant;
   const totalEstimate = Math.min(rawTotal, rates.maxPerProject[projectType]);
 
@@ -143,28 +237,34 @@ export async function estimateGrant(
         id: g.idConvocatoria,
         name: g.titulo,
         solarRatePerKwp: rates.solar[projectType],
-        batteryRatePerKwh: rates.battery[projectType],
+        batteryRatePerKwh: rates.battery.regional,
         maxAmount: g.importeTotal,
         deadline: g.fechaFin,
         confidence: 'medium' as const,
       }))
-    : rates.programs.map((p) => ({
-        id: p.id,
-        name: p.name,
-        solarRatePerKwp: rates.solar[projectType],
-        batteryRatePerKwh: rates.battery[projectType],
-        maxAmount: rates.maxPerProject[projectType],
-        deadline: p.deadline,
-        confidence: 'low' as const,
-      }));
+    : [
+        // Solar grant if applicable
+        ...(solarKwp > 0 ? [{
+          id: 'solar-grant-2026',
+          name: 'Subvencion Solar',
+          solarRatePerKwp: rates.solar[projectType],
+          batteryRatePerKwh: 0,
+          maxAmount: solarKwp * rates.solar[projectType],
+          deadline: '2026-12-31',
+          confidence: 'medium' as const,
+        }] : []),
+        // Battery programs
+        ...batteryPrograms,
+      ];
 
   // Determine status
   let status: GrantStatus = 'none';
-  if (hasLiveData) {
+  if (hasLiveData || grants.length > 0) {
     status = 'active';
-  } else if (grants.length > 0) {
-    status = 'active'; // Estimated programs exist
   }
+
+  // Higher confidence when we have island-specific data
+  const confidence = island ? 'high' : (hasLiveData ? 'medium' : 'low');
 
   return {
     status,
@@ -172,7 +272,7 @@ export async function estimateGrant(
     solarGrant: Math.round(solarGrant),
     batteryGrant: Math.round(batteryGrant),
     totalEstimate: Math.round(totalEstimate),
-    confidence: hasLiveData ? 'medium' : 'low',
+    confidence,
   };
 }
 
@@ -180,9 +280,14 @@ export async function estimateGrant(
  * Get grant rates for display
  */
 export function getGrantRates(projectType: ProjectType) {
+  // Battery rate depends on project type
+  const batteryRate = projectType === 'residential'
+    ? GRANT_RATES_2026.battery.regional
+    : 450; // Community rate
+
   return {
     solarRatePerKwp: GRANT_RATES_2026.solar[projectType],
-    batteryRatePerKwh: GRANT_RATES_2026.battery[projectType],
+    batteryRatePerKwh: batteryRate,
     maxAmount: GRANT_RATES_2026.maxPerProject[projectType],
   };
 }

@@ -5,10 +5,13 @@ import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { BBoxBounds, BuildingResult, AssessmentType } from './types';
 import { VULNERABILITY_ZONES } from '@/lib/data/vulnerability-zones';
+import { getMunicipalitiesForHeatmap, type MunicipalHeatmapPoint } from '@/lib/services/incentives/municipal-lookup';
 
 // Satellite imagery options
 const ESRI_SATELLITE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
 const PNOA_WMTS_URL = 'https://tms-pnoa-ma.idee.es/1.0.0/pnoa-ma/{z}/{x}/{-y}.jpeg'; // PNOA TMS format
+
+type SubsidyHeatmapMode = 'off' | 'ibi' | 'icio';
 
 interface ProspectMapProps {
   onAreaSelect: (bounds: BBoxBounds | null) => void;
@@ -19,6 +22,7 @@ interface ProspectMapProps {
   onBuildingSelect: (building: BuildingResult | null) => void;
   assessmentType?: AssessmentType;
   showVulnerabilityLayer?: boolean;
+  showSubsidyHeatmap?: boolean;
 }
 
 // Nominatim geocoding endpoint
@@ -40,6 +44,7 @@ export function ProspectMap({
   onBuildingSelect,
   assessmentType = 'solar',
   showVulnerabilityLayer = true,
+  showSubsidyHeatmap = true,
 }: ProspectMapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -50,10 +55,13 @@ export function ProspectMap({
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
+  const [subsidyHeatmapMode, setSubsidyHeatmapMode] = useState<SubsidyHeatmapMode>('off');
   const drawStartRef = useRef<{ lng: number; lat: number } | null>(null);
   const isDrawingRef = useRef(false);
   const buildingMarkers = useRef<maplibregl.Marker[]>([]);
   const closeButtonMarker = useRef<maplibregl.Marker | null>(null);
+  const subsidyMarkers = useRef<maplibregl.Marker[]>([]);
+  const hasFlownToCanaries = useRef(false);
 
   // Keep ref in sync with state
   useEffect(() => {
@@ -564,6 +572,81 @@ export function ProspectMap({
     }
   }, [selectedBuilding, mapLoaded]);
 
+  // Subsidy heatmap markers
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return;
+
+    // Remove existing subsidy markers
+    subsidyMarkers.current.forEach(marker => marker.remove());
+    subsidyMarkers.current = [];
+
+    if (subsidyHeatmapMode === 'off' || !showSubsidyHeatmap) {
+      hasFlownToCanaries.current = false;
+      return;
+    }
+
+    const municipalities = getMunicipalitiesForHeatmap();
+
+    // Fly to Canary Islands when heatmap is first enabled
+    if (municipalities.length > 0 && !hasFlownToCanaries.current) {
+      hasFlownToCanaries.current = true;
+      const canaryCenter: [number, number] = [-15.0, 28.3];
+      map.current.flyTo({
+        center: canaryCenter,
+        zoom: 8.5,
+        duration: 1000,
+      });
+    }
+
+    municipalities.forEach((muni: MunicipalHeatmapPoint) => {
+      const value = subsidyHeatmapMode === 'ibi'
+        ? muni.ibiDiscountPct
+        : muni.icioDiscountPct;
+
+      // Create marker element
+      const el = document.createElement('div');
+      el.className = 'subsidy-marker';
+
+      // Size based on value (larger = better incentive)
+      const size = 16 + (value * 24); // 16-40px
+      const color = getSubsidyColor(value);
+
+      el.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        background: ${color};
+        border: 2px solid white;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: ${Math.max(10, size / 3)}px;
+        font-weight: bold;
+        color: white;
+        opacity: 0.9;
+      `;
+      el.textContent = value > 0 ? `${Math.round(value * 100)}%` : '-';
+
+      // Create popup content
+      const popupContent = createSubsidyPopup(muni, subsidyHeatmapMode);
+
+      const popup = new maplibregl.Popup({
+        offset: 25,
+        closeButton: false,
+        closeOnClick: false,
+      }).setHTML(popupContent);
+
+      const marker = new maplibregl.Marker({ element: el, anchor: 'center' })
+        .setLngLat([muni.lon, muni.lat])
+        .setPopup(popup)
+        .addTo(map.current!);
+
+      subsidyMarkers.current.push(marker);
+    });
+  }, [mapLoaded, subsidyHeatmapMode, showSubsidyHeatmap]);
+
   return (
     <div className="relative w-full h-full">
       <div ref={mapContainer} className="w-full h-full rounded-lg" />
@@ -647,6 +730,34 @@ export function ProspectMap({
             </svg>
           </button>
         </div>
+
+        {/* Subsidy heatmap toggle */}
+        {showSubsidyHeatmap && mapLoaded && (
+          <div className="flex gap-1 bg-white rounded-lg shadow-md p-1">
+            <button
+              onClick={() => setSubsidyHeatmapMode(subsidyHeatmapMode === 'ibi' ? 'off' : 'ibi')}
+              className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
+                subsidyHeatmapMode === 'ibi'
+                  ? 'bg-emerald-500 text-white'
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+              title="Mostrar bonificaciones IBI (Impuesto sobre Bienes Inmuebles)"
+            >
+              IBI
+            </button>
+            <button
+              onClick={() => setSubsidyHeatmapMode(subsidyHeatmapMode === 'icio' ? 'off' : 'icio')}
+              className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
+                subsidyHeatmapMode === 'icio'
+                  ? 'bg-emerald-500 text-white'
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+              title="Mostrar bonificaciones ICIO (Impuesto sobre Construcciones)"
+            >
+              ICIO
+            </button>
+          </div>
+        )}
         {isDrawing && (
           <p className="text-xs bg-white/90 p-2 rounded shadow max-w-[200px]">
             Haz clic y arrastra para seleccionar un area
@@ -712,6 +823,42 @@ export function ProspectMap({
           </div>
         </div>
       )}
+
+      {/* Subsidy Heatmap Legend */}
+      {mapLoaded && subsidyHeatmapMode !== 'off' && showSubsidyHeatmap && (
+        <div className="absolute bottom-8 left-4 z-10">
+          <div className="bg-white rounded-lg shadow-md p-3 text-xs">
+            <div className="font-medium text-gray-700 mb-2">
+              Bonificación {subsidyHeatmapMode === 'ibi' ? 'IBI' : 'ICIO'}
+            </div>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full border border-white shadow-sm" style={{ backgroundColor: '#16a34a' }} />
+                <span className="text-gray-600">90-100%</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full border border-white shadow-sm" style={{ backgroundColor: '#22c55e' }} />
+                <span className="text-gray-600">50-89%</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full border border-white shadow-sm" style={{ backgroundColor: '#facc15' }} />
+                <span className="text-gray-600">25-49%</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full border border-white shadow-sm" style={{ backgroundColor: '#fb923c' }} />
+                <span className="text-gray-600">1-24%</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full border border-white shadow-sm" style={{ backgroundColor: '#9ca3af' }} />
+                <span className="text-gray-600">Sin bonificación</span>
+              </div>
+            </div>
+            <p className="text-[10px] text-gray-400 mt-2">
+              Gran Canaria + Fuerteventura
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -764,4 +911,44 @@ function getScoreColor(score: number, assessmentType: AssessmentType = 'solar'):
   if (score >= 40) return palette.medium;
   if (score >= 20) return palette.medLow;
   return palette.low;
+}
+
+// Helper function to get color for subsidy heatmap
+function getSubsidyColor(value: number): string {
+  if (value >= 0.9) return '#16a34a';  // Green - excellent
+  if (value >= 0.5) return '#22c55e';  // Light green - good
+  if (value >= 0.25) return '#facc15'; // Yellow - moderate
+  if (value > 0) return '#fb923c';     // Orange - low
+  return '#9ca3af';                     // Gray - none
+}
+
+// Helper function to create popup content for subsidy markers
+function createSubsidyPopup(muni: MunicipalHeatmapPoint, mode: 'ibi' | 'icio'): string {
+  const ibiText = muni.ibiDiscountPct > 0
+    ? `${Math.round(muni.ibiDiscountPct * 100)}% x ${muni.ibiDurationYrs} años`
+    : 'No aplica';
+
+  const icioText = muni.icioDiscountPct > 0
+    ? `${Math.round(muni.icioDiscountPct * 100)}%`
+    : 'No aplica';
+
+  const notesHtml = muni.notes ? `<p style="font-size:10px;color:#666;margin-top:4px;font-style:italic">${muni.notes}</p>` : '';
+
+  return `
+    <div style="padding:8px;min-width:160px">
+      <h4 style="font-weight:600;margin:0 0 6px 0;font-size:13px">${muni.name}</h4>
+      <p style="font-size:11px;color:#666;margin:0 0 8px 0">${muni.island}</p>
+      <div style="display:flex;flex-direction:column;gap:4px;font-size:12px">
+        <div style="display:flex;justify-content:space-between;${mode === 'ibi' ? 'font-weight:600' : ''}">
+          <span>IBI:</span>
+          <span style="color:${muni.ibiDiscountPct > 0 ? '#16a34a' : '#9ca3af'}">${ibiText}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;${mode === 'icio' ? 'font-weight:600' : ''}">
+          <span>ICIO:</span>
+          <span style="color:${muni.icioDiscountPct > 0 ? '#16a34a' : '#9ca3af'}">${icioText}</span>
+        </div>
+      </div>
+      ${notesHtml}
+    </div>
+  `;
 }

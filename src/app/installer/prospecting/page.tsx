@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef } from 'react';
 import { ProspectMap, ProspectFilters, BuildingResultsList } from '@/components/map';
-import type { BBoxBounds, BuildingResult, ProspectFiltersType, AssessmentType } from '@/components/map';
+import type { BBoxBounds, BuildingResult, ProspectFiltersType, AssessmentType, GrantCategory } from '@/components/map';
 import { exportToCSV } from '@/lib/utils/export';
 import { downloadProspectReport, ReportMetadata } from '@/lib/services/prospect-report';
 
@@ -13,6 +13,7 @@ export default function ProspectingPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [assessmentType, setAssessmentType] = useState<AssessmentType>('solar');
+  const [grantCategory, setGrantCategory] = useState<GrantCategory>('residential');
   const lastFiltersRef = useRef<ProspectFiltersType | null>(null);
 
   const handleAreaSelect = useCallback((selectedBounds: BBoxBounds | null) => {
@@ -30,6 +31,7 @@ export default function ProspectingPage() {
     setBuildings([]);
     setSelectedBuilding(null);
     lastFiltersRef.current = filters;
+    setGrantCategory(filters.grantCategory);
 
     try {
       const res = await fetch('/api/prospecting/search', {
@@ -120,6 +122,7 @@ export default function ProspectingPage() {
           onExport={handleExport}
           onExportPDF={handleExportPDF}
           assessmentType={assessmentType}
+          grantCategory={grantCategory}
           businessSegment={lastFiltersRef.current?.businessSegment}
           electricityPrice={lastFiltersRef.current?.electricityPrice}
         />

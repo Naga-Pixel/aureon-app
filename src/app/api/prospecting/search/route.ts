@@ -5,12 +5,41 @@ import { getPVGISData } from '@/lib/services/pvgis';
 import { calculateProspectScore, calculatePriceVolatility, AssessmentType } from '@/lib/services/prospect-scorer';
 import { getESIOSHourlyPrices } from '@/lib/services/esios';
 
+type GrantCategory = 'residential' | 'business';
+
 interface ProspectFilters {
   minArea?: number;
   maxResults?: number;
+  grantCategory?: GrantCategory;
   businessSegment?: string;
   electricityPrice?: number;
   assessmentType?: AssessmentType;
+}
+
+/**
+ * Detect Canary Island from coordinates
+ * Returns the island name or undefined if not in Canary Islands
+ */
+function detectIslandFromCoordinates(lat: number, lon: number): string | undefined {
+  // Canary Islands bounding boxes (approximate)
+  const islands = [
+    { name: 'Gran Canaria', minLat: 27.7, maxLat: 28.2, minLon: -15.85, maxLon: -15.35 },
+    { name: 'Fuerteventura', minLat: 28.0, maxLat: 28.75, minLon: -14.55, maxLon: -13.8 },
+    { name: 'Lanzarote', minLat: 28.8, maxLat: 29.25, minLon: -13.9, maxLon: -13.4 },
+    { name: 'Tenerife', minLat: 27.95, maxLat: 28.6, minLon: -16.95, maxLon: -16.1 },
+    { name: 'La Palma', minLat: 28.45, maxLat: 28.85, minLon: -18.0, maxLon: -17.7 },
+    { name: 'La Gomera', minLat: 28.0, maxLat: 28.25, minLon: -17.35, maxLon: -17.05 },
+    { name: 'El Hierro', minLat: 27.6, maxLat: 27.85, minLon: -18.2, maxLon: -17.85 },
+  ];
+
+  for (const island of islands) {
+    if (lat >= island.minLat && lat <= island.maxLat &&
+        lon >= island.minLon && lon <= island.maxLon) {
+      return island.name;
+    }
+  }
+
+  return undefined;
 }
 
 interface SearchRequest {
@@ -67,7 +96,8 @@ export async function POST(request: NextRequest) {
     // Set default filters
     const minArea = filters.minArea ?? 50;
     const maxResults = Math.min(filters.maxResults ?? 100, 200);
-    const businessSegment = filters.businessSegment ?? 'commercial';
+    const grantCategory = filters.grantCategory ?? 'residential';
+    const businessSegment = filters.businessSegment ?? (grantCategory === 'residential' ? 'residential' : 'commercial');
     const electricityPrice = filters.electricityPrice ?? 0.20;
     const assessmentType = filters.assessmentType ?? 'solar';
 
@@ -85,6 +115,9 @@ export async function POST(request: NextRequest) {
     const centerLat = (bounds.minLat + bounds.maxLat) / 2;
     const centerLon = (bounds.minLon + bounds.maxLon) / 2;
     const pvgis = await getPVGISData(centerLat, centerLon);
+
+    // Detect island from coordinates (for Canary Islands grant eligibility)
+    const detectedIsland = detectIslandFromCoordinates(centerLat, centerLon);
 
     // Track data sources
     const pvgisFailed = pvgis.kwhPerKwp === null;
@@ -147,6 +180,8 @@ export async function POST(request: NextRequest) {
           province: building.address?.province || null,
           municipality: building.address?.municipality || null,
           cadastralReference: building.address?.cadastralReference || building.buildingId,
+          // Island detection (for Canary Islands grant eligibility)
+          island: detectedIsland || null,
           // Scores
           score: score.totalScore,
           solarScore: score.solarScore,
@@ -176,6 +211,7 @@ export async function POST(request: NextRequest) {
       totalFound: buildingsResult.totalCount,
       truncated: buildingsResult.truncated,
       assessmentType,
+      grantCategory,
       pvgis: {
         kwhPerKwp: pvgis.kwhPerKwp,
         optimalAngle: pvgis.optimalAngle,
