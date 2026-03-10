@@ -79,9 +79,11 @@ export async function getElectricityPrice(date?: Date): Promise<PriceResult> {
   const token = getToken();
 
   if (!token) {
-    console.warn('ESIOS API token not configured, using fallback price');
+    console.error('[ESIOS] Token not configured - ESIOS_API_TOKEN env var missing');
     return createFallbackResult(dateString);
   }
+
+  console.log('[ESIOS] Fetching prices for', dateString, 'token length:', token.length);
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), ESIOS_TIMEOUT_MS);
@@ -103,9 +105,12 @@ export async function getElectricityPrice(date?: Date): Promise<PriceResult> {
     });
 
     if (!response.ok) {
-      console.error(`ESIOS API error: ${response.status} ${response.statusText}`);
+      const errorBody = await response.text();
+      console.error(`[ESIOS] API error: ${response.status} ${response.statusText}`, errorBody);
       return createFallbackResult(dateString);
     }
+
+    console.log('[ESIOS] API response OK');
 
     const data: ESIOSResponse = await response.json();
 
