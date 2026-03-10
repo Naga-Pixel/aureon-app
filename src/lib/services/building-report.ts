@@ -3,14 +3,24 @@
 
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { BuildingResult, AssessmentType, DataProvenance } from '@/components/map/types';
+import { BuildingResult, AssessmentType, DataProvenance, GrantCategory } from '@/components/map/types';
+import { generateWaterfallSteps, calculateStackedBatteryGrants, type WaterfallStep } from '@/lib/config/incentives/grants-2026';
+
+export interface ApartmentBuildingInput {
+  floors: number;
+  units: number;
+}
 
 export interface BuildingReportMetadata {
   assessmentType: AssessmentType;
+  grantCategory?: GrantCategory;
   businessSegment: string;
   electricityPrice: number;
   generatedAt: Date;
   address?: string | null; // Full street address from Nominatim/Catastro
+  island?: string; // For location-specific grants (Gran Canaria, Fuerteventura, etc.)
+  batteryCostEur?: number; // Battery cost for grant calculations
+  apartmentBuilding?: ApartmentBuildingInput; // For apartment buildings with user input
 }
 
 // Source badge colors (background, text)
@@ -51,6 +61,102 @@ function getConfidenceLabel(confidence: number): string {
   if (confidence >= 60) return 'Media-Alta';
   if (confidence >= 40) return 'Media';
   return 'Baja';
+}
+
+// Draw waterfall chart for subsidies
+function drawWaterfallChart(
+  doc: jsPDF,
+  steps: WaterfallStep[],
+  startY: number,
+  pageWidth: number
+): number {
+  const chartMargin = 15;
+  const chartWidth = pageWidth - chartMargin * 2;
+  const rowHeight = 22;
+  const rowGap = 2; // Tight leading
+  const labelWidth = 90;
+  const barMaxWidth = 70;
+
+  // Find max value for scaling bars
+  const maxValue = Math.max(...steps.map(s => Math.abs(s.value)));
+  const scale = barMaxWidth / maxValue;
+
+  // Helper to parse hex color
+  const hexToRgb = (hex: string): [number, number, number] => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
+      ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)]
+      : [128, 128, 128];
+  };
+
+  let y = startY;
+
+  // Title
+  doc.setFontSize(12);
+  doc.setTextColor(34, 47, 48);
+  doc.text('Desglose de Subvenciones', chartMargin, y);
+  y += 10;
+
+  // Draw each step
+  for (let i = 0; i < steps.length; i++) {
+    const step = steps[i];
+
+    // Label (main)
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(34, 47, 48);
+    doc.text(step.label, chartMargin, y + 5);
+
+    // Sublabel (organization or detail) - now includes value
+    const valueText = step.type === 'subtract'
+      ? `-${Math.abs(step.value).toLocaleString('es-ES')} EUR`
+      : `${step.value.toLocaleString('es-ES')} EUR`;
+    const sublabelText = step.sublabel ? `${step.sublabel} · ${valueText}` : valueText;
+    doc.setFontSize(7);
+    doc.setTextColor(120, 120, 120);
+    doc.text(sublabelText, chartMargin, y + 11);
+
+    // Bar - all left-aligned
+    const barX = chartMargin + labelWidth;
+    const barWidth = Math.abs(step.value) * scale;
+    const [r, g, b] = hexToRgb(step.color);
+    doc.setFillColor(r, g, b);
+    doc.roundedRect(barX, y, Math.max(barWidth, 4), 14, 2, 2, 'F');
+
+    y += rowHeight + rowGap;
+  }
+
+  // Summary box with large bold total on right
+  const lastStep = steps[steps.length - 1];
+  const firstStep = steps[0];
+  const totalSavings = firstStep.value - lastStep.value;
+  const savingsPercent = Math.round((totalSavings / firstStep.value) * 100);
+
+  y += 4;
+  doc.setFillColor(240, 253, 244); // Light green background
+  doc.roundedRect(chartMargin, y, chartWidth, 22, 3, 3, 'F');
+
+  // Left side: description
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(34, 47, 48);
+  doc.text(`Coste final: ${lastStep.value.toLocaleString('es-ES')} EUR de bolsillo`, chartMargin + 8, y + 14);
+
+  // Right side: large bold total
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(22, 101, 52);
+  doc.text(
+    `${totalSavings.toLocaleString('es-ES')} EUR (${savingsPercent}%)`,
+    chartMargin + chartWidth - 8,
+    y + 14,
+    { align: 'right' }
+  );
+
+  // Reset font
+  doc.setFont('helvetica', 'normal');
+
+  return y + 30;
 }
 
 // Generate individual building report
@@ -207,6 +313,110 @@ export function generateBuildingReport(
   });
 
   y = (doc as any).lastAutoTable.finalY + 8;
+
+  // ============ PER-UNIT CALCULATIONS FOR APARTMENT BUILDINGS ============
+  const isApartmentBuilding = metadata.businessSegment === 'apartment_building' ||
+    (building.numberOfDwellings && building.numberOfDwellings > 1);
+
+  if (isApartmentBuilding && (metadata.assessmentType === 'battery' || metadata.assessmentType === 'combined')) {
+    checkPageBreak(60);
+
+    // Use user input if provided, otherwise show note
+    if (metadata.apartmentBuilding) {
+      const { floors, units } = metadata.apartmentBuilding;
+
+      // Calculate per-unit metrics
+      // For residential grants, each unit should have its own ~10kWh battery
+      const batteryPerUnit = 10; // Standard residential battery
+      const totalBuildingBattery = batteryPerUnit * units;
+      const costPerUnit = batteryPerUnit * 900; // ~900 EUR/kWh
+      const totalBuildingCost = costPerUnit * units;
+
+      // Calculate grants per unit (residential grants apply per vivienda)
+      const grantsResult = metadata.island
+        ? calculateStackedBatteryGrants(costPerUnit, batteryPerUnit, metadata.island, metadata.grantCategory || 'residential')
+        : null;
+
+      const netCostPerUnit = grantsResult ? grantsResult.netCost : costPerUnit;
+      const savingsPerUnit = (building.annualSavingsEur || 0) / units;
+
+      doc.setFontSize(11);
+      doc.setTextColor(34, 47, 48);
+      doc.text('Calculo por Vivienda', 15, y);
+      y += 2;
+
+      const perUnitData = [
+        ['Viviendas en edificio', `${units}`, `${floors} plantas`],
+        ['Bateria por vivienda', `${batteryPerUnit} kWh`, 'Tamano recomendado'],
+        ['Coste por vivienda', `${costPerUnit.toLocaleString('es-ES')} EUR`, 'Antes de subvenciones'],
+        ['Subvenciones por vivienda', grantsResult ? `-${grantsResult.totalIncentives.toLocaleString('es-ES')} EUR` : '-', grantsResult ? `${grantsResult.savingsPercentage}% ahorro` : ''],
+        ['Coste neto por vivienda', `${netCostPerUnit.toLocaleString('es-ES')} EUR`, 'Despues de subvenciones'],
+      ];
+
+      autoTable(doc, {
+        startY: y,
+        body: perUnitData,
+        theme: 'plain',
+        styles: { cellPadding: 2, fontSize: 9 },
+        columnStyles: {
+          0: { cellWidth: 55, textColor: [80, 80, 80] },
+          1: { cellWidth: 40, fontStyle: 'bold', halign: 'right', textColor: [34, 47, 48] },
+          2: { cellWidth: 50, fontSize: 7, textColor: [120, 120, 120], fontStyle: 'italic' },
+        },
+        margin: { left: 15, right: 15 },
+      });
+
+      y = (doc as any).lastAutoTable.finalY + 4;
+
+      // Summary for whole building
+      doc.setFillColor(240, 253, 244);
+      doc.roundedRect(15, y, pageWidth - 30, 16, 2, 2, 'F');
+      doc.setFontSize(8);
+      doc.setTextColor(22, 101, 52);
+      doc.text(`Total edificio: ${units} baterias × ${batteryPerUnit} kWh = ${totalBuildingBattery} kWh | Coste neto total: ${(netCostPerUnit * units).toLocaleString('es-ES')} EUR`, 20, y + 10);
+      y += 22;
+
+    } else {
+      // No user input - show note
+      doc.setFillColor(254, 249, 195); // Light yellow
+      doc.roundedRect(15, y, pageWidth - 30, 14, 2, 2, 'F');
+      doc.setFontSize(8);
+      doc.setTextColor(120, 80, 0);
+      doc.text('Edificio de viviendas: Para comunidades de vecinos, solicitar estudio personalizado.', 20, y + 9);
+      y += 20;
+    }
+  }
+
+  // ============ SUBSIDY WATERFALL CHART (for battery assessments) ============
+  // Debug logging
+  console.log('[Waterfall Debug]', {
+    assessmentType: metadata.assessmentType,
+    batteryKwh: building.batteryKwh,
+    island: metadata.island,
+    municipality: building.municipality,
+    province: building.province,
+  });
+
+  if ((metadata.assessmentType === 'battery' || metadata.assessmentType === 'combined') &&
+      building.batteryKwh &&
+      metadata.island) {
+    checkPageBreak(120);
+
+    // Estimate battery cost if not provided
+    const batteryCost = metadata.batteryCostEur || (building.batteryKwh * 800); // ~800 EUR/kWh estimate
+
+    const waterfallSteps = generateWaterfallSteps(
+      batteryCost,
+      building.batteryKwh,
+      metadata.island,
+      metadata.grantCategory || 'residential'
+    );
+
+    if (waterfallSteps.length > 2) { // Only show if there are grants available
+      y = drawWaterfallChart(doc, waterfallSteps, y, pageWidth);
+      y += 5;
+    }
+  }
 
   // ============ BUILDING INFO (compact) ============
   checkPageBreak(25);

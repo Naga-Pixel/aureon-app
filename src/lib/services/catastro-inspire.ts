@@ -706,36 +706,17 @@ function mapCurrentUse(useCode: string | null): { code: BuildingUseCode; label: 
 
 /**
  * Extract address info from cadastral reference
- * Format: First 2 digits = province, next 3 = municipality
+ * BuildingId format: ES.SDGC.BU.0930731FS1503S (or just 0930731FS1503S)
+ * Cadastral reference: First 2 digits = province, next 3 = municipality
  */
 function parseAddressFromReference(reference: string | null): BuildingFootprint['address'] {
-  if (!reference || reference.length < 5) {
-    return { province: null, municipality: null, cadastralReference: reference };
-  }
-
-  // Spanish province codes (first 2 digits of cadastral reference)
-  const provinceCodes: Record<string, string> = {
-    '01': 'Alava', '02': 'Albacete', '03': 'Alicante', '04': 'Almeria',
-    '05': 'Avila', '06': 'Badajoz', '07': 'Baleares', '08': 'Barcelona',
-    '09': 'Burgos', '10': 'Caceres', '11': 'Cadiz', '12': 'Castellon',
-    '13': 'Ciudad Real', '14': 'Cordoba', '15': 'A Coruna', '16': 'Cuenca',
-    '17': 'Girona', '18': 'Granada', '19': 'Guadalajara', '20': 'Guipuzcoa',
-    '21': 'Huelva', '22': 'Huesca', '23': 'Jaen', '24': 'Leon',
-    '25': 'Lleida', '26': 'La Rioja', '27': 'Lugo', '28': 'Madrid',
-    '29': 'Malaga', '30': 'Murcia', '31': 'Navarra', '32': 'Ourense',
-    '33': 'Asturias', '34': 'Palencia', '35': 'Las Palmas', '36': 'Pontevedra',
-    '37': 'Salamanca', '38': 'Santa Cruz de Tenerife', '39': 'Cantabria',
-    '40': 'Segovia', '41': 'Sevilla', '42': 'Soria', '43': 'Tarragona',
-    '44': 'Teruel', '45': 'Toledo', '46': 'Valencia', '47': 'Valladolid',
-    '48': 'Vizcaya', '49': 'Zamora', '50': 'Zaragoza', '51': 'Ceuta', '52': 'Melilla',
-  };
-
-  const provinceCode = reference.substring(0, 2);
-  const municipalityCode = reference.substring(0, 5);
-
+  // NOTE: Cadastral references are grid-based codes, NOT province+municipality codes.
+  // The first digits do NOT correspond to INE province codes.
+  // Province/municipality should come from actual Catastro API responses or address lookups,
+  // not from parsing the reference number.
   return {
-    province: provinceCodes[provinceCode] || null,
-    municipality: municipalityCode, // Would need a lookup table for full names
+    province: null,
+    municipality: null,
     cadastralReference: reference,
   };
 }

@@ -33,6 +33,8 @@ export interface BuildingResult {
   province: string | null;
   municipality: string | null;
   cadastralReference: string | null;
+  // Island detection (for Canary Islands)
+  island?: string | null;
   // Full street address (fetched on-demand from Catastro)
   streetAddress?: string | null;
   // Calculated fields from scoring
@@ -67,9 +69,17 @@ export interface BuildingResult {
 
 export type AssessmentType = 'solar' | 'battery' | 'combined';
 
+/**
+ * Grant Category - determines which subsidies/grants apply.
+ * This is SEPARATE from businessSegment (which affects consumption calculations).
+ * See: src/lib/config/incentives/grants-2026.ts for full explanation.
+ */
+export type GrantCategory = 'residential' | 'business';
+
 export interface ProspectFilters {
   minArea: number;
   maxResults: number;
+  grantCategory: GrantCategory;
   businessSegment: string;
   electricityPrice: number;
   assessmentType: AssessmentType;

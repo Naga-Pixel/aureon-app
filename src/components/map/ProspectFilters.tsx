@@ -1,7 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import { BBoxBounds, ProspectFilters as Filters, AssessmentType } from './types';
+import { BBoxBounds, ProspectFilters as Filters, AssessmentType, GrantCategory } from './types';
+
+/**
+ * Two-Level Grant System:
+ *
+ * 1. Grant Category (top toggle): "residential" vs "business"
+ *    - Determines which grants are shown in reports
+ *    - See: src/lib/config/incentives/grants-2026.ts
+ *
+ * 2. Business Segment (dropdown): specific building type
+ *    - Determines consumption profile for battery/solar sizing
+ *    - See: src/lib/config/consumption-profiles.ts
+ *
+ * The segment dropdown is filtered based on the grant category selection.
+ */
 
 interface ProspectFiltersProps {
   onSearch: (bounds: BBoxBounds, filters: Filters) => void;
@@ -10,26 +24,27 @@ interface ProspectFiltersProps {
   onAssessmentTypeChange?: (type: AssessmentType) => void;
 }
 
-const BUSINESS_SEGMENTS = [
-  // Residential
-  { value: 'residential', label: 'Vivienda unifamiliar', group: 'Residencial' },
-  { value: 'apartment_building', label: 'Edificio de pisos', group: 'Residencial' },
-  { value: 'villa', label: 'Chalet / Villa', group: 'Residencial' },
-  { value: 'residential_new', label: 'Vivienda nueva (<5 años)', group: 'Residencial' },
-  // Commercial
-  { value: 'commercial', label: 'Local comercial', group: 'Comercial' },
-  { value: 'office', label: 'Oficinas', group: 'Comercial' },
-  { value: 'retail', label: 'Tienda / Supermercado', group: 'Comercial' },
-  { value: 'restaurant', label: 'Restaurante / Bar', group: 'Comercial' },
-  { value: 'hotel', label: 'Hotel', group: 'Comercial' },
-  // Industrial
-  { value: 'industrial', label: 'Nave industrial', group: 'Industrial' },
-  { value: 'warehouse', label: 'Almacen', group: 'Industrial' },
-  { value: 'factory', label: 'Fabrica', group: 'Industrial' },
-  // Agricultural
-  { value: 'agricultural', label: 'Explotacion agricola', group: 'Agricola' },
-  { value: 'greenhouse', label: 'Invernadero', group: 'Agricola' },
-];
+// Segments grouped by grant category
+const BUSINESS_SEGMENTS: Record<GrantCategory, Array<{ value: string; label: string }>> = {
+  residential: [
+    { value: 'residential', label: 'Vivienda unifamiliar' },
+    { value: 'apartment_building', label: 'Edificio de pisos' },
+    { value: 'villa', label: 'Chalet / Villa' },
+    { value: 'residential_new', label: 'Vivienda nueva (<5 años)' },
+  ],
+  business: [
+    { value: 'commercial', label: 'Local comercial' },
+    { value: 'office', label: 'Oficinas' },
+    { value: 'retail', label: 'Tienda / Supermercado' },
+    { value: 'restaurant', label: 'Restaurante / Bar' },
+    { value: 'hotel', label: 'Hotel' },
+    { value: 'industrial', label: 'Nave industrial' },
+    { value: 'warehouse', label: 'Almacen' },
+    { value: 'factory', label: 'Fabrica' },
+    { value: 'agricultural', label: 'Explotacion agricola' },
+    { value: 'greenhouse', label: 'Invernadero' },
+  ],
+};
 
 const ASSESSMENT_TYPES: { value: AssessmentType; label: string; icon: React.ReactNode }[] = [
   {
@@ -71,10 +86,17 @@ export function ProspectFilters({ onSearch, selectedBounds, isLoading, onAssessm
   const [filters, setFilters] = useState<Filters>({
     minArea: 50,
     maxResults: 100,
-    businessSegment: 'commercial',
+    grantCategory: 'residential',
+    businessSegment: 'residential',
     electricityPrice: 0.20,
     assessmentType: 'solar',
   });
+
+  const handleGrantCategoryChange = (category: GrantCategory) => {
+    // When category changes, reset segment to first option in that category
+    const defaultSegment = BUSINESS_SEGMENTS[category][0].value;
+    setFilters({ ...filters, grantCategory: category, businessSegment: defaultSegment });
+  };
 
   const handleAssessmentTypeChange = (type: AssessmentType) => {
     setFilters({ ...filters, assessmentType: type });
@@ -91,6 +113,46 @@ export function ProspectFilters({ onSearch, selectedBounds, isLoading, onAssessm
       <h3 className="font-semibold text-[#222f30] mb-4">Filtros de busqueda</h3>
 
       <div className="space-y-4">
+        {/* Grant Category Toggle - Main selector */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Prospeccion para
+          </label>
+          <div className="flex rounded-lg border border-gray-300 overflow-hidden">
+            <button
+              onClick={() => handleGrantCategoryChange('residential')}
+              className={`flex-1 flex items-center justify-center gap-2 px-3 py-2.5 text-sm font-medium transition-colors ${
+                filters.grantCategory === 'residential'
+                  ? 'bg-[#a7e26e] text-[#222f30]'
+                  : 'bg-white text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              Residencial
+            </button>
+            <button
+              onClick={() => handleGrantCategoryChange('business')}
+              className={`flex-1 flex items-center justify-center gap-2 px-3 py-2.5 text-sm font-medium transition-colors ${
+                filters.grantCategory === 'business'
+                  ? 'bg-[#222f30] text-white'
+                  : 'bg-white text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+              Empresa
+            </button>
+          </div>
+          <p className="text-xs text-gray-500 mt-1">
+            {filters.grantCategory === 'residential'
+              ? 'Subvenciones residenciales, IRPF, Comunidades energeticas'
+              : 'Programas para empresas, deducciones fiscales comerciales'}
+          </p>
+        </div>
+
         {/* Assessment Type Toggle */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -151,24 +213,20 @@ export function ProspectFilters({ onSearch, selectedBounds, isLoading, onAssessm
           </select>
         </div>
 
-        {/* Business Segment */}
+        {/* Building Type (filtered by grant category) */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Tipo de negocio
+            Tipo de edificio
           </label>
           <select
             value={filters.businessSegment}
             onChange={(e) => setFilters({ ...filters, businessSegment: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#a7e26e] focus:border-transparent"
           >
-            {['Residencial', 'Comercial', 'Industrial', 'Agricola'].map((group) => (
-              <optgroup key={group} label={group}>
-                {BUSINESS_SEGMENTS.filter((s) => s.group === group).map((segment) => (
-                  <option key={segment.value} value={segment.value}>
-                    {segment.label}
-                  </option>
-                ))}
-              </optgroup>
+            {BUSINESS_SEGMENTS[filters.grantCategory].map((segment) => (
+              <option key={segment.value} value={segment.value}>
+                {segment.label}
+              </option>
             ))}
           </select>
         </div>

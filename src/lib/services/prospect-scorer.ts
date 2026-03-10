@@ -251,7 +251,13 @@ function calculateBatteryScore(input: ProspectScoreInput, solarSystemKw: number)
   // Size battery to cover peak shifting + some backup
   const arbitrageCapacity = dailyShiftableKwh / BATTERY_CONFIG.ROUND_TRIP_EFFICIENCY;
   const backupCapacity = hourlyConsumption * backupHours;
-  const recommendedKwh = Math.max(arbitrageCapacity, backupCapacity);
+  let recommendedKwh = Math.max(arbitrageCapacity, backupCapacity);
+
+  // Cap at 15 kWh for residential (grants cap at 10 kWh, realistic max is 15 kWh)
+  const residentialSegments = ['residential', 'residential_new', 'apartment', 'apartment_building', 'villa'];
+  if (residentialSegments.includes(input.businessSegment)) {
+    recommendedKwh = Math.min(recommendedKwh, 15);
+  }
 
   // Round to common battery sizes
   const batteryKwh = roundToBatterySize(recommendedKwh);

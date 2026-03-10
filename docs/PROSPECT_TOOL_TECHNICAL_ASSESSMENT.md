@@ -1,7 +1,7 @@
 # TECHNICAL ASSESSMENT: AUREON PROSPECTING TOOL
 
-**Version**: 1.0
-**Date**: March 2026
+**Version**: 1.1
+**Date**: March 2026 (Updated)
 **Author**: Aureon Engineering
 
 ---
@@ -72,7 +72,8 @@ The Aureon Prospecting Tool is a web-based application for identifying and evalu
 | Number of Floors | `bu-core2d:numberOfFloorsAboveGround` | 90% |
 | Building Use | `bu-core2d:currentUse` | 85% |
 | Number of Dwellings | `bu-core2d:numberOfDwellings` | 90% |
-| Province | First 2 digits of cadastral reference | 95% |
+
+**Note**: Province/municipality are NOT parsed from cadastral references (they are grid codes, not INE codes). Location data comes from address APIs or DNPRC responses.
 
 **Use Code Mapping**:
 ```
@@ -131,6 +132,32 @@ The Aureon Prospecting Tool is a web-based application for identifying and evalu
 volatility = sqrt(variance(hourly_prices))
 // Used for arbitrage potential bonus (max +50%)
 ```
+
+---
+
+### 2.4 Catastro DNPRC API (Dwelling Count)
+
+**Endpoint**: `https://ovc.catastro.meh.es/ovcservweb/OVCSWLocalizacionRC/OVCCallejero.asmx/Consulta_DNPRC`
+
+**Purpose**: Get exact dwelling/unit count for apartment buildings
+
+**How It Works**:
+1. Query with 14-character parcel reference (e.g., `1329303FS1512N`)
+2. API returns all registered units within that parcel
+3. Each unit has a unique 20-char reference (14 parcel + 4 unit + 2 control)
+
+**Data Retrieved**:
+| Field | Source Element | Description |
+|-------|----------------|-------------|
+| Total Units | `<cudnp>` | Count of registered dwellings |
+| Unit Details | `<rcdnp>` blocks | Per-unit floor/door info |
+| Floor | `<pt>` | Floor number (00 = ground) |
+| Door | `<pu>` | Door/unit identifier |
+| Address | `<nv>`, `<nm>`, `<np>` | Street, municipality, province |
+
+**Use Case**: Pre-populates apartment building modal with accurate unit counts from official registry.
+
+**API Route**: `/api/prospecting/dwelling-count?ref=<cadastralRef>`
 
 ---
 
@@ -225,10 +252,21 @@ arbitrageCapacity = dailyShiftableKwh / 0.90  // efficiency
 backupCapacity = dailyKwh / 24 × 4 hours
 
 recommendedKwh = max(arbitrageCapacity, backupCapacity)
+
+// Residential cap: grants only cover up to 10 kWh, practical max 15 kWh
+if (segment in ['residential', 'apartment_building', 'villa']) {
+  recommendedKwh = min(recommendedKwh, 15)
+}
+
 batteryKwh = roundToStandardSize(recommendedKwh)
 
 // Standard sizes: 5, 7, 10, 13, 15, 20, 25, 30, 40, 50, 75, 100 kWh
 ```
+
+**Apartment Building Per-Unit Calculation**:
+- Standard battery per unit: **10 kWh** (optimal for grants)
+- Total building capacity: `units × 10 kWh`
+- Grants calculated per-unit basis
 
 ---
 
@@ -245,9 +283,73 @@ totalSavings = solarSavings
 
 ---
 
-## 4. Consumption Estimation
+## 4. Grant System (Two-Level Architecture)
 
-### 4.1 Base Consumption by Segment (kWh/m²/year)
+### 4.1 Design Philosophy
+
+The system uses a **two-level** approach to balance simplicity with accuracy:
+
+| Level | Purpose | UI Element |
+|-------|---------|------------|
+| **Grant Category** | Determines grant eligibility | Toggle: Residential / Business |
+| **Business Segment** | Determines consumption profile | Dropdown: specific building types |
+
+### 4.2 Grant Category
+
+| Category | Grants Available | Tax Incentives |
+|----------|------------------|----------------|
+| `residential` | Regional, Cabildo, Energy Communities | IRPF 40%, IBI/ICIO |
+| `business` | PYME programs (future) | IVA, Sociedades (future) |
+
+### 4.3 Business Segments by Category
+
+**Residential**:
+- `residential` - Vivienda unifamiliar
+- `apartment_building` - Edificio de pisos
+- `villa` - Chalet / Villa
+- `residential_new` - Vivienda nueva (<5 años)
+
+**Business**:
+- `commercial`, `office`, `retail`, `restaurant`, `hotel`
+- `industrial`, `warehouse`, `factory`
+- `agricultural`, `greenhouse`
+
+### 4.4 Stackable Grants (Canary Islands 2026)
+
+| Grant | Organization | Rate | Max | Islands |
+|-------|--------------|------|-----|---------|
+| Regional Battery | Gobierno de Canarias | 490 €/kWh | 4,900€ (10 kWh max) | All |
+| Cabildo GC | Cabildo Gran Canaria | 300 €/kWh | 1,000€ | Gran Canaria |
+| Medida I | Cabildo Fuerteventura | 50% of cost | 5,000€ | Fuerteventura |
+
+**IRPF Deduction**: 40% of remaining cost after grants (max base 7,500€, residential only)
+
+### 4.5 Grant Calculation Example (Fuerteventura, 10 kWh)
+
+```
+Battery cost: 9,000 EUR
+├── Medida I (50%):     -4,500 EUR
+├── Regional (490×10):  -4,900 EUR
+└── Net cost:               0 EUR (or negative!)
+
+Total grants: 9,400 EUR = 104% coverage
+```
+
+### 4.6 Waterfall Chart Visualization
+
+The PDF report includes a waterfall chart showing:
+1. Initial battery cost (gray bar)
+2. Each grant deduction (green bars)
+3. IRPF deduction (blue bar)
+4. Final net cost (light green)
+
+**Layout**: Bars left-aligned, values as sublabels, summary box with total savings percentage.
+
+---
+
+## 5. Consumption Estimation
+
+### 5.1 Base Consumption by Segment (kWh/m²/year)
 
 | Segment | Base | + Heating | + Cooling | Peak Hours | Self-Consumption |
 |---------|------|-----------|-----------|------------|------------------|
@@ -265,7 +367,7 @@ totalSavings = solarSavings
 | agricultural | 60 | 10 | 20 | 20% | 50% |
 | greenhouse | 180 | 60 | 40 | 30% | 55% |
 
-### 4.2 Climate Zone Multipliers
+### 5.2 Climate Zone Multipliers
 
 | Zone | Heating | Cooling | Detection |
 |------|---------|---------|-----------|
@@ -278,9 +380,9 @@ totalSavings = solarSavings
 
 ---
 
-## 5. Electricity Tariff Structure
+## 6. Electricity Tariff Structure
 
-### 5.1 Tariff 2.0TD (Residential, <15kW)
+### 6.1 Tariff 2.0TD (Residential, <15kW)
 
 | Period | Hours | Price (€/kWh) |
 |--------|-------|---------------|
@@ -290,7 +392,7 @@ totalSavings = solarSavings
 
 **Arbitrage Spread**: ~€0.14/kWh
 
-### 5.2 Tariff 3.0TD (Commercial, >15kW)
+### 6.2 Tariff 3.0TD (Commercial, >15kW)
 
 | Period | Hours | Price (€/kWh) |
 |--------|-------|---------------|
@@ -302,9 +404,9 @@ totalSavings = solarSavings
 
 ---
 
-## 6. Data Provenance System
+## 7. Data Provenance System
 
-### 6.1 Source Types
+### 7.1 Source Types
 
 | Source | Color | Confidence | Description |
 |--------|-------|------------|-------------|
@@ -313,7 +415,7 @@ totalSavings = solarSavings
 | Estimate | Yellow | 40-65% | Calculated from statistical model |
 | Fallback | Red | 45-60% | API unavailable, using defaults |
 
-### 6.2 Confidence Tracking per Field
+### 7.2 Confidence Tracking per Field
 
 | Field | Best Source | Best Conf. | Fallback Source | Fallback Conf. |
 |-------|-------------|------------|-----------------|----------------|
@@ -328,9 +430,9 @@ totalSavings = solarSavings
 
 ---
 
-## 7. Report Generation
+## 8. Report Generation
 
-### 7.1 Individual Building Report
+### 8.1 Individual Building Report
 
 **Sections**:
 1. Score display (primary score based on assessment type)
@@ -344,7 +446,7 @@ totalSavings = solarSavings
 
 **Format**: PDF (jsPDF), ~2 pages
 
-### 7.2 Area Prospect Report
+### 8.2 Area Prospect Report
 
 **Sections**:
 1. Search metadata (area, filters, date)
@@ -357,9 +459,9 @@ totalSavings = solarSavings
 
 ---
 
-## 8. Performance Characteristics
+## 9. Performance Characteristics
 
-### 8.1 Response Times
+### 9.1 Response Times
 
 | Operation | Typical | Max |
 |-----------|---------|-----|
@@ -370,7 +472,7 @@ totalSavings = solarSavings
 | **Total search** | **8-12s** | **~20s** |
 | PDF generation | 1-3s | - |
 
-### 8.2 Limits
+### 9.2 Limits
 
 | Parameter | Limit |
 |-----------|-------|
@@ -380,7 +482,7 @@ totalSavings = solarSavings
 
 ---
 
-## 9. Error Handling & Fallbacks
+## 10. Error Handling & Fallbacks
 
 | Service | Failure Mode | Fallback |
 |---------|--------------|----------|
@@ -391,7 +493,7 @@ totalSavings = solarSavings
 
 ---
 
-## 10. Security
+## 11. Security
 
 - **Authentication**: Supabase session required
 - **Authorization**: Admin role only (`installers.role = 'admin'`)
@@ -400,7 +502,7 @@ totalSavings = solarSavings
 
 ---
 
-## 11. File Structure
+## 12. File Structure
 
 ```
 src/
@@ -408,60 +510,76 @@ src/
 │   ├── installer/prospecting/
 │   │   └── page.tsx              # Main prospecting page
 │   └── api/prospecting/
-│       └── search/route.ts       # Search API endpoint
+│       ├── search/route.ts       # Search API endpoint
+│       ├── address/route.ts      # Address lookup API
+│       └── dwelling-count/route.ts # Catastro DNPRC dwelling count API
 ├── components/map/
 │   ├── ProspectMap.tsx           # MapLibre map component
-│   ├── ProspectFilters.tsx       # Filter controls
-│   ├── BuildingResultsList.tsx   # Results display
-│   └── types.ts                  # Shared TypeScript types
+│   ├── ProspectFilters.tsx       # Filter controls (grant category toggle)
+│   ├── BuildingResultsList.tsx   # Results display + apartment modal
+│   └── types.ts                  # Shared TypeScript types (GrantCategory)
 ├── lib/
 │   ├── config/
 │   │   ├── battery-config.ts     # Battery parameters & weights
 │   │   ├── consumption-profiles.ts # Segment consumption data
 │   │   ├── electricity-tariffs.ts  # PVPC tariff structure
-│   │   └── assessment-config.ts    # General assessment params
+│   │   ├── assessment-config.ts    # General assessment params
+│   │   └── incentives/
+│   │       └── grants-2026.ts    # Stackable grant programs & calculator
 │   └── services/
 │       ├── catastro-inspire.ts   # Catastro WFS client
 │       ├── pvgis.ts              # PVGIS API client
 │       ├── esios.ts              # ESIOS API client
-│       ├── prospect-scorer.ts    # Scoring algorithms
+│       ├── prospect-scorer.ts    # Scoring algorithms (15 kWh cap)
 │       ├── prospect-report.ts    # Area PDF report
-│       └── building-report.ts    # Individual PDF report
+│       └── building-report.ts    # Individual PDF report + waterfall chart
 ```
 
 ---
 
-## 12. Known Limitations
+## 13. Known Limitations
 
 1. **Roof orientation**: Derived from building footprint shape, not actual roof slope
 2. **Shading analysis**: Not performed (no LiDAR/satellite shadow data)
 3. **Actual consumption**: Uses statistical profiles, not real meter data
 4. **Roof obstacles**: 30% deduction assumed, not measured
 5. **Grid connection capacity**: Not validated
-6. **Local incentives**: Not included in savings calculations
+6. ~~**Local incentives**: Not included in savings calculations~~ ✅ **RESOLVED**: Grant stacking now implemented for Canary Islands (Regional, Cabildo, IRPF)
+7. **Catastro dwelling count**: May differ from actual units (some registered as commercial)
 
 ---
 
-## 13. Future Enhancements
+## 14. Future Enhancements
 
 ### High Priority
 - [ ] PVGIS result caching (by location grid)
 - [ ] Google Solar API integration (where available)
 - [ ] Sensitivity analysis (price/consumption scenarios)
+- [ ] Business grants integration (PYME programs)
+- [ ] Energy Communities grant support
 
 ### Medium Priority
 - [ ] Bulk CSV import for building lists
 - [ ] Historical tracking of scored buildings
 - [ ] Integration tests for API layer
+- [ ] Cache dwelling counts in Supabase
 
 ### Low Priority
 - [ ] Multi-language support
 - [ ] Dark mode
 - [ ] Mobile-optimized UI
 
+### Recently Completed ✅
+- [x] Two-level grant system (Category + Segment)
+- [x] Catastro DNPRC dwelling count API
+- [x] Apartment building per-unit calculations
+- [x] Stackable grant waterfall visualization
+- [x] 15 kWh residential battery cap
+- [x] Fixed province parsing from cadastral references
+
 ---
 
-## 14. Environment Variables
+## 15. Environment Variables
 
 ```bash
 # Required
@@ -480,6 +598,12 @@ REDIS_URL=...
 ## Appendix A: TypeScript Interfaces
 
 ```typescript
+// Grant category for eligibility (simple toggle)
+type GrantCategory = 'residential' | 'business';
+
+// Assessment type
+type AssessmentType = 'solar' | 'battery' | 'combined';
+
 interface BuildingResult {
   buildingId: string | null;
   roofAreaM2: number | null;
@@ -495,6 +619,7 @@ interface BuildingResult {
   province: string | null;
   municipality: string | null;
   cadastralReference: string | null;
+  island: string | null;  // For Canary Islands grant eligibility
 
   // Scores
   score?: number;
@@ -510,6 +635,7 @@ interface BuildingResult {
   arbitrageSavingsEur?: number;
   estimatedConsumptionKwh?: number;
   selfConsumptionRatio?: number;
+  outageProtectionValue?: number;
 
   // Data quality
   provenance?: {
@@ -528,6 +654,28 @@ interface DataProvenance {
   source: 'api' | 'config' | 'estimate' | 'fallback';
   confidence: number;  // 0-100
   note?: string;
+}
+
+// Apartment building modal input
+interface ApartmentBuildingInput {
+  floors: number;
+  units: number;
+}
+
+// Grant program definition
+interface GrantProgram {
+  id: string;
+  name: string;
+  organization: string;
+  category: GrantCategory;
+  ratePerKwh: number;
+  maxAmount: number;
+  maxCapacityKwh?: number;
+  percentageCap?: number;  // e.g., 0.5 = 50%
+  islands: string[];
+  deadline: string;
+  status: 'active' | 'upcoming' | 'exhausted';
+  compatibleWith: string[];
 }
 ```
 
