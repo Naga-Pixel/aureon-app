@@ -100,7 +100,7 @@ export async function getElectricityPrice(date?: Date): Promise<PriceResult> {
       headers: {
         'Accept': 'application/json; application/vnd.esios-api-v1+json',
         'Content-Type': 'application/json',
-        'x-api-key': token.trim(),
+        'Authorization': `Token token=${token.trim()}`,
       },
     });
 

@@ -14,6 +14,7 @@ export default function ProspectingPage() {
   const [error, setError] = useState<string | null>(null);
   const [assessmentType, setAssessmentType] = useState<AssessmentType>('solar');
   const [grantCategory, setGrantCategory] = useState<GrantCategory>('residential');
+  const [serviceWarnings, setServiceWarnings] = useState<string[]>([]);
   const lastFiltersRef = useRef<ProspectFiltersType | null>(null);
 
   const handleAreaSelect = useCallback((selectedBounds: BBoxBounds | null) => {
@@ -28,6 +29,7 @@ export default function ProspectingPage() {
   const handleSearch = useCallback(async (selectedBounds: BBoxBounds, filters: ProspectFiltersType) => {
     setIsLoading(true);
     setError(null);
+    setServiceWarnings([]);
     setBuildings([]);
     setSelectedBuilding(null);
     lastFiltersRef.current = filters;
@@ -47,6 +49,22 @@ export default function ProspectingPage() {
       }
 
       setBuildings(data.buildings);
+
+      // Check service status and build warnings
+      // Note: null means "not checked", false means "failed"
+      const warnings: string[] = [];
+      if (data.serviceStatus) {
+        if (data.serviceStatus.catastro === false) {
+          warnings.push('Catastro no disponible - no se pueden obtener edificios');
+        }
+        if (data.serviceStatus.pvgis === false) {
+          warnings.push('PVGIS no disponible - usando estimaciones de produccion solar');
+        }
+        if (data.serviceStatus.esios === false) {
+          warnings.push('ESIOS no disponible - usando estimaciones de precios electricos');
+        }
+      }
+      setServiceWarnings(warnings);
 
       if (data.truncated) {
         setError(`Se encontraron ${data.totalFound} edificios, mostrando los primeros ${data.count}`);
@@ -108,6 +126,17 @@ export default function ProspectingPage() {
           isLoading={isLoading}
           onAssessmentTypeChange={setAssessmentType}
         />
+
+        {serviceWarnings.length > 0 && (
+          <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 text-sm text-orange-800">
+            <div className="font-medium mb-1">Servicios con problemas:</div>
+            <ul className="list-disc list-inside space-y-0.5">
+              {serviceWarnings.map((warning, i) => (
+                <li key={i}>{warning}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {error && (
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-sm text-yellow-800">

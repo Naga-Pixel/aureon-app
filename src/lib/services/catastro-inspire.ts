@@ -634,6 +634,12 @@ export async function getBuildingsInBBox(
 
     const xmlText = await response.text();
 
+    // Check for HTML maintenance page or error response
+    if (xmlText.trimStart().startsWith('<HTML') || xmlText.includes('INTERRUPCIÓN DEL SERVICIO')) {
+      console.error('Catastro INSPIRE: Service unavailable (maintenance)');
+      return { status: 'failed', buildings: [], totalCount: 0, truncated: false };
+    }
+
     // Check for error response
     if (xmlText.includes('ExceptionReport') || xmlText.includes('No records founded')) {
       console.log('Catastro INSPIRE: No building features found in bbox');

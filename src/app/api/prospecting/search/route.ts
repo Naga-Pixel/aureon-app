@@ -71,26 +71,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Auth check
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    // Skip auth in development when SKIP_AUTH is enabled
+    const skipAuth = process.env.SKIP_AUTH === "true";
 
-    if (!user) {
-      return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
-    }
+    if (!skipAuth) {
+      // Auth check
+      const supabase = await createClient();
+      const { data: { user } } = await supabase.auth.getUser();
 
-    // Verify user is an admin
-    const { data: installer } = await (supabase as any)
-      .from('installers')
-      .select('id, role')
-      .eq('user_id', user.id)
-      .single();
+      if (!user) {
+        return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
+      }
 
-    if (!installer || installer.role !== 'admin') {
-      return NextResponse.json(
-        { error: 'Solo los administradores pueden usar la herramienta de prospeccion' },
-        { status: 403 }
-      );
+      // Verify user is an admin
+      const { data: installer } = await (supabase as any)
+        .from('installers')
+        .select('id, role')
+        .eq('user_id', user.id)
+        .single();
+
+      if (!installer || installer.role !== 'admin') {
+        return NextResponse.json(
+          { error: 'Solo los administradores pueden usar la herramienta de prospeccion' },
+          { status: 403 }
+        );
+      }
     }
 
     // Set default filters
@@ -103,12 +108,24 @@ export async function POST(request: NextRequest) {
 
     // Get buildings in area
     const buildingsResult = await getBuildingsInBBox(bounds, maxResults);
+    const catastroFailed = buildingsResult.status === 'failed';
 
-    if (buildingsResult.status === 'failed') {
-      return NextResponse.json(
-        { error: 'Error al buscar edificios en el area seleccionada' },
-        { status: 500 }
-      );
+    // If Catastro failed, return empty result with service status
+    if (catastroFailed) {
+      return NextResponse.json({
+        buildings: [],
+        count: 0,
+        totalFound: 0,
+        truncated: false,
+        assessmentType,
+        grantCategory,
+        pvgis: { kwhPerKwp: null, optimalAngle: null },
+        serviceStatus: {
+          catastro: false,
+          pvgis: null, // Not checked
+          esios: null, // Not checked
+        },
+      });
     }
 
     // Get PVGIS for center of area (same for all buildings in small area)
@@ -205,6 +222,13 @@ export async function POST(request: NextRequest) {
       })
       .sort((a, b) => b.score - a.score);
 
+    // Build service status for UI warnings
+    const serviceStatus = {
+      catastro: true, // If we got here, catastro worked
+      pvgis: !pvgisFailed,
+      esios: assessmentType === 'solar' ? null : !esiosFailed, // null = not used
+    };
+
     return NextResponse.json({
       buildings: scoredBuildings,
       count: scoredBuildings.length,
@@ -216,6 +240,7 @@ export async function POST(request: NextRequest) {
         kwhPerKwp: pvgis.kwhPerKwp,
         optimalAngle: pvgis.optimalAngle,
       },
+      serviceStatus,
     });
   } catch (error) {
     console.error('Prospecting search error:', error);

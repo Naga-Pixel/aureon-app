@@ -81,6 +81,13 @@ export async function middleware(request: NextRequest) {
     }
   );
 
+  // Skip auth in development when SKIP_AUTH is enabled
+  const skipAuth = process.env.SKIP_AUTH === "true";
+
+  if (skipAuth) {
+    return supabaseResponse;
+  }
+
   // Check auth status
   const {
     data: { user },
