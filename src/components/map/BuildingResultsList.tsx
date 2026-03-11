@@ -90,7 +90,8 @@ export function BuildingResultsList({
     loading: boolean;
     catastroSource: boolean; // true if data came from Catastro API
     catastroUnits: number | null; // original Catastro count for display
-  }>({ open: false, building: null, floors: 4, units: 8, loading: false, catastroSource: false, catastroUnits: null });
+    catastroWarning: boolean; // true if Catastro returned suspicious data (1 unit for apartment building)
+  }>({ open: false, building: null, floors: 4, units: 8, loading: false, catastroSource: false, catastroUnits: null, catastroWarning: false });
 
   // Fetch address for a building (called on click)
   const fetchAddressIfNeeded = useCallback((building: BuildingResult) => {
@@ -179,25 +180,45 @@ export function BuildingResultsList({
         loading: true,
         catastroSource: false,
         catastroUnits: null,
+        catastroWarning: false,
       });
 
       // Fetch exact count from Catastro DNPRC API
       const catastroData = await fetchDwellingCount(building);
       if (catastroData) {
-        setApartmentModal(prev => ({
-          ...prev,
-          floors: catastroData.floors,
-          units: catastroData.units,
-          loading: false,
-          catastroSource: true,
-          catastroUnits: catastroData.units,
-        }));
+        // Check if Catastro data seems wrong (1 unit for an apartment building)
+        const isSuspicious = businessSegment === 'apartment_building' && catastroData.units <= 1;
+
+        if (isSuspicious) {
+          // Don't trust Catastro data - show warning and use defaults
+          setApartmentModal(prev => ({
+            ...prev,
+            floors: defaultFloors,
+            units: defaultUnits,
+            loading: false,
+            catastroSource: false,
+            catastroUnits: catastroData.units,
+            catastroWarning: true,
+          }));
+        } else {
+          // Catastro data looks reasonable
+          setApartmentModal(prev => ({
+            ...prev,
+            floors: catastroData.floors || defaultFloors,
+            units: catastroData.units,
+            loading: false,
+            catastroSource: true,
+            catastroUnits: catastroData.units,
+            catastroWarning: false,
+          }));
+        }
       } else {
         setApartmentModal(prev => ({
           ...prev,
           loading: false,
           catastroSource: false,
           catastroUnits: null,
+          catastroWarning: false,
         }));
       }
       return;
@@ -251,7 +272,7 @@ export function BuildingResultsList({
         units: apartmentModal.units,
       });
     }
-    setApartmentModal({ open: false, building: null, floors: 4, units: 8, loading: false, catastroSource: false, catastroUnits: null });
+    setApartmentModal({ open: false, building: null, floors: 4, units: 8, loading: false, catastroSource: false, catastroUnits: null, catastroWarning: false });
   };
   if (buildings.length === 0) {
     return (
@@ -432,7 +453,7 @@ export function BuildingResultsList({
 
       {/* Apartment Building Modal */}
       {apartmentModal.open && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setApartmentModal({ open: false, building: null, floors: 4, units: 8, loading: false, catastroSource: false, catastroUnits: null })}>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setApartmentModal({ open: false, building: null, floors: 4, units: 8, loading: false, catastroSource: false, catastroUnits: null, catastroWarning: false })}>
           <div className="bg-white rounded-xl shadow-lg p-6 w-80" onClick={(e) => e.stopPropagation()}>
             <h3 className="font-semibold text-[#222f30] mb-4">Datos del edificio</h3>
             <p className="text-sm text-gray-600 mb-4">
@@ -450,13 +471,23 @@ export function BuildingResultsList({
               </div>
             )}
 
-            {/* Catastro source indicator */}
-            {!apartmentModal.loading && apartmentModal.catastroSource && apartmentModal.catastroUnits && (
+            {/* Catastro source indicator - success */}
+            {!apartmentModal.loading && apartmentModal.catastroSource && apartmentModal.catastroUnits && !apartmentModal.catastroWarning && (
               <div className="flex items-center gap-2 text-sm text-green-700 mb-4 bg-green-50 rounded-lg p-3">
                 <svg className="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
                 <span>{apartmentModal.catastroUnits} viviendas registradas en Catastro</span>
+              </div>
+            )}
+
+            {/* Catastro warning - suspicious data */}
+            {!apartmentModal.loading && apartmentModal.catastroWarning && (
+              <div className="flex items-start gap-2 text-sm text-amber-700 mb-4 bg-amber-50 rounded-lg p-3">
+                <svg className="h-4 w-4 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <span>Catastro registra solo {apartmentModal.catastroUnits} unidad. Indica el numero real de viviendas.</span>
               </div>
             )}
 
@@ -494,7 +525,7 @@ export function BuildingResultsList({
 
             <div className="flex gap-3 mt-6">
               <button
-                onClick={() => setApartmentModal({ open: false, building: null, floors: 4, units: 8, loading: false, catastroSource: false, catastroUnits: null })}
+                onClick={() => setApartmentModal({ open: false, building: null, floors: 4, units: 8, loading: false, catastroSource: false, catastroUnits: null, catastroWarning: false })}
                 className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
               >
                 Cancelar
