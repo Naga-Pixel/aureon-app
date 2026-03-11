@@ -402,17 +402,26 @@ export function generateBuildingReport(
       metadata.island) {
     checkPageBreak(120);
 
-    // Estimate battery cost if not provided
-    const batteryCost = metadata.batteryCostEur || (building.batteryKwh * 800); // ~800 EUR/kWh estimate
+    // For apartment buildings, show PER-UNIT waterfall (matches "Calculo por Vivienda" section)
+    // For single buildings, show building-level waterfall
+    const isApartmentBuilding = metadata.apartmentBuilding && metadata.apartmentBuilding.units > 1;
+    const waterfallBatteryKwh = isApartmentBuilding ? 10 : building.batteryKwh; // 10 kWh standard per unit
+    const waterfallBatteryCost = isApartmentBuilding ? 9000 : (metadata.batteryCostEur || (building.batteryKwh * 800));
 
     const waterfallSteps = generateWaterfallSteps(
-      batteryCost,
-      building.batteryKwh,
+      waterfallBatteryCost,
+      waterfallBatteryKwh,
       metadata.island,
       metadata.grantCategory || 'residential'
     );
 
     if (waterfallSteps.length > 2) { // Only show if there are grants available
+      // Add title clarification for apartments
+      if (isApartmentBuilding) {
+        doc.setFontSize(10);
+        doc.setTextColor(100);
+        doc.text('(por vivienda)', 15 + doc.getTextWidth('Desglose de Subvenciones') + 5, y + 10);
+      }
       y = drawWaterfallChart(doc, waterfallSteps, y, pageWidth);
       y += 5;
     }
