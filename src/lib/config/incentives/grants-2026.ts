@@ -160,6 +160,7 @@ export interface StackedGrantResult {
     program: GrantProgram;
     amount: number;
     calculation: string;
+    rejectedAlternatives?: string; // Other grants that were not chosen (for transparency)
   }>;
   totalDirectGrants: number;
   irpfDeduction: number;
@@ -169,6 +170,16 @@ export interface StackedGrantResult {
   savingsPercentage: number;
 }
 
+/**
+ * Calculate the best battery grant for a specific installation.
+ *
+ * IMPORTANT: Under Spanish Ley General de Subvenciones and EU FEDER guidelines,
+ * you CANNOT stack multiple public grants for the same eligible cost (battery invoice).
+ * This is "doble financiación" (double funding) and is illegal.
+ *
+ * For battery-only installations, we pick the SINGLE BEST grant.
+ * IRPF deduction can still be applied (it's a tax deduction, not a grant).
+ */
 export function calculateStackedBatteryGrants(
   batteryCost: number,
   batteryKwh: number,
@@ -177,54 +188,64 @@ export function calculateStackedBatteryGrants(
 ): StackedGrantResult {
   const applicableGrants = getApplicableBatteryGrants(island, category);
   const grantResults: StackedGrantResult['grants'] = [];
-  let remainingCost = batteryCost;
   let totalDirectGrants = 0;
 
-  // Sort grants by value (highest first) to maximize benefit
-  const sortedGrants = [...applicableGrants].sort((a, b) => {
-    const aValue = a.percentageCap ? batteryCost * a.percentageCap : batteryKwh * a.ratePerKwh;
-    const bValue = b.percentageCap ? batteryCost * b.percentageCap : batteryKwh * b.ratePerKwh;
-    return bValue - aValue;
-  });
-
-  for (const grant of sortedGrants) {
-    let grantAmount: number;
+  // Calculate value of each grant
+  const grantValues = applicableGrants.map(grant => {
+    let amount: number;
     let calculation: string;
 
     if (grant.percentageCap) {
-      // Percentage-based grant (like Fuerteventura)
-      grantAmount = Math.min(
+      // Percentage-based grant (like Fuerteventura Medida I)
+      amount = Math.min(
         batteryCost * grant.percentageCap,
         grant.maxAmount
       );
-      calculation = `${(grant.percentageCap * 100).toFixed(0)}% de ${batteryCost.toLocaleString('es-ES')} EUR = ${grantAmount.toLocaleString('es-ES')} EUR (max ${grant.maxAmount.toLocaleString('es-ES')} EUR)`;
+      calculation = `${(grant.percentageCap * 100).toFixed(0)}% de ${batteryCost.toLocaleString('es-ES')} EUR = ${amount.toLocaleString('es-ES')} EUR (max ${grant.maxAmount.toLocaleString('es-ES')} EUR)`;
     } else {
-      // Per-kWh grant
+      // Per-kWh grant (like Regional)
       const effectiveKwh = grant.maxCapacityKwh
         ? Math.min(batteryKwh, grant.maxCapacityKwh)
         : batteryKwh;
-      grantAmount = Math.min(
+      amount = Math.min(
         effectiveKwh * grant.ratePerKwh,
         grant.maxAmount
       );
-      calculation = `${effectiveKwh.toFixed(1)} kWh x ${grant.ratePerKwh} EUR/kWh = ${grantAmount.toLocaleString('es-ES')} EUR`;
+      calculation = `${effectiveKwh.toFixed(1)} kWh x ${grant.ratePerKwh} EUR/kWh = ${amount.toLocaleString('es-ES')} EUR`;
       if (grant.maxCapacityKwh && batteryKwh > grant.maxCapacityKwh) {
         calculation += ` (max ${grant.maxCapacityKwh} kWh elegibles)`;
       }
     }
 
-    grantResults.push({
-      program: grant,
-      amount: Math.round(grantAmount),
-      calculation,
-    });
+    return { grant, amount: Math.round(amount), calculation };
+  });
 
-    totalDirectGrants += grantAmount;
-    remainingCost -= grantAmount;
+  // Sort by value (highest first) and pick the BEST ONE
+  grantValues.sort((a, b) => b.amount - a.amount);
+
+  if (grantValues.length > 0) {
+    const bestGrant = grantValues[0];
+    grantResults.push({
+      program: bestGrant.grant,
+      amount: bestGrant.amount,
+      calculation: bestGrant.calculation,
+    });
+    totalDirectGrants = bestGrant.amount;
+
+    // Add note about rejected grants (for transparency)
+    if (grantValues.length > 1) {
+      const rejectedGrants = grantValues.slice(1);
+      const rejectedNote = rejectedGrants
+        .map(g => `${g.grant.name}: ${g.amount.toLocaleString('es-ES')} EUR`)
+        .join(', ');
+      // Store this for potential display in report
+      grantResults[0].rejectedAlternatives = rejectedNote;
+    }
   }
 
   // IRPF deduction on remaining cost (only for residential)
-  remainingCost = Math.max(0, remainingCost);
+  // Note: IRPF is a tax deduction, NOT a grant - can be combined
+  let remainingCost = Math.max(0, batteryCost - totalDirectGrants);
   let irpfDeduction = 0;
   let irpfCalculation = '';
 
