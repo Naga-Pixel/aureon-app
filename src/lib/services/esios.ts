@@ -165,29 +165,81 @@ export async function getCurrentAveragePrice(): Promise<number> {
 
 /**
  * Get hourly prices for the last N days (for volatility calculation)
+ * Uses a single bulk API request instead of multiple calls to avoid rate limiting
  * Returns array of {price, datetime} objects
  */
 export async function getESIOSHourlyPrices(days: number = 7): Promise<{ price: number; datetime: string }[]> {
-  const allPrices: { price: number; datetime: string }[] = [];
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - days + 1);
 
-  // Fetch prices for each day
-  for (let i = 0; i < days; i++) {
-    const date = new Date();
-    date.setDate(date.getDate() - i);
+  const cacheKey = `electricity:esios:bulk:${formatDate(startDate)}:${formatDate(endDate)}`;
 
-    const result = await getElectricityPrice(date);
-
-    if (result.prices) {
-      for (const p of result.prices) {
-        allPrices.push({
-          price: p.price,
-          datetime: `${p.date}T${String(p.hour).padStart(2, '0')}:00:00`,
-        });
-      }
-    }
+  // Check Redis cache first
+  const cached = await getCached<{ price: number; datetime: string }[]>(cacheKey);
+  if (cached) {
+    console.log('[ESIOS] Bulk cache hit for', days, 'days');
+    return cached;
   }
 
-  return allPrices;
+  const token = getToken();
+  if (!token) {
+    console.error('[ESIOS] Token not configured for bulk request');
+    return [];
+  }
+
+  console.log('[ESIOS] Bulk fetching', days, 'days:', formatDate(startDate), 'to', formatDate(endDate));
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), ESIOS_TIMEOUT_MS * 2); // Longer timeout for bulk
+
+  try {
+    const url = `${ESIOS_API_BASE}/indicators/${INDICATOR_PVPC}?start_date=${formatDate(startDate)}T00:00:00&end_date=${formatDate(endDate)}T23:59:59`;
+
+    const response = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        'Accept': 'application/json; application/vnd.esios-api-v1+json',
+        'Content-Type': 'application/json',
+        'Authorization': `Token token=${token.trim()}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.text();
+      console.error(`[ESIOS] Bulk API error: ${response.status} ${response.statusText}`, errorBody);
+      return [];
+    }
+
+    const data: ESIOSResponse = await response.json();
+
+    if (!data.indicator?.values || data.indicator.values.length === 0) {
+      console.error('[ESIOS] Bulk API returned no price data');
+      return [];
+    }
+
+    console.log('[ESIOS] Bulk API returned', data.indicator.values.length, 'hourly prices');
+
+    // Parse prices (ESIOS returns €/MWh, we need €/kWh)
+    const allPrices = data.indicator.values.map(v => ({
+      price: v.value / 1000, // Convert €/MWh to €/kWh
+      datetime: v.datetime,
+    }));
+
+    // Cache the result (shorter TTL for bulk data)
+    await setCache(cacheKey, allPrices, CACHE_TTL_SECONDS / 2);
+
+    return allPrices;
+  } catch (error) {
+    if (error instanceof Error && error.name === 'AbortError') {
+      console.error('[ESIOS] Bulk API timeout');
+    } else {
+      console.error('[ESIOS] Bulk API error:', error);
+    }
+    return [];
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 /**
@@ -215,4 +267,72 @@ export function getPriceSourceLabel(source: 'esios' | 'cache' | 'fallback'): str
     case 'fallback':
       return 'Precio por defecto';
   }
+}
+
+/**
+ * Price statistics from ESIOS data
+ */
+export interface ESIOSPriceStats {
+  peakPrice: number;      // €/kWh - highest hourly price
+  valleyPrice: number;    // €/kWh - lowest hourly price
+  averagePrice: number;   // €/kWh - mean price
+  spread: number;         // €/kWh - peak minus valley
+  volatility: number;     // Standard deviation
+  source: 'esios' | 'fallback';
+  days: number;           // Number of days of data
+}
+
+/**
+ * Calculate price statistics from hourly prices
+ */
+export function calculatePriceStats(prices: { price: number }[]): Omit<ESIOSPriceStats, 'source' | 'days'> {
+  if (prices.length === 0) {
+    return { peakPrice: 0.24, valleyPrice: 0.08, averagePrice: 0.16, spread: 0.16, volatility: 0 };
+  }
+
+  const priceValues = prices.map(p => p.price);
+  const peakPrice = Math.max(...priceValues);
+  const valleyPrice = Math.min(...priceValues);
+  const averagePrice = priceValues.reduce((sum, p) => sum + p, 0) / priceValues.length;
+  const spread = peakPrice - valleyPrice;
+
+  // Calculate standard deviation (volatility)
+  const squaredDiffs = priceValues.map(p => Math.pow(p - averagePrice, 2));
+  const volatility = Math.sqrt(squaredDiffs.reduce((sum, d) => sum + d, 0) / priceValues.length);
+
+  return {
+    peakPrice: Math.round(peakPrice * 10000) / 10000,
+    valleyPrice: Math.round(valleyPrice * 10000) / 10000,
+    averagePrice: Math.round(averagePrice * 10000) / 10000,
+    spread: Math.round(spread * 10000) / 10000,
+    volatility: Math.round(volatility * 10000) / 10000,
+  };
+}
+
+/**
+ * Get comprehensive price statistics for arbitrage calculations
+ * Uses bulk ESIOS data when available, falls back to static tariff data
+ */
+export async function getESIOSPriceStats(days: number = 7): Promise<ESIOSPriceStats> {
+  const hourlyPrices = await getESIOSHourlyPrices(days);
+
+  if (hourlyPrices.length > 0) {
+    const stats = calculatePriceStats(hourlyPrices);
+    return {
+      ...stats,
+      source: 'esios',
+      days,
+    };
+  }
+
+  // Fallback to static typical prices from tariff config
+  return {
+    peakPrice: 0.24,
+    valleyPrice: 0.08,
+    averagePrice: 0.16,
+    spread: 0.16,
+    volatility: 0.05,
+    source: 'fallback',
+    days: 0,
+  };
 }

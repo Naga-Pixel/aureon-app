@@ -2,6 +2,8 @@
  * Types for the Prospecting Map components
  */
 
+import type { ESIOSPriceStats } from '@/lib/services/esios';
+
 export interface BBoxBounds {
   minLat: number;
   maxLat: number;
@@ -54,6 +56,8 @@ export interface BuildingResult {
   selfConsumptionRatio?: number;
   outageProtectionValue?: number;
   climateZone?: string;
+  // Price statistics (from ESIOS when available)
+  priceStats?: ESIOSPriceStats;
   // Data provenance tracking
   provenance?: {
     roofArea: DataProvenance;

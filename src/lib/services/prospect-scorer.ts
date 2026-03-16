@@ -4,7 +4,8 @@
 import { BATTERY_CONFIG, ISLAND_VULNERABILITY } from '@/lib/config/battery-config';
 import { ASSESSMENT_CONFIG } from '@/lib/config/assessment-config';
 import { estimateAnnualConsumption, calculateOutageCost, CONSUMPTION_BY_SEGMENT } from '@/lib/config/consumption-profiles';
-import { estimateArbitrageSavings, getAverageArbitrageSpread } from '@/lib/config/electricity-tariffs';
+import { getArbitrageSchedule } from '@/lib/config/electricity-tariffs';
+import type { ESIOSPriceStats } from '@/lib/services/esios';
 
 export type AssessmentType = 'solar' | 'battery' | 'combined';
 
@@ -25,7 +26,7 @@ export interface ProspectScoreInput {
   longitude: number;
   assessmentType: AssessmentType;
   floors?: number;
-  priceVolatility?: number; // Standard deviation of ESIOS prices (if available)
+  priceStats?: ESIOSPriceStats; // Live ESIOS price statistics (peak, valley, spread)
   // Data source tracking
   kwhPerKwpSource?: 'pvgis' | 'fallback';
   esiosFailed?: boolean;
@@ -53,6 +54,8 @@ export interface ProspectScore {
   selfConsumptionRatio?: number;
   outageProtectionValue?: number;
   climateZone?: string;
+  // Price statistics (from ESIOS when available)
+  priceStats?: ESIOSPriceStats;
   // Inferred/detected values
   inferredBuildingType?: string;
   usedFloors?: number;
@@ -211,10 +214,25 @@ function calculateBatteryScore(input: ProspectScoreInput, solarSystemKw: number)
   // Arbitrage potential (20%)
   const tariff = getTariff(solarSystemKw);
   const dailyShiftableKwh = consumption.peakDailyKwh * 0.8; // Can shift 80% of peak to valley
-  const arbitrageSavingsEur = estimateArbitrageSavings(dailyShiftableKwh, tariff, BATTERY_CONFIG.ROUND_TRIP_EFFICIENCY);
 
-  // Boost arbitrage if we have real price volatility data
-  const volatilityBonus = input.priceVolatility ? Math.min(input.priceVolatility / 30, 0.5) : 0;
+  // Use live ESIOS prices when available, otherwise fall back to static tariff data
+  let spread: number;
+  if (input.priceStats && input.priceStats.source === 'esios') {
+    // Use actual peak/valley spread from ESIOS
+    spread = input.priceStats.spread;
+  } else {
+    // Fall back to static tariff spread
+    const schedule = getArbitrageSchedule(tariff);
+    spread = schedule.expectedSpread;
+  }
+
+  // Calculate arbitrage savings using actual or static spread
+  const effectiveShift = dailyShiftableKwh * BATTERY_CONFIG.ROUND_TRIP_EFFICIENCY;
+  const arbitrageDays = 260; // Weekdays per year
+  const arbitrageSavingsEur = effectiveShift * spread * arbitrageDays;
+
+  // Boost if high volatility (more arbitrage opportunities)
+  const volatilityBonus = input.priceStats?.volatility ? Math.min(input.priceStats.volatility / 0.03, 0.3) : 0;
   const adjustedArbitrageSavings = Math.round(arbitrageSavingsEur * (1 + volatilityBonus));
 
   // Score based on arbitrage value
@@ -388,11 +406,13 @@ export function calculateProspectScore(input: ProspectScoreInput): ProspectScore
         ? 'Red insular - vulnerabilidad calculada por ubicacion'
         : 'Peninsula - red estable, vulnerabilidad calculada',
     },
-    arbitragePrices: input.esiosFailed
-      ? { source: 'fallback' as DataSource, confidence: 45, note: 'ESIOS no disponible, usando precios PVPC tipicos' }
-      : input.priceVolatility && input.priceVolatility > 0
-        ? { source: 'api' as DataSource, confidence: 75, note: 'ESIOS - precios ultimos 7 dias' }
-        : { source: 'fallback' as DataSource, confidence: 50, note: 'ESIOS no disponible, precios PVPC tipicos' },
+    arbitragePrices: input.priceStats?.source === 'esios'
+      ? {
+          source: 'api' as DataSource,
+          confidence: 80,
+          note: `ESIOS ${input.priceStats.days}d: pico ${(input.priceStats.peakPrice * 100).toFixed(1)}c, valle ${(input.priceStats.valleyPrice * 100).toFixed(1)}c`,
+        }
+      : { source: 'fallback' as DataSource, confidence: 45, note: 'ESIOS no disponible, usando precios PVPC tipicos' },
     buildingType: typeFromCatastro
       ? { source: 'api' as DataSource, confidence: 85, note: `Catastro: ${input.catastroUseLabel || input.catastroUse}` }
       : { source: 'config' as DataSource, confidence: 60, note: `Seleccionado por usuario: ${input.businessSegment}` },
@@ -416,21 +436,11 @@ export function calculateProspectScore(input: ProspectScoreInput): ProspectScore
     selfConsumptionRatio: solar.selfConsumptionRatio,
     outageProtectionValue: battery.outageProtectionValue,
     climateZone: battery.climateZone,
+    priceStats: input.priceStats,
     inferredBuildingType: effectiveSegment,
     usedFloors,
     provenance,
   };
-}
-
-// Calculate price volatility from ESIOS data
-export function calculatePriceVolatility(prices: number[]): number {
-  if (prices.length < 2) return 0;
-
-  const mean = prices.reduce((a, b) => a + b, 0) / prices.length;
-  const squaredDiffs = prices.map(price => Math.pow(price - mean, 2));
-  const variance = squaredDiffs.reduce((a, b) => a + b, 0) / prices.length;
-
-  return Math.sqrt(variance);
 }
 
 // Export for testing

@@ -514,14 +514,31 @@ export function generateBuildingReport(
     source: gridSource,
   });
 
-  // Arbitrage (only for battery assessments)
+  // Arbitrage prices (only for battery assessments)
   if (metadata.assessmentType !== 'solar') {
     const arbitrageSource = provenance?.arbitragePrices.source || 'fallback';
     const arbitrageConf = provenance?.arbitragePrices.confidence || 45;
-    dataRows.push({
-      params: ['Precios arbitraje', 'PVPC horario', getSourceLabel(arbitrageSource), `${arbitrageConf}%`, arbitrageSource === 'api' ? 'ESIOS ultimos 7 dias' : 'Historicos PVPC'],
-      source: arbitrageSource,
-    });
+    const priceStats = building.priceStats;
+
+    // Show peak/valley prices if available from ESIOS
+    if (priceStats && priceStats.source === 'esios') {
+      const peakCents = (priceStats.peakPrice * 100).toFixed(1);
+      const valleyCents = (priceStats.valleyPrice * 100).toFixed(1);
+      const spreadCents = (priceStats.spread * 100).toFixed(1);
+      dataRows.push({
+        params: ['Precio pico', `${peakCents} c/kWh`, getSourceLabel(arbitrageSource), `${arbitrageConf}%`, `ESIOS ${priceStats.days} dias`],
+        source: arbitrageSource,
+      });
+      dataRows.push({
+        params: ['Precio valle', `${valleyCents} c/kWh`, getSourceLabel(arbitrageSource), `${arbitrageConf}%`, `Spread: ${spreadCents} c/kWh`],
+        source: arbitrageSource,
+      });
+    } else {
+      dataRows.push({
+        params: ['Precios arbitraje', 'PVPC tipico', getSourceLabel(arbitrageSource), `${arbitrageConf}%`, 'ESIOS no disponible, usando historicos'],
+        source: arbitrageSource,
+      });
+    }
   }
 
   const rowSources = dataRows.map(r => r.source);

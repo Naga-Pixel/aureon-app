@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { getBuildingsInBBox, BBoxBounds } from '@/lib/services/catastro-inspire';
 import { getPVGISData } from '@/lib/services/pvgis';
-import { calculateProspectScore, calculatePriceVolatility, AssessmentType } from '@/lib/services/prospect-scorer';
-import { getESIOSHourlyPrices } from '@/lib/services/esios';
+import { calculateProspectScore, AssessmentType } from '@/lib/services/prospect-scorer';
+import { getESIOSPriceStats, ESIOSPriceStats } from '@/lib/services/esios';
 
 type GrantCategory = 'residential' | 'business';
 
@@ -140,19 +140,15 @@ export async function POST(request: NextRequest) {
     const pvgisFailed = pvgis.kwhPerKwp === null;
     const kwhPerKwp = pvgis.kwhPerKwp ?? 1400; // Default for Spain
 
-    // For battery/combined, get ESIOS price volatility
-    let priceVolatility = 0;
+    // For battery/combined, get ESIOS price statistics
+    let priceStats: ESIOSPriceStats | null = null;
     let esiosFailed = false;
     if (assessmentType !== 'solar') {
       try {
-        const esiosData = await getESIOSHourlyPrices();
-        if (esiosData && esiosData.length > 0) {
-          priceVolatility = calculatePriceVolatility(esiosData.map(d => d.price));
-        } else {
-          esiosFailed = true;
-        }
+        priceStats = await getESIOSPriceStats();
+        esiosFailed = priceStats.source === 'fallback';
       } catch (error) {
-        console.warn('Could not fetch ESIOS data for volatility calculation:', error);
+        console.warn('Could not fetch ESIOS price stats:', error);
         esiosFailed = true;
       }
     }
@@ -171,7 +167,7 @@ export async function POST(request: NextRequest) {
           latitude: centerLat,
           longitude: centerLon,
           assessmentType,
-          priceVolatility,
+          priceStats: priceStats || undefined,
           kwhPerKwpSource: pvgisFailed ? 'fallback' : 'pvgis',
           esiosFailed,
           // Pass Catastro data when available
@@ -218,6 +214,8 @@ export async function POST(request: NextRequest) {
           climateZone: score.climateZone,
           // Provenance
           provenance: score.provenance,
+          // Price stats for report
+          priceStats: priceStats || undefined,
         };
       })
       .sort((a, b) => b.score - a.score);

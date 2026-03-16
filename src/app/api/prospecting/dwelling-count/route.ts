@@ -97,6 +97,14 @@ async function cacheResult(parcelRef: string, totalUnits: number, floors: number
 }
 
 /**
+ * Check if a floor code represents a basement level
+ * Spanish Catastro uses: ST, S0, S1, S2... for basement levels (garages, storage)
+ */
+function isBasementFloor(floor: string): boolean {
+  return floor.startsWith('S');
+}
+
+/**
  * Fetch from Catastro DNPRC API
  */
 async function fetchFromAPI(parcelRef: string): Promise<DwellingCountResult | null> {
@@ -119,12 +127,8 @@ async function fetchFromAPI(parcelRef: string): Promise<DwellingCountResult | nu
     return null;
   }
 
-  // Parse dwelling count from <cudnp>
-  const countMatch = xmlText.match(/<cudnp>(\d+)<\/cudnp>/);
-  const totalUnits = countMatch ? parseInt(countMatch[1], 10) : 0;
-
-  // Parse individual dwellings
-  const dwellings: DwellingInfo[] = [];
+  // Parse all units from XML
+  const allUnits: DwellingInfo[] = [];
   const dwellingRegex = /<rcdnp>([\s\S]*?)<\/rcdnp>/g;
   let match;
 
@@ -141,7 +145,7 @@ async function fetchFromAPI(parcelRef: string): Promise<DwellingCountResult | nu
     const puMatch = block.match(/<pu>([^<]+)<\/pu>/);
 
     if (carMatch) {
-      dwellings.push({
+      allUnits.push({
         unitNumber: carMatch[1],
         floor: ptMatch ? ptMatch[1] : '00',
         door: puMatch ? puMatch[1] : '00',
@@ -150,9 +154,19 @@ async function fetchFromAPI(parcelRef: string): Promise<DwellingCountResult | nu
     }
   }
 
-  // Calculate floors (unique floor values)
+  // Filter out basement units (garages, storage rooms)
+  // Basement floors start with "S" (ST, S0, S1, S2...)
+  const dwellings = allUnits.filter(d => !isBasementFloor(d.floor));
+  const basementUnits = allUnits.length - dwellings.length;
+
+  if (basementUnits > 0) {
+    console.log(`[DwellingCount] Filtered out ${basementUnits} basement units (garages/storage)`);
+  }
+
+  // Calculate floors from above-ground units only
   const uniqueFloors = new Set(dwellings.map(d => d.floor));
   const floors = uniqueFloors.size;
+  const totalUnits = dwellings.length;
   const unitsPerFloor = floors > 0 ? Math.round(totalUnits / floors) : 0;
 
   // Extract address from first dwelling
