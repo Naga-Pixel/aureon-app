@@ -1,7 +1,58 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+const TEXT_LINES = [
+  { text: "La energía solar es un desafío de ", opacity: 1 },
+  { text: "sistemas complejos. ", opacity: 1 },
+  { text: "Nuestra plataforma integrada está ", opacity: 0.5 },
+  { text: "diseñada para optimizar cada ", opacity: 0.5 },
+  { text: "aspecto de tu instalación ", opacity: 0.5 },
+  { text: "fotovoltaica.", opacity: 0.5 },
+];
+
 export function WhatWeDo() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="bg-[#222f30] text-white py-[100px]" id="servicios">
-      <div className="container">
+    <section
+      ref={sectionRef}
+      className="bg-[#222f30] text-white py-[100px]"
+      id="servicios"
+    >
+      <style>{`
+        @keyframes fade-in {
+          from { opacity: 0; }
+          to { opacity: var(--target-opacity); }
+        }
+        .text-line {
+          opacity: 0;
+        }
+        .in-view .text-line {
+          animation: fade-in 0.8s ease-out forwards;
+        }
+      `}</style>
+
+      <div className={`container ${isVisible ? "in-view" : ""}`}>
         {/* Header */}
         <div className="flex flex-col gap-8 mb-11">
           <span className="inline-flex items-center gap-3 bg-white/10 px-3 py-2 pr-4 rounded-[8px] font-mono text-sm uppercase w-fit">
@@ -15,7 +66,7 @@ export function WhatWeDo() {
 
         {/* Content */}
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-11 items-center">
-          {/* Icon */}
+          {/* Starburst Icon */}
           <div className="flex items-center justify-center">
             <svg
               className="w-[180px] h-[180px] lg:w-[220px] lg:h-[220px] text-white opacity-90"
@@ -31,10 +82,20 @@ export function WhatWeDo() {
             </svg>
           </div>
 
-          {/* Text */}
+          {/* Animated Text */}
           <p className="text-[clamp(1.875rem,4vw,3.625rem)] leading-[1.15] tracking-[-0.02em] font-light">
-            <span className="opacity-100">La energía solar es un desafío de sistemas complejos.</span>
-            <span className="opacity-50"> Nuestra plataforma integrada está diseñada para optimizar cada aspecto de tu instalación fotovoltaica.</span>
+            {TEXT_LINES.map((line, i) => (
+              <span
+                key={i}
+                className="text-line inline"
+                style={{
+                  "--target-opacity": line.opacity,
+                  animationDelay: `${i * 0.5}s`,
+                } as React.CSSProperties}
+              >
+                {line.text}
+              </span>
+            ))}
           </p>
         </div>
       </div>
