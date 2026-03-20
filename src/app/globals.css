@@ -210,3 +210,12 @@ textarea:focus {
   letter-spacing: -0.03em;
   line-height: 1.1;
 }
+
+/* MapLibre VV popup - ensure high z-index */
+.maplibregl-popup.vv-popup-high-z {
+  z-index: 1000 !important;
+}
+
+.maplibregl-popup.vv-popup-high-z .maplibregl-popup-content {
+  z-index: 1000 !important;
+}

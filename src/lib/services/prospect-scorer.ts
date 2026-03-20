@@ -97,6 +97,63 @@ function detectIslandFromCoords(lat: number, lon: number): string | null {
   return null;
 }
 
+/**
+ * Infer EPC (Energy Performance Certificate) rating from construction year
+ *
+ * Based on Spanish building regulations evolution:
+ * - Pre-1979: No thermal regulation (likely E-G)
+ * - 1979-2006: NBE-CT-79 basic insulation (likely D-E)
+ * - 2006-2013: CTE 2006 improved standards (likely C-D)
+ * - 2013-2020: CTE 2013 stricter requirements (likely B-C)
+ * - 2020+: CTE 2019 (HE 2019) near-zero energy buildings (likely A-B)
+ */
+export type EPCRating = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G';
+
+export function inferEPCFromYear(constructionYear: number | null | undefined): EPCRating | null {
+  if (!constructionYear || constructionYear < 1900 || constructionYear > 2030) {
+    return null;
+  }
+
+  if (constructionYear >= 2020) {
+    return 'B'; // Near-zero energy building standards
+  }
+  if (constructionYear >= 2013) {
+    return 'C'; // CTE 2013 standards
+  }
+  if (constructionYear >= 2006) {
+    return 'D'; // CTE 2006 standards
+  }
+  if (constructionYear >= 1979) {
+    return 'E'; // NBE-CT-79 basic insulation
+  }
+  // Pre-1979: poor insulation
+  return 'F';
+}
+
+/**
+ * Get EPC score (100 = A, 0 = G) for weighting in prospect scoring
+ */
+export function getEPCScore(epc: EPCRating | null): number {
+  const scores: Record<EPCRating, number> = {
+    A: 100,
+    B: 85,
+    C: 70,
+    D: 55,
+    E: 40,
+    F: 25,
+    G: 10,
+  };
+  return epc ? scores[epc] : 50; // Default to middle if unknown
+}
+
+/**
+ * Poor EPC buildings (E-G) are better prospects for solar/battery
+ * because they have higher energy costs and more to gain from upgrades
+ */
+export function isHighPotentialEPC(epc: EPCRating | null): boolean {
+  return epc === 'E' || epc === 'F' || epc === 'G';
+}
+
 // Get grid vulnerability score for location
 function getGridVulnerability(lat: number, lon: number): number {
   const island = detectIslandFromCoords(lat, lon);

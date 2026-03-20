@@ -42,6 +42,13 @@ const ESIOS_TIMEOUT_MS = 10000;
 const DEFAULT_PRICE_EUR_KWH = 0.20;
 const CACHE_TTL_SECONDS = 6 * 60 * 60; // 6 hours
 
+// In-memory request deduplication to prevent concurrent API calls
+const pendingRequests = new Map<string, Promise<any>>();
+
+// In-memory cache for when Redis is slow/unavailable
+const memoryCache = new Map<string, { data: any; expires: number }>();
+const MEMORY_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
 /**
  * Get ESIOS API token from environment
  */
@@ -175,10 +182,26 @@ export async function getESIOSHourlyPrices(days: number = 7): Promise<{ price: n
 
   const cacheKey = `electricity:esios:bulk:${formatDate(startDate)}:${formatDate(endDate)}`;
 
-  // Check Redis cache first
+  // 1. Check in-memory cache first (fastest)
+  const memCached = memoryCache.get(cacheKey);
+  if (memCached && memCached.expires > Date.now()) {
+    console.log('[ESIOS] Memory cache hit for', days, 'days');
+    return memCached.data;
+  }
+
+  // 2. Check if there's already a pending request for this key (deduplication)
+  const pendingRequest = pendingRequests.get(cacheKey);
+  if (pendingRequest) {
+    console.log('[ESIOS] Waiting for pending request...');
+    return pendingRequest;
+  }
+
+  // 3. Check Redis cache
   const cached = await getCached<{ price: number; datetime: string }[]>(cacheKey);
   if (cached) {
-    console.log('[ESIOS] Bulk cache hit for', days, 'days');
+    console.log('[ESIOS] Redis cache hit for', days, 'days');
+    // Store in memory cache too
+    memoryCache.set(cacheKey, { data: cached, expires: Date.now() + MEMORY_CACHE_TTL_MS });
     return cached;
   }
 
@@ -188,58 +211,67 @@ export async function getESIOSHourlyPrices(days: number = 7): Promise<{ price: n
     return [];
   }
 
-  console.log('[ESIOS] Bulk fetching', days, 'days:', formatDate(startDate), 'to', formatDate(endDate));
+  // 4. Make the actual API request (with deduplication)
+  const requestPromise = (async () => {
+    console.log('[ESIOS] Bulk fetching', days, 'days:', formatDate(startDate), 'to', formatDate(endDate));
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), ESIOS_TIMEOUT_MS * 2); // Longer timeout for bulk
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), ESIOS_TIMEOUT_MS * 2);
 
-  try {
-    const url = `${ESIOS_API_BASE}/indicators/${INDICATOR_PVPC}?start_date=${formatDate(startDate)}T00:00:00&end_date=${formatDate(endDate)}T23:59:59`;
+    try {
+      const url = `${ESIOS_API_BASE}/indicators/${INDICATOR_PVPC}?start_date=${formatDate(startDate)}T00:00:00&end_date=${formatDate(endDate)}T23:59:59`;
 
-    const response = await fetch(url, {
-      signal: controller.signal,
-      headers: {
-        'Accept': 'application/json; application/vnd.esios-api-v1+json',
-        'Content-Type': 'application/json',
-        'Authorization': `Token token=${token.trim()}`,
-      },
-    });
+      const response = await fetch(url, {
+        signal: controller.signal,
+        headers: {
+          'Accept': 'application/json; application/vnd.esios-api-v1+json',
+          'Content-Type': 'application/json',
+          'Authorization': `Token token=${token.trim()}`,
+        },
+      });
 
-    if (!response.ok) {
-      const errorBody = await response.text();
-      console.error(`[ESIOS] Bulk API error: ${response.status} ${response.statusText}`, errorBody);
+      if (!response.ok) {
+        const errorBody = await response.text();
+        console.error(`[ESIOS] Bulk API error: ${response.status} ${response.statusText}`, errorBody);
+        return [];
+      }
+
+      const data: ESIOSResponse = await response.json();
+
+      if (!data.indicator?.values || data.indicator.values.length === 0) {
+        console.error('[ESIOS] Bulk API returned no price data');
+        return [];
+      }
+
+      console.log('[ESIOS] Bulk API returned', data.indicator.values.length, 'hourly prices');
+
+      const allPrices = data.indicator.values.map(v => ({
+        price: v.value / 1000,
+        datetime: v.datetime,
+      }));
+
+      // Cache in Redis and memory
+      await setCache(cacheKey, allPrices, CACHE_TTL_SECONDS / 2);
+      memoryCache.set(cacheKey, { data: allPrices, expires: Date.now() + MEMORY_CACHE_TTL_MS });
+
+      return allPrices;
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.error('[ESIOS] Bulk API timeout');
+      } else {
+        console.error('[ESIOS] Bulk API error:', error);
+      }
       return [];
+    } finally {
+      clearTimeout(timeoutId);
+      pendingRequests.delete(cacheKey);
     }
+  })();
 
-    const data: ESIOSResponse = await response.json();
+  // Store the pending request for deduplication
+  pendingRequests.set(cacheKey, requestPromise);
 
-    if (!data.indicator?.values || data.indicator.values.length === 0) {
-      console.error('[ESIOS] Bulk API returned no price data');
-      return [];
-    }
-
-    console.log('[ESIOS] Bulk API returned', data.indicator.values.length, 'hourly prices');
-
-    // Parse prices (ESIOS returns €/MWh, we need €/kWh)
-    const allPrices = data.indicator.values.map(v => ({
-      price: v.value / 1000, // Convert €/MWh to €/kWh
-      datetime: v.datetime,
-    }));
-
-    // Cache the result (shorter TTL for bulk data)
-    await setCache(cacheKey, allPrices, CACHE_TTL_SECONDS / 2);
-
-    return allPrices;
-  } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
-      console.error('[ESIOS] Bulk API timeout');
-    } else {
-      console.error('[ESIOS] Bulk API error:', error);
-    }
-    return [];
-  } finally {
-    clearTimeout(timeoutId);
-  }
+  return requestPromise;
 }
 
 /**

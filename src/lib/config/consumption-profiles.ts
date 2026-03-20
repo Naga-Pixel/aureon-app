@@ -144,6 +144,148 @@ export const CONSUMPTION_BY_SEGMENT: Record<string, {
 };
 
 /**
+ * 24-hour consumption curves by segment
+ * Each array has 24 values (0-23h) that sum to 1.0
+ * Derived from peakHoursFraction and IDAE load shape studies
+ */
+export const HOURLY_CURVES: Record<string, number[]> = {
+  // VV Tourist - Evening AC peaks, water heater morning
+  'vv-tourist': [
+    0.02, 0.02, 0.01, 0.01, 0.01, 0.02, // 0-5: Night (minimal)
+    0.03, 0.05, 0.06, 0.04, 0.03, 0.03, // 6-11: Morning (water heater, breakfast)
+    0.03, 0.03, 0.04, 0.04, 0.05, 0.06, // 12-17: Afternoon (some AC)
+    0.08, 0.10, 0.11, 0.10, 0.08, 0.04, // 18-23: Evening peak (AC, cooking, entertainment)
+  ],
+
+  // Residential - Similar to VV but more morning/evening focused
+  residential: [
+    0.02, 0.02, 0.01, 0.01, 0.01, 0.02, // 0-5: Night
+    0.04, 0.06, 0.05, 0.03, 0.02, 0.02, // 6-11: Morning peak
+    0.02, 0.02, 0.03, 0.03, 0.04, 0.05, // 12-17: Low afternoon
+    0.08, 0.12, 0.14, 0.12, 0.08, 0.05, // 18-23: Evening peak
+  ],
+
+  residential_new: [
+    0.02, 0.02, 0.01, 0.01, 0.01, 0.02,
+    0.04, 0.06, 0.05, 0.03, 0.02, 0.02,
+    0.02, 0.02, 0.03, 0.03, 0.04, 0.05,
+    0.08, 0.12, 0.14, 0.12, 0.08, 0.05,
+  ],
+
+  apartment: [
+    0.02, 0.02, 0.01, 0.01, 0.01, 0.02,
+    0.04, 0.06, 0.05, 0.03, 0.02, 0.02,
+    0.02, 0.02, 0.03, 0.03, 0.04, 0.05,
+    0.08, 0.13, 0.15, 0.13, 0.08, 0.04,
+  ],
+
+  apartment_building: [
+    0.03, 0.02, 0.02, 0.02, 0.02, 0.03,
+    0.04, 0.05, 0.05, 0.04, 0.04, 0.04,
+    0.04, 0.04, 0.04, 0.04, 0.05, 0.05,
+    0.06, 0.08, 0.09, 0.08, 0.06, 0.04,
+  ],
+
+  villa: [
+    0.02, 0.02, 0.01, 0.01, 0.01, 0.02,
+    0.04, 0.05, 0.04, 0.03, 0.03, 0.04,
+    0.04, 0.05, 0.06, 0.06, 0.05, 0.05,
+    0.07, 0.10, 0.11, 0.09, 0.07, 0.04,
+  ],
+
+  // Office - 9-18h plateau, minimal evening
+  office: [
+    0.01, 0.01, 0.01, 0.01, 0.01, 0.01, // 0-5: Night (minimal)
+    0.01, 0.02, 0.06, 0.09, 0.10, 0.10, // 6-11: Ramp up to workday
+    0.10, 0.10, 0.10, 0.09, 0.08, 0.06, // 12-17: Workday plateau
+    0.02, 0.01, 0.01, 0.01, 0.01, 0.01, // 18-23: Evening (minimal)
+  ],
+
+  // Commercial - Business hours focus
+  commercial: [
+    0.01, 0.01, 0.01, 0.01, 0.01, 0.01,
+    0.02, 0.03, 0.06, 0.08, 0.09, 0.09,
+    0.09, 0.09, 0.09, 0.08, 0.07, 0.06,
+    0.04, 0.03, 0.02, 0.01, 0.01, 0.01,
+  ],
+
+  // Retail - Similar to commercial with slight evening extension
+  retail: [
+    0.01, 0.01, 0.01, 0.01, 0.01, 0.01,
+    0.02, 0.03, 0.05, 0.07, 0.08, 0.08,
+    0.08, 0.08, 0.08, 0.07, 0.07, 0.07,
+    0.06, 0.05, 0.03, 0.02, 0.01, 0.01,
+  ],
+
+  // Supermarket - Constant refrigeration + daytime peaks
+  supermarket: [
+    0.03, 0.03, 0.03, 0.03, 0.03, 0.03, // Constant refrigeration base
+    0.03, 0.04, 0.05, 0.06, 0.06, 0.06,
+    0.06, 0.06, 0.06, 0.06, 0.05, 0.05,
+    0.05, 0.04, 0.04, 0.03, 0.03, 0.03,
+  ],
+
+  // Restaurant - Lunch and dinner peaks
+  restaurant: [
+    0.01, 0.01, 0.01, 0.01, 0.01, 0.02,
+    0.03, 0.04, 0.05, 0.06, 0.07, 0.08,
+    0.09, 0.10, 0.08, 0.05, 0.04, 0.05,
+    0.07, 0.10, 0.10, 0.08, 0.05, 0.02,
+  ],
+
+  hotel: [
+    0.03, 0.02, 0.02, 0.02, 0.02, 0.03,
+    0.05, 0.07, 0.08, 0.06, 0.04, 0.04,
+    0.04, 0.04, 0.04, 0.04, 0.05, 0.06,
+    0.07, 0.08, 0.08, 0.06, 0.05, 0.04,
+  ],
+
+  // Industrial - Daytime operation (8-18h)
+  industrial: [
+    0.02, 0.02, 0.02, 0.02, 0.02, 0.02,
+    0.03, 0.05, 0.08, 0.10, 0.10, 0.10,
+    0.10, 0.10, 0.10, 0.08, 0.06, 0.04,
+    0.02, 0.02, 0.02, 0.02, 0.02, 0.02,
+  ],
+
+  warehouse: [
+    0.02, 0.02, 0.02, 0.02, 0.02, 0.02,
+    0.03, 0.05, 0.08, 0.10, 0.10, 0.10,
+    0.10, 0.10, 0.10, 0.08, 0.05, 0.03,
+    0.02, 0.02, 0.02, 0.02, 0.02, 0.02,
+  ],
+
+  factory: [
+    0.03, 0.03, 0.03, 0.03, 0.03, 0.03,
+    0.04, 0.06, 0.08, 0.09, 0.09, 0.09,
+    0.09, 0.09, 0.08, 0.06, 0.04, 0.03,
+    0.03, 0.03, 0.03, 0.03, 0.03, 0.03,
+  ],
+
+  // Agricultural - Irrigation pumps, morning/evening
+  agricultural: [
+    0.01, 0.01, 0.01, 0.02, 0.03, 0.06,
+    0.08, 0.10, 0.10, 0.08, 0.06, 0.05,
+    0.05, 0.04, 0.04, 0.05, 0.06, 0.07,
+    0.06, 0.04, 0.02, 0.01, 0.01, 0.01,
+  ],
+
+  greenhouse: [
+    0.02, 0.02, 0.02, 0.02, 0.03, 0.04,
+    0.06, 0.08, 0.08, 0.08, 0.07, 0.06,
+    0.06, 0.06, 0.05, 0.05, 0.05, 0.05,
+    0.04, 0.03, 0.03, 0.02, 0.02, 0.02,
+  ],
+};
+
+/**
+ * Get hourly curve for a segment
+ */
+export function getHourlyCurve(segment: string): number[] {
+  return HOURLY_CURVES[segment] || HOURLY_CURVES.commercial;
+}
+
+/**
  * Climate zone multipliers for Spain
  * Adjusts heating/cooling consumption
  */

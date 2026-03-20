@@ -1,12 +1,20 @@
 'use client';
 
 import { useState, useCallback, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { ProspectMap, ProspectFilters, BuildingResultsList } from '@/components/map';
+import { PropertySidebar } from '@/components/map/PropertySidebar';
 import type { BBoxBounds, BuildingResult, ProspectFiltersType, AssessmentType, GrantCategory } from '@/components/map';
 import { exportToCSV } from '@/lib/utils/export';
 import { downloadProspectReport, ReportMetadata } from '@/lib/services/prospect-report';
 
 export default function ProspectingPage() {
+  const searchParams = useSearchParams();
+
+  // Read initial position from URL params (from Gestoras page links)
+  const initialLat = searchParams.get('lat') ? parseFloat(searchParams.get('lat')!) : undefined;
+  const initialLon = searchParams.get('lon') ? parseFloat(searchParams.get('lon')!) : undefined;
+  const initialZoom = searchParams.get('zoom') ? parseFloat(searchParams.get('zoom')!) : undefined;
   const [bounds, setBounds] = useState<BBoxBounds | null>(null);
   const [buildings, setBuildings] = useState<BuildingResult[]>([]);
   const [selectedBuilding, setSelectedBuilding] = useState<BuildingResult | null>(null);
@@ -116,6 +124,10 @@ export default function ProspectingPage() {
     downloadProspectReport(buildings, metadata);
   }, [buildings, bounds, assessmentType]);
 
+  const handleCloseSidebar = useCallback(() => {
+    setSelectedBuilding(null);
+  }, []);
+
   return (
     <div className="flex gap-4 h-[calc(100vh-120px)]">
       {/* Left sidebar */}
@@ -151,9 +163,6 @@ export default function ProspectingPage() {
           onExport={handleExport}
           onExportPDF={handleExportPDF}
           assessmentType={assessmentType}
-          grantCategory={grantCategory}
-          businessSegment={lastFiltersRef.current?.businessSegment}
-          electricityPrice={lastFiltersRef.current?.electricityPrice}
         />
       </div>
 
@@ -167,8 +176,22 @@ export default function ProspectingPage() {
           selectedBuilding={selectedBuilding}
           onBuildingSelect={setSelectedBuilding}
           assessmentType={assessmentType}
+          showCommercialAnchors={true}
+          initialLat={initialLat}
+          initialLon={initialLon}
+          initialZoom={initialZoom}
         />
       </div>
+
+      {/* Property Intelligence Sidebar */}
+      <PropertySidebar
+        building={selectedBuilding}
+        onClose={handleCloseSidebar}
+        assessmentType={assessmentType}
+        grantCategory={grantCategory}
+        businessSegment={lastFiltersRef.current?.businessSegment || 'residential'}
+        electricityPrice={lastFiltersRef.current?.electricityPrice || 0.18}
+      />
     </div>
   );
 }

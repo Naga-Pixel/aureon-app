@@ -39,6 +39,10 @@ export interface BuildingResult {
   island?: string | null;
   // Full street address (fetched on-demand from Catastro)
   streetAddress?: string | null;
+  // Construction year (when available from Catastro)
+  constructionYear?: number | null;
+  // Inferred Energy Performance Certificate rating (A-G)
+  inferredEPC?: 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | null;
   // Calculated fields from scoring
   score?: number;
   solarScore?: number;
@@ -102,4 +106,57 @@ export interface SearchResult {
   pvgis: {
     kwhPerKwp: number;
   };
+}
+
+/**
+ * Score components for energy community cluster evaluation
+ */
+export interface ClusterScoreComponents {
+  roofRatio: number;        // 0-100: m² per participant (target >10m²)
+  diversity: number;        // 0-100: load diversity (daylight + night-heavy mix)
+  proximity: number;        // 0-100: tighter clusters score higher
+  batteryReady: number;     // 0-100: % of buildings with poor EPC (F/G)
+}
+
+/**
+ * ROI calculation for energy community cluster
+ */
+export interface ClusterROI {
+  totalInvestmentEur: number;
+  annualSavingsEur: number;
+  paybackYears: number;
+  irpfDeductionEur: number;
+  netInvestmentEur: number;
+}
+
+/**
+ * Extended cluster result with energy community scoring
+ */
+export interface ScoredClusterResult {
+  anchor: {
+    id: string;
+    type: string;
+    name: string | null;
+    lat: number;
+    lon: number;
+  };
+  radiusKm: number;
+  buildingsInRadius: number;
+  totalRoofAreaM2: number;
+  estimatedSavingsEur: number;
+  estimatedSystemSizeKw: number;
+  buildings: BuildingResult[];
+  // Scoring
+  suitabilityScore: number;     // 0-100 weighted composite
+  scoreComponents: ClusterScoreComponents;
+  roi: ClusterROI;
+  // VV integration
+  vvCount: number;
+  vvPlazas: number;
+  // CT heuristic
+  ctZoneWarning: boolean;
+  ctZoneCount: number;
+  // Distances
+  avgDistanceKm: number;
+  buildingDistances: Map<string, number>;
 }
