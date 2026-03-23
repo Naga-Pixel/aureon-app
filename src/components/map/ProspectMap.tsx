@@ -65,7 +65,7 @@ export function ProspectMap({
   const map = useRef<maplibregl.Map | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [vulnerabilityVisible, setVulnerabilityVisible] = useState(true);
+  const [vulnerabilityVisible, setVulnerabilityVisible] = useState(false);
   const [baseLayer, setBaseLayer] = useState<BaseLayerMode>('streets');
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
@@ -128,7 +128,7 @@ export function ProspectMap({
     if (!map.current || !mapLoaded) return;
 
     const mapInstance = map.current;
-    const shouldShow = showVulnerabilityLayer && vulnerabilityVisible && assessmentType !== 'solar';
+    const shouldShow = showVulnerabilityLayer && vulnerabilityVisible;
 
     if (mapInstance.getLayer('vulnerability-fill')) {
       mapInstance.setLayoutProperty('vulnerability-fill', 'visibility', shouldShow ? 'visible' : 'none');
@@ -136,7 +136,7 @@ export function ProspectMap({
     if (mapInstance.getLayer('vulnerability-border')) {
       mapInstance.setLayoutProperty('vulnerability-border', 'visibility', shouldShow ? 'visible' : 'none');
     }
-  }, [mapLoaded, showVulnerabilityLayer, vulnerabilityVisible, assessmentType]);
+  }, [mapLoaded, showVulnerabilityLayer, vulnerabilityVisible]);
 
   // Toggle base layer (streets / satellite / grafcan)
   useEffect(() => {
@@ -149,13 +149,15 @@ export function ProspectMap({
     const layers = style.layers;
 
     // Layers to hide in imagery mode (buildings, land, water fills)
+    // Exclude vulnerability layers - they have their own visibility control
     const layersToHide = layers.filter(l =>
-      l.type === 'fill' ||
+      !l.id.includes('vulnerability') &&
+      (l.type === 'fill' ||
       (l.type === 'line' && !l.id.includes('road')) ||
       l.id.includes('building') ||
       l.id.includes('landuse') ||
       l.id.includes('water') ||
-      l.id.includes('background')
+      l.id.includes('background'))
     ).map(l => l.id);
 
     // Find first label layer to insert imagery below it
@@ -273,6 +275,9 @@ export function ProspectMap({
         id: 'vulnerability-fill',
         type: 'fill',
         source: 'vulnerability-zones',
+        layout: {
+          visibility: 'none',
+        },
         paint: {
           'fill-color': [
             'interpolate',
@@ -293,6 +298,9 @@ export function ProspectMap({
         id: 'vulnerability-border',
         type: 'line',
         source: 'vulnerability-zones',
+        layout: {
+          visibility: 'none',
+        },
         paint: {
           'line-color': [
             'interpolate',
@@ -1798,7 +1806,7 @@ export function ProspectMap({
       )}
 
       {/* Vulnerability Legend */}
-      {mapLoaded && showVulnerabilityLayer && assessmentType !== 'solar' && (
+      {mapLoaded && showVulnerabilityLayer && (
         <div className="absolute bottom-8 right-4 z-10">
           <div className="bg-white rounded-lg shadow-md p-3 text-xs">
             <div className="flex items-center justify-between mb-2">
