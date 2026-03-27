@@ -1,0 +1,5219 @@
+[
+  {
+    "cluster": {
+      "normalizedAddress": "avda aly",
+      "sampleAddress": "Avda. Aly 55",
+      "municipality": "Mogan",
+      "vvCount": 188,
+      "totalPlazas": 643,
+      "listingNames": [
+        "Arguineguin Park",
+        "Arguimeguin Park"
+      ],
+      "brands": [
+        "arguineguin park"
+      ],
+      "coordinates": {
+        "lat": 27.76887900000011,
+        "lon": -15.684592999999959
+      }
+    },
+    "searchQuery": "\"arguineguin park\" Mogan Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: arguineguin park",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"arguineguin park Gran Canaria\"",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida de tirajana",
+      "sampleAddress": "Avenida De Tirajana 40",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 101,
+      "totalPlazas": 319,
+      "listingNames": [
+        "Camelias 103",
+        "Los Molinos 306",
+        "El 303",
+        "New Look",
+        "Tamarán 309",
+        "Masvacation Duna Excelsior",
+        "Iguazu Tir24 Top Floor Apartment",
+        "Da Otto",
+        "Apartamento Luxury",
+        "Rayito De Sol Ii",
+        "Iguazu",
+        "New Atlantis Aloe",
+        "Aloe New Excellence",
+        "Insuisla",
+        "Casa Iguazu",
+        "Centrico Playa Del Ingles",
+        "Tamaran Sky",
+        "Cozy Apartment Near Yumbo",
+        "Apartamentos Ale",
+        "Casa Naranja",
+        "Tamaran 105",
+        "Casa Ona",
+        "Sunny Apartment Tanife By Yumbo",
+        "Sunny Apartment Teneguia By Yumbo",
+        "Yumbo Sunset Suite Tanife 211",
+        "Tamaran 509",
+        "Aloe 4",
+        "Los Volcanes Dunes Apartment",
+        "Residence Vista Yumbo",
+        "Yumbo Sunset Suite Tanife 310",
+        "Sunrise Maspalomas",
+        "P&P",
+        "Yumbo Holiday Tanife 110",
+        "Sunny Suite Tanife By Yumbo",
+        "Sweet Home Playa Del Inglés",
+        "Apartamento Deluxe Yumbo",
+        "Apartamento Los Molinos",
+        "Apartment Palm Trees View Of The Dunes",
+        "Sunset Apartment",
+        "Residencial Los Molinos 2",
+        "Géminis",
+        "Iguazú Yumbo Two Bedroom Apartment",
+        "Luxury Condo In The Middle Of Playa Del Ingle",
+        "Home Near The Dunes",
+        "Blu Sky",
+        "Your Home In Gran Canaria",
+        "Apartamento Relax Dunas",
+        "The Bulldog Apartment",
+        "Aloe Encantador Close To Yumbo And Dunas",
+        "Perfectus Apartments",
+        "The Lizards Lounge - Tanife Apartment",
+        "Mar Y Dunas En Maspalomas",
+        "Amazing&Furnished Apartment In Center",
+        "Apartamentos Las Camilias Q14",
+        "Las Camelias Apartments C13",
+        "Apartamento Las Camelias T10",
+        "Apartamentos Las Camelias C19",
+        "Apartamentos Las Camelias Q13",
+        "Apartamentos Las Camelias Q17",
+        "Tamaran 102",
+        "Apartamentos Las Camelias T06",
+        "Apartamentos Las Camelias T03",
+        "Solymar Premium Appartment",
+        "El Molino Canario",
+        "Aloe 112",
+        "Marisol Los Molinos",
+        "Yumbo Holiday Tanife 509",
+        "Paradise In Maspalomas",
+        "Playa Del Ingles D&M Near Yumbo",
+        "Love Loft",
+        "Tamaran Bureba 511",
+        "Solymar 400",
+        "Los Molinos Elena",
+        "Casa 15 Yelitza",
+        "Mama Yumbo",
+        "Apartamento Acogedor",
+        "Homefinder",
+        "Appartment Yumbo Playa Del Ingles",
+        "Casa Bonita Vista",
+        "Apartamento Barbados 124",
+        "Apt 604 Solymar",
+        "Tenesor Playa Del Inglés",
+        "Casa Enrico",
+        "Seaview Apartment Near Yumbo",
+        "Brisa Los Molinos",
+        "Las Camelias",
+        "Ak Suites - Yumbo / Playa Del Ingles",
+        "Aloe 425",
+        "Aloe 440",
+        "Ctai Gestion Inmobiliaria",
+        "Jose Ravelo Sanchez",
+        "Pedro Rosales Segura",
+        "Muratorio House",
+        "Kellys' Apartament Camelias",
+        "Bungalow San Diego",
+        "Tanife 502",
+        "Oasis Playa Del Ingles 324",
+        "Molinos Atalaya",
+        "Los Molinos Beach",
+        "Iguazu 2-107",
+        "Barbados 1 - 415"
+      ],
+      "brands": [
+        "apartamentos las camelias",
+        "aloe",
+        "tamaran",
+        "los molinos",
+        "iguazu",
+        "sunny tanife yumbo",
+        "yumbo sunset tanife",
+        "yumbo holiday tanife",
+        "barbados"
+      ],
+      "coordinates": {
+        "lat": 27.7565680620939,
+        "lon": -15.578155532774279
+      }
+    },
+    "searchQuery": "\"apartamentos las camelias\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: apartamentos las camelias",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"apartamentos las camelias Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida aly",
+      "sampleAddress": "Avenida Aly 55",
+      "municipality": "Mogan",
+      "vvCount": 73,
+      "totalPlazas": 240,
+      "listingNames": [
+        "Arguineguin Park",
+        "Csuarez@Arguineguin.Net",
+        "Arguineguinpark",
+        "Arguimeguin Park",
+        "Mirapuerto"
+      ],
+      "brands": [
+        "arguineguin park",
+        "arguimeguin park"
+      ],
+      "coordinates": {
+        "lat": 27.768860472222197,
+        "lon": -15.684610333333309
+      }
+    },
+    "searchQuery": "\"arguineguin park\" Mogan Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: arguineguin park",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"arguineguin park Gran Canaria\"",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida de gran canaria",
+      "sampleAddress": "Avenida De Gran Canaria 23",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 64,
+      "totalPlazas": 232,
+      "listingNames": [
+        "Best Bnb",
+        "Best Bnb Koala",
+        "Marbella Golf 71",
+        "Solycan Bungalow 35",
+        "Sunny Home Holidays 360",
+        "Villa Bahamas",
+        "Villa Orquidea With Private Garden",
+        "Bungalow Monte Golf",
+        "Hábitat Tropical",
+        "Aremobilien-Vivienda 411",
+        "Aremobilien-Vivienda 412",
+        "Aremobilien-Vivienda 413",
+        "Aremobilien-Vivienda 416",
+        "Aremobilien-Vivienda 417",
+        "Aremobilien-Vivienda 418",
+        "Marbella Golf 85",
+        "Cozy Holiday Home In Playa Del Ingles",
+        "Apartamento Paraiso",
+        "Apto 324 Habitat",
+        "Residencial Los Molinos 131",
+        "Relaxing Friendly Holiday Home",
+        "Casa Ana",
+        "Casa Isabel",
+        "Casa Jaime",
+        "Casa Andrea",
+        "Casa Christian Y Daniela",
+        "Club 14 - Bungalow 5",
+        "Casa Jose",
+        "Francisco Eduardo Rodriguez De La Fe",
+        "La Hermosita",
+        "Schönes Appartement Mit Fernblick In Maspalom",
+        "Casa Kriki",
+        "Casa Carmen",
+        "Apartamento Céntrico En Playa Del Inglés",
+        "Beso Del Sol",
+        "Paraiso Elena",
+        "Graciela Ruiz Gonzalez",
+        "Chalet Duna Star",
+        "Paradise View Apartment Maspalomas",
+        "El Molino Canario 2",
+        "Un Pisito En Maspalomas",
+        "Casa Iwona",
+        "Marbella Golf 64",
+        "Cozy And Relax Holiday Home",
+        "Villa Solycan 15",
+        "Casa Boutique Luxury Yumbo",
+        "Cairo",
+        "Banana House",
+        "Villa Canadá",
+        "Bungalows Hespérides",
+        "Bungalow Santa Fe 42",
+        "Bungalow Santa Fe 40",
+        "Bungalow 75 - Santa Fe I",
+        "Bungalow Santa Fe  Num. 72",
+        "Bungalow Santa Fe Num. 97",
+        "Bungalow Santa Fe Num. 126",
+        "Bungalow Casa Claudia",
+        "Bungalow Libelula Deluxe",
+        "Santa Fe I",
+        "Casita De Gatas",
+        "The Wild Dune",
+        "Santa Fe 150",
+        "Santa Ferias",
+        "Santa Fe 1 Bungalow 142"
+      ],
+      "brands": [
+        "aremobilien-vivienda",
+        "santa",
+        "marbella golf",
+        "santa num.",
+        "solycan"
+      ],
+      "coordinates": {
+        "lat": 27.76022852187233,
+        "lon": -15.578669732844974
+      }
+    },
+    "searchQuery": "\"aremobilien-vivienda\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: aremobilien-vivienda",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"aremobilien-vivienda Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida de tenerife",
+      "sampleAddress": "Avenida De Tenerife 17",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 58,
+      "totalPlazas": 157,
+      "listingNames": [
+        "Koka Wellness",
+        "Agaete Park 128",
+        "Da Patrizio",
+        "Sweet  Studio Playa Del Ingles I",
+        "Sweet Studio Playa Del Ingles Ii",
+        "Apartamento Agaete Parque - Nº 315",
+        "219 Agaete Parque",
+        "Ocean Cream Playa Del Ingles",
+        "Bamboo Chic Apartment Playa Del Ingles",
+        "Simple Stay",
+        "Sunset House Maspalomas",
+        "Agaete Parque",
+        "Casa Gigi",
+        "Alojamiento Moderno En Playa Del Ingles",
+        "Las Tartanas Two Bedroom Bungalow",
+        "Private Chill-Out Terrace Bungalow - Pool",
+        "Gran Canaria Stays",
+        "Holiday Apartment",
+        "La Perla Del Sur",
+        "Relax In Playa Del Inglés 328",
+        "Renovado-Muy Cerca De Playa Del Ingles",
+        "0 Renovado Y Luminoso A Pocos Metros De La Playa",
+        "Recien Renovado-Cerca De La Playa-Centrico",
+        "Espacioso Y Bonito-Near To The Beach 323",
+        "Dos Balcones Soleados-Vistas Piscina-Reformado",
+        "Playa Del Ingles Holiday Apartment 47",
+        "Maya House",
+        "Kellys' Apartament Koka",
+        "Koka Terraced Accomodation",
+        "Agaete Parque 203",
+        "Mountain&Ocean Oasis",
+        "Ocean View Studio",
+        "Avda. Tenerife 8 Apto.516",
+        "Sergio Alvarez Garcia",
+        "Serguio Alvarez Garcia",
+        "Arne Braun"
+      ],
+      "brands": [
+        "sergio alvarez garcia",
+        "agaete parque",
+        "sweet playa del"
+      ],
+      "coordinates": {
+        "lat": 27.76179819354838,
+        "lon": -15.568746548387098
+      }
+    },
+    "searchQuery": "\"sergio alvarez garcia\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: sergio alvarez garcia",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"sergio alvarez garcia Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "el salvador",
+      "sampleAddress": "El Salvador 79",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 55,
+      "totalPlazas": 212,
+      "listingNames": [
+        "Guanarteme Vista Surf",
+        "Guanarteme Vista Surf 2",
+        "Art Las Palmas",
+        "El Salvador 53 - 1b",
+        "El Salvador 53 - 2a",
+        "El Salvador 53 - 2b",
+        "El Salvador 53 - 3a",
+        "El Salvador 53 - 3b"
+      ],
+      "brands": [
+        "art las palmas",
+        "salvador",
+        "guanarteme vista surf"
+      ],
+      "coordinates": {
+        "lat": 28.130360857142854,
+        "lon": -15.442871571428569
+      }
+    },
+    "searchQuery": "\"art las palmas\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: art las palmas",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"art las palmas Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "plan parcial sector s-cuatro el pajar parcela 2",
+      "sampleAddress": "Plan Parcial Sector S-Cuatro El Pajar, Parcela 2 2019",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 49,
+      "totalPlazas": 196,
+      "listingNames": [
+        "Resort Cordial Santa Agueda"
+      ],
+      "brands": [
+        "resort cordial santa"
+      ],
+      "coordinates": {
+        "lat": 27.75422899999998,
+        "lon": -15.674711
+      }
+    },
+    "searchQuery": "\"resort cordial santa\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: resort cordial santa",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"resort cordial santa Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida de italia",
+      "sampleAddress": "Avenida De Italia 20",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 48,
+      "totalPlazas": 186,
+      "listingNames": [
+        "Las Olas Sand",
+        "Las Olas Beach",
+        "Las Olas Mar",
+        "Las Olas 165",
+        "Las Olas 137",
+        "Bungalow Caserio 29",
+        "Bungalow Caserio 30",
+        "Ocean Blue By K",
+        "Ground Floor Apartment",
+        "Playa Del Inglés Con Terraza Y Solarium",
+        "Sunny Maspalomas",
+        "Nikis Flat",
+        "Apartamento Las Arenas Maspalomas",
+        "Cactus",
+        "Danubio Beach",
+        "Apto Edif. Arenas. Playa Ingles",
+        "Milu",
+        "Pepe",
+        "Lilli",
+        "Playa Del Ingles Easy Relax Accomodation",
+        "Casa Arena",
+        "Caserío 20 Carmen",
+        "Caserío 11 Ana",
+        "Bechs Apartment",
+        "Apto Playa Del Ingles 413",
+        "Apto Playa Del Ingles 818",
+        "Apto Playa Del Ingles 412",
+        "Casa Gino",
+        "Las Arenas 414",
+        "Las Olas 206",
+        "Apartment Mananem",
+        "Seaview Apartment Los Cactus",
+        "Las Arenas 616",
+        "Alegranza 12",
+        "Alegranza 18",
+        "Las Olas 153",
+        "Apartamentos Las Olas",
+        "Top Apartment Playa Del Inglés",
+        "Las Olas 147",
+        "Dunas House Playa Del Inglés",
+        "Maspalomas Area Ciudad",
+        "Area Ciudad Playa Del Ingles",
+        "Jordan´S Home",
+        "Las Olas",
+        "Gloria´S Home"
+      ],
+      "brands": [
+        "las olas",
+        "sunny maspalomas",
+        "apto playa del",
+        "caserio",
+        "cactus",
+        "las arenas",
+        "alegranza"
+      ],
+      "coordinates": {
+        "lat": 27.760615333333334,
+        "lon": -15.56644876923077
+      }
+    },
+    "searchQuery": "\"las olas\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: las olas",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"las olas Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "c/ olof palme",
+      "sampleAddress": "C/ Olof Palme 26",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 40,
+      "totalPlazas": 151,
+      "listingNames": [
+        "Corner Las Canteras Beach By Canariasgetaway",
+        "Toctoc Suites Olof Palme 203",
+        "Toctoc Suites Olof Palme Vv 202",
+        "Toctoc Suites Olof Palme 201",
+        "Toctoc Suites Olof Palme Vv 101",
+        "Toctoc Suites Olof Plame Vv 102",
+        "Toctoc Suites Olof Palme Vv 103",
+        "Toctoc Suites Olof Palme 204",
+        "Toctoc Suites Olof Palme Vv 205",
+        "Toctoc Suites Olof Palme Vv 206",
+        "Toctoc Suites Olof Palme Vv 207",
+        "Toctoc Suites Olof Palme Vv 208",
+        "Toctoc Suites Olof Palme Vv 209",
+        "Toctoc Suites Olof Palme Vv 104",
+        "Toctoc Suites Olof Palme Vv 105",
+        "Toctoc Suites Olof Palme Vv 106",
+        "Toctoc Suites Olof Palme Vv 107",
+        "Toctoc Suites Olof Palme Vv 108",
+        "Toctoc Suites Olof Palme Vv 109",
+        "Toctoc Suites Olof Palme Vv 301",
+        "Toctoc Suites Olof Palme Vv 302",
+        "Toctoc Suites Olof Palme Vv 303",
+        "Toctoc Suites Olof Palme Vv 304",
+        "Toctoc Suites Olof Palme Vv 305",
+        "Toctoc Suites Olof Palme Vv 306",
+        "Toctoc Suites Olof Palme Vv 307",
+        "Toctoc Suites Olof Palme Vv 308",
+        "Toctoc Suites Olof Palme Vv 309",
+        "Toctoc Suites Olof Palme Vv 401",
+        "Toctoc Suites Olof Palme Vv 402",
+        "Toctoc Suites Olof Palme Vv 403",
+        "Toctoc Suites Olof Palme Vv 404",
+        "Toctoc Suites Olof Palme Vv 405",
+        "Toctoc Suites Olof Palme Vv 406",
+        "Toctoc Suites Olof Palme Vv 407",
+        "Toctoc Suites Olof Palme 408",
+        "Toctoc Suites Olof Palme 409",
+        "Toctoc Suites Olof Palme 410",
+        "Toctoc Suites Olof Palme 411",
+        "Toctoc Suites Olof Palme 412"
+      ],
+      "brands": [
+        "toctoc suites olof"
+      ],
+      "coordinates": {
+        "lat": 28.134996374999997,
+        "lon": -15.43677295
+      }
+    },
+    "searchQuery": "\"toctoc suites olof\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: toctoc suites olof",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"toctoc suites olof Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle la naval",
+      "sampleAddress": "Calle La Naval 148",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 36,
+      "totalPlazas": 112,
+      "listingNames": [
+        "Dnd Las Canteras",
+        "Mainstream Home With Balcony By Canariasgetaway",
+        "Fancy & Stylish Studio By Canariasgetaway",
+        "Las Canteras Lighthouse",
+        "Luxury 3 Bedrooms With Private Parking",
+        "Alma Canaria Naval",
+        "Urban Square 3b3 By Canariasgetaway",
+        "Urban Square 3a5",
+        "La Naval",
+        "La Naval A11",
+        "La Naval A12",
+        "La Naval 3",
+        "La Naval 4",
+        "Exclusivo Apartamente Con Jacuzzi",
+        "Apartamento Oslo",
+        "Apartamento Nairobi",
+        "Apartamento Denver",
+        "Apartamento Agadir",
+        "Apartamento Londres",
+        "Temple Home By Canariasgetaway",
+        "Exclusivo Apartamento Con Jacuzzi",
+        "Sol Y Mar La Naval",
+        "The One First 1a",
+        "The One First 1b",
+        "The One First 1c",
+        "The One Second 2a",
+        "The One Second 2b",
+        "The One Second 2c",
+        "The One Third 3a",
+        "The One Third 3b",
+        "The One Third 3c",
+        "The One Fourth 4a",
+        "The One Fourth 4b",
+        "The One Fourth 4c",
+        "The One Fifth 5b",
+        "The One Fifth 5c"
+      ],
+      "brands": [
+        "naval",
+        "the one first",
+        "the one second",
+        "the one third",
+        "the one fourth",
+        "the one fifth"
+      ],
+      "coordinates": {
+        "lat": 28.14977818772475,
+        "lon": -15.424840068220684
+      }
+    },
+    "searchQuery": "\"naval\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: naval",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"naval Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle albareda",
+      "sampleAddress": "Calle Albareda 54",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 36,
+      "totalPlazas": 95,
+      "listingNames": [
+        "Maroon",
+        "Notar",
+        "Marina Beach 1",
+        "Marina Beach 2",
+        "Sunny Island Albareda",
+        "Marine Paradise",
+        "Albareda",
+        "Poem Suites",
+        "Canteras Home",
+        "Laika Canteras",
+        "Poem Suites 101",
+        "Poem Suites 103",
+        "Poem Suites 104",
+        "Poem Suites 105",
+        "Poem Suites 106",
+        "Poem Suites 107",
+        "Poem Suites 108",
+        "Poem Suites 201",
+        "Poem Suites 202",
+        "Poem Suites 203",
+        "Poem Suites 204",
+        "Poem Suites 208",
+        "Poem Suites 205",
+        "Poem Suites 206",
+        "Poem Suites 207",
+        "Loftcanteras Corner",
+        "Albareda 1",
+        "Luxury Apartments Las Canteras"
+      ],
+      "brands": [
+        "poem suites",
+        "marina beach",
+        "albareda",
+        "luxury apartments las"
+      ],
+      "coordinates": {
+        "lat": 28.1465444784943,
+        "lon": -15.42969636984492
+      }
+    },
+    "searchQuery": "\"poem suites\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: poem suites",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"poem suites Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle swing",
+      "sampleAddress": "Calle Swing 47",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 34,
+      "totalPlazas": 198,
+      "listingNames": [
+        "Tabaibas 1",
+        "Lagos 37",
+        "Sunrize Bv",
+        "Casa Gema",
+        "Espectacular Villa Los Lagos & Salobre Golf",
+        "Santa Clara",
+        "Salobre Golf",
+        "Villa Los Lagos 31",
+        "Salobre Oasis Suites",
+        "Los Lagos 36",
+        "Villa Mezandu",
+        "Salobre La Calima",
+        "Yucas 14",
+        "Yucas 17",
+        "Swing 35",
+        "Kaiman 22",
+        "Kaiman 5 Rubia",
+        "Salobre Homes - 38",
+        "Salobre Homes - 8",
+        "Salobre Homes - 9",
+        "Salobre Homes - 10",
+        "Salobre Homes - 21",
+        "Salobre Homes - 26",
+        "Salobre Homes - 27",
+        "Salobre Homes - 28",
+        "Salobre Homes - 29",
+        "Salobre Homes - 30",
+        "Salobre Homes - 31",
+        "Salobre Homes - 32",
+        "Salobre Homes - 46",
+        "Salobre Homes - 47",
+        "Salobre Homes - 48",
+        "Kaiman - 35"
+      ],
+      "brands": [
+        "salobre homes",
+        "los lagos",
+        "salobre oasis suites",
+        "yucas",
+        "kaiman"
+      ],
+      "coordinates": {
+        "lat": 27.78033868003122,
+        "lon": -15.646008069259183
+      }
+    },
+    "searchQuery": "\"salobre homes\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: salobre homes",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"salobre homes Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "luis morote",
+      "sampleAddress": "Luis Morote  11",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 32,
+      "totalPlazas": 91,
+      "listingNames": [
+        "Marsin Playa 210",
+        "Marsin Playa 403",
+        "Sagasta 83",
+        "Estudio Canteras",
+        "Suite Canteras",
+        "Seaview Canteras 3",
+        "Marsin Front Beach",
+        "Elegante Apartamento Con Vistas A La Playa",
+        "Perenquén Las Canteras",
+        "Sin  Nombre",
+        "Apartamento 205",
+        "Bonamar",
+        "Alma Beach House",
+        "Off Canteras",
+        "Oli Coral Canteras",
+        "Luis Morote 2-B",
+        "Luis Morote 3-A",
+        "Luis Morote 3-B",
+        "Luis Morote 3-C",
+        "Luis Morote - 3-D",
+        "Atw Suites Canteras",
+        "Luis Morote 1-C",
+        "Canary Hosts",
+        "Luis Morote 57"
+      ],
+      "brands": [
+        "atw suites canteras",
+        "canteras",
+        "marsin playa"
+      ],
+      "coordinates": {
+        "lat": 28.141233287188193,
+        "lon": -15.433386920449445
+      }
+    },
+    "searchQuery": "\"atw suites canteras\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: atw suites canteras",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"atw suites canteras Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle secretario artiles",
+      "sampleAddress": "Calle Secretario Artiles 107",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 32,
+      "totalPlazas": 108,
+      "listingNames": [
+        "Dimas",
+        "Retama Apto 1",
+        "Retama Ático 22",
+        "Retama Ático 23",
+        "Santiago Perez Tacoronte",
+        "Estudio Artiles",
+        "Beach Apartamento 11",
+        "Estudio 8",
+        "A Great Lodging By The Ocean Every Tourist Dreams About",
+        "Canteras Beach Flat",
+        "Marinés 1",
+        "Marinés 2",
+        "Casa Laura Y Juan",
+        "Vivienda N 1, Vivienda N 2 Y Vivienda N 3",
+        "Canteras Urban Beach 1a",
+        "Canteras Urban Beach 1b",
+        "Canteras Urban Beach 2a",
+        "Canteras Urban Beach 2b",
+        "Canteras Urban Beach 3a",
+        "Canteras Urban Beach 3b",
+        "Canteras Urban Beach 4a",
+        "Blue Sea+Canteras Beach+Balcony+Renovated",
+        "Canteras Luxury Seaview Penthouse",
+        "Suites Garden",
+        "Seabliss Las Canteras Apartment",
+        "Nomad Appartments Gran Canaria",
+        "Casa Artiles",
+        "Coqueto Apartamento",
+        "Artiles",
+        "Edificio De 5 Viviendas",
+        "Reliebe"
+      ],
+      "brands": [
+        "canteras urban beach",
+        "artiles",
+        "retama ático",
+        "marinés",
+        "seabliss las canteras"
+      ],
+      "coordinates": {
+        "lat": 28.14218147446617,
+        "lon": -15.43220716928623
+      }
+    },
+    "searchQuery": "\"canteras urban beach\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: canteras urban beach",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"canteras urban beach Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "prudencio morales",
+      "sampleAddress": "Prudencio Morales 10",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 29,
+      "totalPlazas": 112,
+      "listingNames": [
+        "Canteras Vista Playa 1a",
+        "Canteras Vista Playa 1b",
+        "Canteras Vista Playa 2a",
+        "Canteras Vista Playa 2b",
+        "Canteras Vista Playa 3a",
+        "Canteras Vista Playa 3b",
+        "Canteras Vista Playa 4a",
+        "Canteras Vista Playa 4b",
+        "Canteras Vista Playa 5b",
+        "Canteras Vista Playa 6ab",
+        "Elisa Perez 70",
+        "Elisa Perez 71",
+        "Elisa Perez 60",
+        "Elisa Perez 61",
+        "Elisa Perez 62",
+        "Elisa Perez 72",
+        "Di-Mar Canteras",
+        "Juan Perez 10-1º-11",
+        "Juan Perez 10-4º-40",
+        "Juan Perez 10-4º-41",
+        "Juan Perez 10-4º-42",
+        "Juan Perez 10-8º-80",
+        "Juan Perez 10-5º-52",
+        "Juan Perez 10-5º-51",
+        "Juan Perez 10-5º-50",
+        "Pino",
+        "Canary Vacation Houses",
+        "Mariposa Blanca",
+        "Beach Vista Studio Las Canteras"
+      ],
+      "brands": [
+        "canteras vista playa",
+        "elisa perez"
+      ],
+      "coordinates": {
+        "lat": 28.148827793103443,
+        "lon": -15.431315827586197
+      }
+    },
+    "searchQuery": "\"canteras vista playa\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: canteras vista playa",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"canteras vista playa Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle swing s/n",
+      "sampleAddress": "Calle Swing S/N",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 28,
+      "totalPlazas": 166,
+      "listingNames": [
+        "Yucas 6",
+        "Eden Salobre",
+        "Kaiman Suite - 8",
+        "Kaiman Suite - 9",
+        "Kaiman Suite - 10",
+        "Kaiman Suite - 21",
+        "Kaiman Suite - 46",
+        "Kaiman Suite - 47",
+        "Kaiman Suite - 48",
+        "Kaiman Suite - 26",
+        "Kaiman Suite - 27",
+        "Kaiman Suite - 28",
+        "Kaiman Suite - 29",
+        "Kaiman Suite - 30",
+        "Kaiman Suite - 31",
+        "Kaiman Suite - 32",
+        "Kaiman - 12",
+        "Kaiman Suite - 15",
+        "Nineteen Hole",
+        "Terrazas 7",
+        "Kaiman39",
+        "Kaiman 6",
+        "Kaiman 49",
+        "Kaiman 34",
+        "Tb Diagnost Sa",
+        "Kaiman37",
+        "Kaiman51",
+        "Kaiman13"
+      ],
+      "brands": [
+        "kaiman"
+      ],
+      "coordinates": {
+        "lat": 27.782155406618994,
+        "lon": -15.648118248367604
+      }
+    },
+    "searchQuery": "\"kaiman\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: kaiman",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"kaiman Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle las dalias",
+      "sampleAddress": "Calle Las Dalias 1",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 24,
+      "totalPlazas": 84,
+      "listingNames": [
+        "Sunsuites Carolina",
+        "Casa Las Flores Garden",
+        "Bungalow Atlantic View",
+        "My Balcony",
+        "Blissful Escapade",
+        "Saltwater Escapade",
+        "Ocean Front Relax",
+        "Feernando Martin Lopez Pozo",
+        "Apto Las Flores 34",
+        "Apartamento Las Gavias C3",
+        "Comercial Cabalsa, S.L.",
+        "Las Flores 718",
+        "House & More",
+        "Las Flores I-13b",
+        "Las Flores 1-A6b",
+        "Las Flores I- 16a",
+        "Las Flores I - 13a",
+        "Las Flores 1 - 12a",
+        "Apto. Las Flores Ii 86a",
+        "Costa Sur San Agustin",
+        "Casa Kiwi",
+        "Adolfoypanchita",
+        "La Casa De La Playa San Agustín",
+        "Aptos Ticona"
+      ],
+      "brands": [
+        "las flores"
+      ],
+      "coordinates": {
+        "lat": 27.767763000000006,
+        "lon": -15.546077999999998
+      }
+    },
+    "searchQuery": "\"las flores\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: las flores",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"las flores Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle marruecos",
+      "sampleAddress": "Calle Marruecos 2",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 23,
+      "totalPlazas": 71,
+      "listingNames": [
+        "Los Juncos Ii 507",
+        "Los Juncos 402 Playa Del Inglés",
+        "Los Juncos 403 Playa Del Inglés",
+        "Mi Casa Es Tu Casa En Canarias",
+        "Las Dunas Ocean View",
+        "Las Dunas Seafront 301",
+        "Las Dunas Seafront 408",
+        "Las Dunas Seafront 308",
+        "Las Dunas Seafront 610",
+        "Las Dunas Seafront 507",
+        "Las Dunas Seaview 603",
+        "Las Dunas Seaview 604",
+        "Las Dunas Seaview 605",
+        "The Sunspot Apartment Playa Del Ingles",
+        "Playa Del Ingles Central Pool View Accomodati",
+        "One Bedroom Apartment In Playa Del Inglés",
+        "Beach View Apartment",
+        "Los Juncos I 103",
+        "Bright Apartment Playa Del Ingles",
+        "Las Dunas D&M",
+        "Las Dunas 408",
+        "Las Dunas 607",
+        "Los Juncos Ii"
+      ],
+      "brands": [
+        "las dunas seafront",
+        "los juncos",
+        "las dunas seaview",
+        "los juncos playa",
+        "las dunas"
+      ],
+      "coordinates": {
+        "lat": 27.75795434585573,
+        "lon": -15.56910009356552
+      }
+    },
+    "searchQuery": "\"las dunas seafront\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: las dunas seafront",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"las dunas seafront Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle torres quevedo",
+      "sampleAddress": "Calle Torres Quevedo 29",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 23,
+      "totalPlazas": 67,
+      "listingNames": [
+        "Luis Mariano Leon Afonso",
+        "Chez Abel",
+        "Chezabel",
+        "Flat Las Canteras",
+        "Tq204 By Waveproperties"
+      ],
+      "brands": [
+        "chez abel",
+        "chezabel"
+      ],
+      "coordinates": {
+        "lat": 28.140128,
+        "lon": -15.434087
+      }
+    },
+    "searchQuery": "\"chez abel\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: chez abel",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"chez abel Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "secretario padilla",
+      "sampleAddress": "Secretario Padilla 6",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 23,
+      "totalPlazas": 87,
+      "listingNames": [
+        "California 4ºb",
+        "4c California",
+        "Los Muellitos Flat",
+        "Livi Beach Suite",
+        "Secretario Padilla",
+        "Spotihouse",
+        "Rahel"
+      ],
+      "brands": [
+        "livi beach",
+        "secretario padilla"
+      ],
+      "coordinates": {
+        "lat": 28.134559181818187,
+        "lon": -15.439450999999998
+      }
+    },
+    "searchQuery": "\"livi beach\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: livi beach",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"livi beach Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida touroperador kuoni",
+      "sampleAddress": "Avenida Touroperador Kuoni 15",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 23,
+      "totalPlazas": 88,
+      "listingNames": [
+        "Melocoton. Sun And Relax",
+        "Maspalomas Lago 36",
+        "Sunset House",
+        "Sonora Golf Luxury Two Bedroom Chalet",
+        "Sonora Bungalow Wifi 121",
+        "Luxury Sonora Golf With Privacy",
+        "Los Melocotones",
+        "Maspalomas Bungalow",
+        "Stars Bungalow",
+        "Capricho",
+        "Vv Tulum",
+        "Casa Tommy 13",
+        "Los Melocotones B2",
+        "Los Melocotones B11",
+        "Los Melocotones B13",
+        "Los Melocotones B14",
+        "Los Melocotones B29",
+        "Los Melocotones B39",
+        "Los Melocotones B40",
+        "Los Melocotones B52",
+        "Los Melocotones B56",
+        "Bungalow Kuoni 129",
+        "Maspalomas Lago"
+      ],
+      "brands": [
+        "maspalomas lago",
+        "los melocotones"
+      ],
+      "coordinates": {
+        "lat": 27.759300333333332,
+        "lon": -15.590183333333334
+      }
+    },
+    "searchQuery": "\"maspalomas lago\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: maspalomas lago",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"maspalomas lago Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "albareda",
+      "sampleAddress": "Albareda  54",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 22,
+      "totalPlazas": 147,
+      "listingNames": [
+        "Apartamentos Las Canteras Arena",
+        "Paradise Island",
+        "Poem Suites 602",
+        "Wplaya Canteras",
+        "Poem Suites 301",
+        "Poem Suites 302",
+        "Poem Suites 303",
+        "Poem Suites 304",
+        "Poem Suites 305",
+        "Poem Suites 306",
+        "Poem Suites 307",
+        "Poem Suites 601",
+        "Luxury Port View",
+        "Lafontanilla",
+        "Susa Cosi Canteras Apartment",
+        "Poem Suites",
+        "Poem Suites 102",
+        "Flatguest Turismo Sl",
+        "Elegant Beach Flat",
+        "Albareda 2",
+        "Albareda Suites 1",
+        "Yan Building By Canariasgetaway"
+      ],
+      "brands": [
+        "poem suites"
+      ],
+      "coordinates": {
+        "lat": 28.14636936106357,
+        "lon": -15.42970641069763
+      }
+    },
+    "searchQuery": "\"poem suites\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: poem suites",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"poem suites Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle einstein",
+      "sampleAddress": "Calle Einstein 17",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 22,
+      "totalPlazas": 76,
+      "listingNames": [
+        "Surycan",
+        "Villa Dalara",
+        "Ataitana Faro 5-17",
+        "Apartamento Alberto 191",
+        "Blue Sky Rentals",
+        "Em&Er Surycan",
+        "Sunset Apartment",
+        "G&G Spacious Bungalow In Maspalomas",
+        "Sunny And Relaxing Apartment In Maspalomas",
+        "Nira'S Pool House",
+        "Ana",
+        "Sasha Bungalow",
+        "Sur 107",
+        "Maspalomas Holiday Apartment",
+        "Olivia’S House",
+        "Suerte Holandesa",
+        "Surycan Vista Dunas",
+        "Isis House",
+        "Vista Ayd",
+        "Estupiendo Bunglow",
+        "Laxmi"
+      ],
+      "brands": [
+        "blue sky rentals"
+      ],
+      "coordinates": {
+        "lat": 27.761563190476192,
+        "lon": -15.601076285714282
+      }
+    },
+    "searchQuery": "\"blue sky rentals\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: blue sky rentals",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"blue sky rentals Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle la lajilla",
+      "sampleAddress": "Calle La Lajilla 2",
+      "municipality": "Mogan",
+      "vvCount": 21,
+      "totalPlazas": 57,
+      "listingNames": [
+        "Isipau",
+        "Charles Moe S.L.U",
+        "Charles Mou S.L.U",
+        "Beachfront La Lajilla",
+        "La Lajilla Beach",
+        "La Lajilla 2",
+        "Costa Alegre 1",
+        "Studio Arguineguin",
+        "Studio Mit Meerblick",
+        "Mariella’S Beach Penthouse",
+        "Lajilla"
+      ],
+      "brands": [
+        "charles moe s.l.u",
+        "isipau",
+        "lajilla",
+        "arguineguin"
+      ],
+      "coordinates": {
+        "lat": 27.76167600000001,
+        "lon": -15.684105999999993
+      }
+    },
+    "searchQuery": "\"charles moe s.l.u\" Mogan Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: charles moe s.l.u",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"charles moe s.l.u Gran Canaria\"",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida de tirajana 15",
+      "sampleAddress": "Avenida De Tirajana  15    219",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 21,
+      "totalPlazas": 63,
+      "listingNames": [
+        "Apartamentos Las Camelias 219",
+        "Apartamento Las Camelias 104",
+        "Apartamentos Los Camelias 117",
+        "Apartamentos Las Camelias 214",
+        "Apartamentos Las Camelias 309",
+        "Apartamentos Las Camelias 314",
+        "Apartamentos Las Camelias 315",
+        "Apartamento Las Camelias 316",
+        "Apartamento Las Camelias 320",
+        "Apartamento Las Camelias 410",
+        "Apartamento Las Camelias 414",
+        "Apartamento Las Camelias 501",
+        "Apartamento Las Camelias 502",
+        "Apartameto Las Camelias 506",
+        "Apartamento Las Camelias 520",
+        "Apartamento Las Cam,Elias 604",
+        "Camelias 305",
+        "Apartamento Las Camelias 405",
+        "Apartamentos Las Camelias 401",
+        "Apartamentos Las Camelias 519",
+        "Palm View Las Camelias"
+      ],
+      "brands": [
+        "las camelias",
+        "apartamentos las camelias"
+      ],
+      "coordinates": {
+        "lat": 27.755853339705112,
+        "lon": -15.578960917703013
+      }
+    },
+    "searchQuery": "\"las camelias\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: las camelias",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"las camelias Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "plan parcial el pajar parcela 3",
+      "sampleAddress": "Plan Parcial El Pajar, Parcela 3 3",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 21,
+      "totalPlazas": 84,
+      "listingNames": [
+        "Resort Cordial Santa Agueda"
+      ],
+      "brands": [
+        "resort cordial santa"
+      ],
+      "coordinates": {
+        "lat": 27.75494700000001,
+        "lon": -15.675577999999994
+      }
+    },
+    "searchQuery": "\"resort cordial santa\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: resort cordial santa",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"resort cordial santa Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle los jazmines",
+      "sampleAddress": "Calle Los Jazmines 19",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 20,
+      "totalPlazas": 71,
+      "listingNames": [
+        "Magical Sea View Accommodation Gran Canaria",
+        "Dreamy Sea View Accommodation Gran Canaria",
+        "La Colina",
+        "Casa Beach And Breeze Escapade",
+        "White And Quiet",
+        "Sun And Love Apartment",
+        "Apartamento La Colina 30",
+        "Balcón De San Agustín",
+        "Luis Perdomo",
+        "Privilege Bay Sea View San Agustín",
+        "Nueva Suecia 504",
+        "Holiday Apartment With Direct Sea Promenade",
+        "El Morro Sea View Apartment",
+        "Apartamentos El Morro",
+        "Vista Mar Complejo La Colina",
+        "Ocean Window Marina",
+        "Terraces Two-Bedroom Beach Holiday Rental",
+        "Solarena 37",
+        "Solarena 38"
+      ],
+      "brands": [
+        "colina",
+        "luis perdomo",
+        "solarena"
+      ],
+      "coordinates": {
+        "lat": 27.770839540083298,
+        "lon": -15.53640782192805
+      }
+    },
+    "searchQuery": "\"colina\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: colina",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"colina Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle las margaritas",
+      "sampleAddress": "Calle Las Margaritas 9",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 20,
+      "totalPlazas": 75,
+      "listingNames": [
+        "Bello Horizonte",
+        "Heliopolis",
+        "Sun Hill Palace",
+        "Ocean View Dream Apartment",
+        "Beritza 3",
+        "Acogedor Apartamento En San Agustín",
+        "Atlantic View",
+        "Las Margaritas",
+        "Casa Mumm",
+        "Apartamento La Galea Ii 202",
+        "Apartamento La Galea I 405",
+        "Cozy Apartment In Flamboyan",
+        "Meerblick Beach-Apartment Monte Rojo",
+        "Apartment Marsan",
+        "Galea310",
+        "Pippa´S House",
+        "Seaview",
+        "Chalet Sol Y Beach",
+        "Casa Alessandro"
+      ],
+      "brands": [
+        "bello horizonte",
+        "galea"
+      ],
+      "coordinates": {
+        "lat": 27.76957464705882,
+        "lon": -15.55067552941177
+      }
+    },
+    "searchQuery": "\"bello horizonte\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: bello horizonte",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"bello horizonte Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle luis morote",
+      "sampleAddress": "Calle Luis Morote 52",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 19,
+      "totalPlazas": 63,
+      "listingNames": [
+        "Luis Morote, 52, 202",
+        "Ocean Breeze",
+        "Median Sanchez, Juan Vidal",
+        "Casa Canteras",
+        "Canteras Little Gem",
+        "Canteras Apartment",
+        "Apto. 3 - Luis Morote",
+        "Apto. 2 - Luis Morote",
+        "Lindamar 605",
+        "Lolina Playa",
+        "Apartamento Natalia Y Paul",
+        "Litlle Blondies 1",
+        "Sunshine, Whatelse?",
+        "Canteras Two  Rooms",
+        "Modern Canteras",
+        "Antoni Bruno Acosta Guerra",
+        "Apartament Beach And Relax",
+        "Luis Morote 2-D",
+        "Piso Miró"
+      ],
+      "brands": [
+        "canteras",
+        "apto. luis morote"
+      ],
+      "coordinates": {
+        "lat": 28.14128872222222,
+        "lon": -15.433461166666667
+      }
+    },
+    "searchQuery": "\"canteras\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: canteras",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"canteras Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle petrel",
+      "sampleAddress": "Calle Petrel 4",
+      "municipality": "Mogan",
+      "vvCount": 19,
+      "totalPlazas": 64,
+      "listingNames": [
+        "Monseñor",
+        "Sea View On Amadores",
+        "R8",
+        "Schwald",
+        "Su Eminencia 22",
+        "Casa Heike",
+        "Bright Apartment",
+        "Best House Cardenal",
+        "Casa Lise",
+        "Monseñor Beach &Amp; Oceanview Apartment",
+        "Mylord Beach",
+        "Don Pedro",
+        "Topfloor - Oceanview",
+        "Ocean View Tranquility",
+        "Moseñor",
+        "Home In The Sun",
+        "Casa Dorotea",
+        "Apartamento Mondi",
+        "Kamil"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.800405375,
+        "lon": -15.733941000000005
+      }
+    },
+    "searchQuery": "\"Calle Petrel 4\" Mogan apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida touroperador neckermann 3",
+      "sampleAddress": "Avenida Touroperador Neckermann 3    22",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 19,
+      "totalPlazas": 56,
+      "listingNames": [
+        "Bungalows Elena",
+        "Playmar 2206",
+        "Bungalow Playmar 199",
+        "Playmar Home 277",
+        "Dunaflor Verde Holiday Home",
+        "Duplex Soleado Playmar Casa Elena",
+        "Playmar - Maspalomas",
+        "Playmar 2075",
+        "Canarian Elisabeth Home",
+        "Casa Sole",
+        "Casa Blanca",
+        "Mi Milagro",
+        "Hedgehog Hut",
+        "Bungalow Playmar",
+        "Playmar6970",
+        "Gilly",
+        "Playmar 133",
+        "Playmar Relax",
+        "Krispin Playmar"
+      ],
+      "brands": [
+        "playmar"
+      ],
+      "coordinates": {
+        "lat": 27.757830063284825,
+        "lon": -15.585898917895605
+      }
+    },
+    "searchQuery": "\"playmar\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: playmar",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"playmar Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle green",
+      "sampleAddress": "Calle Green 8",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 19,
+      "totalPlazas": 87,
+      "listingNames": [
+        "Salobre Vista Golf 20",
+        "Sea View Villa Vista Golf",
+        "Villapepita",
+        "Laura Rodriguez Perez",
+        "Vista Golf 19",
+        "Casa Vista Golf 18",
+        "Salobre Green Villa 14",
+        "Vivienda El Salobre",
+        "Https://Www.Booking.Com/Region/Es/Canary-Islands.Es.Html",
+        "Vista Golf 11",
+        "Vista Golf 12 By Canariasgetaway",
+        "Villa La Dolce Vita",
+        "Villa Vista Golf 27",
+        "Salobre Golf Par 4 - 14",
+        "La Isla-Villa 6",
+        "Villa Cacemar",
+        "Green 21",
+        "Villa Relax & Silence",
+        "Vistagolf 4"
+      ],
+      "brands": [
+        "vista golf"
+      ],
+      "coordinates": {
+        "lat": 27.7873674,
+        "lon": -15.65211986666667
+      }
+    },
+    "searchQuery": "\"vista golf\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: vista golf",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"vista golf Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle escocia",
+      "sampleAddress": "Calle Escocia 1",
+      "municipality": "Mogan",
+      "vvCount": 19,
+      "totalPlazas": 116,
+      "listingNames": [
+        "Tauro Golf Anfi Topaz Duplex 16a",
+        "Pueblo Tauro 16b",
+        "Villa Seaview Anfi Tauro",
+        "Villa Anfi Duplex 17b",
+        "Villa Lula",
+        "Elsa Tauro Topaz",
+        "Topaz Villa",
+        "Anfi Topaz B41",
+        "Opal 18",
+        "Anfi Topaz",
+        "Tauro B43",
+        "Tauro B57",
+        "Casa Vik",
+        "Villa Happiness",
+        "El Hogar De Lola",
+        "Tauro2",
+        "Casa Bliss",
+        "Notar",
+        "Tauro"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.799285956204493,
+        "lon": -15.716732061873358
+      }
+    },
+    "searchQuery": "\"Calle Escocia 1\" Mogan apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle sargento llagas",
+      "sampleAddress": "Calle Sargento Llagas 29",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 19,
+      "totalPlazas": 68,
+      "listingNames": [
+        "Canteras Beach View Apartment",
+        "Tamaran",
+        "Apartamento 509 Turismar",
+        "Apartamentos Avatar Las Canteras",
+        "Apartamento Playa Chica Canteras"
+      ],
+      "brands": [
+        "apartamentos avatar las"
+      ],
+      "coordinates": {
+        "lat": 28.14046978947368,
+        "lon": -15.435063526315792
+      }
+    },
+    "searchQuery": "\"apartamentos avatar las\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: apartamentos avatar las",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"apartamentos avatar las Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida de los cardones 1",
+      "sampleAddress": "Avenida De Los Cardones 1    203",
+      "municipality": "Mogan",
+      "vvCount": 19,
+      "totalPlazas": 59,
+      "listingNames": [
+        "Joya",
+        "Orballo",
+        "Sally'S Nest",
+        "Casita Blanca",
+        "Enjoy",
+        "Canaima Vista Mar",
+        "Canaima 223",
+        "Casa Duri",
+        "Casa Serenity",
+        "Amazing",
+        "Apartamento Canaima",
+        "Apartamento Deluxe",
+        "Puerto Rico View",
+        "Mi Casita",
+        "Casa Betti",
+        "Oceaneye",
+        "Puerto Rico Apartman",
+        "Apt Nikola",
+        "Sea View Canaima"
+      ],
+      "brands": [
+        "canaima"
+      ],
+      "coordinates": {
+        "lat": 27.793079694763072,
+        "lon": -15.710170905332937
+      }
+    },
+    "searchQuery": "\"canaima\" Mogan Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: canaima",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"canaima Gran Canaria\"",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "leon y castillo",
+      "sampleAddress": "Leon Y Castillo 334",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 18,
+      "totalPlazas": 70,
+      "listingNames": [
+        "Casa Ciudad Jardín",
+        "Suite Park Corner",
+        "Sholeo Lodges Santa Catalina Flats 17",
+        "Sholeo Lodges Santa Catalina Flats 18",
+        "Sholeo Lodges Santa Catalina Flats 26",
+        "Sholeo Lodges Santa Catalina Flats 27",
+        "Sholeo Lodges Santa Catalina Flats 28",
+        "Sholeo Lodges Santa Catalina Flats 36",
+        "Sholeo Lodges Santa Catalina Flats 37",
+        "Sholeo Lodges Santa Catalina Flats 38",
+        "Sholeo Lodges Santa Catalina Flats 46",
+        "Sholeo Lodges Santa Catalina Flats 47",
+        "Sholeo Lodges Santa Catalina Flats 48",
+        "Sholeo Lodges Santa Catalina Flats 56",
+        "Sholeo Lodges Santa Catalina Flats 57",
+        "Sholeo Lodges Santa Catalina Flats 58",
+        "La Marina",
+        "Casa Andrea"
+      ],
+      "brands": [
+        "sholeo lodges santa"
+      ],
+      "coordinates": {
+        "lat": 28.13525340962931,
+        "lon": -15.429194456997376
+      }
+    },
+    "searchQuery": "\"sholeo lodges santa\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: sholeo lodges santa",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"sholeo lodges santa Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle timanfaya",
+      "sampleAddress": "Calle Timanfaya 40",
+      "municipality": "Mogan",
+      "vvCount": 18,
+      "totalPlazas": 62,
+      "listingNames": [
+        "Diaz Pulido Restauracion S.L.U.",
+        "Sunset Beach View Apartment",
+        "Scorpio Residencial",
+        "Amadores Sunset Suite",
+        "Casa Hart",
+        "Amadores Sunny Terrace",
+        "Horizon Views",
+        "Apartamento Scorpio 514",
+        "V&V Amadores Apartment",
+        "Apartamento Vista Piscina 13",
+        "Victor",
+        "Kos Apartment - Elodie Paradise",
+        "Ca Cristina Puerto Rico",
+        "Gran Panorama",
+        "Apartamento African Sunrise",
+        "Casa Budo"
+      ],
+      "brands": [
+        "v&v amadores"
+      ],
+      "coordinates": {
+        "lat": 27.793073058823527,
+        "lon": -15.713744
+      }
+    },
+    "searchQuery": "\"v&v amadores\" Mogan Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: v&v amadores",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"v&v amadores Gran Canaria\"",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "paseo de las canteras",
+      "sampleAddress": "Paseo De Las Canteras 47",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 18,
+      "totalPlazas": 64,
+      "listingNames": [
+        "Vicente Puig Belen",
+        "Big Ocean 2i",
+        "Los Lisos Beach House",
+        "Aguas Suite",
+        "Apto. 2 Habitaciones 1ª Linea De Playa Wifi",
+        "Skyline Beachfront Retreat",
+        "Beachside Comfort Las Canteras",
+        "Beachfront In Style",
+        "Canteras24",
+        "Aguita House",
+        "Dolores Marrero Lopez",
+        "Beach Terrace Apartment At Las Canteras",
+        "Canteras 38",
+        "View Point Las Canteras",
+        "Bachfront Aquamarina",
+        "Chez Kael",
+        "Canteras Way"
+      ],
+      "brands": [
+        "vicente puig belen"
+      ],
+      "coordinates": {
+        "lat": 28.138851682821855,
+        "lon": -15.436228401589918
+      }
+    },
+    "searchQuery": "\"vicente puig belen\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: vicente puig belen",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"vicente puig belen Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida touroperador vingresor",
+      "sampleAddress": "Avenida Touroperador Vingresor 24",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 18,
+      "totalPlazas": 63,
+      "listingNames": [
+        "Deluxe Maspalomas Jardín Privado Barbacoa",
+        "Toby",
+        "Colorado Golf B16",
+        "Villa Pitel",
+        "Colorado Golf 101",
+        "Los Tunos 29",
+        "Los Tunos 83",
+        "Bungalow 75 Maspalomas Golf",
+        "Irene Gracia Moriano Ortega",
+        "Paraíso Golf 12",
+        "Exclusive Private House In Maspalomas",
+        "Bungalows Los Tunos - Maspalomas",
+        "Villa Paraíso",
+        "Romantic Chalet With Private Garden",
+        "Holiday Bungalow Maspalomas",
+        "Casa Roman Colorado Golf",
+        "Bungalow Maspalomas",
+        "Colorado Garden Maspalomas"
+      ],
+      "brands": [
+        "los tunos"
+      ],
+      "coordinates": {
+        "lat": 27.75800666666667,
+        "lon": -15.593676999999998
+      }
+    },
+    "searchQuery": "\"los tunos\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: los tunos",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"los tunos Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle portugal",
+      "sampleAddress": "Calle Portugal 70",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 18,
+      "totalPlazas": 58,
+      "listingNames": [
+        "Bello Norte",
+        "Bello Oeste",
+        "Apartamento Suite Canteras",
+        "Seductive Beachfront And Pool",
+        "Las Canteras Beach Apartment",
+        "Apto. Playa De Las Canteras",
+        "Portugal",
+        "See View Las Canteras Canteras",
+        "Vivienda La Calle Portugal",
+        "Charming Apartment Seaside & Pool Las Cantera",
+        "Stylish Apartment Seaside And Pool Las Canter",
+        "Stylish Beachfront Retreat",
+        "Seaview",
+        "Canteras Way",
+        "Apartamento Portugal 17",
+        "Nicolasa"
+      ],
+      "brands": [
+        "apto. playa las",
+        "portugal"
+      ],
+      "coordinates": {
+        "lat": 28.136014493382874,
+        "lon": -15.43911132738115
+      }
+    },
+    "searchQuery": "\"apto. playa las\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: apto. playa las",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"apto. playa las Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "doctor grau bassas",
+      "sampleAddress": "Doctor Grau Bassas  18",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 18,
+      "totalPlazas": 74,
+      "listingNames": [
+        "Golden Beach 1 A",
+        "Playa Viva!",
+        "Karen Canteras",
+        "Edificio Gaviota  4",
+        "Edificio Gaviota  5",
+        "El Camarote De Playa Chica",
+        "Luisa Karen Olaizola Rojas",
+        "Royal Beach"
+      ],
+      "brands": [
+        "royal beach",
+        "edificio gaviota",
+        "luisa karen olaizola"
+      ],
+      "coordinates": {
+        "lat": 28.13854627447143,
+        "lon": -15.435557279642588
+      }
+    },
+    "searchQuery": "\"royal beach\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: royal beach",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"royal beach Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida touroperador neckermann",
+      "sampleAddress": "Avenida Touroperador Neckermann 3",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 17,
+      "totalPlazas": 51,
+      "listingNames": [
+        "Maxhouse",
+        "Playmar Maspalomas Bungalow 124 Bali Style",
+        "Mariposa Pequeña",
+        "Casa Alegria",
+        "Casa Dunflor",
+        "Bungalow Lella",
+        "Casa Mia",
+        "Casa Rimidia 123",
+        "Playmar Stay",
+        "Playmar M&M 2223",
+        "Ca´Monica",
+        "Cosy 1 Bedroom Bungalow Apartment",
+        "Munay",
+        "Bungalow Helena",
+        "Complejo Dunaflor Verde - Bungalow 1286",
+        "Casa Azul",
+        "Olimpia Vv"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.757731230769235,
+        "lon": -15.586052230769234
+      }
+    },
+    "searchQuery": "\"Avenida Touroperador Neckermann 3\" San Bartolome De Tirajana apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida tirajana",
+      "sampleAddress": "Avenida Tirajana 6",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 17,
+      "totalPlazas": 53,
+      "listingNames": [
+        "Las Camelias 610",
+        "La Brisa",
+        "Insuisla",
+        "Insuisla S.L",
+        "Trendy And Very Well Located Apartment",
+        "Las Camelias 215",
+        "Precioso Loft Cerca Del Centro Comercial Yumbo",
+        "Quality And Peaceful Apartment",
+        "Kevin'S House",
+        "Juan Acosta Gonzalez",
+        "Casa Fabrizio 2",
+        "Loft Molinos Corner",
+        "Loris Home",
+        "Barbados Apartment",
+        "Iguazu I, 304",
+        "José Carlos Rodríguez Armas"
+      ],
+      "brands": [
+        "las camelias",
+        "insuisla s.l"
+      ],
+      "coordinates": {
+        "lat": 27.756041230769235,
+        "lon": -15.578225769230771
+      }
+    },
+    "searchQuery": "\"las camelias\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: las camelias",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"las camelias Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida gran canaria",
+      "sampleAddress": "Avenida Gran Canaria 47",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 17,
+      "totalPlazas": 66,
+      "listingNames": [
+        "Luxury Bungalow Next To Campo Internacional",
+        "Cozy Luxury",
+        "Zbigniew",
+        "Hermacaste Sl",
+        "My Holycan",
+        "Ard Cool Studio Playa Del Ingles",
+        "Apartamento En Lo Molinos",
+        "Apartamento  Los Molinos",
+        "Timeless Clock",
+        "Apartment Pm237",
+        "Habitat Xu Suite",
+        "Ard Cool Apartment Playa Del Ingles Ii",
+        "Villa Bambu",
+        "Sunny Vacations",
+        "Apartamento Al Anochecer",
+        "Villa Serenity Playa Del Ingles",
+        "Santa Fe 84"
+      ],
+      "brands": [
+        "ard cool playa"
+      ],
+      "coordinates": {
+        "lat": 27.761558466666663,
+        "lon": -15.580264333333332
+      }
+    },
+    "searchQuery": "\"ard cool playa\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: ard cool playa",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"ard cool playa Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle valencia",
+      "sampleAddress": "Calle Valencia 8",
+      "municipality": "Mogan",
+      "vvCount": 17,
+      "totalPlazas": 86,
+      "listingNames": [
+        "Javier´S Duplex Vista Park Mogán",
+        "El Valle",
+        "Calle Valencia",
+        "Home Lue 2",
+        "Casa De Balance",
+        "Las Brisas Puerto Rico",
+        "Be Room Vista Parq",
+        "Casa Del Sol",
+        "Casa Johnston",
+        "Pavaluma",
+        "Brisas Apartment",
+        "Villa Marina I",
+        "Mariposa Paraiso",
+        "Moser Living",
+        "Apartamento Elisa",
+        "Vv Alemán",
+        "El Beleten"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.792608243625374,
+        "lon": -15.701805109929323
+      }
+    },
+    "searchQuery": "\"Calle Valencia 8\" Mogan apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle tomas morales",
+      "sampleAddress": "Calle Tomas Morales 18",
+      "municipality": "Mogan",
+      "vvCount": 17,
+      "totalPlazas": 55,
+      "listingNames": [
+        "Atlántico",
+        "La Jaca",
+        "El Muelle",
+        "El Drago",
+        "Salitre",
+        "La Chalana",
+        "Tenderete",
+        "Tabaiba",
+        "Volcán",
+        "Bajamar",
+        "Pleamar",
+        "Solajero",
+        "San Borondón",
+        "Los Cardones",
+        "Miramar",
+        "Tajinaste",
+        "La Orilla"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.759755683881846,
+        "lon": -15.68183220250487
+      }
+    },
+    "searchQuery": "\"Calle Tomas Morales 18\" Mogan apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "puccini",
+      "sampleAddress": "Puccini 006",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 16,
+      "totalPlazas": 93,
+      "listingNames": [
+        "Puccini Oasis V.V Sole Amore",
+        "Puccini Oasis V.V Tosca",
+        "Puccini Oasis V.V Suor Angelica",
+        "Puccini Oasis V.V Gianni Schicci",
+        "Puccini Oasis V.V Capriccio",
+        "Puccini Oasis V.V Madame Butterfly",
+        "Puccini Oasis V.V Le Villi",
+        "Puccini Oasis V.V Mimi",
+        "Puccini Oasis V.V Casa Mia",
+        "Puccini Oasis V.V La Rondine",
+        "Puccini Oasis V.V. La Boheme",
+        "Puccini Oasis V.V. Turandot",
+        "Puccini Oasis V.V Edgar",
+        "Puccini Oasis V.V Terra E Mare",
+        "Puccini Oasis V.V. Sogno Dor",
+        "Puccini Oasis V.V Il Tabarro"
+      ],
+      "brands": [
+        "puccini oasis v.v",
+        "puccini oasis v.v."
+      ],
+      "coordinates": {
+        "lat": 28.128039,
+        "lon": -15.431890000000003
+      }
+    },
+    "searchQuery": "\"puccini oasis v.v\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: puccini oasis v.v",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"puccini oasis v.v Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle pascal",
+      "sampleAddress": "Calle Pascal 1",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 16,
+      "totalPlazas": 58,
+      "listingNames": [
+        "Valentina",
+        "Valentina 1b",
+        "Valentina 1d",
+        "Valentina 1f",
+        "Valentina 2b",
+        "Valentina 2c",
+        "Valentina 2d",
+        "Valentina 2e",
+        "Valentina 2f",
+        "Valentina 2a",
+        "Valentina 1e",
+        "Valentina 1c",
+        "Valentina Beach 401",
+        "Valentina Beach 402",
+        "Valentina Beach 403",
+        "Valentina Beach 404"
+      ],
+      "brands": [
+        "valentina",
+        "valentina beach"
+      ],
+      "coordinates": {
+        "lat": 28.138015,
+        "lon": -15.43534
+      }
+    },
+    "searchQuery": "\"valentina\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: valentina",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"valentina Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle las tabaibas",
+      "sampleAddress": "Calle Las Tabaibas 4",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 16,
+      "totalPlazas": 60,
+      "listingNames": [
+        "Playa Las Burras",
+        "Atico Puerto Chico",
+        "Firstline Las Burras 3",
+        "Firstline Las Burras 1",
+        "Apart. Isabel Maria Nº 22",
+        "Apart. Isabel Maria Nº 24",
+        "Apart. Isabel Maria Nº 15",
+        "Apart. Isabel Maria Nº 10",
+        "Apart. Isabel Maria Nº 30",
+        "Aquarius",
+        "Mr02",
+        "Apartamento 4 Puerto Chico",
+        "Beach Escape",
+        "Las Nasas 4",
+        "Las Nasas 14 Las Burras",
+        "Las Burras Beachfront"
+      ],
+      "brands": [
+        "apart. isabel maria",
+        "firstline las burras"
+      ],
+      "coordinates": {
+        "lat": 27.767358624999996,
+        "lon": -15.551691624999998
+      }
+    },
+    "searchQuery": "\"apart. isabel maria\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: apart. isabel maria",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"apart. isabel maria Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "bernardo de la torre",
+      "sampleAddress": "Bernardo De La Torre 13",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 15,
+      "totalPlazas": 48,
+      "listingNames": [
+        "Jrolarte",
+        "Bernardo De La Torre 38",
+        "Apartamento Palmera",
+        "Apartamento Bernardo De La Torre",
+        "Begui",
+        "Inverproperty Fb Sl",
+        "Bernardo De La Torre_1a",
+        "Bernardo De La Torre_1b",
+        "Bernardo De La Torre_1c",
+        "Bernardo De La Torre_2a",
+        "Bernardo De La Torre_2b",
+        "Bernardo De La Torre_2c",
+        "Bernardo De La Torre_3a",
+        "Bernardo De La Torre_3b",
+        "Bernardo De La Torre_3c"
+      ],
+      "brands": [
+        "bernardo torre"
+      ],
+      "coordinates": {
+        "lat": 28.137511007683447,
+        "lon": -15.434540309807128
+      }
+    },
+    "searchQuery": "\"bernardo torre\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: bernardo torre",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"bernardo torre Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle mar caspio",
+      "sampleAddress": "Calle Mar Caspio 2",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 15,
+      "totalPlazas": 69,
+      "listingNames": [
+        "Villas Meloneras",
+        "Apartamento N&Ordm76",
+        "Meloneras Private Pool",
+        "Casa Feliz",
+        "Tropical Blue Meloneras",
+        "Pool Villa Meloneras",
+        "Casa Yolanda",
+        "Bahia Meloneras Vista Golf",
+        "Bahia Meloneras 34",
+        "My Meloneras V96",
+        "My Meloneras V97",
+        "Lemon Terraced House",
+        "Exclusive Chill Out",
+        "Bahía Meloneras 41",
+        "Meloneras Terrace Duplex"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.74706108563453,
+        "lon": -15.60968892392221
+      }
+    },
+    "searchQuery": "\"Calle Mar Caspio 2\" San Bartolome De Tirajana apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle prudencio morales",
+      "sampleAddress": "Calle Prudencio Morales 29",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 15,
+      "totalPlazas": 49,
+      "listingNames": [
+        "El Puertillo",
+        "Alcaravaneras",
+        "Amadores",
+        "El Agujero",
+        "Mogan",
+        "San Agustin",
+        "El Burrero",
+        "La Garita",
+        "Playa Del Ingles",
+        "Las Canteras",
+        "Guigui",
+        "Apartment La Puntilla",
+        "Casita Canaria Playa",
+        "Endorfita Sonrisa Beach",
+        "Nomads Blue Wave"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 28.14892650000001,
+        "lon": -15.431225428571427
+      }
+    },
+    "searchQuery": "\"Calle Prudencio Morales 29\" Las Palmas De Gran Canaria apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle goya",
+      "sampleAddress": "Calle Goya 12",
+      "municipality": "Mogan",
+      "vvCount": 14,
+      "totalPlazas": 62,
+      "listingNames": [
+        "Sunset Apartment With Terrace Near Anfi Beach",
+        "Casa Albert",
+        "Beach House Anfi Del Mar",
+        "Casa Lele",
+        "Calle Goya 51",
+        "Calle Goya 93",
+        "Goya Seaview",
+        "Casa Devik",
+        "Your Lovely Beach",
+        "Anfi Chill Terrace",
+        "El Nido De Las Patas Azules",
+        "Goya 37",
+        "Borge",
+        "Pisos Gran Canaria"
+      ],
+      "brands": [
+        "calle goya"
+      ],
+      "coordinates": {
+        "lat": 27.77393803444212,
+        "lon": -15.697818960697346
+      }
+    },
+    "searchQuery": "\"calle goya\" Mogan Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: calle goya",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"calle goya Gran Canaria\"",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle albaicin",
+      "sampleAddress": "Calle Albaicin 15",
+      "municipality": "Mogan",
+      "vvCount": 14,
+      "totalPlazas": 46,
+      "listingNames": [
+        "Puesta Del Sol Vista Taurito",
+        "Sea Views And Poll Valle De Taurito",
+        "Apartamento Con Vista Panoramica 323",
+        "Vista Del Sol",
+        "Gc Holidays",
+        "Gran Vista Taurito",
+        "Stunning Sunset Ocean View Apartment",
+        "Terrace And Beach Views All Day",
+        "Beach Views&Amp;Spectacular Sunsets",
+        "Best See Views &Amp;Sun In Gran Canaria",
+        "Near The Swimming Poll,Sea View",
+        "Fantastic Sea Views In Mogan",
+        "Wonderful Sea Views",
+        "Taurito 109"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.81597416967916,
+        "lon": -15.749857880830938
+      }
+    },
+    "searchQuery": "\"Calle Albaicin 15\" Mogan apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida roque del este",
+      "sampleAddress": "Avenida Roque Del Este 20",
+      "municipality": "Mogan",
+      "vvCount": 14,
+      "totalPlazas": 49,
+      "listingNames": [
+        "Lovely Apartment",
+        "Guadalupe1",
+        "Adrian Apartment",
+        "Terraza Paraiso",
+        "Yacaranda A14",
+        "Beautiful 2 Bedroom Apartment With A View",
+        "Puerto Paraiso",
+        "Monte Carrera Canarian Garden",
+        "Lovely One Bedroom Apartment",
+        "Michael Porst Konstantin",
+        "Sunset Studio",
+        "Bilecki",
+        "Cas Alegria",
+        "Nautical Haven Suite"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.786728288872176,
+        "lon": -15.707326165861442
+      }
+    },
+    "searchQuery": "\"Avenida Roque Del Este 20\" Mogan apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle hamburgo",
+      "sampleAddress": "Calle Hamburgo 4",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 14,
+      "totalPlazas": 62,
+      "listingNames": [
+        "Canalex",
+        "Canalex1",
+        "Apartment Near The Sea",
+        "Los Balandros 101",
+        "Los Balandros 108",
+        "Los Balandros 118",
+        "Los Balandros 204",
+        "Los Balandros 219",
+        "Villa Isabel",
+        "Timon",
+        "Apartamentos El Timón, Nº 13",
+        "Samoa 4",
+        "Samoa 3",
+        "Bungalow Samoa"
+      ],
+      "brands": [
+        "los balandros",
+        "samoa"
+      ],
+      "coordinates": {
+        "lat": 27.765266477102855,
+        "lon": -15.555859613924214
+      }
+    },
+    "searchQuery": "\"los balandros\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: los balandros",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"los balandros Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida de alemania",
+      "sampleAddress": "Avenida De Alemania 25",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 14,
+      "totalPlazas": 67,
+      "listingNames": [
+        "Velsuites",
+        "Dunas Vip Playa Del Ingles",
+        "Casa Verde",
+        "Blue Bungalow",
+        "Golden Sahara",
+        "Casa Cosy",
+        "Laila Nº 13",
+        "Relax En Primera Linea De Playa",
+        "Descanso Junto Las Dunas",
+        "Las Palmas Bungalow 2",
+        "Las Palmas Bungalow 5",
+        "Sunnypalms, Casa Mar 22",
+        "Tirma Bungalow"
+      ],
+      "brands": [
+        "verde",
+        "las palmas"
+      ],
+      "coordinates": {
+        "lat": 27.74959896424059,
+        "lon": -15.573752030754862
+      }
+    },
+    "searchQuery": "\"verde\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: verde",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"verde Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "sagasta",
+      "sampleAddress": "Sagasta 94",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 13,
+      "totalPlazas": 46,
+      "listingNames": [
+        "Melisa Canteras",
+        "Lavanda Playa",
+        "Apartamento En La Playa",
+        "Sol Canteras",
+        "Malbedy Beach Suite",
+        "Vista De Mar",
+        "Apartamento Albatros",
+        "Suite Canteras Premier",
+        "Casa Hilda",
+        "Edificio Sagasta Nº66",
+        "Beach Front Las Canteras By Canariasgetaway",
+        "Albatros New Study",
+        "Matilde Luxury"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 2371.3840646666667,
+        "lon": -15.430364499999996
+      }
+    },
+    "searchQuery": "\"Sagasta 94\" Las Palmas De Gran Canaria apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "lanzarote 5-7",
+      "sampleAddress": "Lanzarote 5-7",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 13,
+      "totalPlazas": 32,
+      "listingNames": [
+        "Lanzarote 5-1º-C",
+        "Lanzarote 5-2º-A",
+        "Lanzarote 5-2º-B",
+        "Lanzarote 5-2º-C",
+        "Lanzarote 5-2º-D",
+        "Lanzarote 5-3º-A",
+        "Lanzarote 5-3º-B",
+        "Lanzarote 5-3º-C",
+        "Lanzarote 5-3º-D",
+        "Lanzarote 5-4º-A",
+        "Lanzarote 5-4º-B",
+        "Lanzarote 5-4º-C",
+        "Lanzarote 5-4º-D"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 28.145342000000003,
+        "lon": -15.430414000000004
+      }
+    },
+    "searchQuery": "\"Lanzarote 5-7\" Las Palmas De Gran Canaria apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida de mogan",
+      "sampleAddress": "Avenida De Mogan 15",
+      "municipality": "Mogan",
+      "vvCount": 13,
+      "totalPlazas": 38,
+      "listingNames": [
+        "Bonaire",
+        "Sweet House",
+        "Apartamento 218 Tobago",
+        "Haiti Beachfront",
+        "Estudio De Lujo En La Playa",
+        "Tobago Happy Paradise",
+        "Tobago Seaview",
+        "Bellavista 208",
+        "Apartamento Cerca De La Playa",
+        "Haiti 306",
+        "Tobago Sol",
+        "Puerto Rico Bonanza",
+        "Eleonor´S Suite"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.786704500000006,
+        "lon": -15.714716899999999
+      }
+    },
+    "searchQuery": "\"Avenida De Mogan 15\" Mogan apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle los pinos",
+      "sampleAddress": "Calle Los Pinos 3",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 13,
+      "totalPlazas": 50,
+      "listingNames": [
+        "Spectacular Ocean View",
+        "Sun Bungalow",
+        "Sun Club",
+        "In The Beach Playa Del Aguila",
+        "Sun Club Playa Del Aguila",
+        "El Apartamento Janfra",
+        "Bungalow Nueva Europa 2",
+        "Syltata House",
+        "Bungalow Nueva Europa 11",
+        "Gaesta",
+        "Gaetano",
+        "Bungalows Nueva Europa Nr. 24",
+        "Playa Del Pirata Ikigai"
+      ],
+      "brands": [
+        "nueva europa"
+      ],
+      "coordinates": {
+        "lat": 27.774887805222132,
+        "lon": -15.531132453363412
+      }
+    },
+    "searchQuery": "\"nueva europa\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: nueva europa",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"nueva europa Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "av de gran canaria",
+      "sampleAddress": "Av De Gran Canaria  32",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 13,
+      "totalPlazas": 51,
+      "listingNames": [
+        "Siesta Friendly Holiday Home",
+        "Dream Home Holidays 360",
+        "Swinsuit Friendly Holiday Home",
+        "Stylish Friendly Holiday Home",
+        "Paraiso Maspalomas 323",
+        "Sweet Friendly Holiday Home",
+        "Cotton Cloud Holiday Home",
+        "Green Palms Holiday Home",
+        "Light Blue Holiday Home",
+        "Blue Ocean Holiday Home",
+        "Bungalow In The Center Of Playa Del Inglés",
+        "Holiday Vibes In Playa Del Inglés",
+        "Sands Of Time Holiday Home"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.763182769230767,
+        "lon": -15.57748038461538
+      }
+    },
+    "searchQuery": "\"Av De Gran Canaria  32\" San Bartolome De Tirajana apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle sagasta",
+      "sampleAddress": "Calle Sagasta 7",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 13,
+      "totalPlazas": 44,
+      "listingNames": [
+        "Maresía Ii",
+        "Maresía Iii",
+        "Maresía Iv",
+        "Maresía I",
+        "Hermacaste Sl",
+        "Sagasta 90",
+        "Cantertas Premium",
+        "Estudio Con Terraza Las Canteras",
+        "Appartamento Mimosa",
+        "Sea Breeze Beachfront Home",
+        "Coral Dream Las Canteras",
+        "El Quinto Cielo",
+        "Vista Paseo Canteras"
+      ],
+      "brands": [
+        "maresía"
+      ],
+      "coordinates": {
+        "lat": 28.145310875,
+        "lon": -15.430762125
+      }
+    },
+    "searchQuery": "\"maresía\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: maresía",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"maresía Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida alfereces provisionales",
+      "sampleAddress": "Avenida Alféreces Provisionales  23",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 13,
+      "totalPlazas": 41,
+      "listingNames": [
+        "Yumbo Teror Two Bedroom Apartment",
+        "Parrot'S House",
+        "Rainbow Europa",
+        "Teror 407",
+        "Teror 503",
+        "Apt. Galaxy",
+        "Apartamentos Playa Del Ingles Yumbo Ii",
+        "Apartamentos Playa Del Inglés - Yumbo Ii",
+        "Apartamentos Playa Del Inglés. Yumbo Ii",
+        "Apartamento Playa Del Inglés - Yumbo I",
+        "Aparatamentos Playa Del Inglés  Yumbo Centrum",
+        "Apartamento Playa Del Inglés Yumbo Centrum",
+        "Tropical House"
+      ],
+      "brands": [
+        "apartamentos playa del",
+        "teror",
+        "playa del inglés"
+      ],
+      "coordinates": {
+        "lat": 27.758601769230776,
+        "lon": -15.574086538461538
+      }
+    },
+    "searchQuery": "\"apartamentos playa del\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: apartamentos playa del",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"apartamentos playa del Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle las adelfas",
+      "sampleAddress": "Calle Las Adelfas 14",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 13,
+      "totalPlazas": 45,
+      "listingNames": [
+        "Pinamar22",
+        "Bambú",
+        "San Agustín Beach Apartment",
+        "Apartamento Mare Nostrum",
+        "Vivienda 2 Dormitorios San Agustín",
+        "Cb Maspalomas Sur",
+        "Apartamento Maresía",
+        "Apartamentos Pinamar22",
+        "Apto La Testeina",
+        "Drago 3",
+        "Drago 4",
+        "Drago 2"
+      ],
+      "brands": [
+        "drago",
+        "apartamentos pinamar22"
+      ],
+      "coordinates": {
+        "lat": 27.768869142857145,
+        "lon": -15.543914428571426
+      }
+    },
+    "searchQuery": "\"drago\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: drago",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"drago Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "luis velasco",
+      "sampleAddress": "Luis Velasco 72",
+      "municipality": "Aguimes",
+      "vvCount": 13,
+      "totalPlazas": 45,
+      "listingNames": [
+        "Manuel Aranda Mendíaz",
+        "Las Afortunadas",
+        "Las Afortunada",
+        "Casa Arinaga"
+      ],
+      "brands": [
+        "las afortunadas"
+      ],
+      "coordinates": {
+        "lat": 27.85948976923077,
+        "lon": -15.396591076923075
+      }
+    },
+    "searchQuery": "\"las afortunadas\" Aguimes Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: las afortunadas",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"las afortunadas Gran Canaria\"",
+      "Try: administrador de fincas Aguimes"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "av gran canaria",
+      "sampleAddress": "Av Gran Canaria  32",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 13,
+      "totalPlazas": 59,
+      "listingNames": [
+        "Coconut Friendly Holiday Home",
+        "Coral Friendly Holiday Home",
+        "Slipper Friendly Holiday Home",
+        "Drago Friendly Holiday Home",
+        "Navy Style Friendly Holiday Home",
+        "Breeze Friendly Holiday Home",
+        "Cherry Friendly Holiday Home",
+        "Lihthouse Friendly Holiday Home",
+        "Confortable Y Acogedor",
+        "Céntrico Y Funcional",
+        "Nomadic Friendly Holiday Home",
+        "Dunas De Paraiso Maspalomas",
+        "Family Villa Club 14"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.763186769230767,
+        "lon": -15.57730146153846
+      }
+    },
+    "searchQuery": "\"Av Gran Canaria  32\" San Bartolome De Tirajana apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle tauro",
+      "sampleAddress": "Calle Tauro 2",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 13,
+      "totalPlazas": 40,
+      "listingNames": [
+        "Pink Bungalow",
+        "Parque Luz",
+        "El Nidito",
+        "Sol Y Calma",
+        "Bungalow Tauro",
+        "Garmas",
+        "Bungalow Reider",
+        "Bungalow Capri  A 30",
+        "Vega Maspalomas",
+        "Andrea´S Home",
+        "Alfonso Rivero Sanchez",
+        "Dalisa",
+        "Mariposa"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.76336466666667,
+        "lon": -15.589441999999996
+      }
+    },
+    "searchQuery": "\"Calle Tauro 2\" San Bartolome De Tirajana apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "juan rejon",
+      "sampleAddress": "Juan Rejón  87",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 13,
+      "totalPlazas": 150,
+      "listingNames": [
+        "Estudio Centrico Playa Canteras Con Wifi",
+        "Playa De Las Canteras & Puerto Loft",
+        "Juan Rejon 3",
+        "Vivienda 71 - 3d, 2b + Wifi",
+        "Castillo",
+        "Castle Of Light By Canariasgetaway",
+        "Jr Castillo De La Luz",
+        "Casa Isleta",
+        "Castle Rock",
+        "Castle With Balcony By Canariasgetaway",
+        "Canteras Beach Apartment",
+        "Castle Mirador By Canariasgetaway",
+        "Las Suites De La Luz"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 28.1492247151338,
+        "lon": -15.425821204370981
+      }
+    },
+    "searchQuery": "\"Juan Rejón  87\" Las Palmas De Gran Canaria apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle guacimara",
+      "sampleAddress": "Calle Guacimara 36",
+      "municipality": "Mogan",
+      "vvCount": 13,
+      "totalPlazas": 62,
+      "listingNames": [
+        "Los Altos De Arguineguin 26",
+        "Peak Of Arguineguin",
+        "Casasol",
+        "Casa Lilly",
+        "Ocean View Gran Canaria",
+        "Casa Emilie",
+        "Casa Vista Pura",
+        "Casa Utsikten",
+        "Casa Vista Pura Ii",
+        "Atlantic Views/Comfort Relax/Wifi/Pool/5a",
+        "Atlantic Views/ Comfort Relax/Wifi/Pool/4a",
+        "Atlantic Views/Comfort Relax/Wifi/Pool/3"
+      ],
+      "brands": [
+        "peak arguineguin",
+        "vista pura"
+      ],
+      "coordinates": {
+        "lat": 27.76957366666667,
+        "lon": -15.681124500000001
+      }
+    },
+    "searchQuery": "\"peak arguineguin\" Mogan Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: peak arguineguin",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"peak arguineguin Gran Canaria\"",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle nayra",
+      "sampleAddress": "Calle Nayra 2",
+      "municipality": "Mogan",
+      "vvCount": 13,
+      "totalPlazas": 83,
+      "listingNames": [
+        "Rs Holiday",
+        "Casa Nayra",
+        "Monte Belingo 4",
+        "Don Francisco",
+        "Casa Blanca",
+        "Valeria",
+        "Juraj Kovar",
+        "Matom",
+        "Nayra House",
+        "Casa Chameleon",
+        "Sundara Stay Arguineguin",
+        "Daneira",
+        "Casa Lucas"
+      ],
+      "brands": [
+        "nayra"
+      ],
+      "coordinates": {
+        "lat": 27.768462531652155,
+        "lon": -15.68388245352007
+      }
+    },
+    "searchQuery": "\"nayra\" Mogan Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: nayra",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"nayra Gran Canaria\"",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "c/ daoiz",
+      "sampleAddress": "C/ Daoiz 26",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 13,
+      "totalPlazas": 42,
+      "listingNames": [
+        "Royal Suites",
+        "Royal Suties"
+      ],
+      "brands": [
+        "royal suites",
+        "royal suties"
+      ],
+      "coordinates": null
+    },
+    "searchQuery": "\"royal suites\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: royal suites",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"royal suites Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle nayra 9 b",
+      "sampleAddress": "Calle Nayra  9 B   3b",
+      "municipality": "Mogan",
+      "vvCount": 13,
+      "totalPlazas": 73,
+      "listingNames": [
+        "Se Utleie 3b",
+        "Se Utleie 5b",
+        "Se Utleie 9b",
+        "Se Utleie 11b",
+        "Se Utleie 15b",
+        "Se Utleie 16b",
+        "Se Utleie 17b",
+        "Se Utleie 7b",
+        "Se Utleie 10b",
+        "Se Utleie 4b",
+        "Se Utleie 2b",
+        "Se Utleie 8b",
+        "Se Utleie 12b"
+      ],
+      "brands": [
+        "utleie"
+      ],
+      "coordinates": {
+        "lat": 27.767988183662247,
+        "lon": -15.682615626243486
+      }
+    },
+    "searchQuery": "\"utleie\" Mogan Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: utleie",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"utleie Gran Canaria\"",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "padre cueto",
+      "sampleAddress": "Padre Cueto 8",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 12,
+      "totalPlazas": 42,
+      "listingNames": [
+        "Padre Cueto 20",
+        "Retama 4",
+        "Vivente 1a By Canarias Getaway",
+        "Vivente 1b By Canarias Getaway",
+        "Vivente 1c By Canarias Getaway",
+        "Vivente 2a By Canarias Getaway",
+        "Vivente 2c By Canarias Getaway",
+        "Vivente 3b By Canarias Getaway",
+        "Vivente 3c By Canarias Getaway",
+        "Vivente 4a By Canarias Getaway",
+        "Vivente 4b By Canarias Getaway",
+        "Vivente 4c By Canarias Getaway"
+      ],
+      "brands": [
+        "vivente canarias getaway"
+      ],
+      "coordinates": {
+        "lat": 28.142896166666663,
+        "lon": -15.431133
+      }
+    },
+    "searchQuery": "\"vivente canarias getaway\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: vivente canarias getaway",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"vivente canarias getaway Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "pedro del castillo westerling",
+      "sampleAddress": "Pedro Del Castillo Westerling 4",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 12,
+      "totalPlazas": 26,
+      "listingNames": [
+        "Apartamentos Arucas. Apto 61",
+        "Apartamentos Arucas.Apto34",
+        "Apartamentos Arucas.Apto 42",
+        "Apartamentos Arucas. Apto 32",
+        "Apartamentos Arucas. Apto 33",
+        "Apartamentos Arucas. Apto 13",
+        "Apartamentos Arucas. Apto 12",
+        "Apartamentos Arucas. Apto 14",
+        "Apartamentos Arucas. Apto 31",
+        "Apartamentos Arucas. Apto 11",
+        "Canteras Dreams",
+        "Distag Canarias, S.L."
+      ],
+      "brands": [
+        "apartamentos arucas. apto"
+      ],
+      "coordinates": {
+        "lat": 28.143436688825584,
+        "lon": -15.430954016643774
+      }
+    },
+    "searchQuery": "\"apartamentos arucas. apto\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: apartamentos arucas. apto",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"apartamentos arucas. apto Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "juan juana 019 puerta",
+      "sampleAddress": "Juan Juana 019 Puerta 5",
+      "municipality": "Mogan",
+      "vvCount": 12,
+      "totalPlazas": 38,
+      "listingNames": [
+        "Carlosana"
+      ],
+      "brands": [
+        "carlosana"
+      ],
+      "coordinates": {
+        "lat": 27.757838999999993,
+        "lon": -15.680138
+      }
+    },
+    "searchQuery": "\"carlosana\" Mogan Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: carlosana",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"carlosana Gran Canaria\"",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida de italia 20",
+      "sampleAddress": "Avenida De Italia  20    183",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 12,
+      "totalPlazas": 49,
+      "listingNames": [
+        "Las Olas 183",
+        "Apatmentpitaya",
+        "Las Olas Blue",
+        "Las Olas 181",
+        "Las Olas D&M",
+        "Las Olas 286",
+        "Happy Home Premium",
+        "Las Olas 214",
+        "Las Olas Apartamento 105",
+        "Las Olas",
+        "El Dorado",
+        "Ronsan"
+      ],
+      "brands": [
+        "las olas"
+      ],
+      "coordinates": {
+        "lat": 27.761051998436532,
+        "lon": -15.56714194498285
+      }
+    },
+    "searchQuery": "\"las olas\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: las olas",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"las olas Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida los guayres",
+      "sampleAddress": "Avenida Los Guayres 12",
+      "municipality": "Mogan",
+      "vvCount": 12,
+      "totalPlazas": 39,
+      "listingNames": [
+        "Casa Erik",
+        "Kalinkinville",
+        "Apartamentos Granada I",
+        "Yacopino"
+      ],
+      "brands": [
+        "apartamentos granada"
+      ],
+      "coordinates": {
+        "lat": 27.770359583333335,
+        "lon": -15.686726250000001
+      }
+    },
+    "searchQuery": "\"apartamentos granada\" Mogan Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: apartamentos granada",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"apartamentos granada Gran Canaria\"",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "c/ thomas alva edison",
+      "sampleAddress": "C/ Thomas Alva Edison 40",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 12,
+      "totalPlazas": 45,
+      "listingNames": [
+        "Royal Flats"
+      ],
+      "brands": [
+        "royal flats"
+      ],
+      "coordinates": {
+        "lat": 28.135733,
+        "lon": -15.436445999999998
+      }
+    },
+    "searchQuery": "\"royal flats\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: royal flats",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"royal flats Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida de bonn",
+      "sampleAddress": "Avenida De Bonn 23",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 12,
+      "totalPlazas": 40,
+      "listingNames": [
+        "Los Porches 40",
+        "Apartamento Vista Del Mar Tinache",
+        "Cozy Sea View Apartment",
+        "Tinache Beach 103",
+        "Playa Del Ingles,¡A 5 Minutos Yumbo 204",
+        "Playa Del Ingles¡A 5' Yumbo 204",
+        "Playa Del Inlges ¡A5'Andando Yumbo 204",
+        "Playa Del Ingles ¡A 5' Andando Desdeyumbo 204",
+        "Playa Ingles 5' Walk From Yumbo! 128",
+        "Playa Del Ingles A 5' De Yumbo! 216",
+        "Casa Anita",
+        "El Drago Bungalow"
+      ],
+      "brands": [
+        "playa del ingles"
+      ],
+      "coordinates": {
+        "lat": 27.75501075,
+        "lon": -15.577525833333333
+      }
+    },
+    "searchQuery": "\"playa del ingles\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: playa del ingles",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"playa del ingles Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle peru",
+      "sampleAddress": "Calle Peru 9",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 12,
+      "totalPlazas": 44,
+      "listingNames": [
+        "Gloriamar Las Canteras"
+      ],
+      "brands": [
+        "gloriamar las canteras"
+      ],
+      "coordinates": {
+        "lat": 28.131611000000003,
+        "lon": -15.443488
+      }
+    },
+    "searchQuery": "\"gloriamar las canteras\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: gloriamar las canteras",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"gloriamar las canteras Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle las pitas",
+      "sampleAddress": "Calle Las Pitas 6",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 12,
+      "totalPlazas": 46,
+      "listingNames": [
+        "Rocas Rojas 415a",
+        "Rocas Rojas",
+        "Rocas Rojas 430a",
+        "Rocas Rojas. Bungalow Angui",
+        "Apartamento San Agustin Rr",
+        "Rocas Rojas 413a",
+        "Rocas Rojas 431a",
+        "Red Rock Apartment In Maspalomas",
+        "Rocas 308a"
+      ],
+      "brands": [
+        "rocas rojas"
+      ],
+      "coordinates": {
+        "lat": 27.773355012660872,
+        "lon": -15.5441060012337
+      }
+    },
+    "searchQuery": "\"rocas rojas\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: rocas rojas",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"rocas rojas Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "peatonal kuoni s/n",
+      "sampleAddress": "Peatonal Kuoni S/N",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 12,
+      "totalPlazas": 48,
+      "listingNames": [
+        "Mar Bianco"
+      ],
+      "brands": [
+        "mar bianco"
+      ],
+      "coordinates": {
+        "lat": 27.759897000000006,
+        "lon": -15.588689999999994
+      }
+    },
+    "searchQuery": "\"mar bianco\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: mar bianco",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"mar bianco Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida del oasis",
+      "sampleAddress": "Avenida Del Oasis 17",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 11,
+      "totalPlazas": 56,
+      "listingNames": [
+        "Tamara 2",
+        "Drago 18",
+        "Apartment Tindaya Maspalomas Mt",
+        "Casa Maspalomas",
+        "Veroles B",
+        "Oasis Dunas",
+        "Av Del Oasis 17a",
+        "Maypa",
+        "Apartamento Maypa 3",
+        "Apartamenrto Maypa 6",
+        "Oasis Serenity"
+      ],
+      "brands": [
+        "maypa"
+      ],
+      "coordinates": {
+        "lat": 27.73731922222223,
+        "lon": -15.594830888888888
+      }
+    },
+    "searchQuery": "\"maypa\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: maypa",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"maypa Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida touroperador kuoni 27",
+      "sampleAddress": "Avenida Touroperador Kuoni 27    59",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 11,
+      "totalPlazas": 53,
+      "listingNames": [
+        "Anzar: El Espiritu Del Atlántico",
+        "Sonora Golf Valeria Y Paz",
+        "Suite Coco",
+        "Dreams Home",
+        "Lux 2br Maspalomas Pool Terrace",
+        "Privé Paradise",
+        "Suite Haflo - Vacacional Maspalomas",
+        "Bungalow Moderno Con Biciclestas Sonora Golf",
+        "Sonora Beach",
+        "Maspalomas Paradise",
+        "Ca Martina Sonora Golf"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.7592717449274,
+        "lon": -15.591362841682354
+      }
+    },
+    "searchQuery": "\"Avenida Touroperador Kuoni 27    59\" San Bartolome De Tirajana apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle secretario padilla",
+      "sampleAddress": "Calle Secretario Padilla 105",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 11,
+      "totalPlazas": 59,
+      "listingNames": [
+        "Aguita Surf Lodge",
+        "Anmacavvacacional23",
+        "Beach Apartment La Cicer",
+        "Surfhouse_Canarias",
+        "Surf House Canarias 2",
+        "Surf House Canarias 3",
+        "Mg Canteras Suites 2",
+        "Mg Canteras Suites 3",
+        "Mg Canteras Suites 4",
+        "Padilla 56",
+        "Gaviota"
+      ],
+      "brands": [
+        "canteras suites",
+        "surf canarias"
+      ],
+      "coordinates": {
+        "lat": 28.132843400000002,
+        "lon": -15.441392400000002
+      }
+    },
+    "searchQuery": "\"canteras suites\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: canteras suites",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"canteras suites Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "tenerife",
+      "sampleAddress": "Tenerife 22",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 11,
+      "totalPlazas": 23,
+      "listingNames": [
+        "Leps Primera Linea Las Canteras",
+        "Sea And Sand 2",
+        "Upper Class Beach Apartment",
+        "Sea And Sand 1",
+        "Sea And Sand 3",
+        "Sea And Sand 4",
+        "Sea And Sand 5",
+        "Sea And Sand 6",
+        "Sea And Sand 7",
+        "Sea And Sand 8",
+        "R31 Lcestudio"
+      ],
+      "brands": [
+        "sea and sand"
+      ],
+      "coordinates": {
+        "lat": 28.147862363636364,
+        "lon": -15.430297000000001
+      }
+    },
+    "searchQuery": "\"sea and sand\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: sea and sand",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"sea and sand Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "nicolas estevanez",
+      "sampleAddress": "Nicolas Estevanez 65",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 11,
+      "totalPlazas": 54,
+      "listingNames": [
+        "Terraza Beach Las Canteras",
+        "Fran",
+        "Bonitas Vistas",
+        "Apartamento 503",
+        "Galdo’S Home",
+        "Apartamento Las Palmas",
+        "Ricana Hotels",
+        "Over The Sea Los Lisos",
+        "Apartamento Canteras 3a",
+        "Mi Rincon Favorito",
+        "Estudio Estévanez"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 28.139299444444447,
+        "lon": -15.435209555555552
+      }
+    },
+    "searchQuery": "\"Nicolas Estevanez 65\" Las Palmas De Gran Canaria apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "bergantin s/n urb los cabosos puerta",
+      "sampleAddress": "Bergantín S/N Urb. Los Cabosos, Puerta 3",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 11,
+      "totalPlazas": 50,
+      "listingNames": [
+        "Los Cabosos"
+      ],
+      "brands": [
+        "los cabosos"
+      ],
+      "coordinates": {
+        "lat": 27.74805,
+        "lon": -15.624007000000004
+      }
+    },
+    "searchQuery": "\"los cabosos\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: los cabosos",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"los cabosos Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle bernardo de la torre",
+      "sampleAddress": "Calle Bernardo De La Torre 86",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 11,
+      "totalPlazas": 38,
+      "listingNames": [
+        "Canteras Mila",
+        "Estudio Tiziana",
+        "The First",
+        "Apartamento Playa Canteras",
+        "Todisco Suite Ii",
+        "Un Lugar House",
+        "Atlantic Realtors",
+        "Oslaluma",
+        "Estudiocanteras",
+        "Ad&C House",
+        "Morveg"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 28.139204333333332,
+        "lon": -15.434553333333334
+      }
+    },
+    "searchQuery": "\"Calle Bernardo De La Torre 86\" Las Palmas De Gran Canaria apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle aguasmarinas",
+      "sampleAddress": "Calle Aguasmarinas  3",
+      "municipality": "Mogan",
+      "vvCount": 11,
+      "totalPlazas": 40,
+      "listingNames": [
+        "Montemarina 510r",
+        "Aquamar 608a",
+        "Aquamar 603a",
+        "Aquamar 608b",
+        "Montemarina L1303",
+        "Montemarina L704a",
+        "Montemarina L1403",
+        "Montemarina 905l",
+        "Viva Gran Canaria",
+        "Monte Marina R704",
+        "Montemarina 1013r"
+      ],
+      "brands": [
+        "montemarina",
+        "aquamar"
+      ],
+      "coordinates": {
+        "lat": 27.773439081372132,
+        "lon": -15.692966952147668
+      }
+    },
+    "searchQuery": "\"montemarina\" Mogan Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: montemarina",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"montemarina Gran Canaria\"",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avda de tirajana",
+      "sampleAddress": "Avda De Tirajana 11",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 11,
+      "totalPlazas": 30,
+      "listingNames": [
+        "Aloe 1",
+        "Aloe 2",
+        "Aloe 3",
+        "Michi-Jensi",
+        "Aptos Tanife Piso Nº 103",
+        "4 Minutes Walk From Yumbo",
+        "Los Molinos 720",
+        "Rumah Sama Sama",
+        "Rolf1",
+        "Beatrix Gc",
+        "Aloe 332"
+      ],
+      "brands": [
+        "aloe"
+      ],
+      "coordinates": {
+        "lat": 27.754906181818182,
+        "lon": -15.578332363636365
+      }
+    },
+    "searchQuery": "\"aloe\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: aloe",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"aloe Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle mar caspio 2",
+      "sampleAddress": "Calle Mar Caspio 2 7",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 11,
+      "totalPlazas": 51,
+      "listingNames": [
+        "Duplexmeloneras69",
+        "Sunisa S.L.",
+        "Cuevalaya Sl",
+        "Casa De La Reina",
+        "Complejo Residencial Bahia Meloneras Ii",
+        "Bahia Meloneras 25",
+        "Bahia Meloneras 67",
+        "Meloneras",
+        "Bungalow En Meloneras",
+        "Bungalow Bahía Meloneras Fase Ii 180",
+        "Bahia Meloneras 127"
+      ],
+      "brands": [
+        "bahia meloneras",
+        "meloneras"
+      ],
+      "coordinates": {
+        "lat": 27.747369108769544,
+        "lon": -15.609753211364687
+      }
+    },
+    "searchQuery": "\"bahia meloneras\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: bahia meloneras",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"bahia meloneras Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle juan rejon",
+      "sampleAddress": "Calle Juan Rejón  53",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 11,
+      "totalPlazas": 33,
+      "listingNames": [
+        "Atico",
+        "Edificio Juan Rejón 53",
+        "Edificio Juanrejón 53",
+        "Michael Kirk",
+        "Canteras Luxury Penthouse",
+        "Castle Bank By Canariasgetaway",
+        "Castle Barbican By Canariasgetaway",
+        "Castle Views By Canariasgetaway",
+        "La Concha"
+      ],
+      "brands": [
+        "edificio juan rejón"
+      ],
+      "coordinates": {
+        "lat": 28.149151409026032,
+        "lon": -15.426440434045185
+      }
+    },
+    "searchQuery": "\"edificio juan rejón\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: edificio juan rejón",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"edificio juan rejón Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "avenida mencey con calle nayra-loma dos s/n a",
+      "sampleAddress": "Avenida Mencey Con Calle Nayra-Loma Dos S/N A",
+      "municipality": "Mogan",
+      "vvCount": 11,
+      "totalPlazas": 59,
+      "listingNames": [
+        "Se Utleie 1a",
+        "Se Utleie 13a",
+        "Se Utleie 7a",
+        "Se Utleie 17a",
+        "Se Utleie 23a",
+        "Se Utleie 8a",
+        "Se Utleie 22a",
+        "Se Utleie 16a",
+        "Se Utleie 19a",
+        "Se Utleie 35a",
+        "Se Utleie 11a"
+      ],
+      "brands": [
+        "utleie"
+      ],
+      "coordinates": null
+    },
+    "searchQuery": "\"utleie\" Mogan Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: utleie",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"utleie Gran Canaria\"",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle las margaritas 9",
+      "sampleAddress": "Calle Las Margaritas 9    26",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 11,
+      "totalPlazas": 35,
+      "listingNames": [
+        "Vista Roja",
+        "Bonita Monte Rojo",
+        "Luxury Sea View Monte Rojo",
+        "Amazing Sea View Monte Rojo",
+        "San Agustin Ocean View Terrace",
+        "Oasis En San Agustin",
+        "Beach House Monte Rojo",
+        "Fantastic Sea View Monte Rojo",
+        "Monte Rojo Atlantic View",
+        "Familia Mendoza Rodríguez",
+        "Saribili"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.770783577622588,
+        "lon": -15.548706732136107
+      }
+    },
+    "searchQuery": "\"Calle Las Margaritas 9    26\" San Bartolome De Tirajana apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle isla de lobos 2",
+      "sampleAddress": "Calle Isla De Lobos  2    1903",
+      "municipality": "Mogan",
+      "vvCount": 11,
+      "totalPlazas": 34,
+      "listingNames": [
+        "Monteparaíso Amazing Ocean View",
+        "Paradise Hill – Terrace & Seaviews",
+        "Dream Paradise Puerto Rico",
+        "Malvasía Beach",
+        "Paradise View Puerto Rico",
+        "Monte Paraiso Beach",
+        "Panoramic View Of Puerto Rico",
+        "Vista Paraíso Puerto Rico",
+        "Paraiso Ocean View",
+        "Sunny Garden Monte Paraiso",
+        "Blue Horizon Puerto Rico"
+      ],
+      "brands": [],
+      "coordinates": null
+    },
+    "searchQuery": "\"Calle Isla De Lobos  2    1903\" Mogan apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "americo vespucio",
+      "sampleAddress": "Americo Vespucio 075",
+      "municipality": "Telde",
+      "vvCount": 10,
+      "totalPlazas": 44,
+      "listingNames": [
+        "Salinetas&",
+        "Salinetas&&",
+        "Extra Luxury  First Line Beach Apartment.",
+        "Espectacular,Sobre La Misma Arena De La Playa",
+        "Agustin Ramirez Armas",
+        "Seawave'Sun",
+        "Esther Monzon Garcia",
+        "El Apartamento De Matita",
+        "Garciasintescb",
+        "Viviendas Gayavali"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.98296525,
+        "lon": -15.378583125
+      }
+    },
+    "searchQuery": "\"Americo Vespucio 075\" Telde apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Telde"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "c secundino delgado 14 1 0",
+      "sampleAddress": "C. Secundino Delgado 14 1  0 5",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 10,
+      "totalPlazas": 50,
+      "listingNames": [
+        "Arena Living Maspalomas 1008",
+        "Arena Living Maspalomas 1005",
+        "Arena Living Maspalomas 1001",
+        "Arena Living Maspalomas 1002",
+        "Arena Living Maspalomas 1003",
+        "Arena Living Maspalomas 1004",
+        "Arena Living Maspalomas 1006",
+        "Arena Living Maspalomas 1007",
+        "Arena Living Maspalomas 1009",
+        "Arena Living Maspalomas 2005"
+      ],
+      "brands": [
+        "arena living maspalomas"
+      ],
+      "coordinates": null
+    },
+    "searchQuery": "\"arena living maspalomas\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: arena living maspalomas",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"arena living maspalomas Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle driver s/n",
+      "sampleAddress": "Calle Driver S/N",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 10,
+      "totalPlazas": 50,
+      "listingNames": [
+        "Golfers 6",
+        "Inversiones Boncanar",
+        "Inversiones Boncanar S.L.",
+        "Bomar",
+        "Inversiones Boncanar Sl",
+        "Inversiones Boncanar, S.L.",
+        "Bomar, S.L."
+      ],
+      "brands": [
+        "inversiones boncanar",
+        "inversiones boncanar, s.l."
+      ],
+      "coordinates": {
+        "lat": 27.782526015326876,
+        "lon": -15.64244101873172
+      }
+    },
+    "searchQuery": "\"inversiones boncanar\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: inversiones boncanar",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"inversiones boncanar Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "cuba 001 3º pta",
+      "sampleAddress": "Cuba 001 3º, Pta. 11",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 10,
+      "totalPlazas": 46,
+      "listingNames": [
+        "Tablero 11",
+        "Tablero 10",
+        "Tablero 9",
+        "Tablero 8",
+        "Tablero 7",
+        "Tablero 6",
+        "Tablero 5",
+        "Tablero 4",
+        "Tablero 2",
+        "Tablero 1"
+      ],
+      "brands": [
+        "tablero"
+      ],
+      "coordinates": {
+        "lat": 27.770421,
+        "lon": -15.602031
+      }
+    },
+    "searchQuery": "\"tablero\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: tablero",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"tablero Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle americo vespucio",
+      "sampleAddress": "Calle Americo Vespucio",
+      "municipality": "Telde",
+      "vvCount": 10,
+      "totalPlazas": 45,
+      "listingNames": [
+        "Salinetas Beach House 1",
+        "Salinetas Beach House 2",
+        "Salinetas Beach House 3",
+        "Front Line Beach With Fantastic Terrace.",
+        "Casa De Playa",
+        "Apartamento Salinetas 3 Dormitorios",
+        "Salinetas Beach",
+        "El Palmital De Telde",
+        "La Vedette - Salinetas Blue",
+        "The Boxer"
+      ],
+      "brands": [
+        "salinetas beach"
+      ],
+      "coordinates": {
+        "lat": 27.98193354929409,
+        "lon": -15.378300987740191
+      }
+    },
+    "searchQuery": "\"salinetas beach\" Telde Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: salinetas beach",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"salinetas beach Gran Canaria\"",
+      "Try: administrador de fincas Telde"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle paino",
+      "sampleAddress": "Calle Paiño 2",
+      "municipality": "Mogan",
+      "vvCount": 10,
+      "totalPlazas": 30,
+      "listingNames": [
+        "Jp110",
+        "Mar Paraiso 322",
+        "Villa Amanda",
+        "Raul",
+        "Paradise Sea",
+        "Jardín Paraíso",
+        "Beso Del Sol",
+        "Playa Del Cura",
+        "Tamas Sandor Kovacs",
+        "Layla Dris Hach-Mohamed"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 27.834976999999995,
+        "lon": -15.698249888888888
+      }
+    },
+    "searchQuery": "\"Calle Paiño 2\" Mogan apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle faro",
+      "sampleAddress": "Calle Faro 15",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 10,
+      "totalPlazas": 38,
+      "listingNames": [
+        "Morveg 78",
+        "Sunny Island Faro 1",
+        "Sunny Island Faro Bajo",
+        "Casa Grundtvig",
+        "Vivienda Vacacional La Isleta Ii",
+        "Yoga Loft Canteras"
+      ],
+      "brands": [
+        "morveg",
+        "sunny island faro"
+      ],
+      "coordinates": {
+        "lat": 28.151053666666666,
+        "lon": -15.430664666666667
+      }
+    },
+    "searchQuery": "\"morveg\" Las Palmas De Gran Canaria Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: morveg",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"morveg Gran Canaria\"",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle datana",
+      "sampleAddress": "Calle Datana 48",
+      "municipality": "Mogan",
+      "vvCount": 10,
+      "totalPlazas": 41,
+      "listingNames": [
+        "Loma Estrella, 9",
+        "Apartamento Sun&Sol",
+        "Casa Loma Estrella 24",
+        "Casa Loma Estrella 38",
+        "Aloha Arguineguin",
+        "Coral",
+        "A Gran Canaria",
+        "Mikleinermann",
+        "Darias Datana",
+        "Vivienda Vacacional Casa Martin"
+      ],
+      "brands": [
+        "loma estrella"
+      ],
+      "coordinates": {
+        "lat": 27.764838625,
+        "lon": -15.68291
+      }
+    },
+    "searchQuery": "\"loma estrella\" Mogan Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: loma estrella",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"loma estrella Gran Canaria\"",
+      "Try: administrador de fincas Mogan"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle inglaterra",
+      "sampleAddress": "Calle Inglaterra  14",
+      "municipality": "San Bartolome De Tirajana",
+      "vvCount": 10,
+      "totalPlazas": 33,
+      "listingNames": [
+        "La Residence 1",
+        "La Residence 2",
+        "La Residence 3",
+        "La Residence 4",
+        "La Residence 5",
+        "La Residence 6",
+        "Los Porches Gran Canaria",
+        "Villa Macaronesia",
+        "Peaceful Luxury  Bungalow Near The Beach",
+        "Yumbo Room"
+      ],
+      "brands": [
+        "residence"
+      ],
+      "coordinates": {
+        "lat": 27.754366000000005,
+        "lon": -15.574801888888889
+      }
+    },
+    "searchQuery": "\"residence\" San Bartolome De Tirajana Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: residence",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"residence Gran Canaria\"",
+      "Try: administrador de fincas San Bartolome De Tirajana"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle olof palme",
+      "sampleAddress": "Calle Olof Palme 22",
+      "municipality": "Las Palmas De Gran Canaria",
+      "vvCount": 10,
+      "totalPlazas": 42,
+      "listingNames": [
+        "Loft 1 El Greco",
+        "Loft 2 Dali",
+        "Loft 3 Picasso",
+        "Loft 4 Velazquez",
+        "Loft 5 Munch",
+        "Loft 6 Andy Warhol",
+        "Loft 7 Roy Lichenstein",
+        "Loft 9 Miro",
+        "Loft 8 Kandinsky",
+        "Edificio Gijon"
+      ],
+      "brands": [],
+      "coordinates": {
+        "lat": 28.135188999999997,
+        "lon": -15.436867999999997
+      }
+    },
+    "searchQuery": "\"Calle Olof Palme 22\" Las Palmas De Gran Canaria apartamentos contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "No brand detected, using address",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: administrador de fincas Las Palmas De Gran Canaria"
+    ]
+  },
+  {
+    "cluster": {
+      "normalizedAddress": "calle bentaiga 4",
+      "sampleAddress": "Calle Bentaiga 4    5",
+      "municipality": "Mogan",
+      "vvCount": 10,
+      "totalPlazas": 30,
+      "listingNames": [
+        "Richmond 5",
+        "Richmond 1",
+        "Richmond 6",
+        "Richmond 11",
+        "Richmond 16",
+        "Richmond 17",
+        "Richmond 18",
+        "Richmond 25",
+        "Richmond 8",
+        "Richmond 20"
+      ],
+      "brands": [
+        "richmond"
+      ],
+      "coordinates": {
+        "lat": 27.78524054232124,
+        "lon": -15.704439240280013
+      }
+    },
+    "searchQuery": "\"richmond\" Mogan Gran Canaria alquiler vacacional contacto",
+    "contact": {
+      "website": null,
+      "phone": null,
+      "email": null,
+      "source": "search"
+    },
+    "confidence": "none",
+    "notes": [
+      "Brand detected: richmond",
+      "Google API not configured - manual search needed",
+      "No results - try manual search",
+      "Try: Google \"richmond Gran Canaria\"",
+      "Try: administrador de fincas Mogan"
+    ]
+  }
+]

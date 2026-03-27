@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useRef } from 'react';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useSearchParams } from 'next/navigation';
 import { ProspectMap, ProspectFilters, BuildingResultsList } from '@/components/map';
 import { PropertySidebar } from '@/components/map/PropertySidebar';
@@ -11,17 +12,18 @@ import { downloadProspectReport, ReportMetadata } from '@/lib/services/prospect-
 export default function ProspectingPage() {
   const searchParams = useSearchParams();
 
-  // Read initial position from URL params (from Gestoras page links)
+  // Read initial position and filters from URL params (from Gestoras/Leads page links)
   const initialLat = searchParams.get('lat') ? parseFloat(searchParams.get('lat')!) : undefined;
   const initialLon = searchParams.get('lon') ? parseFloat(searchParams.get('lon')!) : undefined;
   const initialZoom = searchParams.get('zoom') ? parseFloat(searchParams.get('zoom')!) : undefined;
+  const gestoraFilter = searchParams.get('gestora') || undefined;
   const [bounds, setBounds] = useState<BBoxBounds | null>(null);
   const [buildings, setBuildings] = useState<BuildingResult[]>([]);
   const [selectedBuilding, setSelectedBuilding] = useState<BuildingResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [assessmentType, setAssessmentType] = useState<AssessmentType>('solar');
-  const [grantCategory, setGrantCategory] = useState<GrantCategory>('residential');
+  const [assessmentType, setAssessmentType] = useLocalStorage<AssessmentType>('prospecting:assessmentType', 'solar');
+  const [grantCategory, setGrantCategory] = useLocalStorage<GrantCategory>('prospecting:grantCategory', 'residential');
   const [serviceWarnings, setServiceWarnings] = useState<string[]>([]);
   const lastFiltersRef = useRef<ProspectFiltersType | null>(null);
 
@@ -137,6 +139,7 @@ export default function ProspectingPage() {
           selectedBounds={bounds}
           isLoading={isLoading}
           onAssessmentTypeChange={setAssessmentType}
+          initialAssessmentType={assessmentType}
         />
 
         {serviceWarnings.length > 0 && (
@@ -180,6 +183,7 @@ export default function ProspectingPage() {
           initialLat={initialLat}
           initialLon={initialLon}
           initialZoom={initialZoom}
+          gestoraFilter={gestoraFilter}
         />
       </div>
 

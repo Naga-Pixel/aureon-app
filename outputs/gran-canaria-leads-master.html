@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Gran Canaria Leads - Master List</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+    h1 { margin: 0 0 5px; }
+    .subtitle { color: #666; margin-bottom: 20px; }
+    .stats-bar { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 15px; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .stat { font-size: 14px; }
+    .stat strong { color: #059669; }
+    .stat.highlight { background: #d1fae5; padding: 5px 10px; border-radius: 4px; }
+    .actions { margin-bottom: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .actions button { padding: 8px 16px; background: #059669; color: white; border: none; border-radius: 6px; font-size: 13px; cursor: pointer; }
+    .actions button:hover { background: #047857; }
+    .actions button.secondary { background: #6b7280; }
+    .filter-bar { margin-bottom: 10px; display: flex; gap: 15px; flex-wrap: wrap; align-items: center; }
+    .filter-bar label { font-size: 13px; color: #666; }
+    .filter-bar select, .filter-bar input { padding: 6px 10px; border-radius: 4px; border: 1px solid #ddd; font-size: 13px; }
+    .section { margin-bottom: 30px; }
+    .section h2 { font-size: 16px; color: #374151; margin: 0 0 10px; padding-bottom: 8px; border-bottom: 2px solid #059669; }
+    table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; font-size: 13px; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eee; }
+    th { background: #f8f8f8; font-weight: 600; position: sticky; top: 0; z-index: 10; }
+    tr:hover { background: #f9fafb; }
+    tr.has-contact { background: #d1fae5; }
+    tr.priority { background: #fef3c7; }
+    .rank { width: 35px; color: #999; text-align: center; }
+    .score { font-weight: 600; text-align: center; }
+    .score-high { color: #065f46; }
+    .score-med { color: #92400e; }
+    .score-low { color: #6b7280; }
+    .name { font-weight: 500; }
+    .contact { color: #059669; }
+    .contact a { color: #059669; text-decoration: none; }
+    .contact a:hover { text-decoration: underline; }
+    .notes { font-size: 11px; color: #666; max-width: 200px; }
+    .tag { display: inline-block; padding: 2px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; margin-right: 4px; }
+    .tag.researched { background: #d1fae5; color: #065f46; }
+    .tag.priority { background: #fef3c7; color: #92400e; }
+    .tag.mgmt { background: #dbeafe; color: #1e40af; }
+    .links a { display: inline-block; padding: 3px 6px; margin-right: 2px; background: #3b82f6; color: white; text-decoration: none; border-radius: 3px; font-size: 10px; font-weight: 600; }
+    .links a:hover { background: #2563eb; }
+    .empty { color: #9ca3af; font-style: italic; }
+    @media print { .actions, .filter-bar { display: none; } body { background: white; } }
+  </style>
+</head>
+<body>
+  <h1>Gran Canaria Leads - Master List</h1>
+  <p class="subtitle">All VV gestoras and property management companies. Updated 2026-03-25.</p>
+
+  <div class="stats-bar">
+    <div class="stat highlight">Researched: <strong>14</strong></div>
+    <div class="stat">Total Leads: <strong>114</strong></div>
+    <div class="stat">With Contact: <strong>13</strong></div>
+    <div class="stat">VV Gestoras: <strong>100</strong></div>
+    <div class="stat">Mgmt Companies: <strong>14</strong></div>
+  </div>
+
+  <div class="actions">
+    <button onclick="exportCSV()">Export All to CSV</button>
+    <button onclick="window.print()" class="secondary">Print</button>
+  </div>
+
+  <div class="filter-bar">
+    <label>Filter:</label>
+    <select id="filter-type">
+      <option value="all">All Leads</option>
+      <option value="researched">Researched Only</option>
+      <option value="with-contact">With Contact Info</option>
+      <option value="priority">Priority (Top 20)</option>
+    </select>
+    <label>Search:</label>
+    <input type="text" id="search" placeholder="Search name...">
+  </div>
+
+  <!-- SECTION 1: RESEARCHED LEADS WITH CONTACTS -->
+  <div class="section" id="section-researched">
+    <h2>Researched Leads with Contact Info (14)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>VVs</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Website</th>
+          <th>Contact Person</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="has-contact" data-type="researched">
+          <td class="name">Resort Cordial Santa Agueda <span class="tag researched">TOP</span></td>
+          <td>87</td>
+          <td class="contact"><a href="mailto:info@becordial.com">info@becordial.com</a></td>
+          <td class="contact">+34 928 143393</td>
+          <td class="contact"><a href="https://www.becordial.com" target="_blank">becordial.com</a></td>
+          <td>Alberto Pernalete (Dir Ops), Tanja Tremmel (Marketing)</td>
+          <td class="notes">Part of Cordial Hotels group. Also manages Cordial Mogan Solaz.</td>
+        </tr>
+        <tr class="has-contact" data-type="researched">
+          <td class="name">Los Molinos</td>
+          <td>29</td>
+          <td class="empty">-</td>
+          <td class="contact">+34 645 560 244</td>
+          <td class="contact"><a href="https://residencial-los-molinos.grancanaria-hotels.com/" target="_blank">residencial-los-molinos...</a></td>
+          <td>-</td>
+          <td class="notes">Avenida Tirajana 40, Maspalomas. 5-story complex.</td>
+        </tr>
+        <tr class="has-contact" data-type="researched">
+          <td class="name">Rocas Rojas</td>
+          <td>393</td>
+          <td class="contact"><a href="mailto:grancanaria@fastighetsbyran.com">grancanaria@fastighetsbyran.com</a></td>
+          <td class="contact">+34 928 768803</td>
+          <td class="contact"><a href="http://rocasrojas.com/" target="_blank">rocasrojas.com</a></td>
+          <td>Fastighetsbyrån España (agent)</td>
+          <td class="notes">393-unit complex in San Agustín. Calle Las Pitas 6.</td>
+        </tr>
+        <tr class="has-contact" data-type="researched">
+          <td class="name">Sunsuites Carolina</td>
+          <td>9</td>
+          <td class="contact"><a href="mailto:carolina@sunsuites.es">carolina@sunsuites.es</a></td>
+          <td class="contact">+34 928 778200</td>
+          <td class="contact"><a href="https://www.sunsuites.es" target="_blank">sunsuites.es</a></td>
+          <td>-</td>
+          <td class="notes">11-50 employees. Calle Los Cardones 3, San Agustín.</td>
+        </tr>
+        <tr class="has-contact" data-type="researched">
+          <td class="name">Cordial Mogan Solaz</td>
+          <td>12</td>
+          <td class="contact"><a href="mailto:info@becordial.com">info@becordial.com</a></td>
+          <td class="contact">+34 928 143393</td>
+          <td class="contact"><a href="https://www.becordial.com" target="_blank">becordial.com</a></td>
+          <td>Same as Resort Cordial</td>
+          <td class="notes">Same ownership as Resort Cordial Santa Agueda.</td>
+        </tr>
+        <tr class="has-contact" data-type="researched">
+          <td class="name">VillaGranCanaria <span class="tag mgmt">MGMT</span></td>
+          <td>Multi</td>
+          <td class="contact"><a href="mailto:info@villagrancanaria.com">info@villagrancanaria.com</a></td>
+          <td class="contact">+34 928 380 457</td>
+          <td class="contact"><a href="https://villagrancanaria.com/" target="_blank">villagrancanaria.com</a></td>
+          <td>-</td>
+          <td class="notes">VillaGranCanaria Investments S.L. 20+ years. CIF B76226992.</td>
+        </tr>
+        <tr class="has-contact" data-type="researched">
+          <td class="name">Living Las Canteras <span class="tag mgmt">MGMT</span></td>
+          <td>Multi</td>
+          <td class="contact"><a href="mailto:juan.betancor@livinglascanteras.com">juan.betancor@livinglascanteras.com</a></td>
+          <td class="empty">-</td>
+          <td class="contact"><a href="https://livinglascanteras.com/" target="_blank">livinglascanteras.com</a></td>
+          <td>Juan Betancor (Founder)</td>
+          <td class="notes">100% Las Canteras focused. Since 2010.</td>
+        </tr>
+        <tr class="has-contact" data-type="researched">
+          <td class="name">Grupo Diluvi <span class="tag mgmt">MGMT</span></td>
+          <td>Multi</td>
+          <td class="contact"><a href="mailto:info@grupodiluvi.es">info@grupodiluvi.es</a></td>
+          <td class="contact">+34 928 725 613</td>
+          <td class="contact"><a href="https://grupodiluvi.es/" target="_blank">grupodiluvi.es</a></td>
+          <td>-</td>
+          <td class="notes">Mogán, 35130.</td>
+        </tr>
+        <tr class="has-contact" data-type="researched">
+          <td class="name">Hosticasa <span class="tag mgmt">MGMT</span></td>
+          <td>Multi</td>
+          <td class="contact"><a href="mailto:contacto@hosticasa.com">contacto@hosticasa.com</a></td>
+          <td class="contact">+34 684 100 239</td>
+          <td class="contact"><a href="https://www.hosticasa.com/" target="_blank">hosticasa.com</a></td>
+          <td>Carlos Román (Director)</td>
+          <td class="notes">Official intermediary I-0004576.1.</td>
+        </tr>
+        <tr class="has-contact" data-type="researched">
+          <td class="name">Weguest <span class="tag mgmt">MGMT</span></td>
+          <td>Multi</td>
+          <td class="contact"><a href="mailto:contact@weguest.com">contact@weguest.com</a></td>
+          <td class="contact">+34 900 101 957</td>
+          <td class="contact"><a href="https://www.weguest.com/" target="_blank">weguest.com</a></td>
+          <td>-</td>
+          <td class="notes">National company. Free phone.</td>
+        </tr>
+        <tr class="has-contact" data-type="researched">
+          <td class="name">Sleepaways <span class="tag mgmt">MGMT</span></td>
+          <td>Multi</td>
+          <td class="contact"><a href="mailto:info@sleepaways.com">info@sleepaways.com</a></td>
+          <td class="contact">+34 828 128751</td>
+          <td class="contact"><a href="https://property.sleepaways.com/" target="_blank">sleepaways.com</a></td>
+          <td>-</td>
+          <td class="notes">Also UK/Germany numbers.</td>
+        </tr>
+        <tr class="has-contact" data-type="researched">
+          <td class="name">Gestión Vacacional Canarias <span class="tag mgmt">MGMT</span></td>
+          <td>Multi</td>
+          <td class="contact"><a href="mailto:info@gestionvacacionalcanarias.es">info@gestionvacacionalcanarias.es</a></td>
+          <td class="contact">+34 680 336 661</td>
+          <td class="contact"><a href="https://gestionvacacionalcanarias.com/" target="_blank">gestionvacacionalcanarias.com</a></td>
+          <td>-</td>
+          <td class="notes">Maspalomas focused. WhatsApp available.</td>
+        </tr>
+        <tr class="has-contact" data-type="researched">
+          <td class="name">Las Casas Canarias <span class="tag mgmt">MGMT</span></td>
+          <td>Multi</td>
+          <td class="contact"><a href="mailto:info@lascasascanarias.com">info@lascasascanarias.com</a></td>
+          <td class="contact">+34 928 580 030</td>
+          <td class="contact"><a href="https://www.lascasascanarias.com/" target="_blank">lascasascanarias.com</a></td>
+          <td>-</td>
+          <td class="notes">The Dream Destination Travel S.L. Since 2003.</td>
+        </tr>
+        <tr data-type="researched">
+          <td class="name">Finca Tomas Y Puri</td>
+          <td>9</td>
+          <td class="empty">-</td>
+          <td class="empty">-</td>
+          <td class="contact"><a href="http://www.fincaruralgrancanaria.com/" target="_blank">fincaruralgrancanaria.com</a></td>
+          <td>-</td>
+          <td class="notes">Rural tourism. Fátaga 35106.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 2: TOP VV GESTORAS (FROM REGISTRY) -->
+  <div class="section" id="section-gestoras">
+    <h2>Top VV Gestoras from Registry (100)</h2>
+    <table id="gestoras-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Score</th>
+          <th>Gestora</th>
+          <th>VVs</th>
+          <th>Beds</th>
+          <th>Municipalities</th>
+          <th>Search</th>
+        </tr>
+      </thead>
+      <tbody id="gestoras-body">
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const gestoras = [{"name":"Resort Cordial Santa Agueda","vvCount":87,"totalBeds":380,"municipalities":"San Bartolome De Tirajana","complexes":"Resort Cordial Santa Agueda","score":86},{"name":"Los Molinos","vvCount":29,"totalBeds":62,"municipalities":"San Bartolome De Tirajana","complexes":"","score":68},{"name":"Cordial Mogan Solaz","vvCount":12,"totalBeds":43,"municipalities":"Mogan","complexes":"","score":58},{"name":"Notar","vvCount":18,"totalBeds":61,"municipalities":"Mogan, Las Palmas De Gran Canaria","complexes":"","score":58},{"name":"Canteras Way","vvCount":11,"totalBeds":58,"municipalities":"Las Palmas De Gran Canaria","complexes":"","score":57},{"name":"Rocas Rojas","vvCount":9,"totalBeds":35,"municipalities":"San Bartolome De Tirajana","complexes":"","score":55},{"name":"Bungalow","vvCount":9,"totalBeds":33,"municipalities":"San Bartolome De Tirajana","complexes":"Bungalow","score":55},{"name":"Sunsuites Carolina","vvCount":9,"totalBeds":27,"municipalities":"San Bartolome De Tirajana","complexes":"","score":54},{"name":"Charles Moe S.L.U","vvCount":9,"totalBeds":24,"municipalities":"Mogan","complexes":"","score":54},{"name":"Finca Tomas Y Puri","vvCount":9,"totalBeds":28,"municipalities":"San Bartolome De Tirajana","complexes":"","score":54},{"name":"Finca Navelo Slu","vvCount":8,"totalBeds":22,"municipalities":"Aguimes","complexes":"","score":53},{"name":"Las Canteras","vvCount":7,"totalBeds":23,"municipalities":"Las Palmas De Gran Canaria","complexes":"","score":52},{"name":"Vv Apartments Ragar S.L.","vvCount":6,"totalBeds":18,"municipalities":"Las Palmas De Gran Canaria","complexes":"","score":50},{"name":"Emycanarias Holiday Homes","vvCount":8,"totalBeds":68,"municipalities":"Aguimes, Santa Lucia De Tirajana","complexes":"","score":49},{"name":"Canteras","vvCount":5,"totalBeds":22,"municipalities":"Las Palmas De Gran Canaria","complexes":"","score":48},{"name":"Canteras Beach","vvCount":5,"totalBeds":13,"municipalities":"Las Palmas De Gran Canaria","complexes":"","score":48},{"name":"Anna","vvCount":5,"totalBeds":20,"municipalities":"Santa Lucia De Tirajana","complexes":"","score":48},{"name":"Tegueste","vvCount":5,"totalBeds":15,"municipalities":"Santa Lucia De Tirajana","complexes":"","score":48},{"name":"Bahia Meloneras","vvCount":5,"totalBeds":20,"municipalities":"San Bartolome De Tirajana","complexes":"","score":48},{"name":"Real Monglares","vvCount":5,"totalBeds":15,"municipalities":"Mogan","complexes":"","score":48},{"name":"Apartamento Las Canteras","vvCount":4,"totalBeds":14,"municipalities":"Las Palmas De Gran Canaria","complexes":"Apartamento Las Canteras","score":45},{"name":"Las Canteras Beach","vvCount":4,"totalBeds":15,"municipalities":"Las Palmas De Gran Canaria","complexes":"","score":45},{"name":"Faro","vvCount":4,"totalBeds":10,"municipalities":"Las Palmas De Gran Canaria","complexes":"","score":45},{"name":"Los Espinos","vvCount":4,"totalBeds":21,"municipalities":"La Aldea De San Nicolas","complexes":"","score":45},{"name":"Playa De Sardina","vvCount":4,"totalBeds":16,"municipalities":"Galdar","complexes":"","score":45},{"name":"Flamboyan","vvCount":6,"totalBeds":22,"municipalities":"San Bartolome De Tirajana, Telde","complexes":"","score":45},{"name":"Inversiones Boncanar, S.L.","vvCount":6,"totalBeds":19,"municipalities":"San Bartolome De Tirajana, Las Palmas De Gran Canaria","complexes":"","score":45},{"name":"Los Arcos","vvCount":4,"totalBeds":12,"municipalities":"San Bartolome De Tirajana","complexes":"","score":45},{"name":"Ocean View","vvCount":6,"totalBeds":22,"municipalities":"Arucas, Mogan","complexes":"","score":45},{"name":"Sol Y Playa","vvCount":4,"totalBeds":12,"municipalities":"Mogan","complexes":"","score":45},{"name":"Las Nasas","vvCount":5,"totalBeds":21,"municipalities":"Aguimes, San Bartolome De Tirajana","complexes":"","score":43},{"name":"V. De Aragal","vvCount":3,"totalBeds":37,"municipalities":"San Bartolome De Tirajana","complexes":"","score":43},{"name":"Casa Marina","vvCount":5,"totalBeds":24,"municipalities":"Mogan, Agaete","complexes":"","score":43},{"name":"Casa Adosada","vvCount":3,"totalBeds":18,"municipalities":"San Bartolome De Tirajana","complexes":"","score":42},{"name":"Casa María","vvCount":3,"totalBeds":12,"municipalities":"Las Palmas De Gran Canaria","complexes":"","score":42},{"name":"Estudio Canteras","vvCount":3,"totalBeds":6,"municipalities":"Las Palmas De Gran Canaria","complexes":"","score":42},{"name":"Canteras House","vvCount":3,"totalBeds":9,"municipalities":"Las Palmas De Gran Canaria","complexes":"","score":42},{"name":"Arinaga Beach","vvCount":3,"totalBeds":13,"municipalities":"Aguimes","complexes":"","score":42},{"name":"Playa Chica","vvCount":3,"totalBeds":11,"municipalities":"Las Palmas De Gran Canaria","complexes":"","score":42},{"name":"Arinaga Playa","vvCount":3,"totalBeds":19,"municipalities":"Aguimes","complexes":"","score":42},{"name":"El Puerto","vvCount":3,"totalBeds":7,"municipalities":"Mogan","complexes":"","score":42},{"name":"Burrero Beach","vvCount":3,"totalBeds":11,"municipalities":"Ingenio","complexes":"","score":42},{"name":"Salobre Golf","vvCount":3,"totalBeds":14,"municipalities":"San Bartolome De Tirajana","complexes":"","score":42},{"name":"Los Cactus","vvCount":3,"totalBeds":12,"municipalities":"Las Palmas De Gran Canaria","complexes":"","score":42},{"name":"Las Vegas","vvCount":3,"totalBeds":12,"municipalities":"San Bartolome De Tirajana","complexes":"","score":42},{"name":"The Matter","vvCount":3,"totalBeds":14,"municipalities":"Las Palmas De Gran Canaria","complexes":"","score":42},{"name":"Los Caideros","vvCount":3,"totalBeds":12,"municipalities":"Mogan","complexes":"","score":42},{"name":"Herdeniz Sl","vvCount":3,"totalBeds":10,"municipalities":"Mogan","complexes":"","score":42},{"name":"Canteras Apartment","vvCount":3,"totalBeds":17,"municipalities":"Las Palmas De Gran Canaria","complexes":"","score":42},{"name":"La Garita Beach","vvCount":3,"totalBeds":12,"municipalities":"Telde","complexes":"","score":42},{"name":"Gc Holidays","vvCount":3,"totalBeds":11,"municipalities":"Mogan","complexes":"","score":42},{"name":"Playa Del Cura","vvCount":3,"totalBeds":10,"municipalities":"Mogan","complexes":"","score":42},{"name":"Canteras Home","vvCount":3,"totalBeds":13,"municipalities":"Las Palmas De Gran Canaria","complexes":"","score":42},{"name":"Bella Vista","vvCount":3,"totalBeds":15,"municipalities":"Mogan","complexes":"","score":42},{"name":"Apartamento","vvCount":9,"totalBeds":31,"municipalities":"Las Palmas De Gran Canaria, San Bartolome De Tirajana, Valleseco","complexes":"Apartamento","score":41},{"name":"Bello Horizonte","vvCount":4,"totalBeds":13,"municipalities":"Las Palmas De Gran Canaria, San Bartolome De Tirajana","complexes":"","score":41},{"name":"Casa Del Sol","vvCount":9,"totalBeds":34,"municipalities":"Las Palmas De Gran Canaria, Agaete, Mogan","complexes":"","score":41},{"name":"Vista Marina","vvCount":4,"totalBeds":13,"municipalities":"Mogan, Las Palmas De Gran Canaria","complexes":"","score":41},{"name":"El Valle","vvCount":4,"totalBeds":22,"municipalities":"Telde, Mogan","complexes":"","score":41},{"name":"Mariposa","vvCount":4,"totalBeds":13,"municipalities":"San Bartolome De Tirajana, Mogan","complexes":"","score":41},{"name":"Casa Feliz","vvCount":4,"totalBeds":23,"municipalities":"Mogan, San Bartolome De Tirajana","complexes":"","score":41},{"name":"Casa Mia","vvCount":4,"totalBeds":13,"municipalities":"San Bartolome De Tirajana, Arucas","complexes":"","score":41},{"name":"Diaz Pulido Restauracion Slu","vvCount":4,"totalBeds":13,"municipalities":"Mogan, San Bartolome De Tirajana","complexes":"","score":41},{"name":"Casa Anna","vvCount":4,"totalBeds":16,"municipalities":"Mogan, Las Palmas De Gran Canaria","complexes":"","score":41},{"name":"Naranjo Perez E Hijos, S.L.","vvCount":4,"totalBeds":15,"municipalities":"Las Palmas De Gran Canaria, San Bartolome De Tirajana","complexes":"","score":41},{"name":"Las Olas","vvCount":4,"totalBeds":19,"municipalities":"San Bartolome De Tirajana, Aguimes","complexes":"","score":41},{"name":"Vista Mar","vvCount":8,"totalBeds":38,"municipalities":"Las Palmas De Gran Canaria, Telde, Mogan","complexes":"","score":40},{"name":"Casa Verde","vvCount":12,"totalBeds":44,"municipalities":"Mogan, Las Palmas De Gran Canaria, San Bartolome De Tirajana","complexes":"","score":40},{"name":"Aloe","vvCount":5,"totalBeds":16,"municipalities":"San Bartolome De Tirajana, Arucas, Las Palmas De Gran Canaria","complexes":"","score":39},{"name":"Mar Azul","vvCount":3,"totalBeds":12,"municipalities":"Las Palmas De Gran Canaria, Aguimes","complexes":"","score":38},{"name":"Los Almendros","vvCount":3,"totalBeds":26,"municipalities":"Valsequillo De Gran Canaria, Santa Lucia De Tirajana","complexes":"","score":38},{"name":"Casa Carmen","vvCount":7,"totalBeds":29,"municipalities":"Mogan, San Bartolome De Tirajana, Santa Lucia De Tirajana","complexes":"","score":38},{"name":"Vistamar","vvCount":3,"totalBeds":12,"municipalities":"Agaete, Mogan","complexes":"","score":38},{"name":"Mar","vvCount":3,"totalBeds":16,"municipalities":"San Bartolome De Tirajana, Mogan","complexes":"","score":38},{"name":"Drago","vvCount":3,"totalBeds":12,"municipalities":"Las Palmas De Gran Canaria, Valsequillo De Gran Canaria","complexes":"","score":38},{"name":"La Puntilla","vvCount":3,"totalBeds":12,"municipalities":"Las Palmas De Gran Canaria, Aguimes","complexes":"","score":38},{"name":"Casa Terrera","vvCount":3,"totalBeds":14,"municipalities":"Teror, Santa Brigida","complexes":"","score":38},{"name":"Las Velas","vvCount":3,"totalBeds":12,"municipalities":"San Bartolome De Tirajana, Galdar","complexes":"","score":38},{"name":"Teror","vvCount":3,"totalBeds":8,"municipalities":"Teror, Valsequillo De Gran Canaria","complexes":"","score":38},{"name":"Mindfit Holidays","vvCount":3,"totalBeds":10,"municipalities":"Las Palmas De Gran Canaria, San Bartolome De Tirajana","complexes":"","score":38},{"name":"Carmen","vvCount":3,"totalBeds":12,"municipalities":"Mogan, San Bartolome De Tirajana","complexes":"","score":38},{"name":"Garden House","vvCount":3,"totalBeds":13,"municipalities":"Las Palmas De Gran Canaria, San Bartolome De Tirajana","complexes":"","score":38},{"name":"Cactus","vvCount":3,"totalBeds":16,"municipalities":"Telde, San Bartolome De Tirajana","complexes":"","score":38},{"name":"Amadores","vvCount":3,"totalBeds":9,"municipalities":"Mogan, Las Palmas De Gran Canaria","complexes":"","score":38},{"name":"Bungalow En Maspalomas","vvCount":3,"totalBeds":11,"municipalities":"San Bartolome De Tirajana, Las Palmas De Gran Canaria","complexes":"Bungalow En Maspalomas","score":38},{"name":"Vista Azul","vvCount":3,"totalBeds":12,"municipalities":"Telde, Arucas","complexes":"","score":38},{"name":"Casablanca","vvCount":3,"totalBeds":10,"municipalities":"San Bartolome De Tirajana, Santa Lucia De Tirajana","complexes":"","score":38},{"name":"Bellavista","vvCount":3,"totalBeds":20,"municipalities":"Mogan, San Bartolome De Tirajana","complexes":"","score":38},{"name":"Casa Acogedora","vvCount":3,"totalBeds":9,"municipalities":"San Bartolome De Tirajana, Santa Lucia De Tirajana","complexes":"","score":38},{"name":"Los Cardones","vvCount":3,"totalBeds":9,"municipalities":"Mogan, La Aldea De San Nicolas","complexes":"","score":38},{"name":"Santa Barbara","vvCount":3,"totalBeds":13,"municipalities":"Las Palmas De Gran Canaria, San Bartolome De Tirajana","complexes":"","score":38},{"name":"Vida Alegre","vvCount":3,"totalBeds":10,"municipalities":"Santa Brigida, Las Palmas De Gran Canaria","complexes":"","score":38},{"name":"Casa Palmera","vvCount":3,"totalBeds":14,"municipalities":"Mogan, Santa Lucia De Tirajana","complexes":"","score":38},{"name":"Vista Bonita","vvCount":3,"totalBeds":13,"municipalities":"Firgas, Las Palmas De Gran Canaria","complexes":"","score":38},{"name":"La Gloria","vvCount":6,"totalBeds":52,"municipalities":"San Bartolome De Tirajana, Mogan, Telde","complexes":"","score":37},{"name":"Casa Bonita","vvCount":6,"totalBeds":32,"municipalities":"Las Palmas De Gran Canaria, Mogan, Telde","complexes":"","score":37},{"name":"Piso","vvCount":6,"totalBeds":22,"municipalities":"Valleseco, Las Palmas De Gran Canaria, Aguimes","complexes":"","score":36},{"name":"Mirador Del Atlántico","vvCount":4,"totalBeds":16,"municipalities":"Las Palmas De Gran Canaria, Telde, Galdar","complexes":"","score":36},{"name":"Casa Rosa","vvCount":4,"totalBeds":19,"municipalities":"Vega San Mateo, Mogan, San Bartolome De Tirajana","complexes":"","score":36},{"name":"Casa Juan","vvCount":4,"totalBeds":15,"municipalities":"San Bartolome De Tirajana, Mogan, Valsequillo De Gran Canaria","complexes":"","score":36}];
+
+    const researched = ["Resort Cordial Santa Agueda", "Los Molinos", "Cordial Mogan Solaz", "Rocas Rojas", "Sunsuites Carolina", "Finca Tomas Y Puri"];
+
+    // Render gestoras table
+    const tbody = document.getElementById('gestoras-body');
+    gestoras.forEach((g, i) => {
+      const isResearched = researched.includes(g.name);
+      const isPriority = i < 20;
+      const scoreClass = g.score >= 55 ? 'score-high' : g.score >= 42 ? 'score-med' : 'score-low';
+      const rowClass = isResearched ? 'has-contact' : isPriority ? 'priority' : '';
+      const encoded = encodeURIComponent(g.name);
+
+      tbody.innerHTML += `
+        <tr class="${rowClass}" data-type="${isResearched ? 'researched' : ''}" data-priority="${isPriority}">
+          <td class="rank">${i + 1}</td>
+          <td class="score ${scoreClass}">${g.score}</td>
+          <td class="name">${g.name} ${isResearched ? '<span class="tag researched">DONE</span>' : ''}</td>
+          <td>${g.vvCount}</td>
+          <td>${g.totalBeds}</td>
+          <td>${g.municipalities}</td>
+          <td class="links">
+            <a href="https://www.google.com/search?q=%22${encoded}%22+contacto+email+Gran+Canaria" target="_blank">G</a>
+            <a href="https://www.google.com/search?q=%22${encoded}%22+site:linkedin.com" target="_blank">in</a>
+          </td>
+        </tr>
+      `;
+    });
+
+    // Filter functionality
+    document.getElementById('filter-type').addEventListener('change', (e) => {
+      const filter = e.target.value;
+      document.querySelectorAll('tbody tr').forEach(tr => {
+        const isResearched = tr.dataset.type === 'researched';
+        const isPriority = tr.dataset.priority === 'true';
+        const hasContact = tr.classList.contains('has-contact');
+
+        if (filter === 'all') tr.style.display = '';
+        else if (filter === 'researched') tr.style.display = isResearched ? '' : 'none';
+        else if (filter === 'with-contact') tr.style.display = hasContact ? '' : 'none';
+        else if (filter === 'priority') tr.style.display = (isPriority || isResearched) ? '' : 'none';
+      });
+
+      document.getElementById('section-researched').style.display = (filter === 'all' || filter === 'researched' || filter === 'with-contact') ? '' : 'none';
+    });
+
+    // Search functionality
+    document.getElementById('search').addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      document.querySelectorAll('tbody tr').forEach(tr => {
+        const name = tr.querySelector('.name')?.textContent.toLowerCase() || '';
+        tr.style.display = name.includes(q) ? '' : 'none';
+      });
+    });
+
+    // Export CSV
+    function exportCSV() {
+      const rows = [['Name', 'Type', 'VVs', 'Beds', 'Email', 'Phone', 'Website', 'Contact Person', 'Notes', 'Score']];
+
+      // Researched leads
+      const researchedData = [
+        ['Resort Cordial Santa Agueda', 'VV Gestora', '87', '380', 'info@becordial.com', '+34 928 143393', 'https://www.becordial.com', 'Alberto Pernalete, Tanja Tremmel', 'Cordial Hotels group', '86'],
+        ['Los Molinos', 'VV Gestora', '29', '62', '', '+34 645 560 244', 'https://residencial-los-molinos.grancanaria-hotels.com/', '', 'Av Tirajana 40 Maspalomas', '68'],
+        ['Rocas Rojas', 'Complex', '393', '', 'grancanaria@fastighetsbyran.com', '+34 928 768803', 'http://rocasrojas.com/', 'Fastighetsbyrån (agent)', '393-unit San Agustín', '55'],
+        ['Sunsuites Carolina', 'VV Gestora', '9', '27', 'carolina@sunsuites.es', '+34 928 778200', 'https://www.sunsuites.es', '', 'San Agustín', '54'],
+        ['Cordial Mogan Solaz', 'VV Gestora', '12', '43', 'info@becordial.com', '+34 928 143393', 'https://www.becordial.com', 'Same as Resort Cordial', 'Cordial group', '58'],
+        ['VillaGranCanaria', 'Mgmt Company', 'Multi', '', 'info@villagrancanaria.com', '+34 928 380 457', 'https://villagrancanaria.com/', '', '20+ years CIF B76226992', ''],
+        ['Living Las Canteras', 'Mgmt Company', 'Multi', '', 'juan.betancor@livinglascanteras.com', '', 'https://livinglascanteras.com/', 'Juan Betancor (Founder)', 'Las Canteras specialist', ''],
+        ['Grupo Diluvi', 'Mgmt Company', 'Multi', '', 'info@grupodiluvi.es', '+34 928 725 613', 'https://grupodiluvi.es/', '', 'Mogán', ''],
+        ['Hosticasa', 'Mgmt Company', 'Multi', '', 'contacto@hosticasa.com', '+34 684 100 239', 'https://www.hosticasa.com/', 'Carlos Román (Director)', 'Official intermediary', ''],
+        ['Weguest', 'Mgmt Company', 'Multi', '', 'contact@weguest.com', '+34 900 101 957', 'https://www.weguest.com/', '', 'National company', ''],
+        ['Sleepaways', 'Mgmt Company', 'Multi', '', 'info@sleepaways.com', '+34 828 128751', 'https://property.sleepaways.com/', '', 'International', ''],
+        ['Gestión Vacacional Canarias', 'Mgmt Company', 'Multi', '', 'info@gestionvacacionalcanarias.es', '+34 680 336 661', 'https://gestionvacacionalcanarias.com/', '', 'Maspalomas', ''],
+        ['Las Casas Canarias', 'Mgmt Company', 'Multi', '', 'info@lascasascanarias.com', '+34 928 580 030', 'https://www.lascasascanarias.com/', '', 'Since 2003', ''],
+        ['Finca Tomas Y Puri', 'VV Gestora', '9', '28', '', '', 'http://www.fincaruralgrancanaria.com/', '', 'Rural Fátaga', '54'],
+      ];
+      rows.push(...researchedData);
+
+      // Non-researched gestoras
+      gestoras.forEach(g => {
+        if (!researched.includes(g.name)) {
+          rows.push([g.name, 'VV Gestora', g.vvCount, g.totalBeds, '', '', '', '', g.municipalities, g.score]);
+        }
+      });
+
+      const csv = rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(',')).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'gran-canaria-leads-master.csv';
+      a.click();
+    }
+  </script>
+</body>
+</html>

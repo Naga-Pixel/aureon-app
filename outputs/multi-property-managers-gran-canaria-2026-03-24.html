@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Property Managers - Gran Canaria</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    h1 { color: #1a1a2e; margin-bottom: 10px; }
+    .stats {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .stats p { margin: 5px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    th {
+      background: #1a1a2e;
+      color: white;
+      padding: 15px 10px;
+      text-align: left;
+      font-weight: 600;
+    }
+    td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+    tr:hover { background: #f8f9fa; }
+    .name { font-weight: 600; color: #1a1a2e; }
+    .count {
+      background: #4CAF50;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.85em;
+      font-weight: 600;
+    }
+    .municipios {
+      font-size: 0.85em;
+      color: #666;
+    }
+    .streets {
+      font-size: 0.8em;
+      color: #888;
+      max-width: 300px;
+    }
+    .links a {
+      display: inline-block;
+      padding: 6px 12px;
+      margin: 2px;
+      background: #e3f2fd;
+      color: #1565c0;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 0.8em;
+    }
+    .links a:hover { background: #bbdefb; }
+    .links a.linkedin { background: #e8f4f8; color: #0077b5; }
+    .links a.linkedin:hover { background: #cce8f0; }
+    .highlight { background: #fff9c4 !important; }
+  </style>
+</head>
+<body>
+  <h1>Multi-Property Managers - Gran Canaria</h1>
+
+  <div class="stats">
+    <p><strong>Total managers with 2+ different streets:</strong> 553</p>
+    <p><strong>Top 50 shown</strong> (sorted by number of different streets)</p>
+    <p><strong>Generated:</strong> 24/3/2026, 11:47:12</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre Comercial</th>
+        <th>Calles</th>
+        <th>VVs</th>
+        <th>Municipios</th>
+        <th>Calles (muestra)</th>
+        <th>Buscar</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+          <tr class="highlight">
+            <td>1</td>
+            <td class="name">Notar</td>
+            <td><span class="count">12</span></td>
+            <td>18</td>
+            <td class="municipios">Las Palmas De Gran Canaria, Mogan</td>
+            <td class="streets">albareda, alonso quesada, de la graciosa...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Notar%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Notar" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Notar%20Las%20Palmas%20De%20Gran%20Canaria" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>2</td>
+            <td class="name">Casa Del Sol</td>
+            <td><span class="count">9</span></td>
+            <td>9</td>
+            <td class="municipios">Agaete, Las Palmas De Gran Canaria, Mogan, San Bartolome De Tirajana</td>
+            <td class="streets">dali, de los dragos, n, de san jose...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Del%20Sol%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Del%20Sol" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Del%20Sol%20Agaete" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>3</td>
+            <td class="name">Apartamento</td>
+            <td><span class="count">8</span></td>
+            <td>9</td>
+            <td class="municipios">Las Palmas De Gran Canaria, Mogan, San Bartolome De Tirajana, Valleseco</td>
+            <td class="streets">anización puerto de mogán, bernardo de la torre, ingeniero salinas...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Apartamento%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Apartamento" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Apartamento%20Las%20Palmas%20De%20Gran%20Canaria" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>4</td>
+            <td class="name">Casa Lola</td>
+            <td><span class="count">8</span></td>
+            <td>8</td>
+            <td class="municipios">Agaete, Galdar, San Bartolome De Tirajana, Telde, Vega San Mateo</td>
+            <td class="streets">américo vespucio, benecharo, de tenerife...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Lola%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Lola" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Lola%20Agaete" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>5</td>
+            <td class="name">Residencial Ventura</td>
+            <td><span class="count">8</span></td>
+            <td>22</td>
+            <td class="municipios">Mogan</td>
+            <td class="streets">avenida los guaires, avenida los guayres, da. de los guayres, nº...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Residencial%20Ventura%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Residencial%20Ventura" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Residencial%20Ventura%20Mogan" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>6</td>
+            <td class="name">Bungalow</td>
+            <td><span class="count">8</span></td>
+            <td>9</td>
+            <td class="municipios">San Bartolome De Tirajana</td>
+            <td class="streets">agustín millares carló, bergantín, da. touroperador aurinkomatkat...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Bungalow%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Bungalow" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Bungalow%20San%20Bartolome%20De%20Tirajana" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>7</td>
+            <td class="name">Vista Mar</td>
+            <td><span class="count">8</span></td>
+            <td>8</td>
+            <td class="municipios">Las Palmas De Gran Canaria, Mogan, San Bartolome De Tirajana, Telde</td>
+            <td class="streets">becquer, da de alemania, vivienda, de la graciosa,...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Vista%20Mar%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Vista%20Mar" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Vista%20Mar%20Las%20Palmas%20De%20Gran%20Canaria" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>8</td>
+            <td class="name">Vivienda Unifamiliar</td>
+            <td><span class="count">8</span></td>
+            <td>9</td>
+            <td class="municipios">Aguimes, Galdar, Ingenio, San Bartolome De Tirajana, Santa Brigida, Santa Lucia De Tirajana, Telde</td>
+            <td class="streets">cercados de araña, da. juan quintana, n, las bajas...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Vivienda%20Unifamiliar%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Vivienda%20Unifamiliar" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Vivienda%20Unifamiliar%20Aguimes" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>9</td>
+            <td class="name">Casa Blanca</td>
+            <td><span class="count">8</span></td>
+            <td>8</td>
+            <td class="municipios">Las Palmas De Gran Canaria, Mogan, Moya, San Bartolome De Tirajana, Santa Lucia De Tirajana, Telde</td>
+            <td class="streets">de madrid, grande, juan mateo de castro...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Blanca%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Blanca" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Blanca%20Las%20Palmas%20De%20Gran%20Canaria" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>10</td>
+            <td class="name">Casa De La Playa</td>
+            <td><span class="count">7</span></td>
+            <td>7</td>
+            <td class="municipios">La Aldea De San Nicolas, Las Palmas De Gran Canaria, Mogan, San Bartolome De Tirajana, Telde</td>
+            <td class="streets">albareda, bolivia, de hibiscus...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20De%20La%20Playa%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20De%20La%20Playa" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20De%20La%20Playa%20La%20Aldea%20De%20San%20Nicolas" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>11</td>
+            <td class="name">Casa Carmen</td>
+            <td><span class="count">7</span></td>
+            <td>7</td>
+            <td class="municipios">Aguimes, Mogan, San Bartolome De Tirajana, Santa Lucia De Tirajana</td>
+            <td class="streets">ciega, de gran canaria, einstein...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Carmen%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Carmen" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Carmen%20Aguimes" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>12</td>
+            <td class="name">La Casita</td>
+            <td><span class="count">7</span></td>
+            <td>7</td>
+            <td class="municipios">Firgas, Las Palmas De Gran Canaria, San Bartolome De Tirajana, Santa Brigida, Vega San Mateo</td>
+            <td class="streets">camino a cuevas del monte, casa la cal, los hoyos   s/n - barranquillo de dios...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22La%20Casita%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=La%20Casita" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=La%20Casita%20Firgas" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>13</td>
+            <td class="name">Duplex</td>
+            <td><span class="count">7</span></td>
+            <td>7</td>
+            <td class="municipios">Agaete, Galdar, Las Palmas De Gran Canaria, Santa Lucia De Tirajana, Telde</td>
+            <td class="streets">bernardo de la torre, costa guanche, el verso...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Duplex%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Duplex" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Duplex%20Agaete" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>14</td>
+            <td class="name">Playa Canaria</td>
+            <td><span class="count">7</span></td>
+            <td>13</td>
+            <td class="municipios">Galdar</td>
+            <td class="streets">del faro urb.sau, llanos de botija, sau playa canaria...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Playa%20Canaria%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Playa%20Canaria" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Playa%20Canaria%20Galdar" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>15</td>
+            <td class="name">Las Canteras</td>
+            <td><span class="count">7</span></td>
+            <td>7</td>
+            <td class="municipios">Las Palmas De Gran Canaria</td>
+            <td class="streets">bernardo de la torre, joaquín costa, mariana de pineda, n...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Las%20Canteras%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Las%20Canteras" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Las%20Canteras%20Las%20Palmas%20De%20Gran%20Canaria" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>16</td>
+            <td class="name">Casa Del Mar</td>
+            <td><span class="count">6</span></td>
+            <td>6</td>
+            <td class="municipios">Agaete, Aguimes, Arucas, Galdar, Las Palmas De Gran Canaria, Mogan</td>
+            <td class="streets">alonso quesada, anización sau playa canaria, de los gofiones...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Del%20Mar%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Del%20Mar" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Del%20Mar%20Agaete" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>17</td>
+            <td class="name">Casa Canaria</td>
+            <td><span class="count">6</span></td>
+            <td>6</td>
+            <td class="municipios">Aguimes, Las Palmas De Gran Canaria, San Bartolome De Tirajana, Santa Brigida, Telde</td>
+            <td class="streets">calvo sotelo, da. wind surfing, n, fagonia, hoya del pozo, telde...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Canaria%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Canaria" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Canaria%20Aguimes" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>18</td>
+            <td class="name">Casa Bonita</td>
+            <td><span class="count">6</span></td>
+            <td>6</td>
+            <td class="municipios">Las Palmas De Gran Canaria, Mogan, San Bartolome De Tirajana, Telde</td>
+            <td class="streets">de italia, la puntilla, lomo la presa...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Bonita%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Bonita" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Bonita%20Las%20Palmas%20De%20Gran%20Canaria" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>19</td>
+            <td class="name">Los Molinos</td>
+            <td><span class="count">6</span></td>
+            <td>29</td>
+            <td class="municipios">San Bartolome De Tirajana</td>
+            <td class="streets">d/tirajana, da. de tirajana, nº, da. tirajana, nº...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Los%20Molinos%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Los%20Molinos" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Los%20Molinos%20San%20Bartolome%20De%20Tirajana" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>20</td>
+            <td class="name">Agaete Parque</td>
+            <td><span class="count">6</span></td>
+            <td>10</td>
+            <td class="municipios">Las Palmas De Gran Canaria, San Bartolome De Tirajana, Santa Lucia De Tirajana</td>
+            <td class="streets">alemania, da de tenerife, da. tenerife...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Agaete%20Parque%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Agaete%20Parque" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Agaete%20Parque%20Las%20Palmas%20De%20Gran%20Canaria" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>21</td>
+            <td class="name">Casa Verde</td>
+            <td><span class="count">6</span></td>
+            <td>12</td>
+            <td class="municipios">Ingenio, Las Palmas De Gran Canaria, Mogan, San Bartolome De Tirajana, Santa Maria De Guia De Gran Canaria</td>
+            <td class="streets">acoran, acorán, bernardo de la torre...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Verde%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Verde" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Verde%20Ingenio" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>22</td>
+            <td class="name">Casa Maria</td>
+            <td><span class="count">6</span></td>
+            <td>6</td>
+            <td class="municipios">Ingenio, Mogan, San Bartolome De Tirajana, Tejeda, Telde, Valsequillo De Gran Canaria</td>
+            <td class="streets">albaicin, cairasco figueroa, da las vegas...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Maria%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Maria" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Maria%20Ingenio" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>23</td>
+            <td class="name">Aguita</td>
+            <td><span class="count">6</span></td>
+            <td>7</td>
+            <td class="municipios">Arucas, Las Palmas De Gran Canaria</td>
+            <td class="streets">albareda, de chile, pasaje maritornes...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Aguita%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Aguita" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Aguita%20Arucas" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>24</td>
+            <td class="name">Canteras</td>
+            <td><span class="count">5</span></td>
+            <td>5</td>
+            <td class="municipios">Las Palmas De Gran Canaria</td>
+            <td class="streets">alfredo l. jones, de las canteras, egido...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Canteras%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Canteras" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Canteras%20Las%20Palmas%20De%20Gran%20Canaria" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>25</td>
+            <td class="name">Casa Paco</td>
+            <td><span class="count">5</span></td>
+            <td>5</td>
+            <td class="municipios">Mogan, San Bartolome De Tirajana, Santa Lucia De Tirajana, Valsequillo De Gran Canaria</td>
+            <td class="streets">de la cornisa, la polka, maestro juan manuel...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Paco%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Paco" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Paco%20Mogan" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>26</td>
+            <td class="name">Aloe</td>
+            <td><span class="count">5</span></td>
+            <td>5</td>
+            <td class="municipios">Arucas, Las Palmas De Gran Canaria, San Bartolome De Tirajana</td>
+            <td class="streets">canalejas, da. de tirajana, n, da. tirajana, n...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Aloe%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Aloe" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Aloe%20Arucas" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>27</td>
+            <td class="name">El Mirador</td>
+            <td><span class="count">5</span></td>
+            <td>5</td>
+            <td class="municipios">Galdar, Mogan, Moya, Santa Maria De Guia De Gran Canaria</td>
+            <td class="streets">c camino la villera, cs palmital, isla de tenerife...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22El%20Mirador%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=El%20Mirador" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=El%20Mirador%20Galdar" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>28</td>
+            <td class="name">Canteras Beach</td>
+            <td><span class="count">5</span></td>
+            <td>5</td>
+            <td class="municipios">Las Palmas De Gran Canaria</td>
+            <td class="streets">jose franchy roca, prudencio morales, párroco francisco rodríguez rodríguez...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Canteras%20Beach%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Canteras%20Beach" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Canteras%20Beach%20Las%20Palmas%20De%20Gran%20Canaria" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>29</td>
+            <td class="name">Casa Estrella</td>
+            <td><span class="count">5</span></td>
+            <td>5</td>
+            <td class="municipios">Mogan, San Bartolome De Tirajana, Santa Lucia De Tirajana, Vega San Mateo</td>
+            <td class="streets">cs el estanco, francisco navarro navarro, touroperador neckermann...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Estrella%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Estrella" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Estrella%20Mogan" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>30</td>
+            <td class="name">Casa Luna</td>
+            <td><span class="count">5</span></td>
+            <td>5</td>
+            <td class="municipios">Aguimes, Las Palmas De Gran Canaria, Mogan, San Bartolome De Tirajana</td>
+            <td class="streets">da.de mogan, fernando gonzález, picasso...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Luna%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Luna" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Luna%20Aguimes" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>31</td>
+            <td class="name">Rocas Rojas</td>
+            <td><span class="count">5</span></td>
+            <td>9</td>
+            <td class="municipios">San Bartolome De Tirajana</td>
+            <td class="streets">calee las pitas, las margaritas, las pitas...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Rocas%20Rojas%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Rocas%20Rojas" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Rocas%20Rojas%20San%20Bartolome%20De%20Tirajana" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>32</td>
+            <td class="name">Las Nasas</td>
+            <td><span class="count">5</span></td>
+            <td>5</td>
+            <td class="municipios">Aguimes, San Bartolome De Tirajana</td>
+            <td class="streets">las nasas,nº, las tabaibas, tabaibas...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Las%20Nasas%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Las%20Nasas" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Las%20Nasas%20Aguimes" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>33</td>
+            <td class="name">La Fuente</td>
+            <td><span class="count">5</span></td>
+            <td>6</td>
+            <td class="municipios">Galdar, Mogan, Telde, Teror</td>
+            <td class="streets">de los pescadores, nº, jón de la fuente, la fuente, nº...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22La%20Fuente%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=La%20Fuente" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=La%20Fuente%20Galdar" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>34</td>
+            <td class="name">Casa Azul</td>
+            <td><span class="count">5</span></td>
+            <td>5</td>
+            <td class="municipios">Mogan, San Bartolome De Tirajana, Telde, Vega San Mateo</td>
+            <td class="streets">ds el estanco, el petrel, la asomadilla...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Azul%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Azul" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Azul%20Mogan" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>35</td>
+            <td class="name">Arguineguin Park</td>
+            <td><span class="count">5</span></td>
+            <td>257</td>
+            <td class="municipios">Mogan</td>
+            <td class="streets">aly, da aly, da. aly...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Arguineguin%20Park%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Arguineguin%20Park" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Arguineguin%20Park%20Mogan" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>36</td>
+            <td class="name">Canteras Way</td>
+            <td><span class="count">5</span></td>
+            <td>11</td>
+            <td class="municipios">Las Palmas De Gran Canaria</td>
+            <td class="streets">de las canteras, diderot, olof palme...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Canteras%20Way%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Canteras%20Way" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Canteras%20Way%20Las%20Palmas%20De%20Gran%20Canaria" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>37</td>
+            <td class="name">Sol Y Mar</td>
+            <td><span class="count">5</span></td>
+            <td>5</td>
+            <td class="municipios">Aguimes, Mogan, San Bartolome De Tirajana, Telde</td>
+            <td class="streets">crisantemo nº, da de italia, de los guayres...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Sol%20Y%20Mar%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Sol%20Y%20Mar" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Sol%20Y%20Mar%20Aguimes" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="highlight">
+            <td>38</td>
+            <td class="name">Pozoizquierdohomelidays</td>
+            <td><span class="count">5</span></td>
+            <td>10</td>
+            <td class="municipios">Las Palmas De Gran Canaria, Santa Lucia De Tirajana</td>
+            <td class="streets">barranquillo, el cablero, las bajas...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Pozoizquierdohomelidays%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Pozoizquierdohomelidays" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Pozoizquierdohomelidays%20Las%20Palmas%20De%20Gran%20Canaria" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="">
+            <td>39</td>
+            <td class="name">Residencial La Fuente</td>
+            <td><span class="count">4</span></td>
+            <td>5</td>
+            <td class="municipios">Mogan</td>
+            <td class="streets">de los pescadores, la mina, los pescadores...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Residencial%20La%20Fuente%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Residencial%20La%20Fuente" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Residencial%20La%20Fuente%20Mogan" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="">
+            <td>40</td>
+            <td class="name">Piso</td>
+            <td><span class="count">4</span></td>
+            <td>6</td>
+            <td class="municipios">Aguimes, Ingenio, Las Palmas De Gran Canaria, Valleseco</td>
+            <td class="streets">alcalde vicente arencibia, amapola, carlos v...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Piso%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Piso" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Piso%20Aguimes" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="">
+            <td>41</td>
+            <td class="name">Apartamento Las Canteras</td>
+            <td><span class="count">4</span></td>
+            <td>4</td>
+            <td class="municipios">Las Palmas De Gran Canaria</td>
+            <td class="streets">de las canteras, gran canaria, la naval...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Apartamento%20Las%20Canteras%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Apartamento%20Las%20Canteras" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Apartamento%20Las%20Canteras%20Las%20Palmas%20De%20Gran%20Canaria" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="">
+            <td>42</td>
+            <td class="name">Casa Rosa</td>
+            <td><span class="count">4</span></td>
+            <td>4</td>
+            <td class="municipios">Mogan, San Bartolome De Tirajana, Vega San Mateo</td>
+            <td class="streets">a la montaña de la bodeguilla, general del sur, pardela...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Rosa%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Rosa" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Rosa%20Mogan" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="">
+            <td>43</td>
+            <td class="name">Ocean Breeze</td>
+            <td><span class="count">4</span></td>
+            <td>4</td>
+            <td class="municipios">Firgas, Las Palmas De Gran Canaria, Mogan, Telde</td>
+            <td class="streets">camino los barranquillos, luis morote, narciso...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Ocean%20Breeze%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Ocean%20Breeze" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Ocean%20Breeze%20Firgas" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="">
+            <td>44</td>
+            <td class="name">Puerto Panorama</td>
+            <td><span class="count">4</span></td>
+            <td>4</td>
+            <td class="municipios">Las Palmas De Gran Canaria, Mogan</td>
+            <td class="streets">cj las nasas  ) s/n   baja, las nasas   s/n, plta. alta,, las nasas   s/n, plta. alta....</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Puerto%20Panorama%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Puerto%20Panorama" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Puerto%20Panorama%20Las%20Palmas%20De%20Gran%20Canaria" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="">
+            <td>45</td>
+            <td class="name">Las Palmeras</td>
+            <td><span class="count">4</span></td>
+            <td>4</td>
+            <td class="municipios">Aguimes, Mogan, San Bartolome De Tirajana, Telde</td>
+            <td class="streets">barranco cho pablo, barranco los pasitos polígono, montaña clara...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Las%20Palmeras%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Las%20Palmeras" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Las%20Palmeras%20Aguimes" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="">
+            <td>46</td>
+            <td class="name">La Gloria</td>
+            <td><span class="count">4</span></td>
+            <td>6</td>
+            <td class="municipios">Galdar, Mogan, San Bartolome De Tirajana, Telde</td>
+            <td class="streets">armiche, los girasoles, lugar lomo del palo, camino de la caldera   s/n...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22La%20Gloria%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=La%20Gloria" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=La%20Gloria%20Galdar" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="">
+            <td>47</td>
+            <td class="name">Casa Juan</td>
+            <td><span class="count">4</span></td>
+            <td>4</td>
+            <td class="municipios">Mogan, San Bartolome De Tirajana, Valsequillo De Gran Canaria</td>
+            <td class="streets">de gran canaria bungalow, de las artes, el palmeral s/n...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Juan%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Juan" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Juan%20Mogan" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="">
+            <td>48</td>
+            <td class="name">Casa</td>
+            <td><span class="count">4</span></td>
+            <td>4</td>
+            <td class="municipios">Agaete, Arucas, Mogan, San Bartolome De Tirajana</td>
+            <td class="streets">da. la corte, jazmines, las palmeras...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Agaete" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="">
+            <td>49</td>
+            <td class="name">La Casa Blanca</td>
+            <td><span class="count">4</span></td>
+            <td>4</td>
+            <td class="municipios">Las Palmas De Gran Canaria, San Bartolome De Tirajana, Santa Lucia De Tirajana, Telde</td>
+            <td class="streets">lope de vega, lugar camping pasito blanco, monseñor jose rodríguez...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22La%20Casa%20Blanca%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=La%20Casa%20Blanca" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=La%20Casa%20Blanca%20Las%20Palmas%20De%20Gran%20Canaria" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+          <tr class="">
+            <td>50</td>
+            <td class="name">Casa Isabel</td>
+            <td><span class="count">4</span></td>
+            <td>4</td>
+            <td class="municipios">Arucas, San Bartolome De Tirajana, Santa Brigida</td>
+            <td class="streets">alcalde mateo matos, camino real de portada verde, de gran canaria...</td>
+            <td class="links">
+              <a href="https://www.google.com/search?q=%22Casa%20Isabel%22%20alquiler%20vacacional%20canarias%20contacto" target="_blank">Google</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=Casa%20Isabel" target="_blank" class="linkedin">LinkedIn</a>
+              <a href="https://www.booking.com/searchresults.html?ss=Casa%20Isabel%20Arucas" target="_blank">Booking</a>
+            </td>
+          </tr>
+        
+    </tbody>
+  </table>
+</body>
+</html>

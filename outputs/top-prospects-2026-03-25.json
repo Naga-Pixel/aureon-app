@@ -1,0 +1,5749 @@
+[
+  {
+    "management_firm": "Resort Cordial Santa Agueda",
+    "vv_count": 87,
+    "total_beds": 380,
+    "avg_beds_per_vv": 4.4,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "San Bartolome De Tirajana"
+    ],
+    "complexes": [
+      "Resort Cordial Santa Agueda"
+    ],
+    "concentration_score": 100,
+    "complex_score": 100,
+    "prospect_score": 93,
+    "center_lat": 27.754439,
+    "center_lon": -15.675166,
+    "sample_addresses": [
+      "Ds El Pajar Suelo Parcela 1 1",
+      "Ds El Pajar Suelo Parcela 1 1",
+      "Ds El Pajar Suelo Parcela 1 1"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.754439&lon=-15.675166&zoom=15"
+  },
+  {
+    "management_firm": "Bungalow",
+    "vv_count": 10,
+    "total_beds": 39,
+    "avg_beds_per_vv": 3.9,
+    "islands": [
+      "Gran Canaria",
+      "Tenerife"
+    ],
+    "municipalities": [
+      "San Bartolome De Tirajana",
+      "Santiago Del Teide"
+    ],
+    "complexes": [
+      "Bungalow"
+    ],
+    "concentration_score": 85,
+    "complex_score": 100,
+    "prospect_score": 67,
+    "center_lat": 27.813566,
+    "center_lon": -15.758097,
+    "sample_addresses": [
+      "Agustín Millares Carló 005 Puerta 62",
+      "C/ Mar Caspio, 67 35100    , San Bartolome De Tirajana, San Bartolome De Tirajana, Gran Canaria",
+      "C/ Mar Caspio, 73 35100    , San Bartolome De Tirajana, San Bartolome De Tirajana, Gran Canaria"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.813566&lon=-15.758097&zoom=15"
+  },
+  {
+    "management_firm": "Apartamentos Carolina",
+    "vv_count": 6,
+    "total_beds": 19,
+    "avg_beds_per_vv": 3.2,
+    "islands": [
+      "Gran Canaria",
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Mogan",
+      "Arona"
+    ],
+    "complexes": [
+      "Apartamentos Carolina"
+    ],
+    "concentration_score": 85,
+    "complex_score": 100,
+    "prospect_score": 62,
+    "center_lat": 28.01043,
+    "center_lon": -16.547043,
+    "sample_addresses": [
+      "Avda De Los Cardones 5",
+      "Bulevar Chajofe 10",
+      "Bulevar Chajofe, Los Cristianos 10"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.010430&lon=-16.547043&zoom=15"
+  },
+  {
+    "management_firm": "Villa Blanca",
+    "vv_count": 5,
+    "total_beds": 37,
+    "avg_beds_per_vv": 7.4,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Mogan"
+    ],
+    "complexes": [
+      "Villa Blanca"
+    ],
+    "concentration_score": 85,
+    "complex_score": 100,
+    "prospect_score": 61,
+    "center_lat": 28.026115,
+    "center_lon": -16.484668,
+    "sample_addresses": [
+      "Avenida Europa 54",
+      "Finlandia 008",
+      "Ur Sueño Azul 4"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.026115&lon=-16.484668&zoom=15"
+  },
+  {
+    "management_firm": "Amarilla Maintenance Service, S.L.U.",
+    "vv_count": 43,
+    "total_beds": 123,
+    "avg_beds_per_vv": 2.9,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "San Miguel De Abona"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 59,
+    "center_lat": 28.023951,
+    "center_lon": -16.617233,
+    "sample_addresses": [
+      "Avda. Maria De Los Angeles Ascanio Cullen 26",
+      "Avda. Maria De Los Angeles Ascanio Cullen 26",
+      "Avda. Maria De Los Angeles Ascanio Cullen 26"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.023951&lon=-16.617233&zoom=15"
+  },
+  {
+    "management_firm": "Callao Veintidos S.L",
+    "vv_count": 39,
+    "total_beds": 146,
+    "avg_beds_per_vv": 3.7,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 58,
+    "center_lat": 28.128701,
+    "center_lon": -16.778006,
+    "sample_addresses": [
+      "Avda Las Galgas 6 1  0 A",
+      "Avda Las Galgas 6 1  0 B",
+      "Avenida Las Galgas 6 1  0 C"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.128701&lon=-16.778006&zoom=15"
+  },
+  {
+    "management_firm": "Apartamento",
+    "vv_count": 28,
+    "total_beds": 98,
+    "avg_beds_per_vv": 3.5,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Granadilla De Abona",
+      "Las Palmas De Gran Canaria",
+      "San Bartolome De Tirajana",
+      "Valleseco",
+      "Mogan",
+      "Puerto De La Cruz",
+      "Arona",
+      "Los Silos",
+      "Adeje",
+      "Santiago Del Teide",
+      "El Rosario",
+      "Santa Cruz Tenerife",
+      "Los Realejos",
+      "La Oliva",
+      "Arico"
+    ],
+    "complexes": [
+      "Apartamento"
+    ],
+    "concentration_score": 0,
+    "complex_score": 100,
+    "prospect_score": 55,
+    "center_lat": 28.181155,
+    "center_lon": -16.101551,
+    "sample_addresses": [
+      "Calle Angel Guimera 6, Piso 1b, Puerta 5",
+      "Nicolás Estévanez 080 1º, Pta. 102",
+      "Urb. Sonneland  Parc. 21-22, Bung. 77"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.181155&lon=-16.101551&zoom=15"
+  },
+  {
+    "management_firm": "Apartamento Vacacional",
+    "vv_count": 5,
+    "total_beds": 23,
+    "avg_beds_per_vv": 4.6,
+    "islands": [
+      "Gran Canaria",
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Ingenio",
+      "Granadilla De Abona",
+      "Guimar",
+      "Santa Cruz Tenerife"
+    ],
+    "complexes": [
+      "Apartamento Vacacional"
+    ],
+    "concentration_score": 55,
+    "complex_score": 100,
+    "prospect_score": 53,
+    "center_lat": 28.125105,
+    "center_lon": -16.001886,
+    "sample_addresses": [
+      "Dámaso Alonso 004 1º A",
+      "Dámaso Alonso 004 1º B",
+      "Avenida La Gaviota 25"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.125105&lon=-16.001886&zoom=15"
+  },
+  {
+    "management_firm": "Kategora Rentals S.L.",
+    "vv_count": 33,
+    "total_beds": 133,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Arico",
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 53,
+    "center_lat": 28.141648,
+    "center_lon": -16.44461,
+    "sample_addresses": [
+      "Playas De Arico 1 A A1",
+      "Playas De Arico 1 B B4",
+      "Playas De Arico 1 B B6"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.141648&lon=-16.444610&zoom=15"
+  },
+  {
+    "management_firm": "Contratas Barambio S.L.",
+    "vv_count": 35,
+    "total_beds": 78,
+    "avg_beds_per_vv": 2.2,
+    "islands": [
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Teguise",
+      "Haria"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 53,
+    "center_lat": 29.080859,
+    "center_lon": -13.452569,
+    "sample_addresses": [
+      "Montaña Redonda 10 E   11",
+      "Calle Orion  8 B",
+      "Calle Orion 8 B"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=29.080859&lon=-13.452569&zoom=15"
+  },
+  {
+    "management_firm": "Estrella Del Norte",
+    "vv_count": 28,
+    "total_beds": 58,
+    "avg_beds_per_vv": 2.1,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Icod De Los Vinos",
+      "La Oliva"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 51,
+    "center_lat": 28.37578,
+    "center_lon": -16.612787,
+    "sample_addresses": [
+      "Ctra. El Amparo, 75, Piso 3º, Vda. 13",
+      "Ctra. El Amparo, 75, Piso 3º, Vda. 12",
+      "Ctra. El Amparo, 75, Piso 3º, Vda. 15"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.375780&lon=-16.612787&zoom=15"
+  },
+  {
+    "management_firm": "Kategora Rentals Sl",
+    "vv_count": 16,
+    "total_beds": 60,
+    "avg_beds_per_vv": 3.8,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Arico"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 50,
+    "center_lat": 28.141584,
+    "center_lon": -16.444405,
+    "sample_addresses": [
+      "Ur Caleta Maria Luisa 5 H H2",
+      "Ur Caleta Maria Luisa 5 E E3",
+      "Playas De Arico 1 C C2"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.141584&lon=-16.444405&zoom=15"
+  },
+  {
+    "management_firm": "Grupo Comares Amc",
+    "vv_count": 25,
+    "total_beds": 85,
+    "avg_beds_per_vv": 3.4,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Puerto De La Cruz",
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 50,
+    "center_lat": 28.402392,
+    "center_lon": -16.553246,
+    "sample_addresses": [
+      "Calle La Hoya 29",
+      "Calle La Hoya 29",
+      "Calle La Hoya 29"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.402392&lon=-16.553246&zoom=15"
+  },
+  {
+    "management_firm": "Grupo Comares",
+    "vv_count": 35,
+    "total_beds": 144,
+    "avg_beds_per_vv": 4.1,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Arona",
+      "Puerto De La Cruz",
+      "La Orotava"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 50,
+    "center_lat": 28.166407,
+    "center_lon": -16.658271,
+    "sample_addresses": [
+      "Calle Amalia Alayon 11",
+      "Calle Amalia Alayon 11",
+      "Calle Amalia Alayon 11"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.166407&lon=-16.658271&zoom=15"
+  },
+  {
+    "management_firm": "Nexus Leisure Group, S.L.",
+    "vv_count": 13,
+    "total_beds": 39,
+    "avg_beds_per_vv": 3,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 48,
+    "center_lat": 28.053658,
+    "center_lon": -16.704627,
+    "sample_addresses": [
+      "Calle Los Ángeles 4",
+      "Calle Los Ángeles 4",
+      "Calle Los Ángeles 4"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.053658&lon=-16.704627&zoom=15"
+  },
+  {
+    "management_firm": "Carlomar",
+    "vv_count": 19,
+    "total_beds": 58,
+    "avg_beds_per_vv": 3.1,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Guia Isora",
+      "Santiago Del Teide"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 47,
+    "center_lat": 28.18614,
+    "center_lon": -16.820144,
+    "sample_addresses": [
+      "C/ Isla Del Hierro, 55, 1º, Appto. 1a",
+      "C/ Isla Del Hierro, 55, 1º, Appto. 8d",
+      "C/ Isla Del Hierro, 55, 2º, Appto. 9a"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.186140&lon=-16.820144&zoom=15"
+  },
+  {
+    "management_firm": "Cordial Mogan Solaz",
+    "vv_count": 12,
+    "total_beds": 43,
+    "avg_beds_per_vv": 3.6,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Mogan"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 47,
+    "center_lat": 27.820603,
+    "center_lon": -15.76074,
+    "sample_addresses": [
+      "Calle La Puntilla 26 35139 1   201, Puerto De Mogan, Mogan, Gran Canaria",
+      "Calle La Puntilla 32",
+      "Calle La Puntilla  32"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.820603&lon=-15.760740&zoom=15"
+  },
+  {
+    "management_firm": "Notar",
+    "vv_count": 18,
+    "total_beds": 61,
+    "avg_beds_per_vv": 3.4,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Mogan",
+      "Las Palmas De Gran Canaria"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 47,
+    "center_lat": 27.805883,
+    "center_lon": -15.672288,
+    "sample_addresses": [
+      "Calle Vicealmirante Fontan Lobe 26",
+      "Vicealmirante Fontan Lobe 26",
+      "Calle Vicealmirante Fontan Lobe 26"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.805883&lon=-15.672288&zoom=15"
+  },
+  {
+    "management_firm": "Macaronesian Rentals",
+    "vv_count": 26,
+    "total_beds": 133,
+    "avg_beds_per_vv": 5.1,
+    "islands": [
+      "Tenerife",
+      "La Gomera"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Arona",
+      "San Sebastian De La Gomera"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 47,
+    "center_lat": null,
+    "center_lon": null,
+    "sample_addresses": [
+      "Calle El Mojon  16  B 0 25",
+      "Calle El Mojon 16  B 0 27",
+      "Calle El Mojon 16  B 0 29"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=NaN&lon=NaN&zoom=15"
+  },
+  {
+    "management_firm": "Mareverde",
+    "vv_count": 11,
+    "total_beds": 33,
+    "avg_beds_per_vv": 3,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 46,
+    "center_lat": 28.086374,
+    "center_lon": -16.730756,
+    "sample_addresses": [
+      "Avda. Ernesto Sarti, Nº 10, Bloque D, Pta. 9",
+      "Avenida Ernesto Sarti S/N  00",
+      "Ur. Torviscas 7 C"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.086374&lon=-16.730756&zoom=15"
+  },
+  {
+    "management_firm": "Canteras Way",
+    "vv_count": 11,
+    "total_beds": 58,
+    "avg_beds_per_vv": 5.3,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 46,
+    "center_lat": 28.135002,
+    "center_lon": -15.437279,
+    "sample_addresses": [
+      "Secretario Padilla 76   2 D",
+      "Calle Secretario Padilla  76   2 A",
+      "Calle Secretario Padilla 76   4 C"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.135002&lon=-15.437279&zoom=15"
+  },
+  {
+    "management_firm": "Parque Santiago 1",
+    "vv_count": 11,
+    "total_beds": 39,
+    "avg_beds_per_vv": 3.5,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 46,
+    "center_lat": 28.058969,
+    "center_lon": -16.7345,
+    "sample_addresses": [
+      "Avenida Puig Lluvina 34  3",
+      "Avenida Rafael Puig  34  00",
+      "Avenida Rafael Puig Lluvina, S/N  S/N"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.058969&lon=-16.734500&zoom=15"
+  },
+  {
+    "management_firm": "San Bernardo",
+    "vv_count": 14,
+    "total_beds": 56,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Los Silos",
+      "Las Palmas De Gran Canaria"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 45,
+    "center_lat": 28.348946,
+    "center_lon": -16.732586,
+    "sample_addresses": [
+      "C/ Canteras Piso 2, Pta 8 (San Bernardo)",
+      "C/ Canteras, Esc.1 Piso 0, Pta.1 (San Bernardo)",
+      "C/ Canteras Esc. 1, Piso 0, Pta.2"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.348946&lon=-16.732586&zoom=15"
+  },
+  {
+    "management_firm": "Orlando",
+    "vv_count": 14,
+    "total_beds": 42,
+    "avg_beds_per_vv": 3,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Arona",
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 45,
+    "center_lat": 28.075623,
+    "center_lon": -16.722502,
+    "sample_addresses": [
+      "C/ Hesperides - Apts Atlantic View N 6 Piso 1 Pt 110",
+      "Ur Torviscas Nº5 Esc 1 Piso 1 Puerta 4",
+      "Calle Antonio Navarro 4 6"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.075623&lon=-16.722502&zoom=15"
+  },
+  {
+    "management_firm": "Playa Honda",
+    "vv_count": 15,
+    "total_beds": 44,
+    "avg_beds_per_vv": 2.9,
+    "islands": [
+      "Tenerife",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Arona",
+      "San Bartolome"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 45,
+    "center_lat": 28.14909,
+    "center_lon": -16.415839,
+    "sample_addresses": [
+      "Avda. Noelia Alonso Cabrera,6  Piso 2 Pta. 212",
+      "Calle Noelia Afonso Cabrera, Nº 6, Bloque B, Piso 5º, Puerta 52",
+      "Calle Noelia Afonso Cabrera  6 B  7 83"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.149090&lon=-16.415839&zoom=15"
+  },
+  {
+    "management_firm": "El Beril",
+    "vv_count": 10,
+    "total_beds": 33,
+    "avg_beds_per_vv": 3.3,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 45,
+    "center_lat": 28.093241,
+    "center_lon": -16.745506,
+    "sample_addresses": [
+      "Urb El Beril, 29 Pta 72",
+      "Urb.El Beril N 29 Esc. 1 Pta. 04",
+      "Calle El Beril  1  00"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.093241&lon=-16.745506&zoom=15"
+  },
+  {
+    "management_firm": "Villa Margarita",
+    "vv_count": 7,
+    "total_beds": 49,
+    "avg_beds_per_vv": 7,
+    "islands": [
+      "Gran Canaria",
+      "Tenerife",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Arucas",
+      "Arico",
+      "Teror",
+      "Telde",
+      "San Bartolome",
+      "Adeje",
+      "Puerto De La Cruz"
+    ],
+    "complexes": [
+      "Villa Margarita"
+    ],
+    "concentration_score": 10,
+    "complex_score": 100,
+    "prospect_score": 45,
+    "center_lat": 28.30444,
+    "center_lon": -15.738165,
+    "sample_addresses": [
+      "Gumidafe 13",
+      "Calle La Costa 1",
+      "Carretera General Teror Arucas 2  A"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.304440&lon=-15.738165&zoom=15"
+  },
+  {
+    "management_firm": "Roque Del Conde",
+    "vv_count": 9,
+    "total_beds": 56,
+    "avg_beds_per_vv": 6.2,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 45,
+    "center_lat": 28.093325,
+    "center_lon": -16.713876,
+    "sample_addresses": [
+      "Calle La Rioja 13",
+      "Calle Extremadura 13 G B",
+      "Calle Galicia  44"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.093325&lon=-16.713876&zoom=15"
+  },
+  {
+    "management_firm": "Sunny Island",
+    "vv_count": 62,
+    "total_beds": 263,
+    "avg_beds_per_vv": 4.2,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Santa Cruz Tenerife",
+      "El Rosario",
+      "Puerto De La Cruz",
+      "San Cristobal De La Laguna",
+      "Granadilla De Abona",
+      "Antigua"
+    ],
+    "complexes": [],
+    "concentration_score": 25,
+    "complex_score": 0,
+    "prospect_score": 45,
+    "center_lat": 28.457897,
+    "center_lon": -16.275461,
+    "sample_addresses": [
+      "Avenida Tres De Mayo 14",
+      "Calle Pizarro 22  2",
+      "Calle Ramon Y Cajal 7  3"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.457897&lon=-16.275461&zoom=15"
+  },
+  {
+    "management_firm": "Rocas Rojas",
+    "vv_count": 9,
+    "total_beds": 35,
+    "avg_beds_per_vv": 3.9,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "San Bartolome De Tirajana"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 44,
+    "center_lat": 27.773034,
+    "center_lon": -15.544681,
+    "sample_addresses": [
+      "C/ Las Margaritas 9",
+      "C/ Las Pitas, S/N, Pta. 505a 35100    , San Agustin, San Bartolome De Tirajana, Gran Canaria",
+      "Los Nardos S/N"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.773034&lon=-15.544681&zoom=15"
+  },
+  {
+    "management_firm": "Sunsuites Carolina",
+    "vv_count": 9,
+    "total_beds": 27,
+    "avg_beds_per_vv": 3,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "San Bartolome De Tirajana"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 44,
+    "center_lat": 27.76768,
+    "center_lon": -15.54598,
+    "sample_addresses": [
+      "Calle Las Dalias 1  8",
+      "Calle Las Dalias 1  8",
+      "Calle Las Dalias 1"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.767680&lon=-15.545980&zoom=15"
+  },
+  {
+    "management_firm": "Charles Moe S.L.U",
+    "vv_count": 9,
+    "total_beds": 24,
+    "avg_beds_per_vv": 2.7,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Mogan"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 44,
+    "center_lat": 27.761676,
+    "center_lon": -15.684106,
+    "sample_addresses": [
+      "Calle La Lajilla 2",
+      "Calle La Lajilla 2",
+      "Calle La Lajilla 2"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.761676&lon=-15.684106&zoom=15"
+  },
+  {
+    "management_firm": "La Montañeta Los Nogueros S.L.",
+    "vv_count": 9,
+    "total_beds": 29,
+    "avg_beds_per_vv": 3.2,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 44,
+    "center_lat": 28.127288,
+    "center_lon": -16.780228,
+    "sample_addresses": [
+      "Cl La Tosca  3 B 0 1º 3",
+      "Cl La Tosca 3 Buenas Tardes  0 1º 5",
+      "Cl La Tosca 3 B 0 1º 6"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.127288&lon=-16.780228&zoom=15"
+  },
+  {
+    "management_firm": "Finca Tomas Y Puri",
+    "vv_count": 9,
+    "total_beds": 28,
+    "avg_beds_per_vv": 3.1,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "San Bartolome De Tirajana"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 44,
+    "center_lat": 27.897755,
+    "center_lon": -15.5709,
+    "sample_addresses": [
+      "Carretera Gran Canaria 60",
+      "Carretera Gran Canaria 60",
+      "Carretera Gran Canaria 60"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.897755&lon=-15.570900&zoom=15"
+  },
+  {
+    "management_firm": "Reyes Natur",
+    "vv_count": 9,
+    "total_beds": 35,
+    "avg_beds_per_vv": 3.9,
+    "islands": [
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Haria"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 44,
+    "center_lat": 29.085622,
+    "center_lon": -13.452429,
+    "sample_addresses": [
+      "Cl Seifio 5 001 00",
+      "Cl Seifio 5 001 1",
+      "Cl Seifio 5 001 01"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=29.085622&lon=-13.452429&zoom=15"
+  },
+  {
+    "management_firm": "Isla Verde",
+    "vv_count": 18,
+    "total_beds": 53,
+    "avg_beds_per_vv": 2.9,
+    "islands": [
+      "Tenerife",
+      "La Palma"
+    ],
+    "municipalities": [
+      "Arona",
+      "San Miguel De Abona",
+      "Villa De Mazo"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 43,
+    "center_lat": 28.066336,
+    "center_lon": -16.686244,
+    "sample_addresses": [
+      "Carretera General Antigua, Nº 29, Bloque G, Vda. 3 29",
+      "Carretera Antigua, Nº 29, Bloque G, Vda. 2 29",
+      "Carretera General Antigua, Nº 29, Bloque G, Vda. 1 29"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.066336&lon=-16.686244&zoom=15"
+  },
+  {
+    "management_firm": "Nivaria Beach",
+    "vv_count": 11,
+    "total_beds": 46,
+    "avg_beds_per_vv": 4.2,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Arico",
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 43,
+    "center_lat": 28.141371,
+    "center_lon": -16.443719,
+    "sample_addresses": [
+      "Playa De Arico 1",
+      "Playa De Arico 1",
+      "Playa De Arico  1"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.141371&lon=-16.443719&zoom=15"
+  },
+  {
+    "management_firm": "Crova S.L.",
+    "vv_count": 11,
+    "total_beds": 54,
+    "avg_beds_per_vv": 4.9,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Candelaria",
+      "Santa Cruz Tenerife"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 43,
+    "center_lat": 28.416074,
+    "center_lon": -16.308489,
+    "sample_addresses": [
+      "Avenida Maritima 8  B",
+      "Calle San Juan Bautista 54",
+      "Calle Francia 3"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.416074&lon=-16.308489&zoom=15"
+  },
+  {
+    "management_firm": "Maria Elsa Acosta Cabello",
+    "vv_count": 8,
+    "total_beds": 24,
+    "avg_beds_per_vv": 3,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Santa Cruz Tenerife"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 43,
+    "center_lat": 28.468434,
+    "center_lon": -16.253703,
+    "sample_addresses": [
+      "C/San Lucas, Vivienda Nº1 40",
+      "C/San Lucas ,Vivienda Nº2 40",
+      "C/ San Lucas, Vivienda Nº3 40"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.468434&lon=-16.253703&zoom=15"
+  },
+  {
+    "management_firm": "Callao Salvaje, Urbanizacion Esquivel, S.A.",
+    "vv_count": 8,
+    "total_beds": 30,
+    "avg_beds_per_vv": 3.8,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 43,
+    "center_lat": 28.127288,
+    "center_lon": -16.780228,
+    "sample_addresses": [
+      "Cl La Tosca 3 B 0 1º 18",
+      "Cl La Tosca 3 B 0 2º Y 3º 25",
+      "Cl La Tosca 3 B 0 1º Y 3º 28"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.127288&lon=-16.780228&zoom=15"
+  },
+  {
+    "management_firm": "Finca Navelo Slu",
+    "vv_count": 8,
+    "total_beds": 22,
+    "avg_beds_per_vv": 2.8,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Aguimes"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 43,
+    "center_lat": 27.901516,
+    "center_lon": -15.456824,
+    "sample_addresses": [
+      "Lugar Lomo Ancon - Finca Falcon Cresta  60",
+      "Lugar Lomo Ancon - Finca Falcon Cresta 60",
+      "Lugar Lomo Ancon - Finca Falcon Cresta 60"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.901516&lon=-15.456824&zoom=15"
+  },
+  {
+    "management_firm": "Canary Holidays 2000",
+    "vv_count": 16,
+    "total_beds": 59,
+    "avg_beds_per_vv": 3.7,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Santa Cruz Tenerife",
+      "Arona",
+      "San Cristobal De La Laguna"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 42,
+    "center_lat": 28.26096,
+    "center_lon": -16.457263,
+    "sample_addresses": [
+      "Avenida Tres De Mayo, Nº 17, Bloque 2, Piso 4º, Puerta B",
+      "Avenida Tres De Mayo, Nº 17, Piso 4º, Puerta C",
+      "Avenida La Arenita, Nº 13, Bloque C, Puerta 18"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.260960&lon=-16.457263&zoom=15"
+  },
+  {
+    "management_firm": "San Diego",
+    "vv_count": 10,
+    "total_beds": 42,
+    "avg_beds_per_vv": 4.2,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "La Matanza De Acentejo",
+      "Garachico"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 42,
+    "center_lat": 28.44852,
+    "center_lon": -16.491611,
+    "sample_addresses": [
+      "Trasera Acentejo Primera Nº 6, Bloque 1,  Pta.1",
+      "Trasera Acentejo Primera Nº 6, Bloque 1, Pta.2",
+      "Trasera Acentejo Primera Nº 6, Bloque 1, Pta.3"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.448520&lon=-16.491611&zoom=15"
+  },
+  {
+    "management_firm": "Port Royale",
+    "vv_count": 11,
+    "total_beds": 30,
+    "avg_beds_per_vv": 2.7,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Arona",
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 42,
+    "center_lat": 28.051744,
+    "center_lon": -16.703561,
+    "sample_addresses": [
+      "Calle Sierra Nevada, 4, Piso 35, Puerta 35 38650    , Cristianos (Los), Arona, Tenerife",
+      "Calle Sierra Nevada, 4, Puerta 103",
+      "Calle Sierra Nevada 4"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.051744&lon=-16.703561&zoom=15"
+  },
+  {
+    "management_firm": "Las Canteras",
+    "vv_count": 7,
+    "total_beds": 23,
+    "avg_beds_per_vv": 3.3,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 42,
+    "center_lat": 28.140858,
+    "center_lon": -15.434087,
+    "sample_addresses": [
+      "Nicolás Estévanez 065 Sexto, Puerta 503",
+      "C/ Portugal, N 30, 5, Pta. 516 35007    , Las Palmas De Gran Canaria, Las Palmas De Gran Canaria, Gran Canaria",
+      "Calle Prudencio Morales 29"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.140858&lon=-15.434087&zoom=15"
+  },
+  {
+    "management_firm": "Callao Veintidos S.L.",
+    "vv_count": 7,
+    "total_beds": 25,
+    "avg_beds_per_vv": 3.6,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 42,
+    "center_lat": 28.128726,
+    "center_lon": -16.778234,
+    "sample_addresses": [
+      "Avenida La Galga 6 3 3 3 17",
+      "Avenida La Galga 6 7 7 0 3",
+      "Avenida La Galga  6 Vii 8 0 1"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.128726&lon=-16.778234&zoom=15"
+  },
+  {
+    "management_firm": "Global Management Tenerife Sl",
+    "vv_count": 7,
+    "total_beds": 33,
+    "avg_beds_per_vv": 4.7,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Santa Cruz Tenerife"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 42,
+    "center_lat": 28.470039,
+    "center_lon": -16.272843,
+    "sample_addresses": [
+      "Calle Mencey Bencomo  25",
+      "Calle Mencey Bencomo  25",
+      "Calle Mencey Bencomo  25"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.470039&lon=-16.272843&zoom=15"
+  },
+  {
+    "management_firm": "Iberican Foster, Sl",
+    "vv_count": 7,
+    "total_beds": 28,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Yaiza"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 42,
+    "center_lat": 28.863796,
+    "center_lon": -13.870772,
+    "sample_addresses": [
+      "Irlanda 7",
+      "Irlanda 7",
+      "Irlanda 7"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.863796&lon=-13.870772&zoom=15"
+  },
+  {
+    "management_firm": "Casa Medano",
+    "vv_count": 9,
+    "total_beds": 42,
+    "avg_beds_per_vv": 4.7,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Granadilla De Abona",
+      "Pájara"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 41,
+    "center_lat": 28.043162,
+    "center_lon": -16.540969,
+    "sample_addresses": [
+      "C/ La Gaviota, 23, 2º, Appto. 17",
+      "C/ La Gaviota, 23, 2º, Appto. 18",
+      "C/ La Gaviota, 23, Res. Casa Medano, Vivienda 1"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.043162&lon=-16.540969&zoom=15"
+  },
+  {
+    "management_firm": "La Tejita",
+    "vv_count": 9,
+    "total_beds": 30,
+    "avg_beds_per_vv": 3.3,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Granadilla De Abona",
+      "Santa Cruz Tenerife"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 41,
+    "center_lat": 28.034908,
+    "center_lon": -16.561105,
+    "sample_addresses": [
+      "Calle Pizarro, Nº 2, Bloque I, Piso 1, Puerta H",
+      "C/ Pizarro, 1, Blq. 7, Piso 1º, Pta. J",
+      "Calle El Cano, 7, Esc 8, Piso 1, Pta P - La Tejita"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.034908&lon=-16.561105&zoom=15"
+  },
+  {
+    "management_firm": "Callao Salvaje, Urbanizacion Esquivel,S.A",
+    "vv_count": 6,
+    "total_beds": 21,
+    "avg_beds_per_vv": 3.5,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 41,
+    "center_lat": 28.127288,
+    "center_lon": -16.780228,
+    "sample_addresses": [
+      "Cl La Tosca 3 A 0 1º 6",
+      "Cl La Tosca 3 A 0 1º 7",
+      "Cl La Tosca  3 A 0 2º 16"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.127288&lon=-16.780228&zoom=15"
+  },
+  {
+    "management_firm": "Vv Apartments Ragar S.L.",
+    "vv_count": 6,
+    "total_beds": 18,
+    "avg_beds_per_vv": 3,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 41,
+    "center_lat": 28.1353,
+    "center_lon": -15.438933,
+    "sample_addresses": [
+      "Calle El Cid 7   0 I",
+      "Calle El Cid  7   Bajo D",
+      "Calle El Cid 7   1 Izda"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.135300&lon=-15.438933&zoom=15"
+  },
+  {
+    "management_firm": "Vistas Dunas",
+    "vv_count": 6,
+    "total_beds": 34,
+    "avg_beds_per_vv": 5.7,
+    "islands": [
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "La Oliva"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 41,
+    "center_lat": 28.696055,
+    "center_lon": -13.875276,
+    "sample_addresses": [
+      "Calle Pardela Golden Park  40",
+      "Calle Pardela Golden Park  41",
+      "Calle Pardela Golden Park 42"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.696055&lon=-13.875276&zoom=15"
+  },
+  {
+    "management_firm": "Los Angeles",
+    "vv_count": 8,
+    "total_beds": 29,
+    "avg_beds_per_vv": 3.6,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Arona",
+      "Santiago Del Teide"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 40,
+    "center_lat": 28.128585,
+    "center_lon": -16.765599,
+    "sample_addresses": [
+      "Avda Juan Carlos I N 37  Bl 01  Piso 1 Pt 123",
+      "Calle Angeles, Nº 26, Escalera 5, Piso 02, Pta. A",
+      "Avenida Juan Carlos I 37 1"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.128585&lon=-16.765599&zoom=15"
+  },
+  {
+    "management_firm": "Emycanarias Holiday Homes",
+    "vv_count": 8,
+    "total_beds": 68,
+    "avg_beds_per_vv": 8.5,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Aguimes",
+      "Santa Lucia De Tirajana"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 40,
+    "center_lat": 27.847396,
+    "center_lon": -15.441701,
+    "sample_addresses": [
+      "De Los Pescadores 31",
+      "Muro 66-68",
+      "Muro 66-68"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.847396&lon=-15.441701&zoom=15"
+  },
+  {
+    "management_firm": "Https://Instagram.Com/Holidayhomeslanzarote?I",
+    "vv_count": 8,
+    "total_beds": 33,
+    "avg_beds_per_vv": 4.1,
+    "islands": [
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Teguise",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 40,
+    "center_lat": 28.974594,
+    "center_lon": -13.616909,
+    "sample_addresses": [
+      "Calle Brezp Del Mar  31",
+      "Calle Alazor  7",
+      "Cl Caracol 5    02"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.974594&lon=-13.616909&zoom=15"
+  },
+  {
+    "management_firm": "Los Molinos",
+    "vv_count": 39,
+    "total_beds": 107,
+    "avg_beds_per_vv": 2.7,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "La Palma",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Vilaflor De Chasna",
+      "San Cristobal De La Laguna",
+      "San Bartolome De Tirajana",
+      "Los Llanos De Aridane",
+      "Antigua",
+      "Teguise"
+    ],
+    "complexes": [],
+    "concentration_score": 25,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 27.956195,
+    "center_lon": -15.569784,
+    "sample_addresses": [
+      "C/ Los Molinos, 1, Vivienda 1",
+      "C/ Los Molinos, 1, Vivienda 2",
+      "Calle Retama Nº24"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.956195&lon=-15.569784&zoom=15"
+  },
+  {
+    "management_firm": "Chaparral",
+    "vv_count": 5,
+    "total_beds": 14,
+    "avg_beds_per_vv": 2.8,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 28.010983,
+    "center_lon": -16.646428,
+    "sample_addresses": [
+      "Jose Antonio Tavio 4",
+      "Avd Jm Tavio 4 3",
+      "Av.Jose Antonio Tavio  4   Bajo 347"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.010983&lon=-16.646428&zoom=15"
+  },
+  {
+    "management_firm": "Medano Beach",
+    "vv_count": 6,
+    "total_beds": 169,
+    "avg_beds_per_vv": 28.2,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Granadilla De Abona",
+      "Santa Cruz Tenerife"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 28.050879,
+    "center_lon": -16.528277,
+    "sample_addresses": [
+      "Avda Europa, 36-38, Urb. Medano Beach",
+      "C/ Nardo 9",
+      "Av. Mar Adriatico 2 4  0 E"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.050879&lon=-16.528277&zoom=15"
+  },
+  {
+    "management_firm": "Canteras",
+    "vv_count": 5,
+    "total_beds": 22,
+    "avg_beds_per_vv": 4.4,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 28.142328,
+    "center_lon": -15.433097,
+    "sample_addresses": [
+      "Olof Palme 001 4º, Pta. 407",
+      "De Las Canteras 005",
+      "Alfredo L. Jones 008 3º C"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.142328&lon=-15.433097&zoom=15"
+  },
+  {
+    "management_firm": "Canteras Beach",
+    "vv_count": 5,
+    "total_beds": 13,
+    "avg_beds_per_vv": 2.6,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 28.135502,
+    "center_lon": -15.438852,
+    "sample_addresses": [
+      "Jose Franchy Roca 035",
+      "Simancas 3-4º E",
+      "Párroco Francisco Rodríguez Rodríguez 004 4º A"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.135502&lon=-15.438852&zoom=15"
+  },
+  {
+    "management_firm": "Bahia Meloneras",
+    "vv_count": 5,
+    "total_beds": 20,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "San Bartolome De Tirajana"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 27.746272,
+    "center_lon": -15.609243,
+    "sample_addresses": [
+      "C/ Mar Caspio, N 43 35100    , San Bartolome De Tirajana, San Bartolome De Tirajana, Gran Canaria",
+      "C/ Mar Caspio, N 66 35100    , San Bartolome De Tirajana, San Bartolome De Tirajana, Gran Canaria",
+      "C/ Mar Caspio, Duplex 43 35100    , Maspalomas, San Bartolome De Tirajana, Gran Canaria"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.746272&lon=-15.609243&zoom=15"
+  },
+  {
+    "management_firm": "Real Monglares",
+    "vv_count": 5,
+    "total_beds": 15,
+    "avg_beds_per_vv": 3,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Mogan"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 27.757322,
+    "center_lon": -15.681499,
+    "sample_addresses": [
+      "Cl Alonso Quesada 8 Pl:01 Pt:4 Mogan 8",
+      "Cl Alonso Quesada 8 Pl:01 Pt:5 Mogan 8",
+      "Cl Alonso Quesada 8 Pl:01 Pt:6 Mogan 8"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.757322&lon=-15.681499&zoom=15"
+  },
+  {
+    "management_firm": "Kategora Rentals Slu",
+    "vv_count": 5,
+    "total_beds": 22,
+    "avg_beds_per_vv": 4.4,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Arico"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 28.141284,
+    "center_lon": -16.443437,
+    "sample_addresses": [
+      "Playas De Arico 1 A",
+      "Playas De Arico 1 G",
+      "Playas De Arico 1 F"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.141284&lon=-16.443437&zoom=15"
+  },
+  {
+    "management_firm": "Amarilla Golf",
+    "vv_count": 5,
+    "total_beds": 16,
+    "avg_beds_per_vv": 3.2,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "San Miguel De Abona"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 28.022799,
+    "center_lon": -16.615549,
+    "sample_addresses": [
+      "Calle Cornical 52",
+      "Cl 3 23 Pp Amarilla Golf 9  1 4 50",
+      "Cl 3 23 (Pp Amarilla Golf) 9  1 04 44"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.022799&lon=-16.615549&zoom=15"
+  },
+  {
+    "management_firm": "Puerto De La Cruz",
+    "vv_count": 5,
+    "total_beds": 17,
+    "avg_beds_per_vv": 3.4,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Puerto De La Cruz"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 28.416271,
+    "center_lon": -16.545484,
+    "sample_addresses": [
+      "Iriarte 6",
+      "Av Familia Betancurt  Y Mol 24   1 1",
+      "Avenida Familia Betancourt Y Mol 31  B 5 11"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.416271&lon=-16.545484&zoom=15"
+  },
+  {
+    "management_firm": "Amarilla Maintenance Service S.L.U.",
+    "vv_count": 5,
+    "total_beds": 15,
+    "avg_beds_per_vv": 3,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "San Miguel De Abona"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 28.023951,
+    "center_lon": -16.617233,
+    "sample_addresses": [
+      "Avda. Maria De Los Angeles Ascanio Cullen 26",
+      "Avda. Maria De Los Angeles Ascanio Cullen 26",
+      "Avda. Maria De Los Angeles Ascanio Cullen 26"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.023951&lon=-16.617233&zoom=15"
+  },
+  {
+    "management_firm": "Hogar Y Sol S.L.",
+    "vv_count": 5,
+    "total_beds": 18,
+    "avg_beds_per_vv": 3.6,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 28.074642,
+    "center_lon": -16.730036,
+    "sample_addresses": [
+      "Avenida De Los Pueblos 14  1",
+      "Avenida De Los Pueblos 14 1 1",
+      "Avenida De Los Pueblos 14 1 1"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.074642&lon=-16.730036&zoom=15"
+  },
+  {
+    "management_firm": "Frameri, S.L.",
+    "vv_count": 5,
+    "total_beds": 25,
+    "avg_beds_per_vv": 5,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Santa Cruz Tenerife"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 28.471525,
+    "center_lon": -16.24986,
+    "sample_addresses": [
+      "Avenida Francisco La Roche 33  B",
+      "Calle Juan Pablo Ii 15",
+      "Calle Fomento  9  E"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.471525&lon=-16.249860&zoom=15"
+  },
+  {
+    "management_firm": "Callao Salvaje",
+    "vv_count": 5,
+    "total_beds": 24,
+    "avg_beds_per_vv": 4.8,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 28.12886,
+    "center_lon": -16.78093,
+    "sample_addresses": [
+      "Pj Valito Sau 14   00 25",
+      "Avenida Adeje 300 16   1 9",
+      "Cl La Lava 09   11 1"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.128860&lon=-16.780930&zoom=15"
+  },
+  {
+    "management_firm": "Vlagara",
+    "vv_count": 5,
+    "total_beds": 13,
+    "avg_beds_per_vv": 2.6,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Santiago Del Teide"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 28.247562,
+    "center_lon": -16.839137,
+    "sample_addresses": [
+      "Calle El Pino 44   3",
+      "Calle El Pino 44   3 301",
+      "Calle El Pino 46   2 206"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.247562&lon=-16.839137&zoom=15"
+  },
+  {
+    "management_firm": "Harbour Lights",
+    "vv_count": 5,
+    "total_beds": 20,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 28.922042,
+    "center_lon": -13.674237,
+    "sample_addresses": [
+      "Calle Gran Canaria, 2 Esq. Calle Los Infantes, 14, Pta. F6 35510    , Puerto Del Carmen, Tias, Lanzarote",
+      "Calle Gran Canaria, 14, Pta. 5 E 35510    , Puerto Del Carmen, Tias, Lanzarote",
+      "Calle Gran Canaria, 14, Pta. 1-A 35510    , Puerto Del Carmen, Tias, Lanzarote"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.922042&lon=-13.674237&zoom=15"
+  },
+  {
+    "management_firm": "Casitas De Niguan",
+    "vv_count": 5,
+    "total_beds": 15,
+    "avg_beds_per_vv": 3,
+    "islands": [
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Tinajo"
+    ],
+    "complexes": [],
+    "concentration_score": 100,
+    "complex_score": 0,
+    "prospect_score": 39,
+    "center_lat": 29.051285,
+    "center_lon": -13.686581,
+    "sample_addresses": [
+      "Ca Lle Cuartillo 9",
+      "Calle Cuartillo 9",
+      "Calle Cuartillo 9"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=29.051285&lon=-13.686581&zoom=15"
+  },
+  {
+    "management_firm": "La Casita",
+    "vv_count": 61,
+    "total_beds": 261,
+    "avg_beds_per_vv": 4.3,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "La Palma",
+      "La Gomera",
+      "El Hierro",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Arafo",
+      "La Orotava",
+      "Los Realejos",
+      "Adeje",
+      "Firgas",
+      "Santa Brigida",
+      "San Bartolome De Tirajana",
+      "Vega San Mateo",
+      "Guia Isora",
+      "Santiago Del Teide",
+      "La Guancha",
+      "Arona",
+      "Icod De Los Vinos",
+      "Santa Cruz Tenerife",
+      "La Matanza De Acentejo",
+      "Puerto De La Cruz",
+      "Arico",
+      "Tacoronte",
+      "San Miguel De Abona",
+      "Villa De Mazo",
+      "Los Llanos De Aridane",
+      "Valle Gran Rey",
+      "Hermigua",
+      "Valverde",
+      "Las Palmas De Gran Canaria",
+      "La Oliva",
+      "Antigua",
+      "Pájara",
+      "Yaiza",
+      "Tias",
+      "Tinajo",
+      "Teguise"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 38,
+    "center_lat": 28.447373,
+    "center_lon": -15.587692,
+    "sample_addresses": [
+      "Camino Barranquillos, 5 5",
+      "Camino Los Cominos Pasada Montenegro, Polig. 27, Pinolere",
+      "C/ Hibisco N 7"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.447373&lon=-15.587692&zoom=15"
+  },
+  {
+    "management_firm": "Jardines Canarios",
+    "vv_count": 7,
+    "total_beds": 33,
+    "avg_beds_per_vv": 4.7,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Arona",
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 38,
+    "center_lat": 28.045516,
+    "center_lon": -16.690995,
+    "sample_addresses": [
+      "Avenida Juan Carlos I, Apt. Jardines Canarios, Nº 33, Escalera 1 Piso 07 Puerta C1",
+      "Avda Juan Carlos I N 33  Bl 1 Piso 6 Pta A",
+      "Calle Perez Galdos Nº11, Piso 32"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.045516&lon=-16.690995&zoom=15"
+  },
+  {
+    "management_firm": "Neptuno",
+    "vv_count": 10,
+    "total_beds": 40,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "San Cristobal De La Laguna",
+      "Santiago Del Teide",
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 38,
+    "center_lat": 28.311987,
+    "center_lon": -16.715188,
+    "sample_addresses": [
+      "Ctra. Gral. De Bajamar, Nº 165, Pta. 2",
+      "Avenida Maritima  24  B",
+      "Avenida Maritima  24 B  2 58"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.311987&lon=-16.715189&zoom=15"
+  },
+  {
+    "management_firm": "Borza Real Estate",
+    "vv_count": 7,
+    "total_beds": 22,
+    "avg_beds_per_vv": 3.1,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 38,
+    "center_lat": 28.055022,
+    "center_lon": -16.697783,
+    "sample_addresses": [
+      "Cl Italia  6 A",
+      "Av Palm Mar El    64",
+      "Av Juan Carlos I  40  3 2 16"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.055022&lon=-16.697783&zoom=15"
+  },
+  {
+    "management_firm": "Adriana",
+    "vv_count": 7,
+    "total_beds": 23,
+    "avg_beds_per_vv": 3.3,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Granadilla De Abona",
+      "Pájara"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 38,
+    "center_lat": 28.091456,
+    "center_lon": -16.224225,
+    "sample_addresses": [
+      "Calle Pasaje Taguluche 2   2 A",
+      "Calle Pasaje Taguluche 2   2 B",
+      "Calle Pasaje Taguluche 2   2 C"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.091456&lon=-16.224225&zoom=15"
+  },
+  {
+    "management_firm": "Casa Famara",
+    "vv_count": 7,
+    "total_beds": 33,
+    "avg_beds_per_vv": 4.7,
+    "islands": [
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Tias",
+      "Teguise"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 38,
+    "center_lat": 29.005139,
+    "center_lon": -13.585149,
+    "sample_addresses": [
+      "Calle Pardelera, 30 35572    , Tias, Tias, Lanzarote",
+      "Calle Belgica, 12 B 35510    , Puerto Del Carmen, Tias, Lanzarote",
+      "Las Laderas  8"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=29.005139&lon=-13.585149&zoom=15"
+  },
+  {
+    "management_firm": "Autos Ucanca S.L.",
+    "vv_count": 16,
+    "total_beds": 56,
+    "avg_beds_per_vv": 3.5,
+    "islands": [
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Tias",
+      "Yaiza",
+      "Teguise",
+      "San Bartolome"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 38,
+    "center_lat": 28.901679,
+    "center_lon": -13.785574,
+    "sample_addresses": [
+      "Calle Guanapay 6    107",
+      "Calle El Cabozo 6",
+      "Calle El Cabozo 6"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.901679&lon=-13.785574&zoom=15"
+  },
+  {
+    "management_firm": "La Quinta",
+    "vv_count": 6,
+    "total_beds": 24,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Santa Ursula",
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 28.373434,
+    "center_lon": -16.541045,
+    "sample_addresses": [
+      "Urb. La Quinta, C/ Codeso, 16 C",
+      "Calle La Serreria 1",
+      "Calle Bicacarera 21"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.373434&lon=-16.541045&zoom=15"
+  },
+  {
+    "management_firm": "Las Dunas",
+    "vv_count": 6,
+    "total_beds": 32,
+    "avg_beds_per_vv": 5.3,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Granadilla De Abona",
+      "La Oliva"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 28.557069,
+    "center_lon": -14.531697,
+    "sample_addresses": [
+      "Calle Tinguaro 1  1",
+      "Calle Alheli Nº3",
+      "El Roque 19, C3"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.557068&lon=-14.531697&zoom=15"
+  },
+  {
+    "management_firm": "Jardines Del Sur",
+    "vv_count": 6,
+    "total_beds": 31,
+    "avg_beds_per_vv": 5.2,
+    "islands": [
+      "Tenerife",
+      "_U"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 28.069772,
+    "center_lon": -16.72082,
+    "sample_addresses": [
+      "C/ Teobaldo Power, 16",
+      "_U",
+      "Av Juan Carlos  60 5"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.069772&lon=-16.720820&zoom=15"
+  },
+  {
+    "management_firm": "Los Patios",
+    "vv_count": 6,
+    "total_beds": 28,
+    "avg_beds_per_vv": 4.7,
+    "islands": [
+      "Tenerife",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Granadilla De Abona",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 28.197665,
+    "center_lon": -16.063944,
+    "sample_addresses": [
+      "Calle Plaza Alcalde Antonio Garcia Osorio, 6, Resid. Los Patios, Vda. 3ºa",
+      "C/ Plaza Alcalde Antonio Garcia Osorio, 6, Resid. Los Patios, Vda. 3ºb",
+      "Calle La Gaviota, N º36, Piso 1ºb 36"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.197665&lon=-16.063944&zoom=15"
+  },
+  {
+    "management_firm": "Sunny Beach",
+    "vv_count": 6,
+    "total_beds": 20,
+    "avg_beds_per_vv": 3.3,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Icod De Los Vinos",
+      "San Bartolome De Tirajana"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 28.256166,
+    "center_lon": -16.492081,
+    "sample_addresses": [
+      "C/ Las Americas, 46, Vda. 711",
+      "Paseo Las Americas, 46, Vda. 503",
+      "Paseo Las Americas, 46, Vda. 209"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.256166&lon=-16.492081&zoom=15"
+  },
+  {
+    "management_firm": "Casa Blanca",
+    "vv_count": 53,
+    "total_beds": 293,
+    "avg_beds_per_vv": 5.5,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "La Palma",
+      "La Gomera",
+      "El Hierro",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Arico",
+      "Adeje",
+      "Arona",
+      "Santa Lucia De Tirajana",
+      "San Bartolome De Tirajana",
+      "San Miguel De Abona",
+      "Granadilla De Abona",
+      "Los Realejos",
+      "Santa Cruz Tenerife",
+      "San Cristobal De La Laguna",
+      "Santa Ursula",
+      "Puerto De La Cruz",
+      "Puntagorda",
+      "Valle Gran Rey",
+      "Vallehermoso",
+      "El Pinar De El Hierro",
+      "Las Palmas De Gran Canaria",
+      "Mogan",
+      "Moya",
+      "Telde",
+      "Tuineje",
+      "La Oliva",
+      "Antigua",
+      "Yaiza",
+      "Tias",
+      "Teguise",
+      "La Matanza De Acentejo",
+      "Guia Isora",
+      "Tacoronte"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 28.413412,
+    "center_lon": -15.285337,
+    "sample_addresses": [
+      "Urb Casa Blanca Sn Pt B11",
+      "Avenida Del Valle Menendez (Ap. Cris Sol) Nº 1, Piso 2, Pta. 205",
+      "C/ Nicolas Perez Escobar, 28, Piso 2, Puerta D"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.413412&lon=-15.285337&zoom=15"
+  },
+  {
+    "management_firm": "Ocean View",
+    "vv_count": 57,
+    "total_beds": 234,
+    "avg_beds_per_vv": 4.1,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Arona",
+      "Tacoronte",
+      "San Miguel De Abona",
+      "Puerto De La Cruz",
+      "Santa Cruz Tenerife",
+      "Arucas",
+      "Mogan",
+      "Tuineje",
+      "La Oliva",
+      "Puerto Del Rosario",
+      "Antigua",
+      "Tias",
+      "San Bartolome",
+      "Teguise",
+      "Yaiza",
+      "Santiago Del Teide"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 28.414992,
+    "center_lon": -15.650661,
+    "sample_addresses": [
+      "Calle Venezuela Nº20 ,Puerta 215",
+      "C/ Galicia, 37, Piso 1, Puerta 16",
+      "Urb. San Eugenio, Ocean View"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.414992&lon=-15.650661&zoom=15"
+  },
+  {
+    "management_firm": "Tegueste",
+    "vv_count": 6,
+    "total_beds": 21,
+    "avg_beds_per_vv": 3.5,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Arona",
+      "Santa Lucia De Tirajana"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 27.869079,
+    "center_lon": -15.654703,
+    "sample_addresses": [
+      "Calle Cernicalo, Nº20, Piso 2, Puerta 4",
+      "Tegueste 047 2º A",
+      "Tegueste 047 1º A"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.869079&lon=-15.654703&zoom=15"
+  },
+  {
+    "management_firm": "Casas Blancas",
+    "vv_count": 6,
+    "total_beds": 19,
+    "avg_beds_per_vv": 3.2,
+    "islands": [
+      "Gran Canaria",
+      "Tenerife"
+    ],
+    "municipalities": [
+      "La Aldea De San Nicolas",
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 28.043777,
+    "center_lon": -16.573631,
+    "sample_addresses": [
+      "Casas Blancas   S/N - Pasaje Llano Blanco (Tasartico)",
+      "Avda. Rafael Puig Lluvina,  05  08  75",
+      "Av Rafael Puig Lluvina S/N    71"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.043777&lon=-16.573631&zoom=15"
+  },
+  {
+    "management_firm": "Inversiones Boncanar, S.L.",
+    "vv_count": 6,
+    "total_beds": 19,
+    "avg_beds_per_vv": 3.2,
+    "islands": [
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "San Bartolome De Tirajana",
+      "Las Palmas De Gran Canaria"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 27.782526,
+    "center_lon": -15.642441,
+    "sample_addresses": [
+      "Calle Driver S/N",
+      "Calle Driver S/N    9",
+      "Calle Luis Morote 46   5 4"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.782526&lon=-15.642441&zoom=15"
+  },
+  {
+    "management_firm": "Sueño Azul",
+    "vv_count": 6,
+    "total_beds": 26,
+    "avg_beds_per_vv": 4.3,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Tuineje"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 28.156433,
+    "center_lon": -16.084086,
+    "sample_addresses": [
+      "Calle Isora  S/N",
+      "Ur Sueño Azul  171  S/N 1º",
+      "Aloe 16  B 1"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.156433&lon=-16.084086&zoom=15"
+  },
+  {
+    "management_firm": "Nostramo Sl",
+    "vv_count": 9,
+    "total_beds": 33,
+    "avg_beds_per_vv": 3.7,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Guia Isora",
+      "Adeje",
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 28.12363,
+    "center_lon": -16.757003,
+    "sample_addresses": [
+      "Calle Isla Gran Canaria 25",
+      "Cl Isla Gran Canaria  25",
+      "Cl Isla Gran Canaria 25"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.123630&lon=-16.757003&zoom=15"
+  },
+  {
+    "management_firm": "Edificio Horizonte",
+    "vv_count": 6,
+    "total_beds": 16,
+    "avg_beds_per_vv": 2.7,
+    "islands": [
+      "Tenerife",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Arona",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 28.342424,
+    "center_lon": -15.704989,
+    "sample_addresses": [
+      "Calle Montaña 48",
+      "Calle Montaña  48",
+      "Calle Montaña 48"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.342424&lon=-15.704989&zoom=15"
+  },
+  {
+    "management_firm": "Fredy Cruz",
+    "vv_count": 14,
+    "total_beds": 51,
+    "avg_beds_per_vv": 3.6,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Santa Cruz Tenerife",
+      "San Cristobal De La Laguna",
+      "Granadilla De Abona",
+      "Candelaria"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 28.390185,
+    "center_lon": -16.341984,
+    "sample_addresses": [
+      "Prolongación Piñonero 5",
+      "Prolongación Piñonero 5",
+      "Prolongación Piñonero 5"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.390185&lon=-16.341984&zoom=15"
+  },
+  {
+    "management_firm": "Vivienda Vacacional Carlomar",
+    "vv_count": 6,
+    "total_beds": 31,
+    "avg_beds_per_vv": 5.2,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Guia Isora",
+      "Santiago Del Teide"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 28.224031,
+    "center_lon": -16.828179,
+    "sample_addresses": [
+      "Calle Virgen De La Candelaria 15",
+      "Calle El Drago 16    A",
+      "Calle El Pino 46   03 300"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.224031&lon=-16.828179&zoom=15"
+  },
+  {
+    "management_firm": "Geab24, S.L.",
+    "vv_count": 6,
+    "total_beds": 15,
+    "avg_beds_per_vv": 2.5,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Arona",
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 37,
+    "center_lat": 28.070579,
+    "center_lon": -16.725129,
+    "sample_addresses": [
+      "Urb. Américas  54   3 6",
+      "Calle Extremadura 2  3 0 2",
+      "Avenida Santiago Puig  4   3 30"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.070579&lon=-16.725129&zoom=15"
+  },
+  {
+    "management_firm": "Casa Del Sol",
+    "vv_count": 51,
+    "total_beds": 209,
+    "avg_beds_per_vv": 4.1,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "La Gomera",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "La Matanza De Acentejo",
+      "La Orotava",
+      "Arona",
+      "Las Palmas De Gran Canaria",
+      "Agaete",
+      "Mogan",
+      "Guia Isora",
+      "Arico",
+      "Candelaria",
+      "Adeje",
+      "Garachico",
+      "Los Realejos",
+      "San Bartolome De Tirajana",
+      "Santiago Del Teide",
+      "San Sebastian De La Gomera",
+      "Antigua",
+      "Pájara",
+      "La Oliva",
+      "Tuineje",
+      "Yaiza",
+      "Teguise",
+      "Tias",
+      "Haria"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 36,
+    "center_lat": 28.332426,
+    "center_lon": -15.141635,
+    "sample_addresses": [
+      "C/ Acentejo, 72",
+      "Calle Dehesa Baja 63",
+      "Avda. Rafael Puig Lluvina, 32 (Parque Santiago Ii, Pta 216)"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.332426&lon=-15.141635&zoom=15"
+  },
+  {
+    "management_firm": "Flamingo",
+    "vv_count": 8,
+    "total_beds": 25,
+    "avg_beds_per_vv": 3.1,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Arona",
+      "Pájara",
+      "Yaiza"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 36,
+    "center_lat": 28.196887,
+    "center_lon": -15.659894,
+    "sample_addresses": [
+      "Avda. El Palm Mar 64   09 904",
+      "Avenida Palm Mar  64",
+      "Flamingo 11"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.196887&lon=-15.659894&zoom=15"
+  },
+  {
+    "management_firm": "Casa Del Mar",
+    "vv_count": 50,
+    "total_beds": 235,
+    "avg_beds_per_vv": 4.7,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "La Palma",
+      "El Hierro",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Garachico",
+      "Arona",
+      "Agaete",
+      "Galdar",
+      "Arucas",
+      "Las Palmas De Gran Canaria",
+      "Aguimes",
+      "Mogan",
+      "Guia Isora",
+      "La Matanza De Acentejo",
+      "San Miguel De Abona",
+      "Tacoronte",
+      "Candelaria",
+      "Arico",
+      "Adeje",
+      "Los Silos",
+      "Tazacorte",
+      "Valverde",
+      "Antigua",
+      "La Oliva",
+      "Pájara",
+      "Arrecife",
+      "Teguise",
+      "Yaiza",
+      "San Bartolome",
+      "Tias",
+      "Haria"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 36,
+    "center_lat": 28.48494,
+    "center_lon": -14.919547,
+    "sample_addresses": [
+      "C/ Esteban Ponce N 69",
+      "Avda. Rafael Puig Lluvina  39 4  03 93",
+      "Guayedra 68-2º"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.484940&lon=-14.919547&zoom=15"
+  },
+  {
+    "management_firm": "Casa Simona",
+    "vv_count": 8,
+    "total_beds": 37,
+    "avg_beds_per_vv": 4.6,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Granadilla De Abona",
+      "Adeje",
+      "La Oliva"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 36,
+    "center_lat": 28.465914,
+    "center_lon": -15.013859,
+    "sample_addresses": [
+      "Ctra Pista La Higueritas N 7 Pt B",
+      "Calle Irlanda 4  A 01 08",
+      "Chorlitejo 22 Vda B"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.465914&lon=-15.013859&zoom=15"
+  },
+  {
+    "management_firm": "Los Arcos",
+    "vv_count": 8,
+    "total_beds": 29,
+    "avg_beds_per_vv": 3.6,
+    "islands": [
+      "Gran Canaria",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "San Bartolome De Tirajana",
+      "Yaiza",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 36,
+    "center_lat": 28.04821,
+    "center_lon": -15.099061,
+    "sample_addresses": [
+      "Avda.Estados Unidos 60",
+      "Avda.Estados Unidos 60",
+      "Avda. Estados Unidos 60"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.048210&lon=-15.099061&zoom=15"
+  },
+  {
+    "management_firm": "Finca La Paz",
+    "vv_count": 8,
+    "total_beds": 27,
+    "avg_beds_per_vv": 3.4,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje",
+      "San Miguel De Abona",
+      "La Guancha"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 36,
+    "center_lat": 28.101142,
+    "center_lon": -16.631847,
+    "sample_addresses": [
+      "Cl Gasparianes  13",
+      "Camino La Montañita 55",
+      "Camino La Montañita 55"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.101142&lon=-16.631847&zoom=15"
+  },
+  {
+    "management_firm": "Adasun 1981, S.L.",
+    "vv_count": 5,
+    "total_beds": 32,
+    "avg_beds_per_vv": 6.4,
+    "islands": [
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Tias",
+      "Arrecife"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 36,
+    "center_lat": 28.954438,
+    "center_lon": -13.573168,
+    "sample_addresses": [
+      "C/Guacimeta 8",
+      "C/Argentina 11   1 A",
+      "C/Argentina 11   2 A"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.954438&lon=-13.573168&zoom=15"
+  },
+  {
+    "management_firm": "Mencey",
+    "vv_count": 5,
+    "total_beds": 18,
+    "avg_beds_per_vv": 3.6,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Santa Cruz Tenerife",
+      "Granadilla De Abona"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 35,
+    "center_lat": 28.368351,
+    "center_lon": -16.323506,
+    "sample_addresses": [
+      "C/ Pintor Jose Aguiar, 2, Bajo, Piso 3",
+      "C Pintor  Jose Aguiar , 2 Esc. 1 Piso 4 Pta 44",
+      "C/ Pintor Jose Aguiar , 2 E 1 Piso 4 Pta.45"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.368351&lon=-16.323506&zoom=15"
+  },
+  {
+    "management_firm": "Playa Chica",
+    "vv_count": 11,
+    "total_beds": 35,
+    "avg_beds_per_vv": 3.2,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Santa Cruz Tenerife",
+      "Las Palmas De Gran Canaria",
+      "Arico",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 35,
+    "center_lat": 28.412262,
+    "center_lon": -15.499043,
+    "sample_addresses": [
+      "Urbanizacion Las Gaviotas, Nº 1, Piso 5º, Vda. 501 1",
+      "Urbanizacion Las Gaviotas, Edif. Playa Chica, Piso 2º, Vda. 201",
+      "De Las Canteras 038 1º D"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.412262&lon=-15.499043&zoom=15"
+  },
+  {
+    "management_firm": "San Francisco",
+    "vv_count": 5,
+    "total_beds": 25,
+    "avg_beds_per_vv": 5,
+    "islands": [
+      "Tenerife",
+      "La Palma"
+    ],
+    "municipalities": [
+      "Santa Cruz Tenerife",
+      "Santa Cruz De La Palma"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 35,
+    "center_lat": 28.54325,
+    "center_lon": -16.752798,
+    "sample_addresses": [
+      "Calle San Francisco Nº67 Escalera A Piso 4 Puerta B",
+      "Calle San Francisco 90   1 Dcha",
+      "Calle San Francisco 105   1 Izquierda"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.543250&lon=-16.752798&zoom=15"
+  },
+  {
+    "management_firm": "Casa Maria",
+    "vv_count": 46,
+    "total_beds": 176,
+    "avg_beds_per_vv": 3.8,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "La Palma",
+      "La Gomera",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Icod De Los Vinos",
+      "San Bartolome De Tirajana",
+      "Adeje",
+      "Tazacorte",
+      "Los Llanos De Aridane",
+      "Hermigua",
+      "Tejeda",
+      "Mogan",
+      "Ingenio",
+      "Valsequillo De Gran Canaria",
+      "Telde",
+      "La Oliva",
+      "Antigua",
+      "Tuineje",
+      "Pájara",
+      "Puerto Del Rosario",
+      "Tinajo",
+      "Arrecife",
+      "Yaiza",
+      "Tias",
+      "Teguise"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 35,
+    "center_lat": 28.704715,
+    "center_lon": -14.489583,
+    "sample_addresses": [
+      "Calle La Palmita, 11",
+      "Cl Touroperador Matkatala 57a 01",
+      "Guatemala 4"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.704715&lon=-14.489583&zoom=15"
+  },
+  {
+    "management_firm": "Casa Azul",
+    "vv_count": 44,
+    "total_beds": 181,
+    "avg_beds_per_vv": 4.1,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "La Palma",
+      "La Gomera",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Guia Isora",
+      "Mogan",
+      "Puerto De La Cruz",
+      "Icod De Los Vinos",
+      "San Miguel De Abona",
+      "Garachico",
+      "Santa Cruz Tenerife",
+      "Arico",
+      "Arona",
+      "San Cristobal De La Laguna",
+      "Los Llanos De Aridane",
+      "Tazacorte",
+      "El Paso",
+      "Fuencaliente De La Palma",
+      "Vallehermoso",
+      "Vega San Mateo",
+      "Telde",
+      "San Bartolome De Tirajana",
+      "La Oliva",
+      "Puerto Del Rosario",
+      "Antigua",
+      "Haria",
+      "Tinajo",
+      "Yaiza",
+      "Teguise",
+      "Arrecife",
+      "Tias",
+      "San Bartolome"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 35,
+    "center_lat": 28.56444,
+    "center_lon": -15.116554,
+    "sample_addresses": [
+      "C/ Barranquillo Nº 18, Piso 3e",
+      "Calle El Petrel  4    T4",
+      "Calle Perez Zamora 8"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.564440&lon=-15.116554&zoom=15"
+  },
+  {
+    "management_firm": "Faro",
+    "vv_count": 5,
+    "total_beds": 21,
+    "avg_beds_per_vv": 4.2,
+    "islands": [
+      "Gran Canaria",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria",
+      "Pájara"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 35,
+    "center_lat": 28.151239,
+    "center_lon": -15.19034,
+    "sample_addresses": [
+      "Faro 105 3º, Pta. 33",
+      "C/ Faro, N 19-21, Vii, Piso 7, Pta.C 35009    , Las Palmas De Gran Canaria, Las Palmas De Gran Canaria, Gran Canaria",
+      "C/ Faro, 19-21, Piso. V, Pta. B 35009    , Las Palmas De Gran Canaria, Las Palmas De Gran Canaria, Gran Canaria"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.151239&lon=-15.190340&zoom=15"
+  },
+  {
+    "management_firm": "Flamboyan",
+    "vv_count": 7,
+    "total_beds": 25,
+    "avg_beds_per_vv": 3.6,
+    "islands": [
+      "Gran Canaria",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "San Bartolome De Tirajana",
+      "Telde",
+      "La Oliva"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 35,
+    "center_lat": 28.167223,
+    "center_lon": -14.935182,
+    "sample_addresses": [
+      "Mar Caspio 2    175",
+      "Calle Las Margaritas, 10, Puerta 114 A 35100    , San Bartolome De Tirajana, San Bartolome De Tirajana, Gran Canaria",
+      "C/ Acoydan 1"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.167223&lon=-14.935182&zoom=15"
+  },
+  {
+    "management_firm": "Sunset Apartment",
+    "vv_count": 5,
+    "total_beds": 14,
+    "avg_beds_per_vv": 2.8,
+    "islands": [
+      "Gran Canaria",
+      "Tenerife"
+    ],
+    "municipalities": [
+      "San Bartolome De Tirajana",
+      "Santiago Del Teide"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 35,
+    "center_lat": 28.044511,
+    "center_lon": -16.341385,
+    "sample_addresses": [
+      "Calle Einstein 17",
+      "Avenida De Tirajana 7",
+      "Avenidaquinto Centenario 28 1"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.044511&lon=-16.341385&zoom=15"
+  },
+  {
+    "management_firm": "Palo Blanco",
+    "vv_count": 5,
+    "total_beds": 23,
+    "avg_beds_per_vv": 4.6,
+    "islands": [
+      "Tenerife",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Teguise"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 35,
+    "center_lat": 28.328099,
+    "center_lon": -15.919259,
+    "sample_addresses": [
+      "Avenida España 2",
+      "Avenida España  2  00",
+      "Avenida España 2"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.328099&lon=-15.919259&zoom=15"
+  },
+  {
+    "management_firm": "Las Terrazas",
+    "vv_count": 25,
+    "total_beds": 83,
+    "avg_beds_per_vv": 3.3,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Santa Cruz Tenerife",
+      "Icod De Los Vinos",
+      "Guia Isora",
+      "Arona",
+      "Granadilla De Abona"
+    ],
+    "complexes": [],
+    "concentration_score": 25,
+    "complex_score": 0,
+    "prospect_score": 35,
+    "center_lat": 28.281254,
+    "center_lon": -16.72791,
+    "sample_addresses": [
+      "Calle Las Terrazas 3",
+      "Camino De La Coronela  10",
+      "Carretera La Coronela 10"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.281254&lon=-16.727910&zoom=15"
+  },
+  {
+    "management_firm": "Pleamar",
+    "vv_count": 5,
+    "total_beds": 15,
+    "avg_beds_per_vv": 3,
+    "islands": [
+      "Gran Canaria",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Mogan",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 35,
+    "center_lat": 28.631033,
+    "center_lon": -14.156972,
+    "sample_addresses": [
+      "Calle Tomas Morales 18",
+      "Chalana  11",
+      "Chalana 11   Bajo 1375"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.631033&lon=-14.156972&zoom=15"
+  },
+  {
+    "management_firm": "Casa Volcan",
+    "vv_count": 7,
+    "total_beds": 38,
+    "avg_beds_per_vv": 5.4,
+    "islands": [
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "La Oliva",
+      "Yaiza",
+      "Teguise"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 35,
+    "center_lat": 28.824701,
+    "center_lon": -13.805459,
+    "sample_addresses": [
+      "Volcán 8",
+      "Urb. Origomare, Sector 2, Pta 14 35650    , Majanicho, La Oliva, Fuerteventura",
+      "Calle Irlanda 2  6  B"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.824701&lon=-13.805459&zoom=15"
+  },
+  {
+    "management_firm": "Manuel",
+    "vv_count": 5,
+    "total_beds": 14,
+    "avg_beds_per_vv": 2.8,
+    "islands": [
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Teguise",
+      "Yaiza"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 35,
+    "center_lat": 29.160099,
+    "center_lon": -13.568977,
+    "sample_addresses": [
+      "Calle Margarona",
+      "Calle Calima",
+      "Calle Margarona"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=29.160099&lon=-13.568977&zoom=15"
+  },
+  {
+    "management_firm": "3 Ballenas Tenerife, Sl",
+    "vv_count": 5,
+    "total_beds": 15,
+    "avg_beds_per_vv": 3,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "San Miguel De Abona",
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 85,
+    "complex_score": 0,
+    "prospect_score": 35,
+    "center_lat": 28.012183,
+    "center_lon": -16.664652,
+    "sample_addresses": [
+      "C/ Fuerteventura",
+      "C/ Fuerteventura",
+      "C/ Fuerteventura"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.012183&lon=-16.664652&zoom=15"
+  },
+  {
+    "management_firm": "Vista Mar",
+    "vv_count": 42,
+    "total_beds": 173,
+    "avg_beds_per_vv": 4.1,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "La Palma",
+      "El Hierro",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Granadilla De Abona",
+      "Las Palmas De Gran Canaria",
+      "Telde",
+      "Guimar",
+      "Icod De Los Vinos",
+      "Arona",
+      "La Matanza De Acentejo",
+      "Mogan",
+      "Candelaria",
+      "Santiago Del Teide",
+      "Tacoronte",
+      "Adeje",
+      "La Guancha",
+      "Tijarafe",
+      "Frontera",
+      "San Bartolome De Tirajana",
+      "Pájara",
+      "La Oliva",
+      "Tias",
+      "Yaiza",
+      "Teguise",
+      "San Miguel De Abona"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 34,
+    "center_lat": 28.462389,
+    "center_lon": -15.281398,
+    "sample_addresses": [
+      "Avda. Mar Adriatico Resd. Los Martinez",
+      "Párroco Francisco Rodríguez Rodríguez 001 2º D",
+      "Calle Becquer 58"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.462389&lon=-15.281398&zoom=15"
+  },
+  {
+    "management_firm": "Anna",
+    "vv_count": 10,
+    "total_beds": 42,
+    "avg_beds_per_vv": 4.2,
+    "islands": [
+      "Gran Canaria",
+      "Tenerife",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Santa Lucia De Tirajana",
+      "Adeje",
+      "La Oliva",
+      "Yaiza"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 34,
+    "center_lat": 28.142821,
+    "center_lon": -14.978055,
+    "sample_addresses": [
+      "Tasartico 043 3º B",
+      "Tasartico 043 2º B",
+      "Tasartico 043 3º A"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.142821&lon=-14.978055&zoom=15"
+  },
+  {
+    "management_firm": "Casa Luna",
+    "vv_count": 39,
+    "total_beds": 177,
+    "avg_beds_per_vv": 4.5,
+    "islands": [
+      "Gran Canaria",
+      "Tenerife",
+      "La Palma",
+      "La Gomera",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Aguimes",
+      "Las Palmas De Gran Canaria",
+      "San Bartolome De Tirajana",
+      "La Orotava",
+      "San Miguel De Abona",
+      "Icod De Los Vinos",
+      "Vilaflor De Chasna",
+      "Arona",
+      "Breña Baja",
+      "Valle Gran Rey",
+      "Hermigua",
+      "Mogan",
+      "Puerto Del Rosario",
+      "La Oliva",
+      "Pájara",
+      "Tuineje",
+      "Teguise",
+      "Yaiza",
+      "Tias",
+      "Arrecife",
+      "San Bartolome",
+      "Tinajo",
+      "Guia Isora"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 34,
+    "center_lat": 28.551471,
+    "center_lon": -14.706708,
+    "sample_addresses": [
+      "Fernando González 002 Esq. C/ Juan Alvarado Y Saz",
+      "Calle Veintinueve De Abril 51  B 1 123",
+      "C/ Santiago Santana 32"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.551471&lon=-14.706708&zoom=15"
+  },
+  {
+    "management_firm": "Casa Rosa",
+    "vv_count": 36,
+    "total_beds": 157,
+    "avg_beds_per_vv": 4.4,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "La Palma",
+      "El Hierro",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "San Miguel De Abona",
+      "Arona",
+      "Vega San Mateo",
+      "Arico",
+      "Los Silos",
+      "Adeje",
+      "Santiago Del Teide",
+      "Tijarafe",
+      "Los Llanos De Aridane",
+      "Valverde",
+      "Mogan",
+      "San Bartolome De Tirajana",
+      "La Oliva",
+      "Puerto Del Rosario",
+      "Antigua",
+      "Yaiza",
+      "Teguise",
+      "Arrecife",
+      "Haria",
+      "Tias",
+      "Santa Ursula"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 33,
+    "center_lat": 28.415825,
+    "center_lon": -15.33755,
+    "sample_addresses": [
+      "Las Morales 10",
+      "Avenida Rafael Puig Lluvina, Nº 20, Piso 3, Pta. 348",
+      "A La Montaña De La Bodeguilla 004"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.415825&lon=-15.337550&zoom=15"
+  },
+  {
+    "management_firm": "Arco Iris",
+    "vv_count": 6,
+    "total_beds": 28,
+    "avg_beds_per_vv": 4.7,
+    "islands": [
+      "Tenerife",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Tias",
+      "Haria"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 33,
+    "center_lat": 28.472072,
+    "center_lon": -15.478751,
+    "sample_addresses": [
+      "Av. Juan Carlos I, 39, Bloque K, Piso 3º, Puerta 2",
+      "Calle La Tosca 5 14 0  33",
+      "La Tosca 5 6 1 1 1"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.472072&lon=-15.478751&zoom=15"
+  },
+  {
+    "management_firm": "Bajamar",
+    "vv_count": 6,
+    "total_beds": 19,
+    "avg_beds_per_vv": 3.2,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "San Cristobal De La Laguna",
+      "Arucas",
+      "Mogan"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 33,
+    "center_lat": 28.311838,
+    "center_lon": -16.054522,
+    "sample_addresses": [
+      "C/. Montalmar, 31, Esc. 1, Piso 01, Pta. 15",
+      "C/ Pasaje La Barca, Nº 3, Bajo, Pta. A 35414    , Arucas, Arucas, Gran Canaria",
+      "Calle Altavista Nº5 Piso 6 Pta 607"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.311838&lon=-16.054522&zoom=15"
+  },
+  {
+    "management_firm": "Las Nasas",
+    "vv_count": 6,
+    "total_beds": 25,
+    "avg_beds_per_vv": 4.2,
+    "islands": [
+      "Gran Canaria",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Aguimes",
+      "San Bartolome De Tirajana",
+      "La Oliva"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 33,
+    "center_lat": 27.813398,
+    "center_lon": -15.471629,
+    "sample_addresses": [
+      "C/ Las Nasas,Nº 23, Bajo 35118    , Playa De Arinaga, Aguimes, Gran Canaria",
+      "C/ Tabaibas, N 3, Bajo, Pta. 5 35100    , Playa Del Ingles, San Bartolome De Tirajana, Gran Canaria",
+      "Tabaibas 3    10"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.813398&lon=-15.471629&zoom=15"
+  },
+  {
+    "management_firm": "Vvcanarias",
+    "vv_count": 6,
+    "total_beds": 21,
+    "avg_beds_per_vv": 3.5,
+    "islands": [
+      "Gran Canaria",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Santa Lucia De Tirajana",
+      "Pájara",
+      "Arrecife"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 33,
+    "center_lat": 28.252234,
+    "center_lon": -14.317141,
+    "sample_addresses": [
+      "Avenida De Canarias 241   2 14",
+      "Calle Valle De Los Mosquitos 1    8210",
+      "Calle Valle De Los Mosquitos 1    8222"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.252234&lon=-14.317141&zoom=15"
+  },
+  {
+    "management_firm": "Villamar",
+    "vv_count": 6,
+    "total_beds": 23,
+    "avg_beds_per_vv": 3.8,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Adeje",
+      "La Oliva",
+      "Arrecife"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 33,
+    "center_lat": 28.183966,
+    "center_lon": -16.168234,
+    "sample_addresses": [
+      "Avenida De Los Pueblos  25",
+      "Calle Francisco Bordón Méndez  22",
+      "Chubasquillo 28"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.183966&lon=-16.168234&zoom=15"
+  },
+  {
+    "management_firm": "Green Oasis",
+    "vv_count": 6,
+    "total_beds": 25,
+    "avg_beds_per_vv": 4.2,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "San Miguel De Abona",
+      "Pájara",
+      "La Oliva"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 33,
+    "center_lat": 28.205731,
+    "center_lon": -15.117376,
+    "sample_addresses": [
+      "Av. J. M . Galvan Bello S/N Cid",
+      "Avenida José María Galván Bello 42 0 0",
+      "C/ Puerto De La Cebada N 6,  Bungalow 12, Puerta N2c 35660    , Costa Calma, Pajara, Fuerteventura"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.205731&lon=-15.117376&zoom=15"
+  },
+  {
+    "management_firm": "Las Americas",
+    "vv_count": 6,
+    "total_beds": 34,
+    "avg_beds_per_vv": 5.7,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Arona",
+      "La Oliva",
+      "Adeje"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 33,
+    "center_lat": 28.142623,
+    "center_lon": -16.637999,
+    "sample_addresses": [
+      "Noelia Afonso Cabrera 8  D",
+      "Calle Noelia Afonso Cabrera 3 E",
+      "Avenida Chayofita 18    18"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.142623&lon=-16.637999&zoom=15"
+  },
+  {
+    "management_firm": "El Marinero",
+    "vv_count": 6,
+    "total_beds": 17,
+    "avg_beds_per_vv": 2.8,
+    "islands": [
+      "Tenerife",
+      "El Hierro",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Arona",
+      "El Pinar De El Hierro",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 33,
+    "center_lat": 28.386896,
+    "center_lon": -15.496691,
+    "sample_addresses": [
+      "Calle Minerva 16 E  1 207",
+      "Calle  El Horno 5 A",
+      "Calle Mato - Apartamentos Las Marinas, Nº26"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.386896&lon=-15.496691&zoom=15"
+  },
+  {
+    "management_firm": "Casa Lily",
+    "vv_count": 9,
+    "total_beds": 37,
+    "avg_beds_per_vv": 4.1,
+    "islands": [
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "La Oliva",
+      "Antigua",
+      "Tias",
+      "San Bartolome"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 33,
+    "center_lat": 28.778668,
+    "center_lon": -13.755083,
+    "sample_addresses": [
+      "C/ Gavias Nuevas, N 12 35650    , Lajares, La Oliva, Fuerteventura",
+      "C/ Marcial Sánchez Velázquez, Puerta Del Sol 210 35610    , Costa De Antigua, Antigua, Fuerteventura",
+      "Urbanización Los Lagos, A4-26 35650    , Cotillo (El), La Oliva, Fuerteventura"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.778668&lon=-13.755083&zoom=15"
+  },
+  {
+    "management_firm": "Casa Ola",
+    "vv_count": 6,
+    "total_beds": 19,
+    "avg_beds_per_vv": 3.2,
+    "islands": [
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "La Oliva",
+      "Teguise",
+      "Tinajo"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 33,
+    "center_lat": 28.95765,
+    "center_lon": -13.58408,
+    "sample_addresses": [
+      "Pedro Y Guy Vandaele 25   90b",
+      "Ur Los Lagos A16 5 Pl:01 Pt:04 La Oliva (Las Palmas) S/N    A16",
+      "Avda. Grandes Playas 51, Pta 4.  35660    , Corralejo, La Oliva, Fuerteventura"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.957650&lon=-13.584081&zoom=15"
+  },
+  {
+    "management_firm": "Ocean View Apartment",
+    "vv_count": 5,
+    "total_beds": 15,
+    "avg_beds_per_vv": 3,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Santiago Del Teide",
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.16549,
+    "center_lon": -16.794578,
+    "sample_addresses": [
+      "Calle Paises Bajos 1 Es: 1   4 4",
+      "Av. Quinto Centenario 28  1",
+      "Avenida Quinto Centenario 36   1 105b"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.165490&lon=-16.794578&zoom=15"
+  },
+  {
+    "management_firm": "Vistamar",
+    "vv_count": 32,
+    "total_beds": 158,
+    "avg_beds_per_vv": 4.9,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "La Palma",
+      "La Gomera",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Santa Ursula",
+      "Guimar",
+      "Arico",
+      "La Matanza De Acentejo",
+      "Agaete",
+      "Puerto De La Cruz",
+      "Santiago Del Teide",
+      "Arona",
+      "Candelaria",
+      "El Rosario",
+      "Los Realejos",
+      "Tazacorte",
+      "Valle Gran Rey",
+      "Mogan",
+      "La Oliva",
+      "Antigua",
+      "Puerto Del Rosario",
+      "Haria",
+      "Arrecife",
+      "Yaiza"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.330673,
+    "center_lon": -16.209181,
+    "sample_addresses": [
+      "C/ Don Quijote, Urb. La Mancha, Vda. 20",
+      "C/ Don Quijote, Urb. La Mancha, Vda. 18",
+      "C/ Don Quijote, Urb. La Mancha, Vda. 22"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.330673&lon=-16.209181&zoom=15"
+  },
+  {
+    "management_firm": "Casa Carmen",
+    "vv_count": 35,
+    "total_beds": 133,
+    "avg_beds_per_vv": 3.8,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "La Palma",
+      "La Gomera",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Los Realejos",
+      "Mogan",
+      "San Bartolome De Tirajana",
+      "Santa Lucia De Tirajana",
+      "Aguimes",
+      "Arona",
+      "Adeje",
+      "Santa Cruz Tenerife",
+      "San Cristobal De La Laguna",
+      "Los Llanos De Aridane",
+      "Valle Gran Rey",
+      "La Oliva",
+      "Antigua",
+      "Pájara",
+      "Tuineje",
+      "Arrecife",
+      "Yaiza",
+      "Tias",
+      "San Bartolome",
+      "Teguise",
+      "Santiago Del Teide",
+      "Guimar",
+      "Haria"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.348002,
+    "center_lon": -14.931539,
+    "sample_addresses": [
+      "Calle Playa Del Socorro, Nº 1-2",
+      "Valencia 005 Pta. B301",
+      "Einstein 002 Complejo Vistadunas, Pta. 41"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.348002&lon=-14.931539&zoom=15"
+  },
+  {
+    "management_firm": "Bahia Azul",
+    "vv_count": 5,
+    "total_beds": 22,
+    "avg_beds_per_vv": 4.4,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Arico",
+      "Arona",
+      "Antigua"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.188346,
+    "center_lon": -15.855168,
+    "sample_addresses": [
+      "C/ Los Prismas Pt 29 Bahia Azul Agave",
+      "Calle Los Prismas 7",
+      "Calle La Perdiz  2"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.188346&lon=-15.855168&zoom=15"
+  },
+  {
+    "management_firm": "Casa Bonita",
+    "vv_count": 33,
+    "total_beds": 146,
+    "avg_beds_per_vv": 4.4,
+    "islands": [
+      "Tenerife",
+      "_U",
+      "Gran Canaria",
+      "La Palma",
+      "La Gomera",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Santiago Del Teide",
+      "Yaiza",
+      "Las Palmas De Gran Canaria",
+      "Mogan",
+      "Garafia",
+      "Valle Gran Rey",
+      "Telde",
+      "San Bartolome De Tirajana",
+      "Antigua",
+      "La Oliva",
+      "Pájara",
+      "Haria",
+      "Teguise",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.533146,
+    "center_lon": -14.752698,
+    "sample_addresses": [
+      "Calle Agustin Leon Gonzalez Nº4,",
+      "Calle Palmeras 10    10",
+      "Prudencio Morales 051 Puerta 33"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.533146&lon=-14.752698&zoom=15"
+  },
+  {
+    "management_firm": "Casa Bruno",
+    "vv_count": 5,
+    "total_beds": 19,
+    "avg_beds_per_vv": 3.8,
+    "islands": [
+      "Tenerife",
+      "La Palma",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "La Matanza De Acentejo",
+      "Los Llanos De Aridane",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.766902,
+    "center_lon": -15.068717,
+    "sample_addresses": [
+      "C/ Acentejo, Urb. Jadin De La Paz, Nº 48",
+      "Camino La Majada, 3 - Las Norias 38760    , Todoque, Los Llanos De Aridane, La Palma",
+      "Calle Salinas 11"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.766902&lon=-15.068717&zoom=15"
+  },
+  {
+    "management_firm": "Bella Vista",
+    "vv_count": 33,
+    "total_beds": 128,
+    "avg_beds_per_vv": 3.9,
+    "islands": [
+      "Tenerife",
+      "La Palma",
+      "Gran Canaria",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Tacoronte",
+      "San Miguel De Abona",
+      "Arico",
+      "Arona",
+      "Santiago Del Teide",
+      "Puntallana",
+      "Mogan",
+      "La Oliva",
+      "Antigua",
+      "Pájara",
+      "Yaiza",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.535575,
+    "center_lon": -15.108786,
+    "sample_addresses": [
+      "Lugar Los Cuchillitos, 3",
+      "El Pris, 115, Piso 1, Puerta 705",
+      "Cl Jose Maria Galvan Bello 4 A"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.535575&lon=-15.108786&zoom=15"
+  },
+  {
+    "management_firm": "Balcón Del Mar",
+    "vv_count": 5,
+    "total_beds": 17,
+    "avg_beds_per_vv": 3.4,
+    "islands": [
+      "Tenerife",
+      "La Palma"
+    ],
+    "municipalities": [
+      "Arona",
+      "Adeje",
+      "Tazacorte"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.184587,
+    "center_lon": -16.984861,
+    "sample_addresses": [
+      "Calle Odisea, Nº 3, Piso 1, Puerta 49",
+      "Odisea              Balcon Del Mar 3 C 3",
+      "C/Baleares 8 D   105"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.184587&lon=-16.984861&zoom=15"
+  },
+  {
+    "management_firm": "Casa Oliva",
+    "vv_count": 5,
+    "total_beds": 29,
+    "avg_beds_per_vv": 5.8,
+    "islands": [
+      "Fuerteventura",
+      "Tenerife"
+    ],
+    "municipalities": [
+      "La Oliva",
+      "Candelaria",
+      "Tuineje"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 14355.134019,
+    "center_lon": -14.020686,
+    "sample_addresses": [
+      "Calle Nuestra Señora Del Pino",
+      "Calle Los Geranios. Edificio Oliva 7",
+      "El Cuchillete S/N"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=14355.134019&lon=-14.020687&zoom=15"
+  },
+  {
+    "management_firm": "Bello Horizonte",
+    "vv_count": 5,
+    "total_beds": 17,
+    "avg_beds_per_vv": 3.4,
+    "islands": [
+      "Gran Canaria",
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria",
+      "San Bartolome De Tirajana",
+      "Icod De Los Vinos"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 27.951929,
+    "center_lon": -15.49593,
+    "sample_addresses": [
+      "Portugal 070 1º, Pta. 120",
+      "Portugal 001 P. 4º Pta. 421",
+      "Calle Las Margaritas 25"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=27.951929&lon=-15.495930&zoom=15"
+  },
+  {
+    "management_firm": "Mi Casa",
+    "vv_count": 5,
+    "total_beds": 21,
+    "avg_beds_per_vv": 4.2,
+    "islands": [
+      "Gran Canaria",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria",
+      "La Oliva",
+      "Yaiza"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.620261,
+    "center_lon": -14.252178,
+    "sample_addresses": [
+      "Bernardo De La Torre 056 2º D",
+      "Juan Sebastián Elcano 23, 2º F",
+      "Isaac Peral 49"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.620261&lon=-14.252178&zoom=15"
+  },
+  {
+    "management_firm": "La Puntilla",
+    "vv_count": 5,
+    "total_beds": 17,
+    "avg_beds_per_vv": 3.4,
+    "islands": [
+      "Gran Canaria",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria",
+      "Aguimes",
+      "La Oliva"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.298224,
+    "center_lon": -14.929627,
+    "sample_addresses": [
+      "Prudencio Morales 039 6º C",
+      "Concejal Manuel Rodríguez Costas 001 1º C",
+      "La Puntilla 17"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.298224&lon=-14.929627&zoom=15"
+  },
+  {
+    "management_firm": "Beach View",
+    "vv_count": 5,
+    "total_beds": 16,
+    "avg_beds_per_vv": 3.2,
+    "islands": [
+      "Gran Canaria",
+      "Tenerife",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria",
+      "Arona",
+      "Arrecife"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.138497,
+    "center_lon": -15.436683,
+    "sample_addresses": [
+      "Portugal 070 2º, Pta. 209 - Edif. Bello Horizonte",
+      "Calle Luis Morote, N 43, 4, Puerta 401 35007    , Las Palmas De Gran Canaria, Las Palmas De Gran Canaria, Gran Canaria",
+      "Av Juan Carlos I  43  5 3 52"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.138497&lon=-15.436683&zoom=15"
+  },
+  {
+    "management_firm": "Estolomotokoko, Sociedad Limitada",
+    "vv_count": 5,
+    "total_beds": 18,
+    "avg_beds_per_vv": 3.6,
+    "islands": [
+      "Gran Canaria",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "San Bartolome De Tirajana",
+      "Puerto Del Rosario",
+      "La Oliva"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.290295,
+    "center_lon": -14.584616,
+    "sample_addresses": [
+      "Avda. Touroperador Tui 7 (3)  Bj65 160",
+      "Calle Einstein 15    3",
+      "Calle Hernan Cortres 80   2 B"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.290295&lon=-14.584616&zoom=15"
+  },
+  {
+    "management_firm": "Sabina",
+    "vv_count": 5,
+    "total_beds": 29,
+    "avg_beds_per_vv": 5.8,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Guia Isora",
+      "Candelaria"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.237208,
+    "center_lon": -16.660603,
+    "sample_addresses": [
+      "Pj Valito Sau, Rocabella 14",
+      "Carretera Gral Tf47 Pk15 15 15",
+      "Calle Gambuesas 4  C"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.237208&lon=-16.660603&zoom=15"
+  },
+  {
+    "management_firm": "Vapagó Tenerife Holidays",
+    "vv_count": 5,
+    "total_beds": 20,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Tenerife"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Candelaria",
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.123587,
+    "center_lon": -16.651479,
+    "sample_addresses": [
+      "Calle Guatemala 4  0",
+      "Calle Agua Dulce  67",
+      "Calle Lugano 6  Es:1  14"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.123587&lon=-16.651479&zoom=15"
+  },
+  {
+    "management_firm": "Balcon Del Atlantico",
+    "vv_count": 5,
+    "total_beds": 22,
+    "avg_beds_per_vv": 4.4,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Garachico",
+      "Antigua"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.208637,
+    "center_lon": -16.161319,
+    "sample_addresses": [
+      "Calle Baleares 1 Fase 1 C5",
+      "Avenida Tome Cano 14",
+      "Calle Baleares 10"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.208637&lon=-16.161319&zoom=15"
+  },
+  {
+    "management_firm": "Sol Y Luna",
+    "vv_count": 5,
+    "total_beds": 25,
+    "avg_beds_per_vv": 5,
+    "islands": [
+      "Tenerife",
+      "La Palma",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Arona",
+      "Breña Alta",
+      "La Oliva"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.693012,
+    "center_lon": -15.195029,
+    "sample_addresses": [
+      "Avenida Jose Antonio Tavio  10  Ea5 Pbj 553",
+      "Calle Taguasco, 19, Escalera 1, Piso 2, Puerta D 38710    , San Pedro De Breña Alta (Capital), Breña Alta, La Palma",
+      "Majanicho 89"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.693012&lon=-15.195029&zoom=15"
+  },
+  {
+    "management_firm": "Santa Maria",
+    "vv_count": 5,
+    "total_beds": 16,
+    "avg_beds_per_vv": 3.2,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Pájara",
+      "La Oliva"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.118037,
+    "center_lon": -15.480475,
+    "sample_addresses": [
+      "Urbanizacion San Eugenio S/N",
+      "Av España De 10   -1 03",
+      "Avenida De España 10   2 67"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.118036&lon=-15.480476&zoom=15"
+  },
+  {
+    "management_firm": "Paraiso Del Sol",
+    "vv_count": 5,
+    "total_beds": 17,
+    "avg_beds_per_vv": 3.4,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Antigua",
+      "La Oliva"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.210192,
+    "center_lon": -15.803334,
+    "sample_addresses": [
+      "Calle Aljibe, El 11",
+      "Avenida Adeje 300 19  3 00 A",
+      "Avenida Adeje 300  16   9 913"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.210192&lon=-15.803334&zoom=15"
+  },
+  {
+    "management_firm": "Casa La Caleta",
+    "vv_count": 5,
+    "total_beds": 20,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Tenerife",
+      "La Palma",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Los Llanos De Aridane",
+      "Teguise"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.779932,
+    "center_lon": -14.630955,
+    "sample_addresses": [
+      "Calle El Medregal 3",
+      "Calle Manuela De Soto Mayor 3",
+      "Calle Majuga 5"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.779932&lon=-14.630955&zoom=15"
+  },
+  {
+    "management_firm": "Casa Cactus",
+    "vv_count": 18,
+    "total_beds": 72,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Adeje",
+      "La Oliva",
+      "Pájara",
+      "Tias",
+      "Teguise",
+      "San Bartolome"
+    ],
+    "complexes": [],
+    "concentration_score": 25,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.753014,
+    "center_lon": -13.979373,
+    "sample_addresses": [
+      "Calle La Tosca  3  A 1 03",
+      "Manzana Ru-12, C/ Sau-5, Urb. Tamaragua 51",
+      "Sabina 89, Casa 57"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.753014&lon=-13.979373&zoom=15"
+  },
+  {
+    "management_firm": "Avenida",
+    "vv_count": 5,
+    "total_beds": 15,
+    "avg_beds_per_vv": 3,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Puerto De La Cruz",
+      "La Oliva",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.874893,
+    "center_lon": -13.70283,
+    "sample_addresses": [
+      "Avenida Familia Betancourt Y Molina 25   905",
+      "Avda. Nuestra Señora Del Carmen N 26, 2b 35660    , Corralejo, La Oliva, Fuerteventura",
+      "Avenida De Las Playas 45   1 36"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.874893&lon=-13.702830&zoom=15"
+  },
+  {
+    "management_firm": "Casa Papagayo",
+    "vv_count": 5,
+    "total_beds": 20,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Tenerife",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Santa Cruz Tenerife",
+      "Yaiza",
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.578976,
+    "center_lon": -14.747996,
+    "sample_addresses": [
+      "Calle Prosperidad  41   Bajo",
+      "Parcela M, P.P. San Marcial Del Rubicon, 7 35580    , Playa Blanca, Yaiza, Lanzarote",
+      "Parcela 8, Las Coloradas S/N"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.578976&lon=-14.747996&zoom=15"
+  },
+  {
+    "management_firm": "Casa El Charco",
+    "vv_count": 5,
+    "total_beds": 23,
+    "avg_beds_per_vv": 4.6,
+    "islands": [
+      "La Gomera",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Agulo",
+      "Haria",
+      "Arrecife"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 29.09207,
+    "center_lon": -13.498331,
+    "sample_addresses": [
+      "Ctra Circunvalacion El Charco S/N Planta Baja  38830    , Agulo, Agulo, La Gomera",
+      "Charco De La Pared 22 Piso Bajo, Puerta Izq.",
+      "Fuerteventura 6  N/A"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=29.092070&lon=-13.498331&zoom=15"
+  },
+  {
+    "management_firm": "Casa Kiwi",
+    "vv_count": 5,
+    "total_beds": 23,
+    "avg_beds_per_vv": 4.6,
+    "islands": [
+      "Gran Canaria",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "San Bartolome De Tirajana",
+      "La Oliva",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.344861,
+    "center_lon": -14.605416,
+    "sample_addresses": [
+      "Calle Las Dalias 2",
+      "Calle Las Magnolias 88    88s",
+      "Calle Guirre 9  12 Bajo Derecha"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.344860&lon=-14.605417&zoom=15"
+  },
+  {
+    "management_firm": "La Cancela",
+    "vv_count": 5,
+    "total_beds": 43,
+    "avg_beds_per_vv": 8.6,
+    "islands": [
+      "Gran Canaria",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria",
+      "La Oliva",
+      "Yaiza"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.760468,
+    "center_lon": -13.897314,
+    "sample_addresses": [
+      "La Cancela  15",
+      "C/ Las Cercas, 9 35650    , Lajares, La Oliva, Fuerteventura",
+      "C/Central 2"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.760468&lon=-13.897314&zoom=15"
+  },
+  {
+    "management_firm": "Palmera",
+    "vv_count": 5,
+    "total_beds": 26,
+    "avg_beds_per_vv": 5.2,
+    "islands": [
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Puerto Del Rosario",
+      "Tinajo",
+      "Yaiza"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.82279,
+    "center_lon": -13.790654,
+    "sample_addresses": [
+      "Palmera Canaria 19, 1º Izda.",
+      "Capellania 9 Piso A",
+      "Calle La Nueva  11"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.822790&lon=-13.790654&zoom=15"
+  },
+  {
+    "management_firm": "Casa Coco",
+    "vv_count": 5,
+    "total_beds": 17,
+    "avg_beds_per_vv": 3.4,
+    "islands": [
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Pájara",
+      "La Oliva",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.666491,
+    "center_lon": -13.845558,
+    "sample_addresses": [
+      "C/ Punta De Barlovento, N 2, Apto. 302 35627    , Costa Calma, Pajara, Fuerteventura",
+      "C/ Guirre N 1, 51 Tipo A Planta Baja 35660    , Corralejo, La Oliva, Fuerteventura",
+      "Avenida Gran Canarias 4    147"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.666491&lon=-13.845558&zoom=15"
+  },
+  {
+    "management_firm": "Casa Pitaya",
+    "vv_count": 5,
+    "total_beds": 23,
+    "avg_beds_per_vv": 4.6,
+    "islands": [
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "La Oliva",
+      "Teguise",
+      "Arrecife"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 28.833614,
+    "center_lon": -13.719395,
+    "sample_addresses": [
+      "C/ Cardon N72 35660    , Corralejo, La Oliva, Fuerteventura",
+      "C/Mazo Nº7 Planta Baja Vivenda 6 7",
+      "San Antonio, Poligono 19, Parcela 35, Fragoso Del Lijar 17"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.833614&lon=-13.719395&zoom=15"
+  },
+  {
+    "management_firm": "Casa Varadero",
+    "vv_count": 5,
+    "total_beds": 20,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Teguise",
+      "Haria",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 70,
+    "complex_score": 0,
+    "prospect_score": 32,
+    "center_lat": 29.107476,
+    "center_lon": -13.520397,
+    "sample_addresses": [
+      "Avda Virgen Del Mar 123",
+      "Calle La Seba, 12 35520    , Punta Mujeres, Haria, Lanzarote",
+      "Calle La Garita 56"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=29.107476&lon=-13.520397&zoom=15"
+  },
+  {
+    "management_firm": "Los Geranios",
+    "vv_count": 11,
+    "total_beds": 37,
+    "avg_beds_per_vv": 3.4,
+    "islands": [
+      "Tenerife",
+      "La Palma"
+    ],
+    "municipalities": [
+      "Arona",
+      "Tacoronte",
+      "Candelaria",
+      "Adeje",
+      "Tijarafe"
+    ],
+    "complexes": [],
+    "concentration_score": 40,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.210508,
+    "center_lon": -16.564051,
+    "sample_addresses": [
+      "C/ De La Te Nº 6, Urb. Los Geranios,  Vivienda 65",
+      "C/ Campo De Golf, 30",
+      "Avda Los Geranios N 1  Piso 5 Pt 12"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.210508&lon=-16.564051&zoom=15"
+  },
+  {
+    "management_firm": "Balcon Del Mar",
+    "vv_count": 16,
+    "total_beds": 46,
+    "avg_beds_per_vv": 2.9,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Arona",
+      "Tacoronte",
+      "Guia Isora",
+      "Icod De Los Vinos",
+      "La Oliva",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 25,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.147079,
+    "center_lon": -16.428576,
+    "sample_addresses": [
+      "C/ Odisea, 3 , Edf.Balcon Del Mar, Planta 4ª, Vda. 93",
+      "C/ Odisea Nº 3, Piso 1º, Vivienda B-80",
+      "Edificio Mar Y Sol (Urb. Mesa Del Mar) Nº732"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.147079&lon=-16.428576&zoom=15"
+  },
+  {
+    "management_firm": "Casa Lola",
+    "vv_count": 30,
+    "total_beds": 136,
+    "avg_beds_per_vv": 4.5,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "La Palma",
+      "La Gomera",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Tacoronte",
+      "Agaete",
+      "Telde",
+      "San Bartolome De Tirajana",
+      "Galdar",
+      "Vega San Mateo",
+      "Los Realejos",
+      "Puerto De La Cruz",
+      "Guia Isora",
+      "Tazacorte",
+      "Valle Gran Rey",
+      "Antigua",
+      "La Oliva",
+      "Yaiza",
+      "Tinajo",
+      "Teguise",
+      "Tias",
+      "Arrecife",
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.500758,
+    "center_lon": -14.863163,
+    "sample_addresses": [
+      "Pasaje Tindaya, Nº 5 5",
+      "Calle Juan Perez, Nº 53, Puerta C",
+      "C/ Lola Massieu, Nº 1, 1º, Pta. 2 35480    , Agaete, Agaete, Gran Canaria"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.500758&lon=-14.863163&zoom=15"
+  },
+  {
+    "management_firm": "Yaiza",
+    "vv_count": 7,
+    "total_beds": 31,
+    "avg_beds_per_vv": 4.4,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Arona",
+      "Puerto De La Cruz",
+      "San Bartolome De Tirajana",
+      "Yaiza"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.541113,
+    "center_lon": -15.239563,
+    "sample_addresses": [
+      "Calle Los Falcones Nº 3bloque B Piso Z Puerta 6 3",
+      "Calle Mazaroco  26",
+      "Calle Touroperador Tjaerebrg 55    309"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.541113&lon=-15.239563&zoom=15"
+  },
+  {
+    "management_firm": "Lavanda",
+    "vv_count": 11,
+    "total_beds": 41,
+    "avg_beds_per_vv": 3.7,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Arona",
+      "Granadilla De Abona",
+      "Mogan",
+      "La Oliva",
+      "Puerto Del Rosario"
+    ],
+    "complexes": [],
+    "concentration_score": 40,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.140567,
+    "center_lon": -16.04339,
+    "sample_addresses": [
+      "Paseo Areca  N º 1 Piso 2 Puerta 2-3",
+      "Calle Montevideo Nº 4, Pta.5, Urbanizacion Villas Playa",
+      "Calle Montevideo Nº4, Pta. 6 (Urb. Villas Playa)"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.140567&lon=-16.043390&zoom=15"
+  },
+  {
+    "management_firm": "Las Arenas",
+    "vv_count": 11,
+    "total_beds": 43,
+    "avg_beds_per_vv": 3.9,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Arico",
+      "Granadilla De Abona",
+      "San Bartolome De Tirajana",
+      "Antigua",
+      "Pájara"
+    ],
+    "complexes": [],
+    "concentration_score": 40,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.231615,
+    "center_lon": -14.527785,
+    "sample_addresses": [
+      "C/ Lorenzo Rodriguez, 31, Bajo (Las Arenas)",
+      "Calle Jose Reyes Martin  13  C 1 105",
+      "Avenida De Italia, 23, 1, Puerta 114 35100    , San Bartolome De Tirajana, San Bartolome De Tirajana, Gran Canaria"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.231615&lon=-14.527785&zoom=15"
+  },
+  {
+    "management_firm": "El Dorado",
+    "vv_count": 16,
+    "total_beds": 49,
+    "avg_beds_per_vv": 3.1,
+    "islands": [
+      "Tenerife",
+      "La Gomera",
+      "Gran Canaria",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Arona",
+      "Granadilla De Abona",
+      "Valle Gran Rey",
+      "Mogan",
+      "San Bartolome De Tirajana",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 25,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.139809,
+    "center_lon": -16.448628,
+    "sample_addresses": [
+      "Avda Santiago Puig N 4 Piso 8 Pt 17",
+      "C/Noelia Afonso Cabrera Nº 4 Piso 3 Pta. 331",
+      "Avenida Santiago Puig, 4, Bloque 1, Piso 2, Pta 9"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.139809&lon=-16.448628&zoom=15"
+  },
+  {
+    "management_firm": "Paradise Home",
+    "vv_count": 7,
+    "total_beds": 29,
+    "avg_beds_per_vv": 4.1,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Arona",
+      "Adeje",
+      "Antigua",
+      "La Oliva"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.407898,
+    "center_lon": -15.022241,
+    "sample_addresses": [
+      "Avenida De La Arenita 11    H6",
+      "Avenida V Centenario 1 B  5 515",
+      "Avenida Adeje 300 - Adeje Paradise 30    89s"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.407898&lon=-15.022241&zoom=15"
+  },
+  {
+    "management_firm": "Casa Alice",
+    "vv_count": 7,
+    "total_beds": 27,
+    "avg_beds_per_vv": 3.9,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Arona",
+      "Mogan",
+      "La Oliva",
+      "Yaiza"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.488519,
+    "center_lon": -14.646624,
+    "sample_addresses": [
+      "Avd Jose Antonio Tavio 17  1",
+      "Avenida De Los Guaires  98",
+      "Bellavista 17 Esc1 Puerta 1"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.488519&lon=-14.646624&zoom=15"
+  },
+  {
+    "management_firm": "Vista Al Mar",
+    "vv_count": 30,
+    "total_beds": 109,
+    "avg_beds_per_vv": 3.6,
+    "islands": [
+      "Gran Canaria",
+      "Tenerife",
+      "La Palma",
+      "La Gomera",
+      "El Hierro",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria",
+      "Adeje",
+      "Icod De Los Vinos",
+      "Santa Cruz Tenerife",
+      "Puerto De La Cruz",
+      "Guia Isora",
+      "Granadilla De Abona",
+      "Arico",
+      "Puntagorda",
+      "Tazacorte",
+      "Valle Gran Rey",
+      "Frontera",
+      "La Oliva",
+      "Antigua",
+      "Puerto Del Rosario",
+      "Tias",
+      "Yaiza",
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.369022,
+    "center_lon": -16.089725,
+    "sample_addresses": [
+      "Alfredo L. Jones 042 1º, Puerta 12",
+      "Luis Morote 57   6 62",
+      "C/ El Jable 45"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.369022&lon=-16.089725&zoom=15"
+  },
+  {
+    "management_firm": "Casa Bea",
+    "vv_count": 7,
+    "total_beds": 32,
+    "avg_beds_per_vv": 4.6,
+    "islands": [
+      "Gran Canaria",
+      "Tenerife",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "San Bartolome De Tirajana",
+      "Arona",
+      "La Oliva",
+      "Pájara"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.292871,
+    "center_lon": -15.020198,
+    "sample_addresses": [
+      "Avenida Tenerife 11, Portal 3, 2, Puerta 281 35100    , Playa Del Ingles, San Bartolome De Tirajana, Gran Canaria",
+      "Calle Izcagua 3 10  03 J",
+      "C/ Chotis, 6 35640    , Corralejo, La Oliva, Fuerteventura"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.292871&lon=-15.020198&zoom=15"
+  },
+  {
+    "management_firm": "Altamar",
+    "vv_count": 7,
+    "total_beds": 28,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Tenerife",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Arona",
+      "Guia Isora",
+      "Adeje",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.279857,
+    "center_lon": -15.962374,
+    "sample_addresses": [
+      "Avenida Arquitecto Gomez Cuesta 10 1",
+      "Avenida Gomez Cuesta 10   4 12",
+      "Arquitecto Gómez Cuesta 10  1 05 09"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.279857&lon=-15.962374&zoom=15"
+  },
+  {
+    "management_firm": "Casa Aguamarina",
+    "vv_count": 7,
+    "total_beds": 26,
+    "avg_beds_per_vv": 3.7,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Granadilla De Abona",
+      "Aguimes",
+      "La Oliva",
+      "San Bartolome"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.463796,
+    "center_lon": -14.691272,
+    "sample_addresses": [
+      "Calle La Graciosa. Edificio Marineda 2 A",
+      "Calle Joaquin Artiles 19   1",
+      "C/ Muelle De Los Pescadores, N 8, 1 Izquierda 35650    , Cotillo (El), La Oliva, Fuerteventura"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.463796&lon=-14.691272&zoom=15"
+  },
+  {
+    "management_firm": "Casa Sandra",
+    "vv_count": 7,
+    "total_beds": 33,
+    "avg_beds_per_vv": 4.7,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Candelaria",
+      "La Oliva",
+      "Yaiza",
+      "Arona"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.600554,
+    "center_lon": -14.723645,
+    "sample_addresses": [
+      "Cm Pringado El  7",
+      "C/ Juan De Austria 32, Planta 2, N 8, 35660    , Corralejo, La Oliva, Fuerteventura",
+      "Oasis Dunas  206 A"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.600554&lon=-14.723645&zoom=15"
+  },
+  {
+    "management_firm": "Casa Tranquila",
+    "vv_count": 7,
+    "total_beds": 26,
+    "avg_beds_per_vv": 3.7,
+    "islands": [
+      "Tenerife",
+      "La Palma",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Puerto De La Cruz",
+      "Los Llanos De Aridane",
+      "Yaiza",
+      "San Bartolome"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.749046,
+    "center_lon": -15.16103,
+    "sample_addresses": [
+      "Calle Tigalate 4",
+      "Avenida Enrique Mederos, 29, Escalera B, Planta 1, Puerta C 38760    , Llanos De Aridane (Los), Los Llanos De Aridane, La Palma",
+      "Calle Irlanda (Parcela 179 P.P Montaña Roja), 11,  168 35580    , Playa Blanca, Yaiza, Lanzarote"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.749046&lon=-15.161030&zoom=15"
+  },
+  {
+    "management_firm": "Casa Paloma",
+    "vv_count": 7,
+    "total_beds": 35,
+    "avg_beds_per_vv": 5,
+    "islands": [
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Pájara",
+      "La Oliva",
+      "Yaiza",
+      "Teguise"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 31,
+    "center_lat": 28.826402,
+    "center_lon": -13.773954,
+    "sample_addresses": [
+      "Playa De La Jaqueta",
+      "C/ La Iglesia, 3 35650    , Roque (El), La Oliva, Fuerteventura",
+      "P.P Las Coloradas Parcela  17    27"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.826402&lon=-13.773954&zoom=15"
+  },
+  {
+    "management_firm": "La Pardela",
+    "vv_count": 10,
+    "total_beds": 45,
+    "avg_beds_per_vv": 4.5,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Granadilla De Abona",
+      "Arico",
+      "Arucas",
+      "Tuineje",
+      "Teguise"
+    ],
+    "complexes": [],
+    "concentration_score": 40,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.728309,
+    "center_lon": -14.741484,
+    "sample_addresses": [
+      "Paseo Las Pardelas, Nº 1, Bloque 1, Esc. 1. Piso 1º, Puerta 1",
+      "C/ San Jose, S/N, Esquina Hoya De La Cruz",
+      "Avda. Juan Carlos I 5, Esc. B,Piso 1, Pta. 101"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.728309&lon=-14.741484&zoom=15"
+  },
+  {
+    "management_firm": "La Casa Verde",
+    "vv_count": 10,
+    "total_beds": 40,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "La Palma",
+      "El Hierro"
+    ],
+    "municipalities": [
+      "Puerto De La Cruz",
+      "San Cristobal De La Laguna",
+      "Las Palmas De Gran Canaria",
+      "Los Llanos De Aridane",
+      "El Pinar De El Hierro"
+    ],
+    "complexes": [],
+    "concentration_score": 40,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.336275,
+    "center_lon": -16.696998,
+    "sample_addresses": [
+      "Ctra. General  Las Arenas, Nº 94, 1º, Puerta 5",
+      "Ctra. Gral. Las Arenas, Nº  94, Puerta 3",
+      "Ctra. Gral. Las Arenas, Nº 94, Puerta 8"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.336275&lon=-16.696998&zoom=15"
+  },
+  {
+    "management_firm": "Paraiso",
+    "vv_count": 28,
+    "total_beds": 116,
+    "avg_beds_per_vv": 4.1,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura",
+      "La Gomera",
+      "Gran Canaria",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "San Miguel De Abona",
+      "Santa Cruz Tenerife",
+      "Adeje",
+      "Santa Ursula",
+      "Guimar",
+      "Arico",
+      "Arona",
+      "La Oliva",
+      "Candelaria",
+      "San Sebastian De La Gomera",
+      "San Bartolome De Tirajana",
+      "Pájara",
+      "Tias",
+      "Arrecife",
+      "Yaiza"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.344482,
+    "center_lon": -15.600094,
+    "sample_addresses": [
+      "Calle Antonio Machado Nº19,Piso 1º,Puerta I",
+      "C/ Tirso De Molina Nº 6 - Piso 4º Puerta 4",
+      "Avda. Adeje 300 Nº30, Piso 25, Pta.B"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.344482&lon=-15.600094&zoom=15"
+  },
+  {
+    "management_firm": "San Andres",
+    "vv_count": 6,
+    "total_beds": 22,
+    "avg_beds_per_vv": 3.7,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria"
+    ],
+    "municipalities": [
+      "Santa Cruz Tenerife",
+      "Los Realejos",
+      "Arucas",
+      "San Miguel De Abona"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.297949,
+    "center_lon": -15.975919,
+    "sample_addresses": [
+      "C/ Florida Primera, Piso 24, Pta. A",
+      "Calle Playa Del Socorro, Nº 1-2",
+      "Luisa Ramos Medina 018"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.297949&lon=-15.975919&zoom=15"
+  },
+  {
+    "management_firm": "Casa La Asomada",
+    "vv_count": 6,
+    "total_beds": 31,
+    "avg_beds_per_vv": 5.2,
+    "islands": [
+      "Tenerife",
+      "El Hierro",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Buenavista Del Norte",
+      "El Pinar De El Hierro",
+      "Puerto Del Rosario",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.5077,
+    "center_lon": -15.213448,
+    "sample_addresses": [
+      "C/. La Asomada Del Guirre, 8",
+      "C/La Pasada 8",
+      "Urb. Rosa De La Monja S/N"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.507700&lon=-15.213448&zoom=15"
+  },
+  {
+    "management_firm": "Casa Jorge",
+    "vv_count": 6,
+    "total_beds": 25,
+    "avg_beds_per_vv": 4.2,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Puerto De La Cruz",
+      "Santa Cruz Tenerife",
+      "San Bartolome De Tirajana",
+      "Antigua"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.15773,
+    "center_lon": -15.563169,
+    "sample_addresses": [
+      "C/ Rosa Nº18 Urb. San Jose",
+      "Calle General Serrano  21",
+      "Rambla Los Cachazos  1 4 1 2 421"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.157730&lon=-15.563169&zoom=15"
+  },
+  {
+    "management_firm": "Lobos",
+    "vv_count": 6,
+    "total_beds": 25,
+    "avg_beds_per_vv": 4.2,
+    "islands": [
+      "Gran Canaria",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria",
+      "La Oliva",
+      "Antigua",
+      "Tuineje"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.494497,
+    "center_lon": -14.25346,
+    "sample_addresses": [
+      "Manuel González Martín 12,3ºb",
+      "C/ Tarraya, 2 35660    , Corralejo, La Oliva, Fuerteventura",
+      "Avd Central, 4, Piso 28 35610    , Costa De Antigua, Antigua, Fuerteventura"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.494497&lon=-14.253460&zoom=15"
+  },
+  {
+    "management_firm": "Vista Hermosa",
+    "vv_count": 6,
+    "total_beds": 34,
+    "avg_beds_per_vv": 5.7,
+    "islands": [
+      "Gran Canaria",
+      "Tenerife",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria",
+      "Adeje",
+      "Arona",
+      "Yaiza"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.245279,
+    "center_lon": -15.883802,
+    "sample_addresses": [
+      "Antonio Maria Manrique 002 Conj. Resid. La Cornisa, 11º B",
+      "C/Piedra Rendoda  18",
+      "Calle Lugano 6    16"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.245279&lon=-15.883802&zoom=15"
+  },
+  {
+    "management_firm": "Paula",
+    "vv_count": 6,
+    "total_beds": 40,
+    "avg_beds_per_vv": 6.7,
+    "islands": [
+      "Gran Canaria",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria",
+      "Aguimes",
+      "Pájara",
+      "Yaiza"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.406763,
+    "center_lon": -14.614317,
+    "sample_addresses": [
+      "A Los Hoyos 142 B",
+      "Calle Duque De Osuna 36",
+      "C/ Valle De Los Mosquitos, 7, Pta. 33 35627    , Costa Calma, Pájara, Fuerteventura"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.406763&lon=-14.614317&zoom=15"
+  },
+  {
+    "management_firm": "Los Cactus",
+    "vv_count": 6,
+    "total_beds": 24,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Gran Canaria",
+      "El Hierro",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Las Palmas De Gran Canaria",
+      "Valverde",
+      "San Bartolome",
+      "Haria"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.263876,
+    "center_lon": -15.593156,
+    "sample_addresses": [
+      "Barcelona 023 3º A",
+      "C/ Barcelona, N 23, 2, Pta. A 35006 2 A  , Las Palmas De Gran Canaria, Las Palmas De Gran Canaria, Gran Canaria",
+      "Gualisancho"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.263876&lon=-15.593156&zoom=15"
+  },
+  {
+    "management_firm": "Casa Feliz",
+    "vv_count": 28,
+    "total_beds": 130,
+    "avg_beds_per_vv": 4.6,
+    "islands": [
+      "Gran Canaria",
+      "Tenerife",
+      "La Palma",
+      "La Gomera",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Mogan",
+      "San Bartolome De Tirajana",
+      "Arona",
+      "Breña Alta",
+      "Alajero",
+      "La Oliva",
+      "Puerto Del Rosario",
+      "Tuineje",
+      "Antigua",
+      "Pájara",
+      "Yaiza",
+      "Tias",
+      "Candelaria"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.563463,
+    "center_lon": -14.569514,
+    "sample_addresses": [
+      "C/ Gran Canaria, N 4, Pta. 11 35139    , Puerto Rico, Mogan, Gran Canaria",
+      "Calle Mar Caspio 2",
+      "Calle Astron 53"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.563463&lon=-14.569514&zoom=15"
+  },
+  {
+    "management_firm": "Casa Verde",
+    "vv_count": 27,
+    "total_beds": 110,
+    "avg_beds_per_vv": 4.1,
+    "islands": [
+      "Gran Canaria",
+      "Tenerife",
+      "La Palma",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Mogan",
+      "Las Palmas De Gran Canaria",
+      "San Bartolome De Tirajana",
+      "Ingenio",
+      "San Miguel De Abona",
+      "El Paso",
+      "Santa Cruz De La Palma",
+      "Santa Maria De Guia De Gran Canaria",
+      "Pájara",
+      "La Oliva",
+      "Yaiza",
+      "Teguise"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.398555,
+    "center_lon": -15.062045,
+    "sample_addresses": [
+      "Calle Acoran 21, Puerta 3 35120    , Arguineguin, Mogan, Gran Canaria",
+      "Bernardo De La Torre 104 0 0",
+      "Avenida De Alemania  33"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.398555&lon=-15.062045&zoom=15"
+  },
+  {
+    "management_firm": "La Finca",
+    "vv_count": 6,
+    "total_beds": 35,
+    "avg_beds_per_vv": 5.8,
+    "islands": [
+      "Tenerife",
+      "Gran Canaria",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Arona",
+      "Tacoronte",
+      "Telde",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.499897,
+    "center_lon": -14.865558,
+    "sample_addresses": [
+      "Calle Tinguafaya 6  00",
+      "Vereda Del Medio 32",
+      "San Pedro 2"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.499897&lon=-14.865558&zoom=15"
+  },
+  {
+    "management_firm": "Marisol",
+    "vv_count": 6,
+    "total_beds": 25,
+    "avg_beds_per_vv": 4.2,
+    "islands": [
+      "Tenerife",
+      "La Palma",
+      "Gran Canaria",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Santa Cruz De La Palma",
+      "Mogan",
+      "Yaiza"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.073434,
+    "center_lon": -16.46253,
+    "sample_addresses": [
+      "Cl Noruega 2   00 C10",
+      "Calle Irlanda 4  A 02 02",
+      "Carretera De Las Nieves, 101, Bajo, Puerta 1 38700    , Santa Cruz De La Palma, Santa Cruz De La Palma, La Palma"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.073434&lon=-16.462530&zoom=15"
+  },
+  {
+    "management_firm": "Casa Zoe",
+    "vv_count": 6,
+    "total_beds": 32,
+    "avg_beds_per_vv": 5.3,
+    "islands": [
+      "Tenerife",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Arona",
+      "La Victoria De Acentejo",
+      "Yaiza",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.620207,
+    "center_lon": -14.715107,
+    "sample_addresses": [
+      "Cl Martin Gonzalez  2",
+      "Calle Santo Domingo 87",
+      "Cm Manuel Risco Tetere 18"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.620207&lon=-14.715107&zoom=15"
+  },
+  {
+    "management_firm": "Dream House",
+    "vv_count": 6,
+    "total_beds": 29,
+    "avg_beds_per_vv": 4.8,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Arona",
+      "Tacoronte",
+      "Antigua",
+      "Tias"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.284971,
+    "center_lon": -15.503718,
+    "sample_addresses": [
+      "Avenida Juan Carlos I 16  1",
+      "Calle Waque 45",
+      "Carretera General Tf-28 197"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.284971&lon=-15.503718&zoom=15"
+  },
+  {
+    "management_firm": "Montaña Roja",
+    "vv_count": 6,
+    "total_beds": 24,
+    "avg_beds_per_vv": 4,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Granadilla De Abona",
+      "Pájara",
+      "Yaiza",
+      "La Oliva"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.279506,
+    "center_lon": -15.291289,
+    "sample_addresses": [
+      "Avenida Magallanes  21  A",
+      "Complejo Río Playa, Pol. D6, Cañada Del Rio, Viv. 8206 35627    , Costa Calma, Pájara, Fuerteventura",
+      "Parcela 168, Montaña Roja 1 Pta. 106"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.279506&lon=-15.291289&zoom=15"
+  },
+  {
+    "management_firm": "Los Olivos",
+    "vv_count": 6,
+    "total_beds": 41,
+    "avg_beds_per_vv": 6.8,
+    "islands": [
+      "Tenerife",
+      "El Hierro",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Frontera",
+      "Tuineje",
+      "Santa Ursula"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.192823,
+    "center_lon": -16.675916,
+    "sample_addresses": [
+      "Cl San Jose 2  2",
+      "Av Constitucion 59   1 6a",
+      "Av Constitucion  59   2 6b"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.192823&lon=-16.675916&zoom=15"
+  },
+  {
+    "management_firm": "Casa Calma",
+    "vv_count": 27,
+    "total_beds": 117,
+    "avg_beds_per_vv": 4.3,
+    "islands": [
+      "Tenerife",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Adeje",
+      "Puerto De La Cruz",
+      "Tacoronte",
+      "Arona",
+      "La Oliva",
+      "Antigua",
+      "Pájara",
+      "Tias",
+      "Teguise",
+      "Yaiza",
+      "San Bartolome"
+    ],
+    "complexes": [],
+    "concentration_score": 0,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.515629,
+    "center_lon": -14.660886,
+    "sample_addresses": [
+      "Calle Italia  06 A",
+      "Calle Galicia 74",
+      "Cl Belgica  54    15"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.515629&lon=-14.660886&zoom=15"
+  },
+  {
+    "management_firm": "Maresía",
+    "vv_count": 6,
+    "total_beds": 30,
+    "avg_beds_per_vv": 5,
+    "islands": [
+      "Tenerife",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Puerto De La Cruz",
+      "San Cristobal De La Laguna",
+      "Granadilla De Abona",
+      "Haria"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.704481,
+    "center_lon": -15.450781,
+    "sample_addresses": [
+      "Cl Mequinez  48",
+      "Urbanización El Riego 3    19",
+      "Camino El Puertito 44   1 1"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.704481&lon=-15.450781&zoom=15"
+  },
+  {
+    "management_firm": "Casa Frida",
+    "vv_count": 6,
+    "total_beds": 27,
+    "avg_beds_per_vv": 4.5,
+    "islands": [
+      "La Palma",
+      "Gran Canaria",
+      "Fuerteventura"
+    ],
+    "municipalities": [
+      "Los Llanos De Aridane",
+      "San Bartolome De Tirajana",
+      "La Oliva",
+      "Antigua"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.608091,
+    "center_lon": -14.907094,
+    "sample_addresses": [
+      "La Majada 28",
+      "Calle Touroperador Fritidsresor 0",
+      "Avenida Fuerteventura 33    250"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.608091&lon=-14.907094&zoom=15"
+  },
+  {
+    "management_firm": "El Charco",
+    "vv_count": 6,
+    "total_beds": 21,
+    "avg_beds_per_vv": 3.5,
+    "islands": [
+      "La Gomera",
+      "El Hierro",
+      "Fuerteventura",
+      "Lanzarote"
+    ],
+    "municipalities": [
+      "Agulo",
+      "Valverde",
+      "Puerto Del Rosario",
+      "Arrecife"
+    ],
+    "complexes": [],
+    "concentration_score": 55,
+    "complex_score": 0,
+    "prospect_score": 30,
+    "center_lat": 28.330151,
+    "center_lon": -15.934971,
+    "sample_addresses": [
+      "El Charco-Elcalvario Es:4. Pl:01 2 Puerta 1",
+      "El Charco 38830    , Agulo, Agulo, La Gomera",
+      "El Charco 8"
+    ],
+    "map_url": "http://localhost:3000/installer/prospecting?lat=28.330151&lon=-15.934971&zoom=15"
+  }
+]

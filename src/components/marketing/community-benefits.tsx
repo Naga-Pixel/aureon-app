@@ -127,7 +127,7 @@ export function CommunityBenefits() {
                 {/* CTA */}
                 <div className="mt-auto">
                   <Link
-                    href="/solicitar"
+                    href="/contacto"
                     className={`inline-flex items-center gap-2 px-6 py-3 rounded-[12px] font-mono text-sm uppercase transition-all duration-300 ${
                       benefit.variant === "dark"
                         ? "bg-[#a7e26e] text-[#222f30] hover:bg-white"

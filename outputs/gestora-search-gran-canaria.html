@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Gestora Contact Research - Gran Canaria</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0; padding: 20px; background: #f5f5f5;
+    }
+    h1 { margin: 0 0 5px; }
+    .subtitle { color: #666; margin-bottom: 20px; }
+    .stats-bar {
+      display: flex; gap: 20px; margin-bottom: 15px; padding: 10px 15px;
+      background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .stat { font-size: 14px; }
+    .stat strong { color: #059669; }
+    .actions { margin-bottom: 15px; display: flex; gap: 10px; }
+    .actions button {
+      padding: 8px 16px; background: #059669; color: white;
+      border: none; border-radius: 6px; font-size: 13px; cursor: pointer;
+    }
+    .actions button:hover { background: #047857; }
+    .actions button.secondary { background: #6b7280; }
+    .actions button.secondary:hover { background: #4b5563; }
+    table {
+      width: 100%; border-collapse: collapse; background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden;
+    }
+    th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 13px; }
+    th { background: #f8f8f8; font-weight: 600; position: sticky; top: 0; z-index: 10; }
+    tr:hover { background: #f9fafb; }
+    tr.found { background: #d1fae5; }
+    tr.contacted { background: #dbeafe; }
+    tr.no-info { background: #f3f4f6; opacity: 0.7; }
+    .rank { width: 35px; color: #999; text-align: center; }
+    .score { width: 45px; font-weight: 600; text-align: center; border-radius: 4px; }
+    .score.high { background: #d1fae5; color: #065f46; }
+    .score.med { background: #fef3c7; color: #92400e; }
+    .score.low { background: #f3f4f6; color: #6b7280; }
+    .name { font-weight: 500; min-width: 180px; }
+    .num { width: 50px; text-align: center; }
+    .muni { font-size: 11px; color: #666; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .links { width: 100px; white-space: nowrap; }
+    .links a {
+      display: inline-block; padding: 3px 6px; margin-right: 2px;
+      background: #3b82f6; color: white; text-decoration: none;
+      border-radius: 3px; font-size: 10px; font-weight: 600;
+    }
+    .links a:hover { background: #2563eb; }
+    .links a[title="LinkedIn"] { background: #0077b5; }
+    .links a[title="Infocif"] { background: #f59e0b; }
+    .links a[title="eInforma"] { background: #8b5cf6; }
+    .input { width: 140px; }
+    .input input {
+      width: 100%; padding: 4px 8px; border: 1px solid #e5e7eb;
+      border-radius: 4px; font-size: 12px;
+    }
+    .input input:focus { border-color: #3b82f6; outline: none; }
+    .input input.filled { background: #f0fdf4; border-color: #86efac; }
+    .status select {
+      padding: 4px; border: 1px solid #e5e7eb; border-radius: 4px; font-size: 12px;
+    }
+    .filter-bar { margin-bottom: 10px; }
+    .filter-bar select { padding: 6px 10px; border-radius: 4px; border: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+  <h1>Gestora Contact Research - Gran Canaria</h1>
+  <p class="subtitle">50 gestoras with 5+ VVs. Click search links, paste contact info, track progress.</p>
+
+  <div class="stats-bar">
+    <div class="stat">Total: <strong id="stat-total">50</strong></div>
+    <div class="stat">Found: <strong id="stat-found">0</strong></div>
+    <div class="stat">No info: <strong id="stat-noinfo">0</strong></div>
+    <div class="stat">Contacted: <strong id="stat-contacted">0</strong></div>
+    <div class="stat">Remaining: <strong id="stat-remaining">50</strong></div>
+  </div>
+
+  <div class="filter-bar">
+    <label>Show: </label>
+    <select id="filter-status">
+      <option value="all">All</option>
+      <option value="pending">Pending only</option>
+      <option value="found">Found only</option>
+      <option value="contacted">Contacted only</option>
+    </select>
+  </div>
+
+  <div class="actions">
+    <button onclick="exportCSV()">Export CSV</button>
+    <button onclick="exportJSON()" class="secondary">Export JSON</button>
+    <button onclick="clearAll()" class="secondary">Clear All Data</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Score</th>
+        <th>Gestora</th>
+        <th>VVs</th>
+        <th>Beds</th>
+        <th>Municipios</th>
+        <th>Search</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Website</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr data-gestora="Resort Cordial Santa Agueda">
+        <td class="rank">1</td>
+        <td class="score high">98</td>
+        <td class="name">Resort Cordial Santa Agueda</td>
+        <td class="num">87</td>
+        <td class="num">380</td>
+        <td class="muni" title="San Bartolome De Tirajana">San Bartolome De Tirajana</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Resort%20Cordial%20Santa%20Agueda%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Resort%20Cordial%20Santa%20Agueda%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Resort%20Cordial%20Santa%20Agueda%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Resort%20Cordial%20Santa%20Agueda%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Los Molinos">
+        <td class="rank">2</td>
+        <td class="score high">84</td>
+        <td class="name">Los Molinos</td>
+        <td class="num">29</td>
+        <td class="num">62</td>
+        <td class="muni" title="San Bartolome De Tirajana">San Bartolome De Tirajana</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Los%20Molinos%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Los%20Molinos%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Los%20Molinos%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Los%20Molinos%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Cordial Mogan Solaz">
+        <td class="rank">3</td>
+        <td class="score high">72</td>
+        <td class="name">Cordial Mogan Solaz</td>
+        <td class="num">12</td>
+        <td class="num">43</td>
+        <td class="muni" title="Mogan">Mogan</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Cordial%20Mogan%20Solaz%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Cordial%20Mogan%20Solaz%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Cordial%20Mogan%20Solaz%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Cordial%20Mogan%20Solaz%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Notar">
+        <td class="rank">4</td>
+        <td class="score high">72</td>
+        <td class="name">Notar</td>
+        <td class="num">18</td>
+        <td class="num">61</td>
+        <td class="muni" title="Mogan, Las Palmas De Gran Canaria">Mogan, Las Palmas De Gran Canaria</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Notar%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Notar%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Notar%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Notar%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Canteras Way">
+        <td class="rank">5</td>
+        <td class="score high">71</td>
+        <td class="name">Canteras Way</td>
+        <td class="num">11</td>
+        <td class="num">58</td>
+        <td class="muni" title="Las Palmas De Gran Canaria">Las Palmas De Gran Canaria</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Canteras%20Way%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Canteras%20Way%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Canteras%20Way%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Canteras%20Way%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Rocas Rojas">
+        <td class="rank">6</td>
+        <td class="score med">69</td>
+        <td class="name">Rocas Rojas</td>
+        <td class="num">9</td>
+        <td class="num">35</td>
+        <td class="muni" title="San Bartolome De Tirajana">San Bartolome De Tirajana</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Rocas%20Rojas%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Rocas%20Rojas%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Rocas%20Rojas%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Rocas%20Rojas%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Bungalow">
+        <td class="rank">7</td>
+        <td class="score med">69</td>
+        <td class="name">Bungalow</td>
+        <td class="num">9</td>
+        <td class="num">33</td>
+        <td class="muni" title="San Bartolome De Tirajana">San Bartolome De Tirajana</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Bungalow%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Bungalow%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Bungalow%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Bungalow%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Sunsuites Carolina">
+        <td class="rank">8</td>
+        <td class="score med">69</td>
+        <td class="name">Sunsuites Carolina</td>
+        <td class="num">9</td>
+        <td class="num">27</td>
+        <td class="muni" title="San Bartolome De Tirajana">San Bartolome De Tirajana</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Sunsuites%20Carolina%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Sunsuites%20Carolina%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Sunsuites%20Carolina%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Sunsuites%20Carolina%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Charles Moe S.L.U">
+        <td class="rank">9</td>
+        <td class="score med">69</td>
+        <td class="name">Charles Moe S.L.U</td>
+        <td class="num">9</td>
+        <td class="num">24</td>
+        <td class="muni" title="Mogan">Mogan</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Charles%20Moe%20S.L.U%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Charles%20Moe%20S.L.U%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Charles%20Moe%20S.L.U%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Charles%20Moe%20S.L.U%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Finca Tomas Y Puri">
+        <td class="rank">10</td>
+        <td class="score med">69</td>
+        <td class="name">Finca Tomas Y Puri</td>
+        <td class="num">9</td>
+        <td class="num">28</td>
+        <td class="muni" title="San Bartolome De Tirajana">San Bartolome De Tirajana</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Finca%20Tomas%20Y%20Puri%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Finca%20Tomas%20Y%20Puri%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Finca%20Tomas%20Y%20Puri%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Finca%20Tomas%20Y%20Puri%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Finca Navelo Slu">
+        <td class="rank">11</td>
+        <td class="score med">67</td>
+        <td class="name">Finca Navelo Slu</td>
+        <td class="num">8</td>
+        <td class="num">22</td>
+        <td class="muni" title="Aguimes">Aguimes</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Finca%20Navelo%20Slu%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Finca%20Navelo%20Slu%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Finca%20Navelo%20Slu%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Finca%20Navelo%20Slu%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Las Canteras">
+        <td class="rank">12</td>
+        <td class="score med">65</td>
+        <td class="name">Las Canteras</td>
+        <td class="num">7</td>
+        <td class="num">23</td>
+        <td class="muni" title="Las Palmas De Gran Canaria">Las Palmas De Gran Canaria</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Las%20Canteras%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Las%20Canteras%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Las%20Canteras%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Las%20Canteras%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Vv Apartments Ragar S.L.">
+        <td class="rank">13</td>
+        <td class="score med">63</td>
+        <td class="name">Vv Apartments Ragar S.L.</td>
+        <td class="num">6</td>
+        <td class="num">18</td>
+        <td class="muni" title="Las Palmas De Gran Canaria">Las Palmas De Gran Canaria</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Vv%20Apartments%20Ragar%20S.L.%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Vv%20Apartments%20Ragar%20S.L.%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Vv%20Apartments%20Ragar%20S.L.%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Vv%20Apartments%20Ragar%20S.L.%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Canteras">
+        <td class="rank">14</td>
+        <td class="score med">61</td>
+        <td class="name">Canteras</td>
+        <td class="num">5</td>
+        <td class="num">22</td>
+        <td class="muni" title="Las Palmas De Gran Canaria">Las Palmas De Gran Canaria</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Canteras%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Canteras%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Canteras%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Canteras%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Emycanarias Holiday Homes">
+        <td class="rank">15</td>
+        <td class="score med">61</td>
+        <td class="name">Emycanarias Holiday Homes</td>
+        <td class="num">8</td>
+        <td class="num">68</td>
+        <td class="muni" title="Aguimes, Santa Lucia De Tirajana">Aguimes, Santa Lucia De Tirajana</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Emycanarias%20Holiday%20Homes%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Emycanarias%20Holiday%20Homes%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Emycanarias%20Holiday%20Homes%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Emycanarias%20Holiday%20Homes%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Canteras Beach">
+        <td class="rank">16</td>
+        <td class="score med">61</td>
+        <td class="name">Canteras Beach</td>
+        <td class="num">5</td>
+        <td class="num">13</td>
+        <td class="muni" title="Las Palmas De Gran Canaria">Las Palmas De Gran Canaria</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Canteras%20Beach%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Canteras%20Beach%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Canteras%20Beach%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Canteras%20Beach%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Anna">
+        <td class="rank">17</td>
+        <td class="score med">61</td>
+        <td class="name">Anna</td>
+        <td class="num">5</td>
+        <td class="num">20</td>
+        <td class="muni" title="Santa Lucia De Tirajana">Santa Lucia De Tirajana</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Anna%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Anna%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Anna%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Anna%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Tegueste">
+        <td class="rank">18</td>
+        <td class="score med">61</td>
+        <td class="name">Tegueste</td>
+        <td class="num">5</td>
+        <td class="num">15</td>
+        <td class="muni" title="Santa Lucia De Tirajana">Santa Lucia De Tirajana</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Tegueste%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Tegueste%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Tegueste%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Tegueste%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Bahia Meloneras">
+        <td class="rank">19</td>
+        <td class="score med">61</td>
+        <td class="name">Bahia Meloneras</td>
+        <td class="num">5</td>
+        <td class="num">20</td>
+        <td class="muni" title="San Bartolome De Tirajana">San Bartolome De Tirajana</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Bahia%20Meloneras%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Bahia%20Meloneras%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Bahia%20Meloneras%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Bahia%20Meloneras%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Real Monglares">
+        <td class="rank">20</td>
+        <td class="score med">61</td>
+        <td class="name">Real Monglares</td>
+        <td class="num">5</td>
+        <td class="num">15</td>
+        <td class="muni" title="Mogan">Mogan</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Real%20Monglares%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Real%20Monglares%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Real%20Monglares%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Real%20Monglares%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Flamboyan">
+        <td class="rank">21</td>
+        <td class="score med">57</td>
+        <td class="name">Flamboyan</td>
+        <td class="num">6</td>
+        <td class="num">22</td>
+        <td class="muni" title="San Bartolome De Tirajana, Telde">San Bartolome De Tirajana, Telde</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Flamboyan%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Flamboyan%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Flamboyan%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Flamboyan%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Inversiones Boncanar, S.L.">
+        <td class="rank">22</td>
+        <td class="score med">57</td>
+        <td class="name">Inversiones Boncanar, S.L.</td>
+        <td class="num">6</td>
+        <td class="num">19</td>
+        <td class="muni" title="San Bartolome De Tirajana, Las Palmas De Gran Canaria">San Bartolome De Tirajana, Las Palmas De Gran Canaria</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Inversiones%20Boncanar%2C%20S.L.%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Inversiones%20Boncanar%2C%20S.L.%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Inversiones%20Boncanar%2C%20S.L.%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Inversiones%20Boncanar%2C%20S.L.%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Ocean View">
+        <td class="rank">23</td>
+        <td class="score med">57</td>
+        <td class="name">Ocean View</td>
+        <td class="num">6</td>
+        <td class="num">22</td>
+        <td class="muni" title="Arucas, Mogan">Arucas, Mogan</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Ocean%20View%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Ocean%20View%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Ocean%20View%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Ocean%20View%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Las Nasas">
+        <td class="rank">24</td>
+        <td class="score med">55</td>
+        <td class="name">Las Nasas</td>
+        <td class="num">5</td>
+        <td class="num">21</td>
+        <td class="muni" title="Aguimes, San Bartolome De Tirajana">Aguimes, San Bartolome De Tirajana</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Las%20Nasas%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Las%20Nasas%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Las%20Nasas%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Las%20Nasas%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Casa Marina">
+        <td class="rank">25</td>
+        <td class="score med">55</td>
+        <td class="name">Casa Marina</td>
+        <td class="num">5</td>
+        <td class="num">24</td>
+        <td class="muni" title="Mogan, Agaete">Mogan, Agaete</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Casa%20Marina%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Marina%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Marina%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Casa%20Marina%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Apartamento">
+        <td class="rank">26</td>
+        <td class="score med">51</td>
+        <td class="name">Apartamento</td>
+        <td class="num">9</td>
+        <td class="num">31</td>
+        <td class="muni" title="Las Palmas De Gran Canaria, San Bartolome De Tirajana, Valleseco, Mogan">Las Palmas De Gran Canaria, San Bartolome De Tirajana...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Apartamento%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Apartamento%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Apartamento%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Apartamento%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Casa Del Sol">
+        <td class="rank">27</td>
+        <td class="score med">51</td>
+        <td class="name">Casa Del Sol</td>
+        <td class="num">9</td>
+        <td class="num">34</td>
+        <td class="muni" title="Las Palmas De Gran Canaria, Agaete, Mogan, San Bartolome De Tirajana">Las Palmas De Gran Canaria, Agaete...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Casa%20Del%20Sol%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Del%20Sol%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Del%20Sol%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Casa%20Del%20Sol%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Vista Mar">
+        <td class="rank">28</td>
+        <td class="score low">49</td>
+        <td class="name">Vista Mar</td>
+        <td class="num">8</td>
+        <td class="num">38</td>
+        <td class="muni" title="Las Palmas De Gran Canaria, Telde, Mogan, San Bartolome De Tirajana">Las Palmas De Gran Canaria, Telde...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Vista%20Mar%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Vista%20Mar%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Vista%20Mar%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Vista%20Mar%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Aloe">
+        <td class="rank">29</td>
+        <td class="score low">49</td>
+        <td class="name">Aloe</td>
+        <td class="num">5</td>
+        <td class="num">16</td>
+        <td class="muni" title="San Bartolome De Tirajana, Arucas, Las Palmas De Gran Canaria">San Bartolome De Tirajana, Arucas...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Aloe%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Aloe%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Aloe%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Aloe%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Casa Verde">
+        <td class="rank">30</td>
+        <td class="score low">48</td>
+        <td class="name">Casa Verde</td>
+        <td class="num">12</td>
+        <td class="num">44</td>
+        <td class="muni" title="Mogan, Las Palmas De Gran Canaria, San Bartolome De Tirajana, Ingenio, Santa Maria De Guia De Gran Canaria">Mogan, Las Palmas De Gran Canaria...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Casa%20Verde%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Verde%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Verde%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Casa%20Verde%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Casa Carmen">
+        <td class="rank">31</td>
+        <td class="score low">47</td>
+        <td class="name">Casa Carmen</td>
+        <td class="num">7</td>
+        <td class="num">29</td>
+        <td class="muni" title="Mogan, San Bartolome De Tirajana, Santa Lucia De Tirajana, Aguimes">Mogan, San Bartolome De Tirajana...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Casa%20Carmen%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Carmen%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Carmen%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Casa%20Carmen%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Piso">
+        <td class="rank">32</td>
+        <td class="score low">45</td>
+        <td class="name">Piso</td>
+        <td class="num">6</td>
+        <td class="num">22</td>
+        <td class="muni" title="Valleseco, Las Palmas De Gran Canaria, Aguimes, Ingenio">Valleseco, Las Palmas De Gran Canaria...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Piso%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Piso%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Piso%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Piso%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="La Gloria">
+        <td class="rank">33</td>
+        <td class="score low">45</td>
+        <td class="name">La Gloria</td>
+        <td class="num">6</td>
+        <td class="num">52</td>
+        <td class="muni" title="San Bartolome De Tirajana, Mogan, Telde, Galdar">San Bartolome De Tirajana, Mogan...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22La%20Gloria%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22La%20Gloria%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22La%20Gloria%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=La%20Gloria%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Casa Bonita">
+        <td class="rank">34</td>
+        <td class="score low">45</td>
+        <td class="name">Casa Bonita</td>
+        <td class="num">6</td>
+        <td class="num">32</td>
+        <td class="muni" title="Las Palmas De Gran Canaria, Mogan, Telde, San Bartolome De Tirajana">Las Palmas De Gran Canaria, Mogan...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Casa%20Bonita%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Bonita%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Bonita%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Casa%20Bonita%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="La Fuente">
+        <td class="rank">35</td>
+        <td class="score low">45</td>
+        <td class="name">La Fuente</td>
+        <td class="num">6</td>
+        <td class="num">24</td>
+        <td class="muni" title="Mogan, Galdar, Teror, Telde">Mogan, Galdar...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22La%20Fuente%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22La%20Fuente%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22La%20Fuente%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=La%20Fuente%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Casa Paco">
+        <td class="rank">36</td>
+        <td class="score low">43</td>
+        <td class="name">Casa Paco</td>
+        <td class="num">5</td>
+        <td class="num">23</td>
+        <td class="muni" title="Valsequillo De Gran Canaria, San Bartolome De Tirajana, Mogan, Santa Lucia De Tirajana">Valsequillo De Gran Canaria, San Bartolome De Tirajana...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Casa%20Paco%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Paco%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Paco%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Casa%20Paco%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Casa Lola">
+        <td class="rank">37</td>
+        <td class="score low">43</td>
+        <td class="name">Casa Lola</td>
+        <td class="num">8</td>
+        <td class="num">35</td>
+        <td class="muni" title="Agaete, Telde, San Bartolome De Tirajana, Galdar, Vega San Mateo">Agaete, Telde...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Casa%20Lola%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Lola%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Lola%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Casa%20Lola%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="El Mirador">
+        <td class="rank">38</td>
+        <td class="score low">43</td>
+        <td class="name">El Mirador</td>
+        <td class="num">5</td>
+        <td class="num">16</td>
+        <td class="muni" title="Mogan, Galdar, Moya, Santa Maria De Guia De Gran Canaria">Mogan, Galdar...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22El%20Mirador%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22El%20Mirador%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22El%20Mirador%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=El%20Mirador%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Casa Estrella">
+        <td class="rank">39</td>
+        <td class="score low">43</td>
+        <td class="name">Casa Estrella</td>
+        <td class="num">5</td>
+        <td class="num">17</td>
+        <td class="muni" title="Santa Lucia De Tirajana, San Bartolome De Tirajana, Mogan, Vega San Mateo">Santa Lucia De Tirajana, San Bartolome De Tirajana...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Casa%20Estrella%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Estrella%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Estrella%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Casa%20Estrella%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Casa Luna">
+        <td class="rank">40</td>
+        <td class="score low">43</td>
+        <td class="name">Casa Luna</td>
+        <td class="num">5</td>
+        <td class="num">29</td>
+        <td class="muni" title="Aguimes, Las Palmas De Gran Canaria, San Bartolome De Tirajana, Mogan">Aguimes, Las Palmas De Gran Canaria...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Casa%20Luna%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Luna%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Luna%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Casa%20Luna%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Casa Azul">
+        <td class="rank">41</td>
+        <td class="score low">43</td>
+        <td class="name">Casa Azul</td>
+        <td class="num">5</td>
+        <td class="num">21</td>
+        <td class="muni" title="Mogan, Vega San Mateo, Telde, San Bartolome De Tirajana">Mogan, Vega San Mateo...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Casa%20Azul%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Azul%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Azul%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Casa%20Azul%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Sol Y Mar">
+        <td class="rank">42</td>
+        <td class="score low">43</td>
+        <td class="name">Sol Y Mar</td>
+        <td class="num">5</td>
+        <td class="num">20</td>
+        <td class="muni" title="Mogan, Telde, San Bartolome De Tirajana, Aguimes">Mogan, Telde...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Sol%20Y%20Mar%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Sol%20Y%20Mar%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Sol%20Y%20Mar%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Sol%20Y%20Mar%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Casa De La Playa">
+        <td class="rank">43</td>
+        <td class="score low">41</td>
+        <td class="name">Casa De La Playa</td>
+        <td class="num">7</td>
+        <td class="num">29</td>
+        <td class="muni" title="La Aldea De San Nicolas, Las Palmas De Gran Canaria, Telde, San Bartolome De Tirajana, Mogan">La Aldea De San Nicolas, Las Palmas De Gran Canaria...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Casa%20De%20La%20Playa%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Casa%20De%20La%20Playa%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Casa%20De%20La%20Playa%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Casa%20De%20La%20Playa%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="La Casita">
+        <td class="rank">44</td>
+        <td class="score low">41</td>
+        <td class="name">La Casita</td>
+        <td class="num">7</td>
+        <td class="num">42</td>
+        <td class="muni" title="Firgas, Santa Brigida, San Bartolome De Tirajana, Vega San Mateo, Las Palmas De Gran Canaria">Firgas, Santa Brigida...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22La%20Casita%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22La%20Casita%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22La%20Casita%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=La%20Casita%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Duplex">
+        <td class="rank">45</td>
+        <td class="score low">41</td>
+        <td class="name">Duplex</td>
+        <td class="num">7</td>
+        <td class="num">34</td>
+        <td class="muni" title="Telde, Agaete, Galdar, Santa Lucia De Tirajana, Las Palmas De Gran Canaria">Telde, Agaete...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Duplex%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Duplex%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Duplex%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Duplex%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Casa Canaria">
+        <td class="rank">46</td>
+        <td class="score low">39</td>
+        <td class="name">Casa Canaria</td>
+        <td class="num">6</td>
+        <td class="num">26</td>
+        <td class="muni" title="Aguimes, Las Palmas De Gran Canaria, San Bartolome De Tirajana, Telde, Santa Brigida">Aguimes, Las Palmas De Gran Canaria...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Casa%20Canaria%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Canaria%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Canaria%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Casa%20Canaria%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Casa Blanca">
+        <td class="rank">47</td>
+        <td class="score low">37</td>
+        <td class="name">Casa Blanca</td>
+        <td class="num">8</td>
+        <td class="num">48</td>
+        <td class="muni" title="Santa Lucia De Tirajana, San Bartolome De Tirajana, Las Palmas De Gran Canaria, Mogan, Moya, Telde">Santa Lucia De Tirajana, San Bartolome De Tirajana...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Casa%20Blanca%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Blanca%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Blanca%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Casa%20Blanca%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Casa Del Mar">
+        <td class="rank">48</td>
+        <td class="score low">33</td>
+        <td class="name">Casa Del Mar</td>
+        <td class="num">6</td>
+        <td class="num">36</td>
+        <td class="muni" title="Agaete, Galdar, Arucas, Las Palmas De Gran Canaria, Aguimes, Mogan">Agaete, Galdar...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Casa%20Del%20Mar%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Del%20Mar%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Del%20Mar%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Casa%20Del%20Mar%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Vivienda Unifamiliar">
+        <td class="rank">49</td>
+        <td class="score low">33</td>
+        <td class="name">Vivienda Unifamiliar</td>
+        <td class="num">9</td>
+        <td class="num">50</td>
+        <td class="muni" title="San Bartolome De Tirajana, Santa Brigida, Aguimes, Santa Lucia De Tirajana, Galdar, Telde, Ingenio">San Bartolome De Tirajana, Santa Brigida...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Vivienda%20Unifamiliar%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Vivienda%20Unifamiliar%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Vivienda%20Unifamiliar%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Vivienda%20Unifamiliar%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+      <tr data-gestora="Casa Maria">
+        <td class="rank">50</td>
+        <td class="score low">33</td>
+        <td class="name">Casa Maria</td>
+        <td class="num">6</td>
+        <td class="num">26</td>
+        <td class="muni" title="San Bartolome De Tirajana, Tejeda, Mogan, Ingenio, Valsequillo De Gran Canaria, Telde">San Bartolome De Tirajana, Tejeda...</td>
+        <td class="links">
+          <a href="https://www.google.com/search?q=%22Casa%20Maria%22+contacto+email+telefono+Canarias" target="_blank" title="Google">G</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Maria%22+site:infocif.es" target="_blank" title="Infocif">iC</a>
+          <a href="https://www.google.com/search?q=%22Casa%20Maria%22+site:einforma.com" target="_blank" title="eInforma">eI</a>
+          <a href="https://www.google.com/search?q=Casa%20Maria%20Gran%20Canaria%20Canarias+site:linkedin.com" target="_blank" title="LinkedIn">in</a>
+        </td>
+        <td class="input"><input type="text" placeholder="Email" data-field="email"></td>
+        <td class="input"><input type="text" placeholder="+34..." data-field="phone"></td>
+        <td class="input"><input type="text" placeholder="https://..." data-field="website"></td>
+        <td class="status">
+          <select data-field="status">
+            <option value="">-</option>
+            <option value="found">Found</option>
+            <option value="no-info">No info</option>
+            <option value="contacted">Contacted</option>
+          </select>
+        </td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+  <script>
+    const STORAGE_KEY = 'gestora-contacts-gran canaria';
+
+    // Pre-populated research data (auto-generated)
+    const PRE_POPULATED = {
+      "Resort Cordial Santa Agueda": {
+        email: "info@becordial.com",
+        phone: "+34 928 143393",
+        website: "https://www.becordial.com",
+        status: "found",
+        notes: "Alberto Pernalete (Dir Ops), Oscar Pubill (Mogán), Tanja Tremmel (Marketing)"
+      },
+      "Los Molinos": {
+        email: "",
+        phone: "+34 645 560 244",
+        website: "https://residencial-los-molinos.grancanaria-hotels.com/",
+        status: "found",
+        notes: "Avenida Tirajana 40 Maspalomas. 5-story complex"
+      },
+      "Rocas Rojas": {
+        email: "grancanaria@fastighetsbyran.com",
+        phone: "+34 928 768803",
+        website: "http://rocasrojas.com/",
+        status: "found",
+        notes: "393-unit complex San Agustín. Calle Las Pitas 6"
+      },
+      "Sunsuites Carolina": {
+        email: "carolina@sunsuites.es",
+        phone: "+34 928 778200",
+        website: "https://www.sunsuites.es",
+        status: "found",
+        notes: "11-50 employees. Calle Los Cardones 3 San Agustín"
+      },
+      "Cordial Mogan Solaz": {
+        email: "info@becordial.com",
+        phone: "+34 928 143393",
+        website: "https://www.becordial.com",
+        status: "found",
+        notes: "Same group as Resort Cordial Santa Agueda"
+      },
+      "VillaGranCanaria": {
+        email: "info@villagrancanaria.com",
+        phone: "+34 928 380 457",
+        website: "https://villagrancanaria.com/",
+        status: "found",
+        notes: "VillaGranCanaria Investments S.L. CIF B76226992. 20+ years. Salobre Golf Resort"
+      },
+      "Living Las Canteras": {
+        email: "juan.betancor@livinglascanteras.com",
+        phone: "",
+        website: "https://livinglascanteras.com/",
+        status: "found",
+        notes: "Juan Betancor (Founder). 2 Galileo Street 35010 Las Palmas. Since 2010"
+      },
+      "Grupo Diluvi": {
+        email: "info@grupodiluvi.es",
+        phone: "+34 928 725 613",
+        website: "https://grupodiluvi.es/",
+        status: "found",
+        notes: "Mogán 35130 Gran Canaria"
+      },
+      "Hosticasa": {
+        email: "contacto@hosticasa.com",
+        phone: "+34 684 100 239",
+        website: "https://www.hosticasa.com/",
+        status: "found",
+        notes: "Carlos Román (Director). Official intermediary I-0004576.1. C/ Practicante Ignacio Rodríguez 35017"
+      },
+      "Weguest": {
+        email: "contact@weguest.com",
+        phone: "+34 900 101 957",
+        website: "https://www.weguest.com/",
+        status: "found",
+        notes: "National company. Free phone"
+      },
+      "Sleepaways": {
+        email: "info@sleepaways.com",
+        phone: "+34 828 128751",
+        website: "https://property.sleepaways.com/",
+        status: "found",
+        notes: "Also UK +44 7520642199, Germany +49 89 61429689"
+      },
+      "Gestión Vacacional Canarias": {
+        email: "info@gestionvacacionalcanarias.es",
+        phone: "+34 680 336 661",
+        website: "https://gestionvacacionalcanarias.com/",
+        status: "found",
+        notes: "WhatsApp available. Maspalomas focused"
+      },
+      "Las Casas Canarias": {
+        email: "info@lascasascanarias.com",
+        phone: "+34 928 580 030",
+        website: "https://www.lascasascanarias.com/",
+        status: "found",
+        notes: "The Dream Destination Travel S.L. WhatsApp +34 638 525 416. Since 2003"
+      },
+      "Finca Tomas Y Puri": {
+        email: "",
+        phone: "",
+        website: "http://www.fincaruralgrancanaria.com/",
+        status: "found",
+        notes: "Rural tourism. GC 60 Km 35 Capaón 30 - Fátaga 35106"
+      }
+    };
+
+    // Load saved data
+    function loadData() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      let userData = {};
+      try { userData = saved ? JSON.parse(saved) : {}; } catch { userData = {}; }
+      // Merge pre-populated with user data (user data takes precedence)
+      const merged = { ...PRE_POPULATED };
+      for (const [key, val] of Object.entries(userData)) {
+        merged[key] = { ...(merged[key] || {}), ...val };
+      }
+      return merged;
+    }
+
+    // Save data
+    function saveData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    // Initialize
+    const data = loadData();
+    saveData(data); // Persist merged data
+
+    document.querySelectorAll('tbody tr').forEach(tr => {
+      const gestora = tr.dataset.gestora;
+      const saved = data[gestora] || {};
+
+      // Restore values
+      tr.querySelectorAll('input, select').forEach(el => {
+        const field = el.dataset.field;
+        if (saved[field]) {
+          el.value = saved[field];
+          if (el.tagName === 'INPUT' && saved[field]) el.classList.add('filled');
+        }
+      });
+
+      // Apply status class
+      if (saved.status) tr.classList.add(saved.status);
+
+      // Save on change
+      tr.querySelectorAll('input, select').forEach(el => {
+        el.addEventListener('input', () => {
+          const field = el.dataset.field;
+          if (!data[gestora]) data[gestora] = {};
+          data[gestora][field] = el.value;
+          saveData(data);
+
+          if (el.tagName === 'INPUT') {
+            el.classList.toggle('filled', !!el.value);
+          }
+          if (field === 'status') {
+            tr.classList.remove('found', 'no-info', 'contacted');
+            if (el.value) tr.classList.add(el.value);
+          }
+          updateStats();
+        });
+      });
+    });
+
+    function updateStats() {
+      let found = 0, noinfo = 0, contacted = 0;
+      Object.values(data).forEach(d => {
+        if (d.status === 'found') found++;
+        if (d.status === 'no-info') noinfo++;
+        if (d.status === 'contacted') contacted++;
+      });
+      document.getElementById('stat-found').textContent = found;
+      document.getElementById('stat-noinfo').textContent = noinfo;
+      document.getElementById('stat-contacted').textContent = contacted;
+      document.getElementById('stat-remaining').textContent = 50 - found - noinfo - contacted;
+    }
+    updateStats();
+
+    // Filter
+    document.getElementById('filter-status').addEventListener('change', (e) => {
+      const filter = e.target.value;
+      document.querySelectorAll('tbody tr').forEach(tr => {
+        const gestora = tr.dataset.gestora;
+        const status = data[gestora]?.status || '';
+        if (filter === 'all') tr.style.display = '';
+        else if (filter === 'pending') tr.style.display = status ? 'none' : '';
+        else tr.style.display = status === filter ? '' : 'none';
+      });
+    });
+
+    function exportCSV() {
+      const rows = [['Gestora', 'VVs', 'Beds', 'Score', 'Email', 'Phone', 'Website', 'Status']];
+      document.querySelectorAll('tbody tr').forEach(tr => {
+        const gestora = tr.dataset.gestora;
+        const d = data[gestora] || {};
+        if (d.email || d.phone || d.website || d.status) {
+          rows.push([
+            gestora,
+            tr.querySelectorAll('.num')[0].textContent,
+            tr.querySelectorAll('.num')[1].textContent,
+            tr.querySelector('.score').textContent,
+            d.email || '',
+            d.phone || '',
+            d.website || '',
+            d.status || ''
+          ]);
+        }
+      });
+      const csv = rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(',')).join('\n');
+      download(csv, 'gestora-contacts-gran canaria.csv', 'text/csv');
+    }
+
+    function exportJSON() {
+      download(JSON.stringify(data, null, 2), 'gestora-contacts-gran canaria.json', 'application/json');
+    }
+
+    function download(content, filename, type) {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename; a.click();
+    }
+
+    function clearAll() {
+      if (confirm('Clear all saved contact data? This cannot be undone.')) {
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+      }
+    }
+  </script>
+</body>
+</html>
