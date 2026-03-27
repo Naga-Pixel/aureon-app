@@ -37,7 +37,7 @@ export function Hero() {
 
           {/* CTA Button - Split style */}
           <Link
-            href="/solicitar"
+            href="#comunidad"
             className="group inline-flex items-stretch h-12"
           >
             <span className="bg-[#222f30] text-white px-5 font-mono text-sm uppercase flex items-center rounded-l-[12px] transition-all duration-500 group-hover:bg-[#a7e26e] group-hover:text-[#222f30]">

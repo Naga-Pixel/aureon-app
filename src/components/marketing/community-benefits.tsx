@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 
 const benefits = [
   {
@@ -10,7 +11,7 @@ const benefits = [
     description:
       "Su tejado es actualmente un recurso desaprovechado que podría ser su herramienta más potente para la optimización fiscal y la independencia energética. Al liderar una Comunidad Energética Boutique no solo reduce sus facturas de electricidad a cero sino que activa todo el potencial de la Reserva para Inversiones en Canarias (RIC) transformando obligaciones fiscales en un activo físico de alto rendimiento. Con los incentivos de 2026 que cubren hasta el 95% de los impuestos municipales (ICIO) y proporcionan importantes bonificaciones en el IBI, el proyecto se amortiza en un tiempo récord. Transforme su negocio de un consumidor tradicional a un núcleo energético vecinal asegurando su ventaja competitiva en la economía verde mientras genera una lealtad profunda con la comunidad que rodea sus instalaciones.",
     variant: "dark" as const,
-    icon: "building",
+    icon: "energy",
   },
   {
     number: "02",
@@ -19,7 +20,7 @@ const benefits = [
     description:
       "Imagine no tener que preocuparse nunca más por las subidas en el precio de la electricidad. Al unirse a nuestra exclusiva comunidad energética local obtendrá acceso a energía solar de kilómetro cero generada directamente en su barrio. Esto no trata solo de ahorrar en su factura mensual sino de una estrategia financiera completa. Al integrar una batería doméstica en la red comunitaria podrá optar a subvenciones directas de hasta 490 euros por kWh y a una deducción de entre el 40% y el 60% en su IRPF. Usted aporta el almacenamiento y la comunidad aporta el sol para crear juntos una red eléctrica resiliente e independiente que protege su hogar contra apagones y reduce sus impuestos sobre bienes inmuebles durante años. No se limite a pagar por la energía y empiece a ser dueño de su futuro energético.",
     variant: "green" as const,
-    icon: "home",
+    icon: "community",
   },
 ];
 
@@ -46,12 +47,12 @@ export function CommunityBenefits() {
   }, []);
 
   const getIcon = (icon: string, variant: string) => {
-    const strokeColor = variant === "dark" ? "white" : "#222f30";
+    const fillColor = variant === "dark" ? "white" : "#222f30";
 
-    if (icon === "building") {
-      return <BuildingIcon stroke={strokeColor} />;
+    if (icon === "energy") {
+      return <EnergyIcon fill={fillColor} />;
     }
-    return <HomeIcon stroke={strokeColor} />;
+    return <CommunityIcon fill={fillColor} />;
   };
 
   return (
@@ -100,7 +101,7 @@ export function CommunityBenefits() {
               </div>
 
               {/* Content */}
-              <div className="mt-auto">
+              <div className="flex-1 flex flex-col">
                 <h3 className="text-2xl font-medium mb-2 tracking-[-0.02em]">
                   {benefit.title}
                 </h3>
@@ -114,7 +115,7 @@ export function CommunityBenefits() {
                   {benefit.subtitle}
                 </p>
                 <p
-                  className={`text-base leading-[1.7] ${
+                  className={`text-base leading-[1.7] mb-8 ${
                     benefit.variant === "dark"
                       ? "opacity-80"
                       : "opacity-80"
@@ -122,6 +123,30 @@ export function CommunityBenefits() {
                 >
                   {benefit.description}
                 </p>
+
+                {/* CTA */}
+                <div className="mt-auto">
+                  <Link
+                    href="/solicitar"
+                    className={`inline-flex items-center gap-2 px-6 py-3 rounded-[12px] font-mono text-sm uppercase transition-all duration-300 ${
+                      benefit.variant === "dark"
+                        ? "bg-[#a7e26e] text-[#222f30] hover:bg-white"
+                        : "bg-[#222f30] text-white hover:bg-[#1a2526]"
+                    }`}
+                  >
+                    Contacto
+                    <svg
+                      className="w-3 h-3"
+                      viewBox="0 0 10 10"
+                      fill="none"
+                    >
+                      <path
+                        d="M7.703 5.8H.398V4.6h7.305l-3.36-3.36.855-.84 4.8 4.8-4.8 4.8-.855-.84 3.36-3.36Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </Link>
+                </div>
               </div>
             </div>
           ))}
@@ -131,54 +156,44 @@ export function CommunityBenefits() {
   );
 }
 
-function BuildingIcon({ stroke }: { stroke: string }) {
+function EnergyIcon({ fill }: { fill: string }) {
   return (
     <svg
       className="w-full h-full"
-      viewBox="0 0 100 100"
-      fill="none"
+      viewBox="0 0 73.79 88.39"
+      fill={fill}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g stroke={stroke} strokeWidth="2" strokeMiterlimit="10" fill="none">
-        <rect x="10" y="20" width="35" height="75" />
-        <rect x="55" y="40" width="35" height="55" />
-        <rect x="18" y="30" width="8" height="10" />
-        <rect x="30" y="30" width="8" height="10" />
-        <rect x="18" y="48" width="8" height="10" />
-        <rect x="30" y="48" width="8" height="10" />
-        <rect x="18" y="66" width="8" height="10" />
-        <rect x="30" y="66" width="8" height="10" />
-        <rect x="63" y="50" width="8" height="10" />
-        <rect x="78" y="50" width="8" height="10" />
-        <rect x="63" y="68" width="8" height="10" />
-        <rect x="78" y="68" width="8" height="10" />
-        <path d="M27.5 5 L10 20 L45 20 Z" />
-        <line x1="27.5" y1="5" x2="72.5" y2="5" />
-        <path d="M72.5 5 L55 40 L90 40 Z" />
+      <g>
+        <g>
+          <path d="M18.42,3.97l21.66,40.23-21.66,40.23V3.97M17.42,0v88.39l23.79-44.2L17.42,0h0Z"/>
+          <path d="M27.13,3.97l21.66,40.23-21.66,40.23V3.97M26.13,0v88.39l23.79-44.2L26.13,0h0Z"/>
+          <path d="M1,3.97l21.66,40.23L1,84.42V3.97M0,0v88.39l23.79-44.2L0,0h0Z"/>
+          <path d="M9.71,3.97l21.66,40.23-21.66,40.23V3.97M8.71,0v88.39l23.79-44.2L8.71,0h0Z"/>
+        </g>
+        <g>
+          <path d="M55.37,3.97v80.46l-21.66-40.23L55.37,3.97M56.37,0l-23.79,44.2,23.79,44.2V0h0Z"/>
+          <path d="M46.66,3.97v80.46l-21.66-40.23L46.66,3.97M47.66,0l-23.79,44.2,23.79,44.2V0h0Z"/>
+          <path d="M72.79,3.97v80.46l-21.66-40.23L72.79,3.97M73.79,0l-23.79,44.2,23.79,44.2V0h0Z"/>
+          <path d="M64.08,3.97v80.46l-21.66-40.23L64.08,3.97M65.08,0l-23.79,44.2,23.79,44.2V0h0Z"/>
+        </g>
       </g>
     </svg>
   );
 }
 
-function HomeIcon({ stroke }: { stroke: string }) {
+function CommunityIcon({ fill }: { fill: string }) {
   return (
     <svg
       className="w-full h-full"
-      viewBox="0 0 100 100"
-      fill="none"
+      viewBox="0 0 93.32 85.47"
+      fill={fill}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g stroke={stroke} strokeWidth="2" strokeMiterlimit="10" fill="none">
-        <path d="M50 8 L10 40 L10 92 L90 92 L90 40 Z" />
-        <path d="M5 42 L50 5 L95 42" />
-        <rect x="38" y="60" width="24" height="32" />
-        <rect x="20" y="50" width="14" height="14" />
-        <rect x="66" y="50" width="14" height="14" />
-        <circle cx="50" cy="25" r="8" />
-        <line x1="50" y1="17" x2="50" y2="12" />
-        <line x1="50" y1="33" x2="50" y2="38" />
-        <line x1="42" y1="25" x2="37" y2="25" />
-        <line x1="58" y1="25" x2="63" y2="25" />
+      <g>
+        <path d="M44.83,0v1c7.25,0,14.16,2.31,19.97,6.67,14.71,11.03,17.7,31.97,6.67,46.68-6.36,8.48-16.09,13.34-26.7,13.34-7.25,0-14.16-2.31-19.98-6.67-14.71-11.03-17.7-31.97-6.67-46.68C24.49,5.86,34.22,1,44.83,1V0M44.83,0c-10.44,0-20.76,4.75-27.5,13.74-11.38,15.18-8.3,36.7,6.87,48.08,6.18,4.63,13.41,6.87,20.58,6.87,10.44,0,20.76-4.75,27.5-13.74,11.38-15.18,8.3-36.7-6.87-48.08C59.23,2.24,52,0,44.83,0h0Z"/>
+        <path d="M34.37,16.78v1h0c7.25,0,14.16,2.31,19.97,6.67,7.13,5.34,11.74,13.14,13,21.96,1.26,8.82-.99,17.6-6.33,24.72-6.36,8.48-16.09,13.34-26.7,13.34-7.25,0-14.16-2.31-19.98-6.67-7.13-5.34-11.74-13.14-13-21.96s.99-17.6,6.33-24.72c6.36-8.48,16.09-13.34,26.7-13.34v-1M34.37,16.78c-10.44,0-20.76,4.75-27.5,13.74-11.38,15.18-8.3,36.7,6.87,48.08,6.18,4.63,13.41,6.87,20.58,6.87,10.44,0,20.76-4.75,27.5-13.74,11.38-15.18,8.3-36.7-6.87-48.08-6.18-4.63-13.41-6.87-20.58-6.87h0Z"/>
+        <path d="M59,16.65v1c7.25,0,14.16,2.31,19.97,6.67,7.13,5.34,11.74,13.14,13,21.96s-.99,17.6-6.33,24.72c-6.36,8.48-16.09,13.34-26.7,13.34-7.25,0-14.16-2.31-19.98-6.67-7.13-5.34-11.74-13.14-13-21.96s.99-17.6,6.33-24.72c6.36-8.48,16.09-13.34,26.7-13.34v-1M59,16.65c-10.44,0-20.76,4.75-27.5,13.74-11.38,15.18-8.3,36.7,6.87,48.08,6.18,4.63,13.41,6.87,20.58,6.87,10.44,0,20.76-4.75,27.5-13.74,11.38-15.18,8.3-36.7-6.87-48.08-6.18-4.63-13.41-6.87-20.58-6.87h0Z"/>
       </g>
     </svg>
   );
