@@ -285,7 +285,12 @@ export function generateBuildingReport(
   }
 
   if (metadata.assessmentType === 'battery' || metadata.assessmentType === 'combined') {
-    resultsData.push({ label: 'Bateria recomendada', value: `${building.batteryKwh || '?'} kWh` });
+    // For apartment buildings, use per-unit battery × number of units
+    const isMultiUnit = metadata.apartmentBuilding && metadata.apartmentBuilding.units > 1;
+    const batteryKwh = isMultiUnit
+      ? metadata.apartmentBuilding!.units * 10  // 10 kWh per unit
+      : building.batteryKwh;
+    resultsData.push({ label: 'Bateria recomendada', value: `${batteryKwh || '?'} kWh` });
     resultsData.push({ label: 'Ahorro por arbitraje', value: `${building.arbitrageSavingsEur?.toLocaleString('es-ES') || '?'} EUR/ano` });
     resultsData.push({ label: 'Proteccion ante cortes', value: `${building.outageProtectionValue?.toLocaleString('es-ES') || '?'} EUR/ano` });
   }
@@ -316,7 +321,8 @@ export function generateBuildingReport(
 
   // ============ PER-UNIT CALCULATIONS FOR APARTMENT BUILDINGS ============
   const isApartmentBuilding = metadata.businessSegment === 'apartment_building' ||
-    (building.numberOfDwellings && building.numberOfDwellings > 1);
+    (building.numberOfDwellings && building.numberOfDwellings > 1) ||
+    (metadata.apartmentBuilding && metadata.apartmentBuilding.units > 1);
 
   if (isApartmentBuilding && (metadata.assessmentType === 'battery' || metadata.assessmentType === 'combined')) {
     checkPageBreak(60);

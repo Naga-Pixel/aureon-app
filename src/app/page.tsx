@@ -4,7 +4,7 @@ import {
   WhatWeDo,
   Features,
   Process,
-  Calculator,
+  CommunityBenefits,
   FAQ,
   CTA,
 } from "@/components/marketing";
@@ -18,7 +18,7 @@ export default function Home() {
         <WhatWeDo />
         <Features />
         <Process />
-        <Calculator />
+        <CommunityBenefits />
         <FAQ />
         <CTA />
       </main>

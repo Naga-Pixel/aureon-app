@@ -3,15 +3,18 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
+import { area as turfArea } from '@turf/area';
 import { BBoxBounds, BuildingResult, AssessmentType } from './types';
 import { VULNERABILITY_ZONES } from '@/lib/data/vulnerability-zones';
 import { getMunicipalitiesForHeatmap, type MunicipalHeatmapPoint } from '@/lib/services/incentives/municipal-lookup';
-import { getCommercialAnchors, getAnchorColor, getAnchorLabel, type CommercialAnchor } from '@/lib/services/osm-overpass';
+import { getCommercialAnchors, getAnchorColor, getAnchorLabel, getTransformers, getOperatorColor, type CommercialAnchor } from '@/lib/services/osm-overpass';
+import type { CTLocation } from './types';
 import { generateCirclePolygon, findBuildingsInRadius, findHighValueClusters, findEnergyCommunities, getRadiusForAnchor, type ClusterResult } from '@/lib/services/cluster-finder';
 import { scoreAndRankClusters } from '@/lib/services/cluster-scorer';
 import { enrichClusterWithCTAnalysis } from '@/lib/services/ct-heuristic';
 import { ClusterRankingPanel } from './ClusterRankingPanel';
 import type { ScoredClusterResult } from './types';
+import { ASSESSMENT_CONFIG, getRegionalKwhPerKwp } from '@/lib/config/assessment-config';
 
 // Satellite imagery options
 const ESRI_SATELLITE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
@@ -34,6 +37,40 @@ interface ProspectMapProps {
   initialLat?: number;
   initialLon?: number;
   initialZoom?: number;
+  gestoraFilter?: string;
+}
+
+interface SolarEstimate {
+  panelCount: number;
+  systemKwp: number;
+  annualKwh: number;
+  annualSavingsEur: number;
+  installationCost: number;
+  paybackYears: number;
+}
+
+function computeSolarEstimate(areaM2: number, lat: number): SolarEstimate {
+  const usableArea = areaM2 * 0.6;
+  const panelCount = Math.floor(usableArea / 2);
+  if (panelCount <= 0) return { panelCount: 0, systemKwp: 0, annualKwh: 0, annualSavingsEur: 0, installationCost: 0, paybackYears: 0 };
+  const systemKwp = (panelCount * ASSESSMENT_CONFIG.PANEL_WATTS) / 1000;
+  const annualKwh = systemKwp * getRegionalKwhPerKwp(lat);
+  const installationCost = systemKwp * ASSESSMENT_CONFIG.INSTALLATION_COST_PER_KW;
+  const annualSavingsEur = annualKwh * ASSESSMENT_CONFIG.DEFAULT_ELECTRICITY_PRICE_EUR;
+
+  // Iterative payback with degradation
+  let cumulativeSavings = 0;
+  let paybackYears: number = ASSESSMENT_CONFIG.SYSTEM_LIFETIME_YEARS;
+  for (let y = 1; y <= ASSESSMENT_CONFIG.SYSTEM_LIFETIME_YEARS; y++) {
+    const degraded = annualSavingsEur * Math.pow(1 - ASSESSMENT_CONFIG.PANEL_DEGRADATION_RATE, y - 1);
+    cumulativeSavings += degraded;
+    if (cumulativeSavings >= installationCost) {
+      paybackYears = y;
+      break;
+    }
+  }
+
+  return { panelCount, systemKwp, annualKwh, annualSavingsEur, installationCost, paybackYears };
 }
 
 // Nominatim geocoding endpoint
@@ -60,6 +97,7 @@ export function ProspectMap({
   initialLat,
   initialLon,
   initialZoom,
+  gestoraFilter,
 }: ProspectMapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -99,8 +137,23 @@ export function ProspectMap({
   const selectedVvGroupRef = useRef<{ groupId: string; label: string } | null>(null);
   const vvMarkers = useRef<maplibregl.Marker[]>([]);
   const lastVvBoundsRef = useRef<string | null>(null);
+  // Solar grants layer
+  const [solarGrants, setSolarGrants] = useState<Array<{ id: number; companyName: string; grantAmount: number; grantDate: string; municipality: string; lat: number; lon: number }>>([]);
+  const [isLoadingSolarGrants, setIsLoadingSolarGrants] = useState(false);
+  const solarGrantMarkers = useRef<maplibregl.Marker[]>([]);
+  const lastSolarGrantsBoundsRef = useRef<string | null>(null);
 
-  // Layer visibility toggles (5 categories)
+  // CT (Centro de Transformación) layer
+  const [ctLocations, setCTLocations] = useState<CTLocation[]>([]);
+  const [isLoadingCTs, setIsLoadingCTs] = useState(false);
+  const ctMarkers = useRef<maplibregl.Marker[]>([]);
+  const lastCTBoundsRef = useRef<string | null>(null);
+  // Gas stations layer
+  const [gasStations, setGasStations] = useState<CommercialAnchor[]>([]);
+  const [isLoadingGasStations, setIsLoadingGasStations] = useState(false);
+  const gasStationMarkers = useRef<maplibregl.Marker[]>([]);
+
+  // Layer visibility toggles (8 categories)
   // All toggles start false - user enables the ones they want to see
   const [layerToggles, setLayerToggles] = useState({
     supermarkets: false,
@@ -108,10 +161,24 @@ export function ProspectMap({
     vvFirms: false,
     vvComplexes: false,
     vvIndividual: false,
+    solarGrants: false,
+    ctZones: false,
+    gasStations: false,
   });
   const toggleLayer = (layer: keyof typeof layerToggles) => {
     setLayerToggles(prev => ({ ...prev, [layer]: !prev[layer] }));
   };
+
+  // Measurement tool state
+  const [isMeasuring, setIsMeasuring] = useState(false);
+  const isMeasuringRef = useRef(false);
+  const measureVerticesRef = useRef<[number, number][]>([]);
+  const [measureVertices, setMeasureVertices] = useState<[number, number][]>([]);
+  const [measuredAreaM2, setMeasuredAreaM2] = useState<number | null>(null);
+  const [measureClosed, setMeasureClosed] = useState(false);
+  const [measureSolarEstimate, setMeasureSolarEstimate] = useState<SolarEstimate | null>(null);
+  const measureCursorRef = useRef<[number, number] | null>(null);
+  const [showMeasureMethodology, setShowMeasureMethodology] = useState(false);
 
   // Keep ref in sync with selectedVvGroup state
   useEffect(() => {
@@ -122,6 +189,19 @@ export function ProspectMap({
   useEffect(() => {
     isDrawingRef.current = isDrawing;
   }, [isDrawing]);
+
+  // Keep measuring ref in sync
+  useEffect(() => {
+    isMeasuringRef.current = isMeasuring;
+  }, [isMeasuring]);
+
+  // Auto-enable VVs layer when gestoraFilter is set
+  useEffect(() => {
+    if (gestoraFilter) {
+      setVvsVisible(true);
+      setLayerToggles(prev => ({ ...prev, vvFirms: true }));
+    }
+  }, [gestoraFilter]);
 
   // Toggle vulnerability layer visibility
   useEffect(() => {
@@ -446,6 +526,243 @@ export function ProspectMap({
     };
   }, [mapLoaded, onAreaSelect]);
 
+  // Measurement tool: helper to update map sources
+  const updateMeasureLayer = useCallback((vertices: [number, number][], cursor: [number, number] | null, closed: boolean) => {
+    const mapInstance = map.current;
+    if (!mapInstance) return;
+
+    // Build polygon coordinates (with cursor as temp closing point if not closed)
+    const polyCoords: [number, number][] = vertices.length >= 3
+      ? closed
+        ? [...vertices, vertices[0]]
+        : cursor
+          ? [...vertices, cursor, vertices[0]]
+          : [...vertices, vertices[0]]
+      : [];
+
+    // Polygon fill + stroke
+    const polyData: GeoJSON.Feature = {
+      type: 'Feature',
+      properties: {},
+      geometry: { type: 'Polygon', coordinates: polyCoords.length >= 4 ? [polyCoords] : [[[0,0],[0,0],[0,0],[0,0]]] },
+    };
+
+    const polySrc = mapInstance.getSource('measure-polygon') as maplibregl.GeoJSONSource;
+    if (polySrc) {
+      polySrc.setData(polyData);
+    } else {
+      mapInstance.addSource('measure-polygon', { type: 'geojson', data: polyData });
+      mapInstance.addLayer({ id: 'measure-polygon-fill', type: 'fill', source: 'measure-polygon', paint: { 'fill-color': '#3b82f6', 'fill-opacity': 0.15 } });
+      mapInstance.addLayer({ id: 'measure-polygon-stroke', type: 'line', source: 'measure-polygon', paint: { 'line-color': '#3b82f6', 'line-width': 2 } });
+    }
+
+    // Vertices circles
+    const vertexData: GeoJSON.FeatureCollection = {
+      type: 'FeatureCollection',
+      features: vertices.map((v, i) => ({
+        type: 'Feature' as const,
+        properties: { first: i === 0 ? 1 : 0 },
+        geometry: { type: 'Point' as const, coordinates: v },
+      })),
+    };
+
+    const vertSrc = mapInstance.getSource('measure-vertices') as maplibregl.GeoJSONSource;
+    if (vertSrc) {
+      vertSrc.setData(vertexData);
+    } else {
+      mapInstance.addSource('measure-vertices', { type: 'geojson', data: vertexData });
+      mapInstance.addLayer({
+        id: 'measure-vertices',
+        type: 'circle',
+        source: 'measure-vertices',
+        paint: {
+          'circle-radius': ['case', ['==', ['get', 'first'], 1], 6, 4],
+          'circle-color': '#ffffff',
+          'circle-stroke-width': 2,
+          'circle-stroke-color': ['case', ['==', ['get', 'first'], 1], '#3b82f6', '#374151'],
+        },
+      });
+    }
+
+    // Cursor dashed line (from last vertex to cursor)
+    const lineCoords: [number, number][] = !closed && vertices.length >= 1 && cursor
+      ? [vertices[vertices.length - 1], cursor]
+      : [[0,0],[0,0]];
+
+    const lineData: GeoJSON.Feature = {
+      type: 'Feature',
+      properties: {},
+      geometry: { type: 'LineString', coordinates: lineCoords },
+    };
+
+    const lineSrc = mapInstance.getSource('measure-cursor-line') as maplibregl.GeoJSONSource;
+    if (lineSrc) {
+      lineSrc.setData(lineData);
+    } else {
+      mapInstance.addSource('measure-cursor-line', { type: 'geojson', data: lineData });
+      mapInstance.addLayer({
+        id: 'measure-cursor-line',
+        type: 'line',
+        source: 'measure-cursor-line',
+        paint: { 'line-color': '#3b82f6', 'line-width': 2, 'line-dasharray': [4, 4] },
+      });
+    }
+
+    // Compute area
+    if (polyCoords.length >= 4) {
+      const areaM2 = turfArea({ type: 'Polygon', coordinates: [polyCoords] });
+      setMeasuredAreaM2(areaM2);
+    } else {
+      setMeasuredAreaM2(null);
+    }
+  }, []);
+
+  // Clean up measurement layers
+  const cleanupMeasureLayers = useCallback(() => {
+    const mapInstance = map.current;
+    if (!mapInstance) return;
+    for (const lid of ['measure-polygon-fill', 'measure-polygon-stroke', 'measure-vertices', 'measure-cursor-line']) {
+      if (mapInstance.getLayer(lid)) mapInstance.removeLayer(lid);
+    }
+    for (const sid of ['measure-polygon', 'measure-vertices', 'measure-cursor-line']) {
+      if (mapInstance.getSource(sid)) mapInstance.removeSource(sid);
+    }
+  }, []);
+
+  // Measurement event handlers
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return;
+    const mapInstance = map.current;
+
+    const handleMeasureClick = (e: maplibregl.MapMouseEvent) => {
+      if (!isMeasuringRef.current) return;
+
+      const point: [number, number] = [e.lngLat.lng, e.lngLat.lat];
+      const verts = measureVerticesRef.current;
+
+      // Check if clicking near first vertex to close (within ~10px)
+      if (verts.length >= 3) {
+        const first = verts[0];
+        const projected = mapInstance.project([first[0], first[1]]);
+        const clickProjected = mapInstance.project([point[0], point[1]]);
+        const dist = Math.sqrt((projected.x - clickProjected.x) ** 2 + (projected.y - clickProjected.y) ** 2);
+        if (dist < 12) {
+          // Close polygon
+          setMeasureClosed(true);
+          setIsMeasuring(false);
+          mapInstance.getCanvas().style.cursor = '';
+          updateMeasureLayer(verts, null, true);
+          // Compute solar estimate from closed polygon
+          const closedCoords = [...verts, verts[0]];
+          const closedArea = turfArea({ type: 'Polygon', coordinates: [closedCoords] });
+          const centerLat = verts.reduce((s, v) => s + v[1], 0) / verts.length;
+          setMeasureSolarEstimate(computeSolarEstimate(closedArea, centerLat));
+          return;
+        }
+      }
+
+      const newVerts: [number, number][] = [...verts, point];
+      measureVerticesRef.current = newVerts;
+      setMeasureVertices(newVerts);
+      updateMeasureLayer(newVerts, measureCursorRef.current, false);
+    };
+
+    const handleMeasureMove = (e: maplibregl.MapMouseEvent) => {
+      if (!isMeasuringRef.current) return;
+      const cursor: [number, number] = [e.lngLat.lng, e.lngLat.lat];
+      measureCursorRef.current = cursor;
+      const verts = measureVerticesRef.current;
+      if (verts.length >= 1) {
+        updateMeasureLayer(verts, cursor, false);
+      }
+    };
+
+    const handleMeasureKeydown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isMeasuringRef.current) {
+        // Cancel measurement
+        setIsMeasuring(false);
+        setMeasureVertices([]);
+        setMeasuredAreaM2(null);
+        setMeasureClosed(false);
+        setMeasureSolarEstimate(null);
+        measureVerticesRef.current = [];
+        measureCursorRef.current = null;
+        mapInstance.getCanvas().style.cursor = '';
+        cleanupMeasureLayers();
+      }
+    };
+
+    mapInstance.on('click', handleMeasureClick);
+    mapInstance.on('mousemove', handleMeasureMove);
+    document.addEventListener('keydown', handleMeasureKeydown);
+
+    return () => {
+      mapInstance.off('click', handleMeasureClick);
+      mapInstance.off('mousemove', handleMeasureMove);
+      document.removeEventListener('keydown', handleMeasureKeydown);
+    };
+  }, [mapLoaded, updateMeasureLayer, cleanupMeasureLayers]);
+
+  // Toggle measurement mode
+  const toggleMeasuring = useCallback(() => {
+    if (!map.current) return;
+
+    if (isMeasuring) {
+      // Cancel
+      setIsMeasuring(false);
+      setMeasureVertices([]);
+      setMeasuredAreaM2(null);
+      setMeasureClosed(false);
+      setMeasureSolarEstimate(null);
+      measureVerticesRef.current = [];
+      measureCursorRef.current = null;
+      map.current.getCanvas().style.cursor = '';
+      cleanupMeasureLayers();
+    } else if (measureClosed) {
+      // Clear existing result and start fresh
+      clearMeasurement();
+    } else {
+      // Start measuring
+      setIsMeasuring(true);
+      setMeasureVertices([]);
+      setMeasuredAreaM2(null);
+      setMeasureClosed(false);
+      setMeasureSolarEstimate(null);
+      measureVerticesRef.current = [];
+      measureCursorRef.current = null;
+      map.current.getCanvas().style.cursor = 'crosshair';
+    }
+  }, [isMeasuring, measureClosed, cleanupMeasureLayers]);
+
+  // Undo last measurement vertex
+  const undoMeasureVertex = useCallback(() => {
+    const verts = measureVerticesRef.current;
+    if (verts.length === 0) return;
+    const newVerts = verts.slice(0, -1);
+    measureVerticesRef.current = newVerts;
+    setMeasureVertices(newVerts);
+    if (newVerts.length === 0) {
+      setMeasuredAreaM2(null);
+      cleanupMeasureLayers();
+    } else {
+      updateMeasureLayer(newVerts, measureCursorRef.current, false);
+    }
+  }, [updateMeasureLayer, cleanupMeasureLayers]);
+
+  // Clear measurement completely
+  const clearMeasurement = useCallback(() => {
+    setIsMeasuring(false);
+    setMeasureVertices([]);
+    setMeasuredAreaM2(null);
+    setMeasureClosed(false);
+    setMeasureSolarEstimate(null);
+    setShowMeasureMethodology(false);
+    measureVerticesRef.current = [];
+    measureCursorRef.current = null;
+    if (map.current) map.current.getCanvas().style.cursor = '';
+    cleanupMeasureLayers();
+  }, [cleanupMeasureLayers]);
+
   // Search for an address and fly to it
   const handleSearch = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
@@ -573,8 +890,8 @@ export function ProspectMap({
     // Score and rank clusters
     const scored = scoreAndRankClusters(clusters);
 
-    // Enrich with CT analysis
-    const enriched = scored.map(enrichClusterWithCTAnalysis);
+    // Enrich with CT analysis (using heuristic fallback for now)
+    const enriched = scored.map(cluster => enrichClusterWithCTAnalysis(cluster));
 
     setScoredClusters(enriched);
     setEnergyCommunityMode(true);
@@ -1179,8 +1496,13 @@ export function ProspectMap({
       );
     };
 
-    // Filter VVs based on layer toggles
+    // Filter VVs based on layer toggles and gestora filter
     const filteredVvs = vvs.filter(vv => {
+      // If gestora filter is set, only show VVs from that gestora
+      if (gestoraFilter) {
+        return vv.managementFirm === gestoraFilter;
+      }
+      // Otherwise filter based on layer toggles
       if (vv.managementFirm) return layerToggles.vvFirms;
       if (vv.complexName) return layerToggles.vvComplexes;
       return layerToggles.vvIndividual;
@@ -1373,7 +1695,459 @@ export function ProspectMap({
 
       vvMarkers.current.push(marker);
     });
-  }, [mapLoaded, vvsVisible, vvs, selectedVvGroup, layerToggles.vvFirms, layerToggles.vvComplexes, layerToggles.vvIndividual]);
+  }, [mapLoaded, vvsVisible, vvs, selectedVvGroup, layerToggles.vvFirms, layerToggles.vvComplexes, layerToggles.vvIndividual, gestoraFilter]);
+
+  // Fetch solar grants when toggle enabled and map moves (zoom >= 10)
+  useEffect(() => {
+    if (!map.current || !mapLoaded || !layerToggles.solarGrants) {
+      setSolarGrants([]);
+      lastSolarGrantsBoundsRef.current = null;
+      return;
+    }
+
+    const mapInstance = map.current;
+    let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+    let fetchId = 0;
+
+    const fetchSolarGrants = async () => {
+      const zoom = mapInstance.getZoom();
+
+      // Only fetch at zoom >= 7 (archipelago level)
+      if (zoom < 7) {
+        setIsLoadingSolarGrants(false);
+        return;
+      }
+
+      const mapBounds = mapInstance.getBounds();
+      const boundsKey = `${mapBounds.getSouth().toFixed(2)},${mapBounds.getWest().toFixed(2)},${mapBounds.getNorth().toFixed(2)},${mapBounds.getEast().toFixed(2)}`;
+
+      if (boundsKey === lastSolarGrantsBoundsRef.current) {
+        return;
+      }
+
+      const currentFetchId = ++fetchId;
+      setIsLoadingSolarGrants(true);
+
+      try {
+        const params = new URLSearchParams({
+          minLat: mapBounds.getSouth().toString(),
+          maxLat: mapBounds.getNorth().toString(),
+          minLon: mapBounds.getWest().toString(),
+          maxLon: mapBounds.getEast().toString(),
+          limit: '500',
+        });
+
+        const response = await fetch(`/api/solar-grants/bounds?${params}`);
+        if (!response.ok) throw new Error('Failed to fetch solar grants');
+
+        const data = await response.json();
+
+        if (currentFetchId === fetchId && data.grants) {
+          setSolarGrants(prev => {
+            const existingIds = new Set(prev.map(g => g.id));
+            const newGrants = data.grants.filter((g: { id: number }) => !existingIds.has(g.id));
+            return [...prev, ...newGrants];
+          });
+          lastSolarGrantsBoundsRef.current = boundsKey;
+        }
+      } catch (error) {
+        if (currentFetchId === fetchId) {
+          console.error('[Map] Failed to fetch solar grants:', error);
+        }
+      } finally {
+        if (currentFetchId === fetchId) {
+          setIsLoadingSolarGrants(false);
+        }
+      }
+    };
+
+    const debouncedFetch = () => {
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(fetchSolarGrants, 600);
+    };
+
+    fetchSolarGrants();
+    mapInstance.on('idle', debouncedFetch);
+
+    return () => {
+      if (debounceTimer) clearTimeout(debounceTimer);
+      mapInstance.off('idle', debouncedFetch);
+    };
+  }, [mapLoaded, layerToggles.solarGrants]);
+
+  // Render solar grant markers
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return;
+
+    const mapInstance = map.current;
+
+    // Clear markers if toggle disabled
+    if (!layerToggles.solarGrants) {
+      solarGrantMarkers.current.forEach(marker => marker.remove());
+      solarGrantMarkers.current = [];
+      return;
+    }
+
+    // Track existing marker IDs
+    const existingIds = new Set(solarGrantMarkers.current.map(m => (m as maplibregl.Marker & { _grantId?: number })._grantId));
+    const currentIds = new Set(solarGrants.map(g => g.id));
+
+    // Remove markers no longer in data
+    solarGrantMarkers.current = solarGrantMarkers.current.filter(marker => {
+      const id = (marker as maplibregl.Marker & { _grantId?: number })._grantId;
+      if (id !== undefined && !currentIds.has(id)) {
+        marker.remove();
+        return false;
+      }
+      return true;
+    });
+
+    // Count grants per location for jitter calculation
+    const locationCounts = new Map<string, number>();
+    solarGrants.forEach(g => {
+      const key = `${g.lat.toFixed(4)},${g.lon.toFixed(4)}`;
+      locationCounts.set(key, (locationCounts.get(key) || 0) + 1);
+    });
+    const locationIndex = new Map<string, number>();
+
+    // Add new markers
+    solarGrants.forEach(grant => {
+      if (existingIds.has(grant.id)) return;
+
+      // Calculate jitter for stacked markers
+      const locKey = `${grant.lat.toFixed(4)},${grant.lon.toFixed(4)}`;
+      const count = locationCounts.get(locKey) || 1;
+      const idx = locationIndex.get(locKey) || 0;
+      locationIndex.set(locKey, idx + 1);
+
+      // Spiral jitter pattern for multiple markers at same location
+      let jitterLat = 0, jitterLon = 0;
+      if (count > 1) {
+        const angle = (idx / count) * 2 * Math.PI;
+        const radius = 0.003 + (idx * 0.001); // ~300m base + 100m per marker
+        jitterLat = Math.sin(angle) * radius;
+        jitterLon = Math.cos(angle) * radius;
+      }
+
+      const el = document.createElement('div');
+      el.className = 'solar-grant-marker';
+      el.style.cssText = `
+        width: 24px;
+        height: 24px;
+        background: #10b981;
+        border: 2px solid white;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      `;
+      el.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+
+      const amountStr = grant.grantAmount >= 1000
+        ? `${(grant.grantAmount / 1000).toFixed(0)}k€`
+        : `${grant.grantAmount.toFixed(0)}€`;
+
+      const popup = new maplibregl.Popup({
+        offset: 25,
+        closeButton: false,
+        closeOnClick: false,
+      }).setHTML(`
+        <div style="font-size: 12px; max-width: 200px;">
+          <div style="font-weight: 600; color: #10b981; margin-bottom: 4px;">Subvención Solar BDNS</div>
+          <div style="font-weight: 500; margin-bottom: 2px;">${grant.companyName}</div>
+          <div style="color: #666; margin-bottom: 2px;">${grant.municipality || 'Ubicación desconocida'}</div>
+          <div style="font-weight: 600; color: #222;">${amountStr}</div>
+          ${grant.grantDate ? `<div style="color: #999; font-size: 10px; margin-top: 2px;">${grant.grantDate}</div>` : ''}
+        </div>
+      `);
+
+      const markerLngLat: [number, number] = [grant.lon + jitterLon, grant.lat + jitterLat];
+
+      const marker = new maplibregl.Marker({ element: el })
+        .setLngLat(markerLngLat)
+        .addTo(mapInstance);
+
+      // Store ID on marker for tracking
+      (marker as maplibregl.Marker & { _grantId?: number })._grantId = grant.id;
+
+      // Show popup on hover only (not click)
+      el.addEventListener('mouseenter', () => {
+        popup.setLngLat(markerLngLat).addTo(mapInstance);
+      });
+      el.addEventListener('mouseleave', () => popup.remove());
+
+      solarGrantMarkers.current.push(marker);
+    });
+  }, [mapLoaded, layerToggles.solarGrants, solarGrants]);
+
+  // Fetch CT locations on map movement (when CT layer is enabled)
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return;
+
+    // Clear CTs when toggle is disabled
+    if (!layerToggles.ctZones) {
+      setCTLocations([]);
+      lastCTBoundsRef.current = null;
+      return;
+    }
+
+    const mapInstance = map.current;
+    let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+    let fetchId = 0;
+
+    const fetchCTs = async () => {
+      const zoom = mapInstance.getZoom();
+
+      // Don't fetch when zoomed out too far
+      if (zoom < 13) {
+        setIsLoadingCTs(false);
+        return;
+      }
+
+      const mapBounds = mapInstance.getBounds();
+      const boundsKey = `${mapBounds.getSouth().toFixed(3)},${mapBounds.getWest().toFixed(3)},${mapBounds.getNorth().toFixed(3)},${mapBounds.getEast().toFixed(3)}`;
+
+      // Skip if bounds haven't changed significantly
+      if (boundsKey === lastCTBoundsRef.current) {
+        return;
+      }
+
+      // Expand bounds by ~1km to show nearby CTs even if just off-screen
+      const latBuffer = 0.01; // ~1km
+      const lonBuffer = 0.012; // ~1km at Canary Islands latitude
+      const bounds: BBoxBounds = {
+        minLat: mapBounds.getSouth() - latBuffer,
+        maxLat: mapBounds.getNorth() + latBuffer,
+        minLon: mapBounds.getWest() - lonBuffer,
+        maxLon: mapBounds.getEast() + lonBuffer,
+      };
+
+      const currentFetchId = ++fetchId;
+      setIsLoadingCTs(true);
+
+      try {
+        // First try database (pre-synced data)
+        const apiUrl = `/api/ct-locations?minLat=${bounds.minLat}&maxLat=${bounds.maxLat}&minLon=${bounds.minLon}&maxLon=${bounds.maxLon}`;
+        console.log('[CT] Fetching from API:', apiUrl);
+        const response = await fetch(apiUrl);
+        let ctData: CTLocation[] = [];
+
+        if (response.ok) {
+          const data = await response.json();
+          ctData = data.ctLocations || [];
+          console.log(`[CT] Database returned ${ctData.length} locations`);
+        }
+
+        // Note: Overpass fallback disabled - OSM has sparse CT coverage
+        // Database has 334+ CTs for Gran Canaria (mostly Las Palmas area)
+        // If you need more coverage, run: npx tsx scripts/sync-ct-locations.ts --area "gran canaria"
+        if (ctData.length === 0) {
+          console.log('[CT] No CTs in this area (OSM coverage is sparse outside Las Palmas)');
+        }
+
+        // Only update if this is still the latest request
+        if (currentFetchId === fetchId) {
+          lastCTBoundsRef.current = boundsKey;
+          // Merge with existing CTs to avoid flickering
+          setCTLocations(prev => {
+            const existingIds = new Set(prev.map(ct => ct.id));
+            const newCTs = ctData.filter(ct => !existingIds.has(ct.id));
+            return [...prev, ...newCTs];
+          });
+        }
+      } catch (error) {
+        console.error('[CT] Error fetching transformers:', error);
+      } finally {
+        if (currentFetchId === fetchId) {
+          setIsLoadingCTs(false);
+        }
+      }
+    };
+
+    const handleMoveEnd = () => {
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(fetchCTs, 500);
+    };
+
+    // Initial fetch
+    fetchCTs();
+
+    // Subscribe to map movement
+    mapInstance.on('moveend', handleMoveEnd);
+
+    return () => {
+      mapInstance.off('moveend', handleMoveEnd);
+      if (debounceTimer) clearTimeout(debounceTimer);
+    };
+  }, [mapLoaded, layerToggles.ctZones]);
+
+  // Render CT markers
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return;
+
+    const mapInstance = map.current;
+
+    // Remove existing CT markers
+    ctMarkers.current.forEach(marker => marker.remove());
+    ctMarkers.current = [];
+
+    // Don't render if layer is disabled or no CTs
+    if (!layerToggles.ctZones || ctLocations.length === 0) {
+      return;
+    }
+
+    ctLocations.forEach(ct => {
+      // Create marker element
+      const el = document.createElement('div');
+      el.className = 'ct-marker';
+
+      const color = getOperatorColor(ct.operator);
+
+      el.style.cssText = `
+        width: 20px;
+        height: 20px;
+        background: ${color};
+        border: 2px solid white;
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      `;
+
+      // Transformer icon (lightning bolt)
+      el.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`;
+
+      // Create popup
+      const popup = new maplibregl.Popup({
+        offset: 15,
+        closeButton: false,
+        closeOnClick: false,
+      }).setHTML(`
+        <div style="font-size: 12px; max-width: 200px;">
+          <div style="font-weight: 600; color: ${color}; margin-bottom: 4px;">Centro de Transformación</div>
+          ${ct.refCT ? `<div style="font-weight: 500; margin-bottom: 2px;">Ref: ${ct.refCT}</div>` : ''}
+          ${ct.operator ? `<div style="color: #666; margin-bottom: 2px;">${ct.operator}</div>` : ''}
+          <div style="color: #999; font-size: 10px;">
+            Fuente: ${ct.source.toUpperCase()}
+            ${ct.confidence >= 70 ? '(alta confianza)' : ct.confidence >= 40 ? '(media)' : '(baja)'}
+          </div>
+        </div>
+      `);
+
+      const marker = new maplibregl.Marker({ element: el })
+        .setLngLat([ct.lon, ct.lat])
+        .addTo(mapInstance);
+
+      // Show popup on hover
+      el.addEventListener('mouseenter', () => {
+        popup.setLngLat([ct.lon, ct.lat]).addTo(mapInstance);
+      });
+      el.addEventListener('mouseleave', () => popup.remove());
+
+      ctMarkers.current.push(marker);
+    });
+  }, [mapLoaded, layerToggles.ctZones, ctLocations]);
+
+  // Fetch ALL gas stations for Gran Canaria once when layer is enabled
+  useEffect(() => {
+    if (!mapLoaded || !layerToggles.gasStations) {
+      setGasStations([]);
+      return;
+    }
+
+    // Already fetched
+    if (gasStations.length > 0) return;
+
+    // Gran Canaria bounding box
+    const granCanariaBounds: BBoxBounds = {
+      minLat: 27.73,
+      maxLat: 28.18,
+      minLon: -15.87,
+      maxLon: -15.33,
+    };
+
+    let cancelled = false;
+    setIsLoadingGasStations(true);
+
+    getCommercialAnchors(granCanariaBounds, ['fuel'])
+      .then(result => {
+        if (!cancelled) {
+          setGasStations(result.anchors);
+          console.log(`[Map] Loaded ${result.anchors.length} gas stations for Gran Canaria`);
+        }
+      })
+      .catch(error => {
+        if (!cancelled) console.error('[Map] Failed to fetch gas stations:', error);
+      })
+      .finally(() => {
+        if (!cancelled) setIsLoadingGasStations(false);
+      });
+
+    return () => { cancelled = true; };
+  }, [mapLoaded, layerToggles.gasStations]);
+
+  // Render gas station markers
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return;
+
+    const mapInstance = map.current;
+
+    gasStationMarkers.current.forEach(marker => marker.remove());
+    gasStationMarkers.current = [];
+
+    if (!layerToggles.gasStations || gasStations.length === 0) return;
+
+    gasStations.forEach(station => {
+      const el = document.createElement('div');
+      el.className = 'gas-station-marker';
+
+      el.style.cssText = `
+        width: 24px;
+        height: 24px;
+        background: #22c55e;
+        border: 2px solid white;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      `;
+      el.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M3 22V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/><path d="M3 22h12"/><path d="M18 7l3-3v8a2 2 0 0 1-2 2h-1"/><rect x="6" y="8" width="6" height="4" rx="1"/></svg>`;
+
+      const details: string[] = [];
+      if (station.brand && station.brand !== station.name) details.push(station.brand);
+      if (station.operator && station.operator !== station.brand) details.push(`Op: ${station.operator}`);
+
+      const popup = new maplibregl.Popup({
+        offset: 15,
+        closeButton: false,
+        closeOnClick: false,
+      }).setHTML(`
+        <div style="font-size: 12px; max-width: 200px;">
+          <div style="font-weight: 600; color: #22c55e; margin-bottom: 4px;">
+            ${station.name || 'Gasolinera'}
+          </div>
+          ${details.length > 0 ? `<div style="color: #666; font-size: 11px;">${details.join(' · ')}</div>` : ''}
+        </div>
+      `);
+
+      const marker = new maplibregl.Marker({ element: el })
+        .setLngLat([station.lon, station.lat])
+        .addTo(mapInstance);
+
+      el.addEventListener('mouseenter', () => {
+        popup.setLngLat([station.lon, station.lat]).addTo(mapInstance);
+      });
+      el.addEventListener('mouseleave', () => popup.remove());
+
+      gasStationMarkers.current.push(marker);
+    });
+  }, [mapLoaded, layerToggles.gasStations, gasStations]);
 
   // Render radius circle around selected anchor
   useEffect(() => {
@@ -1485,6 +2259,28 @@ export function ProspectMap({
     <div className="relative w-full h-full">
       <div ref={mapContainer} className="w-full h-full rounded-lg" />
 
+      {/* Gestora filter banner */}
+      {gestoraFilter && (
+        <div className="absolute top-0 left-0 right-0 z-30 bg-teal-600 text-white px-4 py-2 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+            <span className="font-medium">Filtrando por:</span>
+            <span className="bg-teal-500 px-2 py-0.5 rounded">{gestoraFilter}</span>
+            <span className="text-teal-200 text-sm">
+              ({vvs.filter(v => v.managementFirm === gestoraFilter).length} propiedades)
+            </span>
+          </div>
+          <a
+            href="/installer/gestoras"
+            className="text-sm text-teal-200 hover:text-white underline"
+          >
+            Quitar filtro
+          </a>
+        </div>
+      )}
+
       {/* Search and drawing controls */}
       <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
         {/* Address search */}
@@ -1544,6 +2340,59 @@ export function ProspectMap({
               Cancelar
             </button>
           )}
+          {/* Measurement tool */}
+          {!isDrawing && (
+            <button
+              onClick={toggleMeasuring}
+              disabled={!mapLoaded}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                isMeasuring
+                  ? 'bg-blue-500 text-white'
+                  : measureClosed
+                    ? 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                    : 'bg-white text-[#222f30] hover:bg-gray-100'
+              } shadow-md disabled:opacity-50`}
+            >
+              {isMeasuring ? 'Midiendo...' : measureClosed ? 'Limpiar' : 'Medir Area'}
+            </button>
+          )}
+          {isMeasuring && (
+            <>
+              {measureVertices.length > 0 && (
+                <button
+                  onClick={undoMeasureVertex}
+                  className="px-3 py-2 rounded-lg font-medium bg-white text-gray-700 hover:bg-gray-100 shadow-md transition-colors text-sm"
+                >
+                  Deshacer
+                </button>
+              )}
+              {measureVertices.length >= 3 && (
+                <button
+                  onClick={() => {
+                    const verts = measureVerticesRef.current;
+                    setMeasureClosed(true);
+                    setIsMeasuring(false);
+                    if (map.current) map.current.getCanvas().style.cursor = '';
+                    updateMeasureLayer(verts, null, true);
+                    // Compute solar estimate from closed polygon
+                    const closedCoords = [...verts, verts[0]];
+                    const closedArea = turfArea({ type: 'Polygon', coordinates: [closedCoords] });
+                    const centerLat = verts.reduce((s, v) => s + v[1], 0) / verts.length;
+                    setMeasureSolarEstimate(computeSolarEstimate(closedArea, centerLat));
+                  }}
+                  className="px-3 py-2 rounded-lg font-medium bg-blue-500 text-white hover:bg-blue-600 shadow-md transition-colors text-sm"
+                >
+                  Finalizar
+                </button>
+              )}
+              <button
+                onClick={clearMeasurement}
+                className="px-3 py-2 rounded-lg font-medium bg-white text-red-600 hover:bg-red-50 shadow-md transition-colors text-sm"
+              >
+                Cancelar
+              </button>
+            </>
+          )}
           {/* Base layer selector */}
           <div className="flex bg-white rounded-lg shadow-md overflow-hidden">
             <button
@@ -1585,7 +2434,90 @@ export function ProspectMap({
           </div>
         </div>
 
-        {/* Subsidy heatmap toggle */}
+        {/* Measurement instructions & result */}
+        {isMeasuring && (
+          <div className="bg-blue-50 text-blue-800 text-xs px-3 py-2 rounded-lg shadow flex items-center gap-2">
+            <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Clic para colocar puntos. Clic en el primer punto para cerrar. <strong>Esc</strong> para cancelar.</span>
+            {measuredAreaM2 !== null && measuredAreaM2 > 0 && (
+              <span className="ml-auto font-bold text-blue-900 whitespace-nowrap">
+                {measuredAreaM2 >= 10000
+                  ? `${(measuredAreaM2 / 10000).toFixed(2)} ha`
+                  : `${measuredAreaM2.toFixed(1)} m²`}
+              </span>
+            )}
+          </div>
+        )}
+        {measureClosed && measuredAreaM2 !== null && !isMeasuring && (
+          <div className="bg-white text-gray-800 text-sm px-4 py-2.5 rounded-lg shadow-lg flex items-center gap-3">
+            <span className="font-bold text-blue-600">
+              {measuredAreaM2 >= 10000
+                ? `${(measuredAreaM2 / 10000).toFixed(2)} ha`
+                : `${measuredAreaM2.toFixed(1)} m²`}
+            </span>
+            <button
+              onClick={clearMeasurement}
+              className="text-xs text-gray-500 hover:text-red-600 underline transition-colors"
+            >
+              Limpiar
+            </button>
+          </div>
+        )}
+        {measureClosed && measureSolarEstimate && measureSolarEstimate.panelCount > 0 && !isMeasuring && (
+          <div className="bg-white rounded-lg shadow-lg p-3 max-w-xs relative">
+            <div className="flex items-center justify-between mb-2">
+              <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Estimación Solar</h4>
+              <button
+                onClick={() => setShowMeasureMethodology(!showMeasureMethodology)}
+                className="w-5 h-5 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-700 flex items-center justify-center text-xs font-semibold transition-colors"
+                title="Ver metodología"
+              >
+                i
+              </button>
+            </div>
+            {showMeasureMethodology && (
+              <div className="mb-3 p-2 bg-gray-50 rounded text-[10px] text-gray-600 space-y-1">
+                <div className="font-semibold text-gray-700 mb-1">Metodología de cálculo:</div>
+                <div><span className="font-medium">Area útil:</span> 60% del área medida</div>
+                <div><span className="font-medium">Paneles:</span> 400W, 2m² por panel</div>
+                <div><span className="font-medium">Producción:</span> 1200-1700 kWh/kWp según latitud</div>
+                <div><span className="font-medium">Coste:</span> 1.200 €/kWp instalado</div>
+                <div><span className="font-medium">Precio electricidad:</span> 0,20 €/kWh</div>
+                <div><span className="font-medium">Degradación:</span> 0,5%/año</div>
+              </div>
+            )}
+            <div className="grid grid-cols-3 gap-x-3 gap-y-2">
+              <div>
+                <div className="text-xs text-gray-500">Paneles</div>
+                <div className="text-sm font-bold text-gray-800">{measureSolarEstimate.panelCount}</div>
+              </div>
+              <div>
+                <div className="text-xs text-gray-500">Potencia</div>
+                <div className="text-sm font-bold text-gray-800">{measureSolarEstimate.systemKwp.toFixed(1)} kWp</div>
+              </div>
+              <div>
+                <div className="text-xs text-gray-500">Producción</div>
+                <div className="text-sm font-bold text-gray-800">{(measureSolarEstimate.annualKwh / 1000).toFixed(1)}k kWh</div>
+              </div>
+              <div>
+                <div className="text-xs text-gray-500">Coste</div>
+                <div className="text-sm font-bold text-gray-800">{(measureSolarEstimate.installationCost / 1000).toFixed(0)}k €</div>
+              </div>
+              <div>
+                <div className="text-xs text-gray-500">Ahorro/año</div>
+                <div className="text-sm font-bold text-green-600">{(measureSolarEstimate.annualSavingsEur / 1000).toFixed(1)}k €</div>
+              </div>
+              <div>
+                <div className="text-xs text-gray-500">Amortización</div>
+                <div className="text-sm font-bold text-blue-600">{measureSolarEstimate.paybackYears} años</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Subsidy heatmap and EPC toggle */}
         {showSubsidyHeatmap && mapLoaded && (
           <div className="flex gap-1 bg-white rounded-lg shadow-md p-1">
             <button
@@ -1610,55 +2542,23 @@ export function ProspectMap({
             >
               ICIO
             </button>
+            {buildings.length > 0 && (
+              <button
+                onClick={() => setEpcColorMode(!epcColorMode)}
+                className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
+                  epcColorMode
+                    ? 'bg-gradient-to-r from-green-500 via-yellow-400 to-red-500 text-white'
+                    : 'text-gray-600 hover:bg-gray-100'
+                }`}
+                title="Modo EPC: Colorea edificios por potencial de mejora energética (rojo = mejor prospecto)"
+              >
+                EPC
+              </button>
+            )}
           </div>
         )}
 
-        {/* EPC color mode toggle - only show when buildings are visible */}
-        {buildings.length > 0 && mapLoaded && (
-          <button
-            onClick={() => setEpcColorMode(!epcColorMode)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium shadow-md transition-colors ${
-              epcColorMode
-                ? 'bg-gradient-to-r from-green-500 via-yellow-400 to-red-500 text-white'
-                : 'bg-white text-gray-600 hover:bg-gray-100'
-            }`}
-            title="Modo EPC: Colorea edificios por potencial de mejora energética (rojo = mejor prospecto)"
-          >
-            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
-            EPC
-          </button>
-        )}
-
-        {/* Energy Community Mode button - standalone, visible when buildings loaded */}
-        {buildings.length > 0 && mapLoaded && (
-          <button
-            onClick={energyCommunityMode ? clearEnergyCommunityMode : runEnergyCommunityFinder}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium shadow-md transition-colors ${
-              energyCommunityMode
-                ? 'bg-green-600 text-white'
-                : 'bg-white text-gray-600 hover:bg-gray-100'
-            }`}
-            title="Modo Comunidad Energética: Evaluación con scoring, ROI y cumplimiento legal"
-          >
-            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
-              <circle cx="12" cy="12" r="4" />
-              <circle cx="12" cy="12" r="8" strokeDasharray="2 2" />
-            </svg>
-            {energyCommunityMode ? (
-              <>
-                CE ({scoredClusters.length})
-                <span className="ml-1 opacity-60">×</span>
-              </>
-            ) : (
-              'Com. Energética'
-            )}
-          </button>
-        )}
-
-        {/* Layer toggles - 5 compact buttons */}
+        {/* Layer toggles - 6 compact buttons */}
         {showCommercialAnchors && mapLoaded && (() => {
           // Calculate counts
           const supermarketCount = commercialAnchors.filter(a => a.type === 'supermarket' || a.type === 'retail').length;
@@ -1666,18 +2566,26 @@ export function ProspectMap({
           const vvFirmCount = vvs.filter(v => v.managementFirm).length;
           const vvComplexCount = vvs.filter(v => !v.managementFirm && v.complexName).length;
           const vvIndividualCount = vvs.filter(v => !v.managementFirm && !v.complexName).length;
+          const solarGrantsCount = solarGrants.length;
+          const ctCount = ctLocations.length;
 
           const toggles = [
-            { key: 'supermarkets' as const, color: '#f59e0b', count: supermarketCount, title: 'Supermercados',
+            { key: 'supermarkets' as const, color: '#f59e0b', count: supermarketCount, title: 'Supermercados', isLoading: isLoadingAnchors, showCount: anchorsVisible,
               icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>` },
-            { key: 'industrial' as const, color: '#ef4444', count: industrialCount, title: 'Naves Industriales',
+            { key: 'industrial' as const, color: '#ef4444', count: industrialCount, title: 'Naves Industriales', isLoading: isLoadingAnchors, showCount: anchorsVisible,
               icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>` },
-            { key: 'vvFirms' as const, color: '#8b5cf6', count: vvFirmCount, title: 'Gestora Inmobiliaria',
+            { key: 'vvFirms' as const, color: '#8b5cf6', count: vvFirmCount, title: 'Gestora Inmobiliaria', isLoading: isLoadingVvs, showCount: vvsVisible,
               icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M8 10h.01M16 10h.01M12 10h.01"/></svg>` },
-            { key: 'vvComplexes' as const, color: '#f59e0b', count: vvComplexCount, title: 'Complejo/Resort',
+            { key: 'vvComplexes' as const, color: '#f59e0b', count: vvComplexCount, title: 'Complejo/Resort', isLoading: isLoadingVvs, showCount: vvsVisible,
               icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/><path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01"/></svg>` },
-            { key: 'vvIndividual' as const, color: '#06b6d4', count: vvIndividualCount, title: 'VV Individual',
+            { key: 'vvIndividual' as const, color: '#06b6d4', count: vvIndividualCount, title: 'VV Individual', isLoading: isLoadingVvs, showCount: vvsVisible,
               icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>` },
+            { key: 'solarGrants' as const, color: '#10b981', count: solarGrantsCount, title: 'Subvenciones Solares BDNS', isLoading: isLoadingSolarGrants, showCount: layerToggles.solarGrants,
+              icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>` },
+            { key: 'ctZones' as const, color: '#3b82f6', count: ctCount, title: 'Centros de Transformación (CT)', isLoading: isLoadingCTs, showCount: layerToggles.ctZones,
+              icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>` },
+            { key: 'gasStations' as const, color: '#22c55e', count: gasStations.length, title: 'Gasolineras', isLoading: isLoadingGasStations, showCount: layerToggles.gasStations,
+              icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 22V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/><path d="M3 22h12"/><path d="M18 7l3-3v8a2 2 0 0 1-2 2h-1"/><rect x="6" y="8" width="6" height="4" rx="1"/></svg>` },
           ];
 
           // Auto-enable anchors/VVs when any toggle is clicked
@@ -1696,11 +2604,8 @@ export function ProspectMap({
             <div className="flex flex-col gap-2">
               {/* Compact toggle grid - 2 rows */}
               <div className="flex flex-wrap gap-1.5 bg-white rounded-lg shadow-md p-1.5">
-                {toggles.map(({ key, color, count, title, icon }) => {
+                {toggles.map(({ key, color, count, title, icon, isLoading, showCount }) => {
                   const isActive = layerToggles[key];
-                  const isVvType = key.startsWith('vv');
-                  const isLoading = isVvType ? isLoadingVvs : isLoadingAnchors;
-                  const showCount = isVvType ? vvsVisible : anchorsVisible;
 
                   return (
                     <button

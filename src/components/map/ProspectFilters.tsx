@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BBoxBounds, ProspectFilters as Filters, AssessmentType, GrantCategory } from './types';
 
 /**
@@ -22,6 +22,7 @@ interface ProspectFiltersProps {
   selectedBounds: BBoxBounds | null;
   isLoading: boolean;
   onAssessmentTypeChange?: (type: AssessmentType) => void;
+  initialAssessmentType?: AssessmentType;
 }
 
 // Segments grouped by grant category
@@ -82,15 +83,20 @@ const ASSESSMENT_TYPES: { value: AssessmentType; label: string; icon: React.Reac
   },
 ];
 
-export function ProspectFilters({ onSearch, selectedBounds, isLoading, onAssessmentTypeChange }: ProspectFiltersProps) {
+export function ProspectFilters({ onSearch, selectedBounds, isLoading, onAssessmentTypeChange, initialAssessmentType = 'solar' }: ProspectFiltersProps) {
   const [filters, setFilters] = useState<Filters>({
     minArea: 50,
     maxResults: 100,
     grantCategory: 'residential',
     businessSegment: 'residential',
     electricityPrice: 0.20,
-    assessmentType: 'solar',
+    assessmentType: initialAssessmentType,
   });
+
+  // Sync internal state when initialAssessmentType changes (e.g., after localStorage hydration)
+  useEffect(() => {
+    setFilters(prev => ({ ...prev, assessmentType: initialAssessmentType }));
+  }, [initialAssessmentType]);
 
   const handleGrantCategoryChange = (category: GrantCategory) => {
     // When category changes, reset segment to first option in that category

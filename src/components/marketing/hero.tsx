@@ -24,24 +24,24 @@ export function Hero() {
         {/* Main Heading */}
         <div className="flex-1 flex items-center">
           <h1 className="text-[clamp(3rem,10vw,7rem)] font-normal leading-[1] tracking-[-0.03em] max-w-[1070px]">
-            El futuro de la energía solar para empresas.
+            El futuro de la energía es colectivo.
           </h1>
         </div>
 
         {/* Bottom Content */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pt-[60px]">
           <p className="text-[clamp(1.25rem,2vw,1.5rem)] font-light leading-[1.3] max-w-[640px] text-white/90">
-            Reduce tu factura de luz hasta un 80% con energía solar.
-            Subvenciones del Gobierno de Canarias cubren hasta el 80% del coste.
+            Vecinos que producen y comparten su propia energía.
+            Subvenciones de hasta el 80% y ahorro garantizado para todos los miembros.
           </p>
 
           {/* CTA Button - Split style */}
           <Link
-            href="#calculadora"
+            href="/solicitar"
             className="group inline-flex items-stretch h-12"
           >
             <span className="bg-[#222f30] text-white px-5 font-mono text-sm uppercase flex items-center rounded-l-[12px] transition-all duration-500 group-hover:bg-[#a7e26e] group-hover:text-[#222f30]">
-              Descubre tu ahorro
+              Quiero participar
             </span>
             <span className="w-12 h-12 bg-[#a7e26e] rounded-r-[12px] flex items-center justify-center transition-all duration-500 group-hover:bg-[#222f30]">
               <svg
