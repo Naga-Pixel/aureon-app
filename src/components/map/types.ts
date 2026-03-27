@@ -11,6 +11,22 @@ export interface BBoxBounds {
   maxLon: number;
 }
 
+/**
+ * CT (Centro de Transformación) location from various data sources
+ */
+export type CTDataSource = 'osm' | 'grafcan' | 'catastro';
+
+export interface CTLocation {
+  id: string;
+  source: CTDataSource;
+  sourceId: string;       // OSM node ID, GRAFCAN feature ID, etc.
+  refCT: string | null;   // Official CT reference (when available)
+  operator: string | null; // Endesa, Iberdrola, etc.
+  lat: number;
+  lon: number;
+  confidence: number;     // 0-100
+}
+
 export type DataSource = 'api' | 'fallback' | 'estimate' | 'config';
 
 export interface DataProvenance {
@@ -130,6 +146,25 @@ export interface ClusterROI {
 }
 
 /**
+ * CT Analysis result for cluster eligibility
+ */
+export interface CTAnalysisResult {
+  zoneCount: number;
+  risk: boolean;
+  dominantZone: string | null;
+  dominantZoneRatio: number;
+  zones: Array<{
+    zoneId: string;
+    buildingCount: number;
+    percentage: number;
+    refCT?: string | null;
+    operator?: string | null;
+  }>;
+  dataSource: 'heuristic' | 'voronoi';
+  confidence: number;
+}
+
+/**
  * Extended cluster result with energy community scoring
  */
 export interface ScoredClusterResult {
@@ -156,6 +191,7 @@ export interface ScoredClusterResult {
   // CT heuristic
   ctZoneWarning: boolean;
   ctZoneCount: number;
+  ctAnalysis?: CTAnalysisResult;
   // Distances
   avgDistanceKm: number;
   buildingDistances: Map<string, number>;
