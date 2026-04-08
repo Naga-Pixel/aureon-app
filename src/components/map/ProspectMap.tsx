@@ -197,6 +197,12 @@ export function ProspectMap({
   const [measuredAreaM2, setMeasuredAreaM2] = useState<number | null>(null);
   const [measureClosed, setMeasureClosed] = useState(false);
   const [measureSolarEstimate, setMeasureSolarEstimate] = useState<SolarEstimate | null>(null);
+  // Lead picker modal for sending measurement to lead
+  const [showLeadPicker, setShowLeadPicker] = useState(false);
+  const [leadSearchQuery, setLeadSearchQuery] = useState('');
+  const [leadSearchResults, setLeadSearchResults] = useState<Array<{ id: string; name: string; email: string; address: string | null }>>([]);
+  const [isSearchingLeads, setIsSearchingLeads] = useState(false);
+  const [isSendingToLead, setIsSendingToLead] = useState(false);
   const measureCursorRef = useRef<[number, number] | null>(null);
   const [showMeasureMethodology, setShowMeasureMethodology] = useState(false);
 
@@ -979,6 +985,75 @@ export function ProspectMap({
     if (map.current) map.current.getCanvas().style.cursor = '';
     cleanupMeasureLayers();
   }, [cleanupMeasureLayers]);
+
+  // Search leads for the lead picker modal
+  const searchLeads = useCallback(async (query: string) => {
+    setIsSearchingLeads(true);
+    try {
+      const res = await fetch(`/api/leads/search?q=${encodeURIComponent(query)}`);
+      if (res.ok) {
+        const data = await res.json();
+        setLeadSearchResults(data.leads || []);
+      }
+    } catch (err) {
+      console.error('[ProspectMap] Lead search error:', err);
+    } finally {
+      setIsSearchingLeads(false);
+    }
+  }, []);
+
+  // Send measurement to a lead as solar assessment
+  const sendMeasurementToLead = useCallback(async (leadId: string) => {
+    if (!measureSolarEstimate || !measuredAreaM2 || measureVertices.length < 3) return;
+
+    setIsSendingToLead(true);
+    try {
+      // Calculate polygon center
+      const lngs = measureVertices.map(v => v[0]);
+      const lats = measureVertices.map(v => v[1]);
+      const centerLat = lats.reduce((a, b) => a + b, 0) / lats.length;
+      const centerLng = lngs.reduce((a, b) => a + b, 0) / lngs.length;
+
+      const res = await fetch('/api/solar-assessments/from-measurement', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          leadId,
+          areaM2: measuredAreaM2,
+          panelCount: measureSolarEstimate.panelCount,
+          systemKwp: measureSolarEstimate.systemKwp,
+          annualKwh: measureSolarEstimate.annualKwh,
+          annualSavingsEur: measureSolarEstimate.annualSavingsEur,
+          installationCost: measureSolarEstimate.installationCost,
+          paybackYears: measureSolarEstimate.paybackYears,
+          latitude: centerLat,
+          longitude: centerLng,
+          vertices: measureVertices,
+        }),
+      });
+
+      if (res.ok) {
+        // Success - close modal and optionally clear measurement
+        setShowLeadPicker(false);
+        setLeadSearchQuery('');
+        setLeadSearchResults([]);
+        // Navigate to lead or show success message
+        window.location.href = `/installer/leads/${leadId}`;
+      } else {
+        console.error('[ProspectMap] Failed to send to lead');
+      }
+    } catch (err) {
+      console.error('[ProspectMap] Send to lead error:', err);
+    } finally {
+      setIsSendingToLead(false);
+    }
+  }, [measureSolarEstimate, measuredAreaM2, measureVertices]);
+
+  // Open lead picker and load initial results
+  const openLeadPicker = useCallback(() => {
+    setShowLeadPicker(true);
+    searchLeads('');
+  }, [searchLeads]);
 
   // Search for an address and fly to it
   const handleSearch = useCallback(async (e: React.FormEvent) => {
@@ -2793,6 +2868,16 @@ export function ProspectMap({
                 <div className="text-sm font-bold text-blue-600">{measureSolarEstimate.paybackYears} años</div>
               </div>
             </div>
+            {/* Send to Lead button */}
+            <button
+              onClick={openLeadPicker}
+              className="mt-3 w-full py-2 px-3 bg-[#222f30] text-white text-sm font-medium rounded-lg hover:bg-[#1a2526] transition-colors flex items-center justify-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+              Enviar a Lead
+            </button>
           </div>
         )}
 
@@ -3333,6 +3418,103 @@ export function ProspectMap({
                 {isSavingPin ? 'Guardando...' : 'Guardar'}
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Lead Picker Modal */}
+      {showLeadPicker && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-[60]" onClick={() => setShowLeadPicker(false)}>
+          <div className="bg-white rounded-xl shadow-lg p-5 w-96 max-h-[80vh] flex flex-col" onClick={(e) => e.stopPropagation()}>
+            <h3 className="font-semibold text-[#222f30] mb-3 flex items-center gap-2">
+              <svg className="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+              Enviar evaluación a Lead
+            </h3>
+
+            {/* Search input */}
+            <div className="relative mb-3">
+              <input
+                type="text"
+                value={leadSearchQuery}
+                onChange={(e) => {
+                  setLeadSearchQuery(e.target.value);
+                  searchLeads(e.target.value);
+                }}
+                placeholder="Buscar lead por nombre, email o dirección..."
+                className="w-full px-3 py-2 pl-9 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                autoFocus
+              />
+              <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+
+            {/* Results list */}
+            <div className="flex-1 overflow-y-auto min-h-0 border rounded-lg">
+              {isSearchingLeads ? (
+                <div className="flex items-center justify-center py-8">
+                  <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                </div>
+              ) : leadSearchResults.length === 0 ? (
+                <div className="text-center py-8 text-sm text-gray-500">
+                  {leadSearchQuery ? 'No se encontraron leads' : 'No hay leads disponibles'}
+                </div>
+              ) : (
+                <div className="divide-y">
+                  {leadSearchResults.map((lead) => (
+                    <button
+                      key={lead.id}
+                      onClick={() => sendMeasurementToLead(lead.id)}
+                      disabled={isSendingToLead}
+                      className="w-full px-3 py-3 text-left hover:bg-gray-50 transition-colors disabled:opacity-50"
+                    >
+                      <div className="font-medium text-sm text-[#222f30]">{lead.name}</div>
+                      <div className="text-xs text-gray-500">{lead.email}</div>
+                      {lead.address && (
+                        <div className="text-xs text-gray-400 truncate">{lead.address}</div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Footer with summary */}
+            {measureSolarEstimate && (
+              <div className="mt-3 pt-3 border-t text-xs text-gray-500">
+                <div className="flex justify-between">
+                  <span>Área medida:</span>
+                  <span className="font-medium text-gray-700">{measuredAreaM2?.toFixed(0)} m²</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Sistema:</span>
+                  <span className="font-medium text-gray-700">{measureSolarEstimate.systemKwp.toFixed(1)} kWp</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Ahorro estimado:</span>
+                  <span className="font-medium text-green-600">{measureSolarEstimate.annualSavingsEur.toFixed(0)} €/año</span>
+                </div>
+              </div>
+            )}
+
+            {/* Cancel button */}
+            <button
+              onClick={() => setShowLeadPicker(false)}
+              className="mt-3 w-full px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+            >
+              Cancelar
+            </button>
+
+            {isSendingToLead && (
+              <div className="absolute inset-0 bg-white/80 flex items-center justify-center rounded-xl">
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                  Enviando...
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
