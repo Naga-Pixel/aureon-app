@@ -5,9 +5,10 @@ import { Card, CardContent, Badge } from "@/components/ui";
 import { AssessmentCard } from "@/components/assessment";
 import { LEAD_STATUSES, PROPERTY_TYPES, ROOF_TYPES, INSTALLATION_TIMELINES } from "@/lib/constants/property-types";
 import { ISLANDS } from "@/lib/constants/islands";
-import { formatCurrency } from "@/lib/utils/calculator";
 import { LeadStatusForm } from "./lead-status-form";
 import { DeleteLeadButton } from "./delete-lead-button";
+import { InlineEditField, InlineEditSelect } from "./inline-edit-field";
+import { SavingsSummary } from "./savings-summary";
 import type { Lead, Installer } from "@/lib/supabase/types";
 
 interface LeadDetailPageProps {
@@ -44,13 +45,6 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
     installer = data;
   }
   const isAdmin = installer?.role === "admin";
-
-  const getLabel = (
-    value: string,
-    options: readonly { value: string; label: string }[]
-  ) => {
-    return options.find((o) => o.value === value)?.label || value;
-  };
 
   const statusConfig = LEAD_STATUSES.find((s) => s.value === lead.status);
   const statusVariant =
@@ -111,42 +105,32 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                 Informacion de contacto
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-[#445e5f]">
-                    Nombre
-                  </p>
-                  <p className="font-medium">{lead.name}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-[#445e5f]">
-                    Email
-                  </p>
-                  <a
-                    href={`mailto:${lead.email}`}
-                    className="font-medium text-[#a7e26e] hover:underline"
-                  >
-                    {lead.email}
-                  </a>
-                </div>
-                <div>
-                  <p className="text-sm text-[#445e5f]">
-                    Telefono
-                  </p>
-                  <a
-                    href={`tel:${lead.phone}`}
-                    className="font-medium text-[#a7e26e] hover:underline"
-                  >
-                    {lead.phone}
-                  </a>
-                </div>
-                {lead.address && (
-                  <div>
-                    <p className="text-sm text-[#445e5f]">
-                      Direccion
-                    </p>
-                    <p className="font-medium">{lead.address}</p>
-                  </div>
-                )}
+                <InlineEditField
+                  leadId={lead.id}
+                  field="name"
+                  value={lead.name}
+                  label="Nombre"
+                />
+                <InlineEditField
+                  leadId={lead.id}
+                  field="email"
+                  value={lead.email}
+                  label="Email"
+                  type="email"
+                />
+                <InlineEditField
+                  leadId={lead.id}
+                  field="phone"
+                  value={lead.phone}
+                  label="Telefono"
+                  type="tel"
+                />
+                <InlineEditField
+                  leadId={lead.id}
+                  field="address"
+                  value={lead.address || ''}
+                  label="Direccion"
+                />
               </div>
             </CardContent>
           </Card>
@@ -158,36 +142,42 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                 Detalles de la propiedad
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-[#445e5f]">
-                    Tipo de propiedad
-                  </p>
-                  <p className="font-medium">
-                    {getLabel(lead.property_type, PROPERTY_TYPES)}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-[#445e5f]">Isla</p>
-                  <p className="font-medium">
-                    {getLabel(lead.island, ISLANDS)}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-[#445e5f]">
-                    Tipo de tejado
-                  </p>
-                  <p className="font-medium">
-                    {getLabel(lead.roof_type, ROOF_TYPES)}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-[#445e5f]">
-                    Plazo de instalacion
-                  </p>
-                  <p className="font-medium">
-                    {getLabel(lead.installation_timeline, INSTALLATION_TIMELINES)}
-                  </p>
-                </div>
+                <InlineEditSelect
+                  leadId={lead.id}
+                  field="property_type"
+                  value={lead.property_type}
+                  label="Tipo de propiedad"
+                  options={PROPERTY_TYPES}
+                />
+                <InlineEditSelect
+                  leadId={lead.id}
+                  field="island"
+                  value={lead.island}
+                  label="Isla"
+                  options={ISLANDS}
+                />
+                <InlineEditSelect
+                  leadId={lead.id}
+                  field="roof_type"
+                  value={lead.roof_type}
+                  label="Tipo de tejado"
+                  options={ROOF_TYPES}
+                />
+                <InlineEditSelect
+                  leadId={lead.id}
+                  field="installation_timeline"
+                  value={lead.installation_timeline}
+                  label="Plazo de instalacion"
+                  options={INSTALLATION_TIMELINES}
+                />
+                <InlineEditField
+                  leadId={lead.id}
+                  field="monthly_bill"
+                  value={String(lead.monthly_bill)}
+                  label="Factura mensual"
+                  type="number"
+                  prefix="€"
+                />
               </div>
             </CardContent>
           </Card>
@@ -207,52 +197,8 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
 
         {/* Sidebar */}
         <div className="space-y-6">
-          {/* Savings Summary */}
-          <Card variant="elevated">
-            <CardContent className="p-6">
-              <h2 className="text-lg font-medium mb-4">Ahorro estimado</h2>
-              <div className="space-y-4">
-                <div>
-                  <p className="text-sm text-[#445e5f]">
-                    Factura mensual
-                  </p>
-                  <p className="text-2xl font-semibold">
-                    {formatCurrency(Number(lead.monthly_bill))}
-                  </p>
-                </div>
-                {lead.estimated_savings_monthly && (
-                  <div className="pt-4 border-t border-gray-200">
-                    <p className="text-sm text-[#445e5f]">
-                      Ahorro mensual
-                    </p>
-                    <p className="text-xl font-semibold text-[#a7e26e]">
-                      {formatCurrency(Number(lead.estimated_savings_monthly))}
-                    </p>
-                  </div>
-                )}
-                {lead.estimated_savings_annual && (
-                  <div>
-                    <p className="text-sm text-[#445e5f]">
-                      Ahorro anual
-                    </p>
-                    <p className="text-xl font-semibold text-[#a7e26e]">
-                      {formatCurrency(Number(lead.estimated_savings_annual))}
-                    </p>
-                  </div>
-                )}
-                {lead.estimated_subsidy && (
-                  <div>
-                    <p className="text-sm text-[#445e5f]">
-                      Subvencion estimada
-                    </p>
-                    <p className="text-xl font-semibold">
-                      {formatCurrency(Number(lead.estimated_subsidy))}
-                    </p>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+          {/* Savings Summary - from solar assessment */}
+          <SavingsSummary leadId={lead.id} monthlyBill={Number(lead.monthly_bill)} />
 
           {/* Quick Actions */}
           <Card variant="bordered">
