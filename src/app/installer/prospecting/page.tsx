@@ -130,6 +130,21 @@ export default function ProspectingPage() {
     await fetchSavedLocations();
   }, [fetchSavedLocations]);
 
+  const handlePromoteToLead = useCallback(async (locationId: string) => {
+    const res = await fetch('/api/leads/from-location', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ locationId }),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      // Navigate to the lead page to edit details
+      window.location.href = `/installer/leads/${data.lead.id}`;
+    } else {
+      console.error('[ProspectingPage] Failed to promote to lead');
+    }
+  }, []);
+
   const handleAreaSelect = useCallback((selectedBounds: BBoxBounds | null) => {
     setBounds(selectedBounds);
     if (selectedBounds === null) {
@@ -291,6 +306,7 @@ export default function ProspectingPage() {
           onSavePin={handleSavePin}
           onDeleteSavedLocation={handleDeleteSavedLocation}
           onUpdateSavedLocationColor={handleUpdateSavedLocationColor}
+          onPromoteToLead={handlePromoteToLead}
         />
       </div>
 

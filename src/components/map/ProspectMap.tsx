@@ -43,6 +43,7 @@ interface ProspectMapProps {
   onSavePin?: (lat: number, lon: number, name: string) => Promise<void>;
   onDeleteSavedLocation?: (id: string) => Promise<void>;
   onUpdateSavedLocationColor?: (id: string, color: string) => Promise<void>;
+  onPromoteToLead?: (locationId: string) => Promise<void>;
 }
 
 interface SolarEstimate {
@@ -107,6 +108,7 @@ export function ProspectMap({
   onSavePin,
   onDeleteSavedLocation,
   onUpdateSavedLocationColor,
+  onPromoteToLead,
 }: ProspectMapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -499,7 +501,7 @@ export function ProspectMap({
         `<button onclick="document.dispatchEvent(new CustomEvent('update-saved-location-color', {detail:{id:'${loc.id}',color:'${opt.color}'}}))" style="width:20px;height:20px;border-radius:50%;background:${opt.color};border:2px solid ${opt.color === markerColor ? '#222' : 'transparent'};cursor:pointer;margin-right:4px" title="${opt.label}"></button>`
       ).join('');
 
-      // Popup with info, color picker, and delete button
+      // Popup with info, color picker, promote and delete buttons
       const popupHtml = `
         <div style="padding:8px;min-width:160px">
           <h4 style="font-weight:600;margin:0 0 4px 0;font-size:13px">${loc.name || (loc.type === 'building' ? 'Edificio guardado' : 'Pin guardado')}</h4>
@@ -509,9 +511,14 @@ export function ProspectMap({
             <span style="font-size:10px;color:#666;margin-right:8px">Color:</span>
             ${colorButtonsHtml}
           </div>
-          <button onclick="document.dispatchEvent(new CustomEvent('delete-saved-location', {detail:'${loc.id}'}))" style="font-size:11px;color:#ef4444;cursor:pointer;background:none;border:none;padding:2px 0;text-decoration:underline">
-            Eliminar
-          </button>
+          <div style="display:flex;gap:12px;align-items:center">
+            <button onclick="document.dispatchEvent(new CustomEvent('promote-to-lead', {detail:'${loc.id}'}))" style="font-size:11px;color:#22c55e;cursor:pointer;background:none;border:none;padding:2px 0;text-decoration:underline;font-weight:500">
+              Crear Lead
+            </button>
+            <button onclick="document.dispatchEvent(new CustomEvent('delete-saved-location', {detail:'${loc.id}'}))" style="font-size:11px;color:#ef4444;cursor:pointer;background:none;border:none;padding:2px 0;text-decoration:underline">
+              Eliminar
+            </button>
+          </div>
         </div>
       `;
 
@@ -552,6 +559,19 @@ export function ProspectMap({
     document.addEventListener('update-saved-location-color', handleColorUpdate);
     return () => document.removeEventListener('update-saved-location-color', handleColorUpdate);
   }, [onUpdateSavedLocationColor]);
+
+  // Listen for promote-to-lead custom events from popup buttons
+  useEffect(() => {
+    if (!onPromoteToLead) return;
+
+    const handlePromote = (e: Event) => {
+      const id = (e as CustomEvent).detail;
+      if (id) onPromoteToLead(id);
+    };
+
+    document.addEventListener('promote-to-lead', handlePromote);
+    return () => document.removeEventListener('promote-to-lead', handlePromote);
+  }, [onPromoteToLead]);
 
   // Measurement tool: helper to update map sources
   const updateMeasureLayer = useCallback((vertices: [number, number][], cursor: [number, number] | null, closed: boolean) => {
