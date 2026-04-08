@@ -86,9 +86,9 @@ const NOMINATIM_SEARCH_URL = 'https://nominatim.openstreetmap.org/search';
 // MapLibre style - using free CartoCDN tiles
 const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json';
 
-// Spain center (Madrid)
-const DEFAULT_CENTER: [number, number] = [-3.7038, 40.4168];
-const DEFAULT_ZOOM = 6;
+// Gran Canaria center (Las Palmas)
+const DEFAULT_CENTER: [number, number] = [-15.4134, 28.0997];
+const DEFAULT_ZOOM = 11;
 
 export function ProspectMap({
   onAreaSelect,
