@@ -39,14 +39,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Lead no encontrado' }, { status: 404 });
     }
 
-    // Delete associated solar assessments first
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    await (supabase as any)
-      .from('solar_assessments')
-      .delete()
-      .eq('lead_id', id);
-
-    // Delete the lead
+    // Delete the lead (solar assessments keep their data with null lead_id)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { error } = await (supabase as any)
       .from('leads')
