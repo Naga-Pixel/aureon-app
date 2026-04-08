@@ -369,6 +369,33 @@ export interface Database {
         };
         Update: Partial<Database["public"]["Tables"]["solar_assessments"]["Insert"]>;
       };
+      saved_locations: {
+        Row: {
+          id: string;
+          installer_id: string;
+          type: 'pin' | 'building';
+          name: string | null;
+          notes: string | null;
+          lat: number;
+          lon: number;
+          color: string | null;
+          building_data: Record<string, unknown> | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          installer_id: string;
+          type: 'pin' | 'building';
+          name?: string | null;
+          notes?: string | null;
+          lat: number;
+          lon: number;
+          color?: string | null;
+          building_data?: Record<string, unknown> | null;
+        };
+        Update: Partial<Database["public"]["Tables"]["saved_locations"]["Insert"]>;
+      };
       battery_assessments: {
         Row: {
           id: string;
@@ -509,6 +536,9 @@ export type DocumentStatus =
 
 export type SolarAssessment = Database["public"]["Tables"]["solar_assessments"]["Row"];
 export type SolarAssessmentInsert = Database["public"]["Tables"]["solar_assessments"]["Insert"];
+
+export type SavedLocation = Database["public"]["Tables"]["saved_locations"]["Row"];
+export type SavedLocationInsert = Database["public"]["Tables"]["saved_locations"]["Insert"];
 
 export type BatteryAssessment = Database["public"]["Tables"]["battery_assessments"]["Row"];
 export type BatteryAssessmentInsert = Database["public"]["Tables"]["battery_assessments"]["Insert"];

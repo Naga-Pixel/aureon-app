@@ -65,6 +65,14 @@ export function Header() {
             ))}
           </nav>
 
+          {/* Installer Login */}
+          <Link
+            href="/login"
+            className="hidden md:inline-flex text-[#222f30]/60 text-sm font-mono uppercase tracking-normal px-3 py-2 rounded-[8px] transition-all duration-300 hover:text-[#222f30] hover:bg-[#f7f7f5]"
+          >
+            Instaladores
+          </Link>
+
           {/* CTA Button */}
           <Link
             href="/solicitar"
@@ -123,6 +131,13 @@ export function Header() {
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Contacto
+          </Link>
+          <Link
+            href="/login"
+            className="mt-2 text-white/60 font-mono text-sm uppercase hover:text-[#a7e26e] transition-colors"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Acceso Instaladores
           </Link>
         </nav>
       </div>

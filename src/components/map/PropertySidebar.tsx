@@ -13,6 +13,9 @@ interface PropertySidebarProps {
   grantCategory: GrantCategory;
   businessSegment: string;
   electricityPrice: number;
+  savedLocationIds?: Set<string>;
+  onSaveBuilding?: (building: BuildingResult) => Promise<void>;
+  onUnsaveBuilding?: (buildingId: string) => Promise<void>;
 }
 
 const TAB_LABELS: Record<Tab, string> = {
@@ -346,8 +349,12 @@ export function PropertySidebar({
   grantCategory,
   businessSegment,
   electricityPrice,
+  savedLocationIds,
+  onSaveBuilding,
+  onUnsaveBuilding,
 }: PropertySidebarProps) {
   const [activeTab, setActiveTab] = useState<Tab>('physical');
+  const [isSavingBuilding, setIsSavingBuilding] = useState(false);
   const isOpen = building !== null;
 
   // Enriched Catastro data (floors, units) - fetched on building selection
@@ -629,20 +636,43 @@ export function PropertySidebar({
                     Descargar informe detallado (PDF)
                   </button>
 
-                  <button
-                    disabled
-                    className="w-full py-3 px-4 bg-gray-100 text-gray-400 rounded-lg font-medium cursor-not-allowed flex items-center justify-center gap-2"
-                  >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                      />
-                    </svg>
-                    Añadir a Cartera (Próximamente)
-                  </button>
+                  {(() => {
+                    const buildingKey = building.buildingId || building.cadastralReference || '';
+                    const isSaved = savedLocationIds?.has(buildingKey);
+
+                    return (
+                      <button
+                        disabled={isSavingBuilding || (!onSaveBuilding && !onUnsaveBuilding)}
+                        onClick={async () => {
+                          if (isSavingBuilding) return;
+                          setIsSavingBuilding(true);
+                          try {
+                            if (isSaved && onUnsaveBuilding) {
+                              await onUnsaveBuilding(buildingKey);
+                            } else if (!isSaved && onSaveBuilding) {
+                              await onSaveBuilding(building);
+                            }
+                          } finally {
+                            setIsSavingBuilding(false);
+                          }
+                        }}
+                        className={`w-full py-3 px-4 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors ${
+                          isSaved
+                            ? 'bg-[#a7e26e] text-[#222f30] hover:bg-[#96d15e]'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        } disabled:opacity-50 disabled:cursor-not-allowed`}
+                      >
+                        {isSavingBuilding ? (
+                          <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                        ) : (
+                          <svg className="w-5 h-5" fill={isSaved ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                          </svg>
+                        )}
+                        {isSaved ? 'Guardado' : 'Guardar Edificio'}
+                      </button>
+                    );
+                  })()}
 
                   {/* Building reference info */}
                   <div className="text-xs text-gray-400 mt-4">

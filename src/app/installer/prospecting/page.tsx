@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useSearchParams } from 'next/navigation';
 import { ProspectMap, ProspectFilters, BuildingResultsList } from '@/components/map';
@@ -8,6 +8,7 @@ import { PropertySidebar } from '@/components/map/PropertySidebar';
 import type { BBoxBounds, BuildingResult, ProspectFiltersType, AssessmentType, GrantCategory } from '@/components/map';
 import { exportToCSV } from '@/lib/utils/export';
 import { downloadProspectReport, ReportMetadata } from '@/lib/services/prospect-report';
+import type { SavedLocation } from '@/lib/supabase/types';
 
 export default function ProspectingPage() {
   const searchParams = useSearchParams();
@@ -26,6 +27,108 @@ export default function ProspectingPage() {
   const [grantCategory, setGrantCategory] = useLocalStorage<GrantCategory>('prospecting:grantCategory', 'residential');
   const [serviceWarnings, setServiceWarnings] = useState<string[]>([]);
   const lastFiltersRef = useRef<ProspectFiltersType | null>(null);
+
+  // Saved locations
+  const [savedLocations, setSavedLocations] = useState<SavedLocation[]>([]);
+
+  const fetchSavedLocations = useCallback(async () => {
+    try {
+      const res = await fetch('/api/saved-locations');
+      if (res.ok) {
+        const data = await res.json();
+        setSavedLocations(data.locations || []);
+      } else {
+        console.warn('[ProspectingPage] Saved locations fetch failed:', res.status);
+      }
+    } catch (err) {
+      console.error('[ProspectingPage] Error fetching saved locations:', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchSavedLocations();
+  }, [fetchSavedLocations]);
+
+  // Set of building IDs that are saved (for PropertySidebar toggle state)
+  const savedLocationIds = useMemo(() => {
+    const ids = new Set<string>();
+    savedLocations.forEach(loc => {
+      if (loc.type === 'building' && loc.building_data) {
+        const bd = loc.building_data as Record<string, unknown>;
+        const key = (bd.buildingId as string) || (bd.cadastralReference as string) || '';
+        if (key) ids.add(key);
+      }
+    });
+    return ids;
+  }, [savedLocations]);
+
+  // Map from building key to saved location ID (for unsave)
+  const savedLocationByBuildingKey = useMemo(() => {
+    const map = new Map<string, string>();
+    savedLocations.forEach(loc => {
+      if (loc.type === 'building' && loc.building_data) {
+        const bd = loc.building_data as Record<string, unknown>;
+        const key = (bd.buildingId as string) || (bd.cadastralReference as string) || '';
+        if (key) map.set(key, loc.id);
+      }
+    });
+    return map;
+  }, [savedLocations]);
+
+  const handleSaveBuilding = useCallback(async (building: BuildingResult) => {
+    const lat = building.polygonCoordinates
+      ? building.polygonCoordinates.reduce((s, c) => s + c[1], 0) / building.polygonCoordinates.length
+      : 0;
+    const lon = building.polygonCoordinates
+      ? building.polygonCoordinates.reduce((s, c) => s + c[0], 0) / building.polygonCoordinates.length
+      : 0;
+
+    await fetch('/api/saved-locations', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'building',
+        name: building.streetAddress || building.cadastralReference || 'Edificio',
+        lat,
+        lon,
+        building_data: building,
+      }),
+    });
+    await fetchSavedLocations();
+  }, [fetchSavedLocations]);
+
+  const handleUnsaveBuilding = useCallback(async (buildingKey: string) => {
+    const locationId = savedLocationByBuildingKey.get(buildingKey);
+    if (!locationId) return;
+    await fetch(`/api/saved-locations?id=${locationId}`, { method: 'DELETE' });
+    await fetchSavedLocations();
+  }, [savedLocationByBuildingKey, fetchSavedLocations]);
+
+  const handleSavePin = useCallback(async (lat: number, lon: number, name: string) => {
+    const res = await fetch('/api/saved-locations', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'pin', name: name || 'Pin', lat, lon }),
+    });
+    if (!res.ok) {
+      console.error('[ProspectingPage] Failed to save pin:', res.status, await res.text());
+    }
+    await fetchSavedLocations();
+  }, [fetchSavedLocations]);
+
+  const handleDeleteSavedLocation = useCallback(async (id: string) => {
+    await fetch(`/api/saved-locations?id=${id}`, { method: 'DELETE' });
+    await fetchSavedLocations();
+  }, [fetchSavedLocations]);
+
+  const handleUpdateSavedLocationColor = useCallback(async (id: string, color: string) => {
+    await fetch('/api/saved-locations', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, color }),
+    });
+    await fetchSavedLocations();
+  }, [fetchSavedLocations]);
 
   const handleAreaSelect = useCallback((selectedBounds: BBoxBounds | null) => {
     setBounds(selectedBounds);
@@ -184,6 +287,10 @@ export default function ProspectingPage() {
           initialLon={initialLon}
           initialZoom={initialZoom}
           gestoraFilter={gestoraFilter}
+          savedLocations={savedLocations}
+          onSavePin={handleSavePin}
+          onDeleteSavedLocation={handleDeleteSavedLocation}
+          onUpdateSavedLocationColor={handleUpdateSavedLocationColor}
         />
       </div>
 
@@ -195,6 +302,9 @@ export default function ProspectingPage() {
         grantCategory={grantCategory}
         businessSegment={lastFiltersRef.current?.businessSegment || 'residential'}
         electricityPrice={lastFiltersRef.current?.electricityPrice || 0.18}
+        savedLocationIds={savedLocationIds}
+        onSaveBuilding={handleSaveBuilding}
+        onUnsaveBuilding={handleUnsaveBuilding}
       />
     </div>
   );

@@ -14,6 +14,7 @@ import { scoreAndRankClusters } from '@/lib/services/cluster-scorer';
 import { enrichClusterWithCTAnalysis } from '@/lib/services/ct-heuristic';
 import { ClusterRankingPanel } from './ClusterRankingPanel';
 import type { ScoredClusterResult } from './types';
+import type { SavedLocation } from '@/lib/supabase/types';
 import { ASSESSMENT_CONFIG, getRegionalKwhPerKwp } from '@/lib/config/assessment-config';
 
 // Satellite imagery options
@@ -38,6 +39,10 @@ interface ProspectMapProps {
   initialLon?: number;
   initialZoom?: number;
   gestoraFilter?: string;
+  savedLocations?: SavedLocation[];
+  onSavePin?: (lat: number, lon: number, name: string) => Promise<void>;
+  onDeleteSavedLocation?: (id: string) => Promise<void>;
+  onUpdateSavedLocationColor?: (id: string, color: string) => Promise<void>;
 }
 
 interface SolarEstimate {
@@ -98,6 +103,10 @@ export function ProspectMap({
   initialLon,
   initialZoom,
   gestoraFilter,
+  savedLocations = [],
+  onSavePin,
+  onDeleteSavedLocation,
+  onUpdateSavedLocationColor,
 }: ProspectMapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -152,6 +161,12 @@ export function ProspectMap({
   const [gasStations, setGasStations] = useState<CommercialAnchor[]>([]);
   const [isLoadingGasStations, setIsLoadingGasStations] = useState(false);
   const gasStationMarkers = useRef<maplibregl.Marker[]>([]);
+  // Saved locations markers
+  const savedLocationMarkers = useRef<maplibregl.Marker[]>([]);
+  // Save pin prompt state
+  const [savePinPrompt, setSavePinPrompt] = useState<{ lat: number; lon: number } | null>(null);
+  const [savePinName, setSavePinName] = useState('');
+  const [isSavingPin, setIsSavingPin] = useState(false);
 
   // Layer visibility toggles (8 categories)
   // All toggles start false - user enables the ones they want to see
@@ -164,6 +179,7 @@ export function ProspectMap({
     solarGrants: false,
     ctZones: false,
     gasStations: false,
+    saved: true,
   });
   const toggleLayer = (layer: keyof typeof layerToggles) => {
     setLayerToggles(prev => ({ ...prev, [layer]: !prev[layer] }));
@@ -525,6 +541,119 @@ export function ProspectMap({
       mapInstance.off('mouseup', handleMouseUp);
     };
   }, [mapLoaded, onAreaSelect]);
+
+  // Right-click to save pin
+  useEffect(() => {
+    if (!map.current || !mapLoaded || !onSavePin) return;
+    const mapInstance = map.current;
+
+    const handleContextMenu = (e: maplibregl.MapMouseEvent) => {
+      e.preventDefault();
+      if (isDrawingRef.current || isMeasuringRef.current) return;
+      setSavePinPrompt({ lat: e.lngLat.lat, lon: e.lngLat.lng });
+      setSavePinName('');
+    };
+
+    mapInstance.on('contextmenu', handleContextMenu);
+    return () => {
+      mapInstance.off('contextmenu', handleContextMenu);
+    };
+  }, [mapLoaded, onSavePin]);
+
+  // Render saved location markers
+  useEffect(() => {
+    // Clear old markers
+    savedLocationMarkers.current.forEach(m => m.remove());
+    savedLocationMarkers.current = [];
+
+    if (!map.current || !mapLoaded || !layerToggles.saved) return;
+
+    savedLocations.forEach(loc => {
+      const markerColor = loc.color || '#eab308';
+      const el = document.createElement('div');
+      el.style.cssText = `
+        width: 24px;
+        height: 24px;
+        background: ${markerColor};
+        border: 2px solid white;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      `;
+      el.innerHTML = loc.type === 'building'
+        ? `<svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>`
+        : `<svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+
+      const marker = new maplibregl.Marker({ element: el })
+        .setLngLat([loc.lon, loc.lat])
+        .addTo(map.current!);
+
+      // Color options: orange, yellow, green
+      const colorOptions = [
+        { color: '#f97316', label: 'Naranja' },
+        { color: '#eab308', label: 'Amarillo' },
+        { color: '#22c55e', label: 'Verde' },
+      ];
+      const colorButtonsHtml = colorOptions.map(opt =>
+        `<button onclick="document.dispatchEvent(new CustomEvent('update-saved-location-color', {detail:{id:'${loc.id}',color:'${opt.color}'}}))" style="width:20px;height:20px;border-radius:50%;background:${opt.color};border:2px solid ${opt.color === markerColor ? '#222' : 'transparent'};cursor:pointer;margin-right:4px" title="${opt.label}"></button>`
+      ).join('');
+
+      // Popup with info, color picker, and delete button
+      const popupHtml = `
+        <div style="padding:8px;min-width:160px">
+          <h4 style="font-weight:600;margin:0 0 4px 0;font-size:13px">${loc.name || (loc.type === 'building' ? 'Edificio guardado' : 'Pin guardado')}</h4>
+          ${loc.notes ? `<p style="font-size:11px;color:#666;margin:0 0 8px 0">${loc.notes}</p>` : ''}
+          <p style="font-size:10px;color:#999;margin:0 0 8px 0">${loc.type === 'building' ? 'Edificio' : 'Pin'} · ${loc.lat.toFixed(5)}, ${loc.lon.toFixed(5)}</p>
+          <div style="display:flex;align-items:center;margin-bottom:8px">
+            <span style="font-size:10px;color:#666;margin-right:8px">Color:</span>
+            ${colorButtonsHtml}
+          </div>
+          <button onclick="document.dispatchEvent(new CustomEvent('delete-saved-location', {detail:'${loc.id}'}))" style="font-size:11px;color:#ef4444;cursor:pointer;background:none;border:none;padding:2px 0;text-decoration:underline">
+            Eliminar
+          </button>
+        </div>
+      `;
+
+      const popup = new maplibregl.Popup({ offset: 15, closeButton: true })
+        .setHTML(popupHtml);
+
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        marker.setPopup(popup).togglePopup();
+      });
+
+      savedLocationMarkers.current.push(marker);
+    });
+  }, [mapLoaded, savedLocations, layerToggles.saved]);
+
+  // Listen for delete-saved-location custom events from popup buttons
+  useEffect(() => {
+    if (!onDeleteSavedLocation) return;
+
+    const handleDelete = (e: Event) => {
+      const id = (e as CustomEvent).detail;
+      if (id) onDeleteSavedLocation(id);
+    };
+
+    document.addEventListener('delete-saved-location', handleDelete);
+    return () => document.removeEventListener('delete-saved-location', handleDelete);
+  }, [onDeleteSavedLocation]);
+
+  // Listen for update-saved-location-color custom events from popup buttons
+  useEffect(() => {
+    if (!onUpdateSavedLocationColor) return;
+
+    const handleColorUpdate = (e: Event) => {
+      const { id, color } = (e as CustomEvent).detail || {};
+      if (id && color) onUpdateSavedLocationColor(id, color);
+    };
+
+    document.addEventListener('update-saved-location-color', handleColorUpdate);
+    return () => document.removeEventListener('update-saved-location-color', handleColorUpdate);
+  }, [onUpdateSavedLocationColor]);
 
   // Measurement tool: helper to update map sources
   const updateMeasureLayer = useCallback((vertices: [number, number][], cursor: [number, number] | null, closed: boolean) => {
@@ -2054,15 +2183,12 @@ export function ProspectMap({
 
   // Fetch ALL gas stations for Gran Canaria once when layer is enabled
   useEffect(() => {
-    if (!mapLoaded || !layerToggles.gasStations) {
-      setGasStations([]);
-      return;
-    }
+    if (!mapLoaded || !layerToggles.gasStations) return;
+    // Skip if already have data or currently loading
+    if (gasStations.length > 0 || isLoadingGasStations) return;
 
-    // Already fetched
-    if (gasStations.length > 0) return;
+    setIsLoadingGasStations(true);
 
-    // Gran Canaria bounding box
     const granCanariaBounds: BBoxBounds = {
       minLat: 27.73,
       maxLat: 28.18,
@@ -2070,25 +2196,18 @@ export function ProspectMap({
       maxLon: -15.33,
     };
 
-    let cancelled = false;
-    setIsLoadingGasStations(true);
-
     getCommercialAnchors(granCanariaBounds, ['fuel'])
       .then(result => {
-        if (!cancelled) {
-          setGasStations(result.anchors);
-          console.log(`[Map] Loaded ${result.anchors.length} gas stations for Gran Canaria`);
-        }
+        setGasStations(result.anchors);
+        console.log(`[Map] Loaded ${result.anchors.length} gas stations for Gran Canaria`);
       })
       .catch(error => {
-        if (!cancelled) console.error('[Map] Failed to fetch gas stations:', error);
+        console.error('[Map] Failed to fetch gas stations:', error);
       })
       .finally(() => {
-        if (!cancelled) setIsLoadingGasStations(false);
+        setIsLoadingGasStations(false);
       });
-
-    return () => { cancelled = true; };
-  }, [mapLoaded, layerToggles.gasStations]);
+  }, [mapLoaded, layerToggles.gasStations, gasStations.length, isLoadingGasStations]);
 
   // Render gas station markers
   useEffect(() => {
@@ -2144,6 +2263,12 @@ export function ProspectMap({
         popup.setLngLat([station.lon, station.lat]).addTo(mapInstance);
       });
       el.addEventListener('mouseleave', () => popup.remove());
+
+      // Click to select/deselect and show radius circle
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setSelectedAnchor(prev => prev?.id === station.id ? null : station);
+      });
 
       gasStationMarkers.current.push(marker);
     });
@@ -2586,6 +2711,8 @@ export function ProspectMap({
               icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>` },
             { key: 'gasStations' as const, color: '#22c55e', count: gasStations.length, title: 'Gasolineras', isLoading: isLoadingGasStations, showCount: layerToggles.gasStations,
               icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 22V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/><path d="M3 22h12"/><path d="M18 7l3-3v8a2 2 0 0 1-2 2h-1"/><rect x="6" y="8" width="6" height="4" rx="1"/></svg>` },
+            { key: 'saved' as const, color: '#eab308', count: savedLocations.length, title: 'Ubicaciones Guardadas', isLoading: false, showCount: layerToggles.saved,
+              icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>` },
           ];
 
           // Auto-enable anchors/VVs when any toggle is clicked
@@ -2995,6 +3122,62 @@ export function ProspectMap({
                 <div className="w-3 h-3 rounded-full bg-[#a7e26e] opacity-30"></div>
                 <span>Área de cobertura {radiusKm}km</span>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Save Pin Prompt */}
+      {savePinPrompt && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-[60]" onClick={() => setSavePinPrompt(null)}>
+          <div className="bg-white rounded-xl shadow-lg p-5 w-72" onClick={(e) => e.stopPropagation()}>
+            <h3 className="font-semibold text-[#222f30] mb-3 flex items-center gap-2">
+              <svg className="w-5 h-5 text-yellow-500" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              Guardar ubicación
+            </h3>
+            <p className="text-xs text-gray-500 mb-3">
+              {savePinPrompt.lat.toFixed(5)}, {savePinPrompt.lon.toFixed(5)}
+            </p>
+            <input
+              type="text"
+              value={savePinName}
+              onChange={(e) => setSavePinName(e.target.value)}
+              placeholder="Nombre (opcional)"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#a7e26e] mb-4"
+              autoFocus
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && onSavePin && !isSavingPin) {
+                  setIsSavingPin(true);
+                  onSavePin(savePinPrompt.lat, savePinPrompt.lon, savePinName).then(() => {
+                    setSavePinPrompt(null);
+                    setSavePinName('');
+                  }).finally(() => setIsSavingPin(false));
+                }
+              }}
+            />
+            <div className="flex gap-2">
+              <button
+                onClick={() => setSavePinPrompt(null)}
+                className="flex-1 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                disabled={isSavingPin}
+                onClick={() => {
+                  if (!onSavePin || isSavingPin) return;
+                  setIsSavingPin(true);
+                  onSavePin(savePinPrompt.lat, savePinPrompt.lon, savePinName).then(() => {
+                    setSavePinPrompt(null);
+                    setSavePinName('');
+                  }).finally(() => setIsSavingPin(false));
+                }}
+                className="flex-1 px-3 py-2 text-sm font-medium text-white bg-[#222f30] hover:bg-[#1a2526] rounded-lg transition-colors disabled:opacity-50"
+              >
+                {isSavingPin ? 'Guardando...' : 'Guardar'}
+              </button>
             </div>
           </div>
         </div>
