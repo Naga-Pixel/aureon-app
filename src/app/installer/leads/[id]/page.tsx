@@ -7,6 +7,7 @@ import { LEAD_STATUSES, PROPERTY_TYPES, ROOF_TYPES, INSTALLATION_TIMELINES } fro
 import { ISLANDS } from "@/lib/constants/islands";
 import { formatCurrency } from "@/lib/utils/calculator";
 import { LeadStatusForm } from "./lead-status-form";
+import { DeleteLeadButton } from "./delete-lead-button";
 import type { Lead, Installer } from "@/lib/supabase/types";
 
 interface LeadDetailPageProps {
@@ -296,6 +297,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                   </svg>
                   <span className="font-medium">Enviar email</span>
                 </a>
+                <DeleteLeadButton leadId={lead.id} leadName={lead.name} />
               </div>
             </CardContent>
           </Card>
