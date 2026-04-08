@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { LeadsTable, LeadFilters } from "@/components/installer";
+import { LeadsPageClient } from "./leads-page-client";
 import type { Lead } from "@/lib/supabase/types";
 
 interface LeadsPageProps {
@@ -50,22 +51,24 @@ export default async function LeadsPage({ searchParams }: LeadsPageProps) {
   const typedLeads: Lead[] = leads || [];
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-medium">Leads</h1>
-        <p className="text-[#445e5f]">
-          Gestiona todos tus leads de energia solar.
-        </p>
+    <LeadsPageClient>
+      <div className="space-y-8">
+        {/* Header */}
+        <div>
+          <h1 className="text-2xl font-medium">Leads</h1>
+          <p className="text-[#445e5f]">
+            Gestiona todos tus leads de energia solar.
+          </p>
+        </div>
+
+        {/* Filters */}
+        <Suspense fallback={<div>Cargando filtros...</div>}>
+          <LeadFilters />
+        </Suspense>
+
+        {/* Table */}
+        <LeadsTable leads={typedLeads} />
       </div>
-
-      {/* Filters */}
-      <Suspense fallback={<div>Cargando filtros...</div>}>
-        <LeadFilters />
-      </Suspense>
-
-      {/* Table */}
-      <LeadsTable leads={typedLeads} />
-    </div>
+    </LeadsPageClient>
   );
 }

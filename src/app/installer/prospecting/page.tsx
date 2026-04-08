@@ -1,32 +1,67 @@
 'use client';
 
 import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useSearchParams } from 'next/navigation';
 import { ProspectMap, ProspectFilters, BuildingResultsList } from '@/components/map';
 import { PropertySidebar } from '@/components/map/PropertySidebar';
-import type { BBoxBounds, BuildingResult, ProspectFiltersType, AssessmentType, GrantCategory } from '@/components/map';
+import type { BBoxBounds, BuildingResult, ProspectFiltersType } from '@/components/map';
 import { exportToCSV } from '@/lib/utils/export';
 import { downloadProspectReport, ReportMetadata } from '@/lib/services/prospect-report';
 import type { SavedLocation } from '@/lib/supabase/types';
+import { useProspectingStore } from '@/stores';
+import { useScrollRestore } from '@/hooks/useScrollRestore';
 
 export default function ProspectingPage() {
   const searchParams = useSearchParams();
 
-  // Read initial position and filters from URL params (from Gestoras/Leads page links)
-  const initialLat = searchParams.get('lat') ? parseFloat(searchParams.get('lat')!) : undefined;
-  const initialLon = searchParams.get('lon') ? parseFloat(searchParams.get('lon')!) : undefined;
-  const initialZoom = searchParams.get('zoom') ? parseFloat(searchParams.get('zoom')!) : undefined;
+  // Store state
+  const {
+    bounds,
+    setBounds,
+    buildings,
+    setBuildings,
+    selectedBuildingId,
+    setSelectedBuildingId,
+    lastFilters,
+    setLastFilters,
+    assessmentType,
+    setAssessmentType,
+    grantCategory,
+    setGrantCategory,
+    scrollPosition,
+    setScrollPosition,
+    mapCenter,
+    mapZoom,
+    setMapView,
+  } = useProspectingStore();
+
+  // Scroll restoration for building results list
+  const scrollRef = useScrollRestore<HTMLDivElement>({
+    scrollPosition,
+    setScrollPosition,
+  });
+
+  // Read initial position from URL params (from Gestoras/Leads page links)
+  // Only use URL params if no stored map position exists
+  const initialLat = !mapCenter && searchParams.get('lat') ? parseFloat(searchParams.get('lat')!) : mapCenter?.lat;
+  const initialLon = !mapCenter && searchParams.get('lon') ? parseFloat(searchParams.get('lon')!) : mapCenter?.lon;
+  const initialZoom = !mapZoom && searchParams.get('zoom') ? parseFloat(searchParams.get('zoom')!) : mapZoom || undefined;
   const gestoraFilter = searchParams.get('gestora') || undefined;
-  const [bounds, setBounds] = useState<BBoxBounds | null>(null);
-  const [buildings, setBuildings] = useState<BuildingResult[]>([]);
-  const [selectedBuilding, setSelectedBuilding] = useState<BuildingResult | null>(null);
+
+  // Find selected building from ID
+  const selectedBuilding = useMemo(() => {
+    if (!selectedBuildingId) return null;
+    return buildings.find(b => b.buildingId === selectedBuildingId || b.cadastralReference === selectedBuildingId) || null;
+  }, [buildings, selectedBuildingId]);
+
+  const setSelectedBuilding = useCallback((building: BuildingResult | null) => {
+    setSelectedBuildingId(building?.buildingId || building?.cadastralReference || null);
+  }, [setSelectedBuildingId]);
+
+  // Local state for transient UI
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [assessmentType, setAssessmentType] = useLocalStorage<AssessmentType>('prospecting:assessmentType', 'solar');
-  const [grantCategory, setGrantCategory] = useLocalStorage<GrantCategory>('prospecting:grantCategory', 'residential');
   const [serviceWarnings, setServiceWarnings] = useState<string[]>([]);
-  const lastFiltersRef = useRef<ProspectFiltersType | null>(null);
 
   // Saved locations
   const [savedLocations, setSavedLocations] = useState<SavedLocation[]>([]);
@@ -149,18 +184,18 @@ export default function ProspectingPage() {
     setBounds(selectedBounds);
     if (selectedBounds === null) {
       setBuildings([]);
-      setSelectedBuilding(null);
+      setSelectedBuildingId(null);
     }
     setError(null);
-  }, []);
+  }, [setBounds, setBuildings, setSelectedBuildingId]);
 
   const handleSearch = useCallback(async (selectedBounds: BBoxBounds, filters: ProspectFiltersType) => {
     setIsLoading(true);
     setError(null);
     setServiceWarnings([]);
     setBuildings([]);
-    setSelectedBuilding(null);
-    lastFiltersRef.current = filters;
+    setSelectedBuildingId(null);
+    setLastFilters(filters);
     setGrantCategory(filters.grantCategory);
 
     try {
@@ -177,6 +212,7 @@ export default function ProspectingPage() {
       }
 
       setBuildings(data.buildings);
+      setScrollPosition(0); // Reset scroll on new search
 
       // Check service status and build warnings
       // Note: null means "not checked", false means "failed"
@@ -202,7 +238,7 @@ export default function ProspectingPage() {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [setBuildings, setSelectedBuildingId, setLastFilters, setGrantCategory, setScrollPosition]);
 
   const handleExport = useCallback(() => {
     if (buildings.length === 0) return;
@@ -219,7 +255,7 @@ export default function ProspectingPage() {
   }, [buildings]);
 
   const handleExportPDF = useCallback(() => {
-    if (buildings.length === 0 || !bounds || !lastFiltersRef.current) return;
+    if (buildings.length === 0 || !bounds || !lastFilters) return;
 
     const centerLat = (bounds.minLat + bounds.maxLat) / 2;
     const centerLon = (bounds.minLon + bounds.maxLon) / 2;
@@ -234,15 +270,15 @@ export default function ProspectingPage() {
         areaKm2: latKm * lonKm,
       },
       filters: {
-        minArea: lastFiltersRef.current.minArea,
-        businessSegment: lastFiltersRef.current.businessSegment,
-        electricityPrice: lastFiltersRef.current.electricityPrice,
+        minArea: lastFilters.minArea,
+        businessSegment: lastFilters.businessSegment,
+        electricityPrice: lastFilters.electricityPrice,
       },
       generatedAt: new Date(),
     };
 
     downloadProspectReport(buildings, metadata);
-  }, [buildings, bounds, assessmentType]);
+  }, [buildings, bounds, assessmentType, lastFilters]);
 
   const handleCloseSidebar = useCallback(() => {
     setSelectedBuilding(null);
@@ -278,6 +314,7 @@ export default function ProspectingPage() {
         )}
 
         <BuildingResultsList
+          ref={scrollRef}
           buildings={buildings}
           selectedBuilding={selectedBuilding}
           onBuildingSelect={setSelectedBuilding}
@@ -307,6 +344,7 @@ export default function ProspectingPage() {
           onDeleteSavedLocation={handleDeleteSavedLocation}
           onUpdateSavedLocationColor={handleUpdateSavedLocationColor}
           onPromoteToLead={handlePromoteToLead}
+          onViewChange={setMapView}
         />
       </div>
 
@@ -316,8 +354,8 @@ export default function ProspectingPage() {
         onClose={handleCloseSidebar}
         assessmentType={assessmentType}
         grantCategory={grantCategory}
-        businessSegment={lastFiltersRef.current?.businessSegment || 'residential'}
-        electricityPrice={lastFiltersRef.current?.electricityPrice || 0.18}
+        businessSegment={lastFilters?.businessSegment || 'residential'}
+        electricityPrice={lastFilters?.electricityPrice || 0.18}
         savedLocationIds={savedLocationIds}
         onSaveBuilding={handleSaveBuilding}
         onUnsaveBuilding={handleUnsaveBuilding}

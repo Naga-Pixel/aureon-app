@@ -44,6 +44,7 @@ interface ProspectMapProps {
   onDeleteSavedLocation?: (id: string) => Promise<void>;
   onUpdateSavedLocationColor?: (id: string, color: string) => Promise<void>;
   onPromoteToLead?: (locationId: string) => Promise<void>;
+  onViewChange?: (center: { lat: number; lon: number }, zoom: number) => void;
 }
 
 interface SolarEstimate {
@@ -109,6 +110,7 @@ export function ProspectMap({
   onDeleteSavedLocation,
   onUpdateSavedLocationColor,
   onPromoteToLead,
+  onViewChange,
 }: ProspectMapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -421,7 +423,7 @@ export function ProspectMap({
         },
       });
 
-      // Fly to initial position if provided via URL params
+      // Fly to initial position if provided (from URL params or stored state)
       if (initialLat && initialLon) {
         mapInstance.flyTo({
           center: [initialLon, initialLat],
@@ -429,6 +431,15 @@ export function ProspectMap({
           duration: 1500,
         });
       }
+
+      // Track view changes for state persistence
+      mapInstance.on('moveend', () => {
+        if (onViewChange) {
+          const center = mapInstance.getCenter();
+          const zoom = mapInstance.getZoom();
+          onViewChange({ lat: center.lat, lon: center.lng }, zoom);
+        }
+      });
 
       setMapLoaded(true);
     });

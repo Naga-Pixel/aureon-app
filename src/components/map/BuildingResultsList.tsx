@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, forwardRef } from 'react';
 import { BuildingResult, AssessmentType } from './types';
 
 interface BuildingResultsListProps {
@@ -12,14 +12,14 @@ interface BuildingResultsListProps {
   assessmentType?: AssessmentType;
 }
 
-export function BuildingResultsList({
+export const BuildingResultsList = forwardRef<HTMLDivElement, BuildingResultsListProps>(function BuildingResultsList({
   buildings,
   selectedBuilding,
   onBuildingSelect,
   onExport,
   onExportPDF,
   assessmentType = 'solar',
-}: BuildingResultsListProps) {
+}, ref) {
   // Handle building selection
   const handleBuildingClick = useCallback((building: BuildingResult) => {
     const isDeselecting = building === selectedBuilding;
@@ -71,7 +71,7 @@ export function BuildingResultsList({
       </div>
 
       {/* List */}
-      <div className="overflow-y-auto flex-1">
+      <div ref={ref} className="overflow-y-auto flex-1">
         {buildings.map((building, index) => (
           <button
             key={building.buildingId || index}
@@ -185,7 +185,7 @@ export function BuildingResultsList({
       </div>
     </div>
   );
-}
+});
 
 // Helper components
 function CompassIcon({ direction }: { direction: number }) {
