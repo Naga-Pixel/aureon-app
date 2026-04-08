@@ -112,13 +112,15 @@ export function ProspectMap({
   const map = useRef<maplibregl.Map | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [isDrawing, setIsDrawing] = useState(false);
+  const [drawVertices, setDrawVertices] = useState<[number, number][]>([]);
+  const drawVerticesRef = useRef<[number, number][]>([]);
+  const drawCursorRef = useRef<[number, number] | null>(null);
   const [vulnerabilityVisible, setVulnerabilityVisible] = useState(false);
   const [baseLayer, setBaseLayer] = useState<BaseLayerMode>('streets');
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
   const [subsidyHeatmapMode, setSubsidyHeatmapMode] = useState<SubsidyHeatmapMode>('off');
-  const drawStartRef = useRef<{ lng: number; lat: number } | null>(null);
   const isDrawingRef = useRef(false);
   const buildingMarkers = useRef<maplibregl.Marker[]>([]);
   const closeButtonMarker = useRef<maplibregl.Marker | null>(null);
@@ -438,110 +440,6 @@ export function ProspectMap({
     };
   }, []);
 
-  // Set up drawing event handlers after map loads
-  useEffect(() => {
-    if (!map.current || !mapLoaded) return;
-
-    const mapInstance = map.current;
-
-    const handleMouseDown = (e: maplibregl.MapMouseEvent) => {
-      if (!isDrawingRef.current) return;
-      e.preventDefault();
-      drawStartRef.current = { lng: e.lngLat.lng, lat: e.lngLat.lat };
-    };
-
-    const handleMouseMove = (e: maplibregl.MapMouseEvent) => {
-      if (!isDrawingRef.current || !drawStartRef.current) return;
-
-      const start = drawStartRef.current;
-      const coordinates: [number, number][] = [
-        [start.lng, start.lat],
-        [e.lngLat.lng, start.lat],
-        [e.lngLat.lng, e.lngLat.lat],
-        [start.lng, e.lngLat.lat],
-        [start.lng, start.lat],
-      ];
-
-      // Update or create rectangle
-      const source = mapInstance.getSource('draw-rectangle') as maplibregl.GeoJSONSource;
-      if (source) {
-        source.setData({
-          type: 'Feature',
-          properties: {},
-          geometry: {
-            type: 'Polygon',
-            coordinates: [coordinates],
-          },
-        });
-      } else {
-        mapInstance.addSource('draw-rectangle', {
-          type: 'geojson',
-          data: {
-            type: 'Feature',
-            properties: {},
-            geometry: {
-              type: 'Polygon',
-              coordinates: [coordinates],
-            },
-          },
-        });
-        mapInstance.addLayer({
-          id: 'draw-rectangle',
-          type: 'fill',
-          source: 'draw-rectangle',
-          paint: {
-            'fill-color': '#a7e26e',
-            'fill-opacity': 0.3,
-          },
-        });
-        mapInstance.addLayer({
-          id: 'draw-rectangle-outline',
-          type: 'line',
-          source: 'draw-rectangle',
-          paint: {
-            'line-color': '#222f30',
-            'line-width': 2,
-          },
-        });
-      }
-    };
-
-    const handleMouseUp = (e: maplibregl.MapMouseEvent) => {
-      if (!isDrawingRef.current || !drawStartRef.current) return;
-
-      const start = drawStartRef.current;
-      const bounds: BBoxBounds = {
-        minLat: Math.min(start.lat, e.lngLat.lat),
-        maxLat: Math.max(start.lat, e.lngLat.lat),
-        minLon: Math.min(start.lng, e.lngLat.lng),
-        maxLon: Math.max(start.lng, e.lngLat.lng),
-      };
-
-      // Only select if area is meaningful (not just a click)
-      const latDiff = Math.abs(bounds.maxLat - bounds.minLat);
-      const lonDiff = Math.abs(bounds.maxLon - bounds.minLon);
-      if (latDiff > 0.0001 && lonDiff > 0.0001) {
-        onAreaSelect(bounds);
-      }
-
-      // Reset drawing state
-      drawStartRef.current = null;
-      setIsDrawing(false);
-      mapInstance.dragPan.enable();
-      mapInstance.getCanvas().style.cursor = '';
-    };
-
-    mapInstance.on('mousedown', handleMouseDown);
-    mapInstance.on('mousemove', handleMouseMove);
-    mapInstance.on('mouseup', handleMouseUp);
-
-    return () => {
-      mapInstance.off('mousedown', handleMouseDown);
-      mapInstance.off('mousemove', handleMouseMove);
-      mapInstance.off('mouseup', handleMouseUp);
-    };
-  }, [mapLoaded, onAreaSelect]);
-
   // Right-click to save pin
   useEffect(() => {
     if (!map.current || !mapLoaded || !onSavePin) return;
@@ -758,6 +656,176 @@ export function ProspectMap({
     }
   }, []);
 
+  // Drawing tool: helper to update map sources (green colors for area selection)
+  const updateDrawLayer = useCallback((vertices: [number, number][], cursor: [number, number] | null) => {
+    const mapInstance = map.current;
+    if (!mapInstance) return;
+
+    // Build polygon coordinates (with cursor as temp closing point)
+    const polyCoords: [number, number][] = vertices.length >= 3
+      ? cursor
+        ? [...vertices, cursor, vertices[0]]
+        : [...vertices, vertices[0]]
+      : [];
+
+    // Polygon fill + stroke
+    const polyData: GeoJSON.Feature = {
+      type: 'Feature',
+      properties: {},
+      geometry: { type: 'Polygon', coordinates: polyCoords.length >= 4 ? [polyCoords] : [[[0,0],[0,0],[0,0],[0,0]]] },
+    };
+
+    const polySrc = mapInstance.getSource('draw-polygon') as maplibregl.GeoJSONSource;
+    if (polySrc) {
+      polySrc.setData(polyData);
+    } else {
+      mapInstance.addSource('draw-polygon', { type: 'geojson', data: polyData });
+      mapInstance.addLayer({ id: 'draw-polygon-fill', type: 'fill', source: 'draw-polygon', paint: { 'fill-color': '#a7e26e', 'fill-opacity': 0.3 } });
+      mapInstance.addLayer({ id: 'draw-polygon-stroke', type: 'line', source: 'draw-polygon', paint: { 'line-color': '#222f30', 'line-width': 2 } });
+    }
+
+    // Vertices circles
+    const vertexData: GeoJSON.FeatureCollection = {
+      type: 'FeatureCollection',
+      features: vertices.map((v, i) => ({
+        type: 'Feature' as const,
+        properties: { first: i === 0 ? 1 : 0 },
+        geometry: { type: 'Point' as const, coordinates: v },
+      })),
+    };
+
+    const vertSrc = mapInstance.getSource('draw-vertices') as maplibregl.GeoJSONSource;
+    if (vertSrc) {
+      vertSrc.setData(vertexData);
+    } else {
+      mapInstance.addSource('draw-vertices', { type: 'geojson', data: vertexData });
+      mapInstance.addLayer({
+        id: 'draw-vertices',
+        type: 'circle',
+        source: 'draw-vertices',
+        paint: {
+          'circle-radius': ['case', ['==', ['get', 'first'], 1], 6, 4],
+          'circle-color': '#ffffff',
+          'circle-stroke-width': 2,
+          'circle-stroke-color': ['case', ['==', ['get', 'first'], 1], '#a7e26e', '#222f30'],
+        },
+      });
+    }
+
+    // Cursor dashed line (from last vertex to cursor)
+    const lineCoords: [number, number][] = vertices.length >= 1 && cursor
+      ? [vertices[vertices.length - 1], cursor]
+      : [[0,0],[0,0]];
+
+    const lineData: GeoJSON.Feature = {
+      type: 'Feature',
+      properties: {},
+      geometry: { type: 'LineString', coordinates: lineCoords },
+    };
+
+    const lineSrc = mapInstance.getSource('draw-cursor-line') as maplibregl.GeoJSONSource;
+    if (lineSrc) {
+      lineSrc.setData(lineData);
+    } else {
+      mapInstance.addSource('draw-cursor-line', { type: 'geojson', data: lineData });
+      mapInstance.addLayer({
+        id: 'draw-cursor-line',
+        type: 'line',
+        source: 'draw-cursor-line',
+        paint: { 'line-color': '#222f30', 'line-width': 2, 'line-dasharray': [4, 4] },
+      });
+    }
+  }, []);
+
+  // Clean up drawing layers
+  const cleanupDrawLayers = useCallback(() => {
+    const mapInstance = map.current;
+    if (!mapInstance) return;
+    for (const lid of ['draw-polygon-fill', 'draw-polygon-stroke', 'draw-vertices', 'draw-cursor-line', 'draw-rectangle', 'draw-rectangle-outline']) {
+      if (mapInstance.getLayer(lid)) mapInstance.removeLayer(lid);
+    }
+    for (const sid of ['draw-polygon', 'draw-vertices', 'draw-cursor-line', 'draw-rectangle']) {
+      if (mapInstance.getSource(sid)) mapInstance.removeSource(sid);
+    }
+  }, []);
+
+  // Drawing event handlers (click-to-add-vertices for touch support)
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return;
+    const mapInstance = map.current;
+
+    const handleDrawClick = (e: maplibregl.MapMouseEvent) => {
+      if (!isDrawingRef.current) return;
+
+      const point: [number, number] = [e.lngLat.lng, e.lngLat.lat];
+      const verts = drawVerticesRef.current;
+
+      // Check if clicking near first vertex to close (within ~15px)
+      if (verts.length >= 3) {
+        const firstPx = mapInstance.project(verts[0]);
+        const clickPx = mapInstance.project([e.lngLat.lng, e.lngLat.lat]);
+        const dist = Math.sqrt((firstPx.x - clickPx.x) ** 2 + (firstPx.y - clickPx.y) ** 2);
+        if (dist < 15) {
+          // Close polygon and calculate bounding box
+          const lngs = verts.map(v => v[0]);
+          const lats = verts.map(v => v[1]);
+          const bounds: BBoxBounds = {
+            minLat: Math.min(...lats),
+            maxLat: Math.max(...lats),
+            minLon: Math.min(...lngs),
+            maxLon: Math.max(...lngs),
+          };
+          onAreaSelect(bounds);
+          setIsDrawing(false);
+          setDrawVertices([]);
+          drawVerticesRef.current = [];
+          drawCursorRef.current = null;
+          mapInstance.getCanvas().style.cursor = '';
+          return;
+        }
+      }
+
+      // Add new vertex
+      const newVerts = [...verts, point];
+      drawVerticesRef.current = newVerts;
+      setDrawVertices(newVerts);
+      updateDrawLayer(newVerts, drawCursorRef.current);
+    };
+
+    const handleDrawMove = (e: maplibregl.MapMouseEvent) => {
+      if (!isDrawingRef.current) return;
+
+      const cursor: [number, number] = [e.lngLat.lng, e.lngLat.lat];
+      drawCursorRef.current = cursor;
+      const verts = drawVerticesRef.current;
+      if (verts.length >= 1) {
+        updateDrawLayer(verts, cursor);
+      }
+    };
+
+    const handleDrawKeydown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isDrawingRef.current) {
+        // Cancel drawing
+        setIsDrawing(false);
+        setDrawVertices([]);
+        drawVerticesRef.current = [];
+        drawCursorRef.current = null;
+        cleanupDrawLayers();
+        mapInstance.getCanvas().style.cursor = '';
+      }
+    };
+
+    mapInstance.on('click', handleDrawClick);
+    mapInstance.on('mousemove', handleDrawMove);
+    document.addEventListener('keydown', handleDrawKeydown);
+
+    return () => {
+      mapInstance.off('click', handleDrawClick);
+      mapInstance.off('mousemove', handleDrawMove);
+      document.removeEventListener('keydown', handleDrawKeydown);
+    };
+  }, [mapLoaded, onAreaSelect, updateDrawLayer, cleanupDrawLayers]);
+
   // Measurement event handlers
   useEffect(() => {
     if (!map.current || !mapLoaded) return;
@@ -945,33 +1013,65 @@ export function ProspectMap({
   const toggleDrawing = useCallback(() => {
     if (!map.current) return;
 
-    const newDrawingState = !isDrawing;
-    setIsDrawing(newDrawingState);
-
-    if (newDrawingState) {
-      map.current.dragPan.disable();
-      map.current.getCanvas().style.cursor = 'crosshair';
-    } else {
-      map.current.dragPan.enable();
+    if (isDrawing) {
+      // Cancel drawing
+      setIsDrawing(false);
+      setDrawVertices([]);
+      drawVerticesRef.current = [];
+      drawCursorRef.current = null;
       map.current.getCanvas().style.cursor = '';
-      drawStartRef.current = null;
+      cleanupDrawLayers();
+    } else {
+      // Start drawing
+      setIsDrawing(true);
+      setDrawVertices([]);
+      drawVerticesRef.current = [];
+      drawCursorRef.current = null;
+      map.current.getCanvas().style.cursor = 'crosshair';
     }
-  }, [isDrawing]);
+  }, [isDrawing, cleanupDrawLayers]);
+
+  // Undo last draw vertex
+  const undoDrawVertex = useCallback(() => {
+    const verts = drawVerticesRef.current;
+    if (verts.length === 0) return;
+    const newVerts = verts.slice(0, -1);
+    drawVerticesRef.current = newVerts;
+    setDrawVertices(newVerts);
+    if (newVerts.length === 0) {
+      cleanupDrawLayers();
+    } else {
+      updateDrawLayer(newVerts, drawCursorRef.current);
+    }
+  }, [updateDrawLayer, cleanupDrawLayers]);
+
+  // Confirm draw selection (close polygon and select bounds)
+  const confirmDrawSelection = useCallback(() => {
+    const verts = drawVerticesRef.current;
+    if (verts.length < 3) return;
+
+    const lngs = verts.map(v => v[0]);
+    const lats = verts.map(v => v[1]);
+    const bounds: BBoxBounds = {
+      minLat: Math.min(...lats),
+      maxLat: Math.max(...lats),
+      minLon: Math.min(...lngs),
+      maxLon: Math.max(...lngs),
+    };
+    onAreaSelect(bounds);
+    setIsDrawing(false);
+    setDrawVertices([]);
+    drawVerticesRef.current = [];
+    drawCursorRef.current = null;
+    if (map.current) map.current.getCanvas().style.cursor = '';
+  }, [onAreaSelect]);
 
   // Clear selection
   const clearSelection = useCallback(() => {
     if (!map.current) return;
 
-    // Remove rectangle layers
-    if (map.current.getLayer('draw-rectangle-outline')) {
-      map.current.removeLayer('draw-rectangle-outline');
-    }
-    if (map.current.getLayer('draw-rectangle')) {
-      map.current.removeLayer('draw-rectangle');
-    }
-    if (map.current.getSource('draw-rectangle')) {
-      map.current.removeSource('draw-rectangle');
-    }
+    // Remove draw layers
+    cleanupDrawLayers();
 
     // Remove close button marker
     if (closeButtonMarker.current) {
@@ -980,7 +1080,7 @@ export function ProspectMap({
     }
 
     onAreaSelect(null);
-  }, [onAreaSelect]);
+  }, [onAreaSelect, cleanupDrawLayers]);
 
   // Find high-value clusters (legacy mode)
   const runClusterFinder = useCallback(() => {
@@ -2445,10 +2545,10 @@ export function ProspectMap({
         )}
 
         {/* Map controls */}
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <button
             onClick={toggleDrawing}
-            disabled={!mapLoaded}
+            disabled={!mapLoaded || isMeasuring}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               isDrawing
                 ? 'bg-[#a7e26e] text-[#222f30]'
@@ -2458,15 +2558,49 @@ export function ProspectMap({
             {isDrawing ? 'Dibujando...' : 'Dibujar Area'}
           </button>
           {isDrawing && (
-            <button
-              onClick={toggleDrawing}
-              className="px-4 py-2 rounded-lg font-medium bg-white text-red-600 hover:bg-red-50 shadow-md transition-colors"
-            >
-              Cancelar
-            </button>
+            <>
+              {drawVertices.length > 0 && (
+                <button
+                  onClick={undoDrawVertex}
+                  className="px-3 py-2 rounded-lg font-medium bg-white text-gray-700 hover:bg-gray-100 shadow-md transition-colors text-sm"
+                >
+                  Deshacer
+                </button>
+              )}
+              {drawVertices.length >= 3 && (
+                <button
+                  onClick={confirmDrawSelection}
+                  className="px-3 py-2 rounded-lg font-medium bg-[#a7e26e] text-[#222f30] hover:bg-[#96d15e] shadow-md transition-colors text-sm"
+                >
+                  Confirmar
+                </button>
+              )}
+              <button
+                onClick={toggleDrawing}
+                className="px-3 py-2 rounded-lg font-medium bg-white text-red-600 hover:bg-red-50 shadow-md transition-colors text-sm"
+              >
+                Cancelar
+              </button>
+            </>
+          )}
+          {/* Draw hint */}
+          {isDrawing && drawVertices.length === 0 && (
+            <span className="text-xs text-gray-500 self-center ml-2">
+              Toca para añadir puntos
+            </span>
+          )}
+          {isDrawing && drawVertices.length > 0 && drawVertices.length < 3 && (
+            <span className="text-xs text-gray-500 self-center ml-2">
+              {3 - drawVertices.length} punto{drawVertices.length === 2 ? '' : 's'} más
+            </span>
+          )}
+          {isDrawing && drawVertices.length >= 3 && (
+            <span className="text-xs text-gray-500 self-center ml-2">
+              Toca el primer punto o Confirmar
+            </span>
           )}
           {/* Measurement tool */}
-          {!isDrawing && (
+          {!isDrawing && !isMeasuring && (
             <button
               onClick={toggleMeasuring}
               disabled={!mapLoaded}
