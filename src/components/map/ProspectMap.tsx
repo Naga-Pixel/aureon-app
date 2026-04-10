@@ -1109,8 +1109,8 @@ export function ProspectMap({
       // Recalculate with current usable percent
       const estimate = computeSolarEstimate(measuredAreaM2, centerLat, measureUsablePercent);
 
-      // Create the lead
-      const createRes = await fetch('/api/leads', {
+      // Create the lead (using quick endpoint with minimal required fields)
+      const createRes = await fetch('/api/leads/quick', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
