@@ -1096,7 +1096,7 @@ export function ProspectMap({
 
   // Create a new lead and send measurement to it
   const createLeadAndSendMeasurement = useCallback(async () => {
-    if (!measuredAreaM2 || measureVertices.length < 3 || !newLeadName || !newLeadEmail) return;
+    if (!measuredAreaM2 || measureVertices.length < 3 || !newLeadName) return;
 
     setIsCreatingLead(true);
     try {
@@ -1115,7 +1115,7 @@ export function ProspectMap({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: newLeadName,
-          email: newLeadEmail,
+          email: newLeadEmail || null,
           phone: newLeadPhone || null,
           source: 'prospecting_tool',
         }),
@@ -3736,7 +3736,7 @@ export function ProspectMap({
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Email *</label>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Email</label>
                 <input
                   type="email"
                   value={newLeadEmail}
@@ -3785,7 +3785,7 @@ export function ProspectMap({
               </button>
               <button
                 onClick={createLeadAndSendMeasurement}
-                disabled={isCreatingLead || !newLeadName || !newLeadEmail}
+                disabled={isCreatingLead || !newLeadName}
                 className="flex-1 px-3 py-2 text-sm font-medium text-white bg-[#222f30] hover:bg-[#1a2526] rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isCreatingLead ? 'Creando...' : 'Crear y Enviar'}
