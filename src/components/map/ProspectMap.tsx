@@ -209,6 +209,12 @@ export function ProspectMap({
   const [leadSearchResults, setLeadSearchResults] = useState<Array<{ id: string; name: string; email: string; address: string | null }>>([]);
   const [isSearchingLeads, setIsSearchingLeads] = useState(false);
   const [isSendingToLead, setIsSendingToLead] = useState(false);
+  // Create lead modal
+  const [showCreateLead, setShowCreateLead] = useState(false);
+  const [newLeadName, setNewLeadName] = useState('');
+  const [newLeadEmail, setNewLeadEmail] = useState('');
+  const [newLeadPhone, setNewLeadPhone] = useState('');
+  const [isCreatingLead, setIsCreatingLead] = useState(false);
   const measureCursorRef = useRef<[number, number] | null>(null);
   const [showMeasureMethodology, setShowMeasureMethodology] = useState(false);
 
@@ -1087,6 +1093,77 @@ export function ProspectMap({
       setIsSendingToLead(false);
     }
   }, [measuredAreaM2, measureVertices, measureUsablePercent]);
+
+  // Create a new lead and send measurement to it
+  const createLeadAndSendMeasurement = useCallback(async () => {
+    if (!measuredAreaM2 || measureVertices.length < 3 || !newLeadName || !newLeadEmail) return;
+
+    setIsCreatingLead(true);
+    try {
+      // Calculate polygon center
+      const lngs = measureVertices.map(v => v[0]);
+      const lats = measureVertices.map(v => v[1]);
+      const centerLat = lats.reduce((a, b) => a + b, 0) / lats.length;
+      const centerLng = lngs.reduce((a, b) => a + b, 0) / lngs.length;
+
+      // Recalculate with current usable percent
+      const estimate = computeSolarEstimate(measuredAreaM2, centerLat, measureUsablePercent);
+
+      // Create the lead
+      const createRes = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: newLeadName,
+          email: newLeadEmail,
+          phone: newLeadPhone || null,
+          source: 'prospecting_tool',
+        }),
+      });
+
+      if (!createRes.ok) {
+        console.error('[ProspectMap] Failed to create lead');
+        return;
+      }
+
+      const { id: leadId } = await createRes.json();
+
+      // Send measurement to the new lead
+      const measureRes = await fetch('/api/solar-assessments/from-measurement', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          leadId,
+          areaM2: measuredAreaM2,
+          panelCount: estimate.panelCount,
+          systemKwp: estimate.systemKwp,
+          annualKwh: estimate.annualKwh,
+          annualSavingsEur: estimate.annualSavingsEur,
+          installationCost: estimate.installationCost,
+          paybackYears: estimate.paybackYears,
+          latitude: centerLat,
+          longitude: centerLng,
+          vertices: measureVertices,
+          usablePercent: measureUsablePercent,
+        }),
+      });
+
+      if (measureRes.ok) {
+        // Success - close modal and navigate
+        setShowCreateLead(false);
+        setNewLeadName('');
+        setNewLeadEmail('');
+        setNewLeadPhone('');
+        window.location.href = `/installer/leads/${leadId}`;
+      } else {
+        console.error('[ProspectMap] Failed to send measurement to new lead');
+      }
+    } catch (err) {
+      console.error('[ProspectMap] Create lead error:', err);
+    } finally {
+      setIsCreatingLead(false);
+    }
+  }, [measuredAreaM2, measureVertices, measureUsablePercent, newLeadName, newLeadEmail, newLeadPhone]);
 
   // Open lead picker and load initial results
   const openLeadPicker = useCallback(() => {
@@ -2973,16 +3050,27 @@ export function ProspectMap({
                 )}
               </div>
             )}
-            {/* Send to Lead button */}
-            <button
-              onClick={openLeadPicker}
-              className="mt-3 w-full py-2 px-3 bg-[#222f30] text-white text-sm font-medium rounded-lg hover:bg-[#1a2526] transition-colors flex items-center justify-center gap-2"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-              </svg>
-              Enviar a Lead
-            </button>
+            {/* Action buttons */}
+            <div className="mt-3 flex gap-2">
+              <button
+                onClick={() => setShowCreateLead(true)}
+                className="flex-1 py-2 px-3 bg-[#a7e26e] text-[#222f30] text-sm font-medium rounded-lg hover:bg-[#96d15e] transition-colors flex items-center justify-center gap-1.5"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
+                Crear Lead
+              </button>
+              <button
+                onClick={openLeadPicker}
+                className="flex-1 py-2 px-3 bg-[#222f30] text-white text-sm font-medium rounded-lg hover:bg-[#1a2526] transition-colors flex items-center justify-center gap-1.5"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+                Enviar a Lead
+              </button>
+            </div>
           </div>
         )}
 
@@ -3617,6 +3705,98 @@ export function ProspectMap({
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                   <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
                   Enviando...
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Create Lead Modal */}
+      {showCreateLead && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-[60]" onClick={() => setShowCreateLead(false)}>
+          <div className="bg-white rounded-xl shadow-lg p-5 w-96" onClick={(e) => e.stopPropagation()}>
+            <h3 className="font-semibold text-[#222f30] mb-4 flex items-center gap-2">
+              <svg className="w-5 h-5 text-[#a7e26e]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+              </svg>
+              Crear nuevo Lead
+            </h3>
+
+            <div className="space-y-3">
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Nombre *</label>
+                <input
+                  type="text"
+                  value={newLeadName}
+                  onChange={(e) => setNewLeadName(e.target.value)}
+                  placeholder="Nombre del contacto"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#a7e26e]"
+                  autoFocus
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Email *</label>
+                <input
+                  type="email"
+                  value={newLeadEmail}
+                  onChange={(e) => setNewLeadEmail(e.target.value)}
+                  placeholder="email@ejemplo.com"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#a7e26e]"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Teléfono</label>
+                <input
+                  type="tel"
+                  value={newLeadPhone}
+                  onChange={(e) => setNewLeadPhone(e.target.value)}
+                  placeholder="+34 600 000 000"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#a7e26e]"
+                />
+              </div>
+            </div>
+
+            {/* Summary */}
+            {displaySolarEstimate && (
+              <div className="mt-4 pt-3 border-t text-xs text-gray-500">
+                <div className="flex justify-between">
+                  <span>Área medida:</span>
+                  <span className="font-medium text-gray-700">{measuredAreaM2?.toFixed(0)} m²</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Sistema:</span>
+                  <span className="font-medium text-gray-700">{displaySolarEstimate.systemKwp.toFixed(1)} kWp</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Ahorro estimado:</span>
+                  <span className="font-medium text-green-600">{displaySolarEstimate.annualSavingsEur.toFixed(0)} €/año</span>
+                </div>
+              </div>
+            )}
+
+            {/* Buttons */}
+            <div className="mt-4 flex gap-2">
+              <button
+                onClick={() => setShowCreateLead(false)}
+                className="flex-1 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={createLeadAndSendMeasurement}
+                disabled={isCreatingLead || !newLeadName || !newLeadEmail}
+                className="flex-1 px-3 py-2 text-sm font-medium text-white bg-[#222f30] hover:bg-[#1a2526] rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isCreatingLead ? 'Creando...' : 'Crear y Enviar'}
+              </button>
+            </div>
+
+            {isCreatingLead && (
+              <div className="absolute inset-0 bg-white/80 flex items-center justify-center rounded-xl">
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <div className="w-5 h-5 border-2 border-[#a7e26e] border-t-transparent rounded-full animate-spin" />
+                  Creando lead...
                 </div>
               </div>
             )}
