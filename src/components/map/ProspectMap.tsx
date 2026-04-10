@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { area as turfArea } from '@turf/area';
@@ -56,8 +56,8 @@ interface SolarEstimate {
   paybackYears: number;
 }
 
-function computeSolarEstimate(areaM2: number, lat: number): SolarEstimate {
-  const usableArea = areaM2 * 0.6;
+function computeSolarEstimate(areaM2: number, lat: number, usablePercent: number = 60): SolarEstimate {
+  const usableArea = areaM2 * (usablePercent / 100);
   const panelCount = Math.floor(usableArea / 2);
   if (panelCount <= 0) return { panelCount: 0, systemKwp: 0, annualKwh: 0, annualSavingsEur: 0, installationCost: 0, paybackYears: 0 };
   const systemKwp = (panelCount * ASSESSMENT_CONFIG.PANEL_WATTS) / 1000;
@@ -199,6 +199,8 @@ export function ProspectMap({
   const [measuredAreaM2, setMeasuredAreaM2] = useState<number | null>(null);
   const [measureClosed, setMeasureClosed] = useState(false);
   const [measureSolarEstimate, setMeasureSolarEstimate] = useState<SolarEstimate | null>(null);
+  // Editable usable area percentage for measurement tool (default 60%)
+  const [measureUsablePercent, setMeasureUsablePercent] = useState(60);
   // Lead picker modal for sending measurement to lead
   const [showLeadPicker, setShowLeadPicker] = useState(false);
   const [leadSearchQuery, setLeadSearchQuery] = useState('');
@@ -207,6 +209,16 @@ export function ProspectMap({
   const [isSendingToLead, setIsSendingToLead] = useState(false);
   const measureCursorRef = useRef<[number, number] | null>(null);
   const [showMeasureMethodology, setShowMeasureMethodology] = useState(false);
+
+  // Recalculate solar estimate when usable percent changes
+  const displaySolarEstimate = useMemo(() => {
+    if (!measureClosed || !measuredAreaM2 || measureVertices.length < 3) {
+      return measureSolarEstimate;
+    }
+    // Calculate center latitude from vertices
+    const centerLat = measureVertices.reduce((sum, v) => sum + v[1], 0) / measureVertices.length;
+    return computeSolarEstimate(measuredAreaM2, centerLat, measureUsablePercent);
+  }, [measureClosed, measuredAreaM2, measureVertices, measureUsablePercent, measureSolarEstimate]);
 
   // Keep ref in sync with selectedVvGroup state
   useEffect(() => {
@@ -990,6 +1002,7 @@ export function ProspectMap({
     setMeasuredAreaM2(null);
     setMeasureClosed(false);
     setMeasureSolarEstimate(null);
+    setMeasureUsablePercent(60); // Reset to default
     setShowMeasureMethodology(false);
     measureVerticesRef.current = [];
     measureCursorRef.current = null;
@@ -1015,7 +1028,7 @@ export function ProspectMap({
 
   // Send measurement to a lead as solar assessment
   const sendMeasurementToLead = useCallback(async (leadId: string) => {
-    if (!measureSolarEstimate || !measuredAreaM2 || measureVertices.length < 3) return;
+    if (!measuredAreaM2 || measureVertices.length < 3) return;
 
     setIsSendingToLead(true);
     try {
@@ -1025,21 +1038,25 @@ export function ProspectMap({
       const centerLat = lats.reduce((a, b) => a + b, 0) / lats.length;
       const centerLng = lngs.reduce((a, b) => a + b, 0) / lngs.length;
 
+      // Recalculate with current usable percent
+      const estimate = computeSolarEstimate(measuredAreaM2, centerLat, measureUsablePercent);
+
       const res = await fetch('/api/solar-assessments/from-measurement', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           leadId,
           areaM2: measuredAreaM2,
-          panelCount: measureSolarEstimate.panelCount,
-          systemKwp: measureSolarEstimate.systemKwp,
-          annualKwh: measureSolarEstimate.annualKwh,
-          annualSavingsEur: measureSolarEstimate.annualSavingsEur,
-          installationCost: measureSolarEstimate.installationCost,
-          paybackYears: measureSolarEstimate.paybackYears,
+          panelCount: estimate.panelCount,
+          systemKwp: estimate.systemKwp,
+          annualKwh: estimate.annualKwh,
+          annualSavingsEur: estimate.annualSavingsEur,
+          installationCost: estimate.installationCost,
+          paybackYears: estimate.paybackYears,
           latitude: centerLat,
           longitude: centerLng,
           vertices: measureVertices,
+          usablePercent: measureUsablePercent,
         }),
       });
 
@@ -1058,7 +1075,7 @@ export function ProspectMap({
     } finally {
       setIsSendingToLead(false);
     }
-  }, [measureSolarEstimate, measuredAreaM2, measureVertices]);
+  }, [measuredAreaM2, measureVertices, measureUsablePercent]);
 
   // Open lead picker and load initial results
   const openLeadPicker = useCallback(() => {
@@ -2830,7 +2847,7 @@ export function ProspectMap({
             </button>
           </div>
         )}
-        {measureClosed && measureSolarEstimate && measureSolarEstimate.panelCount > 0 && !isMeasuring && (
+        {measureClosed && displaySolarEstimate && displaySolarEstimate.panelCount > 0 && !isMeasuring && (
           <div className="bg-white rounded-lg shadow-lg p-3 max-w-xs relative">
             <div className="flex items-center justify-between mb-2">
               <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Estimación Solar</h4>
@@ -2842,10 +2859,29 @@ export function ProspectMap({
                 i
               </button>
             </div>
+            {/* Editable usable area percentage */}
+            <div className="mb-3 flex items-center justify-between bg-blue-50 rounded-lg px-3 py-2">
+              <span className="text-xs text-gray-600">% Área útil</span>
+              <div className="flex items-center gap-2">
+                <input
+                  type="number"
+                  value={measureUsablePercent}
+                  onChange={(e) => {
+                    const val = Math.min(100, Math.max(10, Number(e.target.value) || 10));
+                    setMeasureUsablePercent(val);
+                  }}
+                  min={10}
+                  max={100}
+                  step={5}
+                  className="w-14 px-2 py-1 text-right text-sm font-medium text-[#222f30] border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-[#a7e26e] focus:border-transparent"
+                />
+                <span className="text-xs text-gray-500">%</span>
+              </div>
+            </div>
             {showMeasureMethodology && (
               <div className="mb-3 p-2 bg-gray-50 rounded text-[10px] text-gray-600 space-y-1">
                 <div className="font-semibold text-gray-700 mb-1">Metodología de cálculo:</div>
-                <div><span className="font-medium">Area útil:</span> 60% del área medida</div>
+                <div><span className="font-medium">Área útil:</span> {measureUsablePercent}% del área medida</div>
                 <div><span className="font-medium">Paneles:</span> 400W, 2m² por panel</div>
                 <div><span className="font-medium">Producción:</span> 1200-1700 kWh/kWp según latitud</div>
                 <div><span className="font-medium">Coste:</span> 1.200 €/kWp instalado</div>
@@ -2856,27 +2892,27 @@ export function ProspectMap({
             <div className="grid grid-cols-3 gap-x-3 gap-y-2">
               <div>
                 <div className="text-xs text-gray-500">Paneles</div>
-                <div className="text-sm font-bold text-gray-800">{measureSolarEstimate.panelCount}</div>
+                <div className="text-sm font-bold text-gray-800">{displaySolarEstimate.panelCount}</div>
               </div>
               <div>
                 <div className="text-xs text-gray-500">Potencia</div>
-                <div className="text-sm font-bold text-gray-800">{measureSolarEstimate.systemKwp.toFixed(1)} kWp</div>
+                <div className="text-sm font-bold text-gray-800">{displaySolarEstimate.systemKwp.toFixed(1)} kWp</div>
               </div>
               <div>
                 <div className="text-xs text-gray-500">Producción</div>
-                <div className="text-sm font-bold text-gray-800">{(measureSolarEstimate.annualKwh / 1000).toFixed(1)}k kWh</div>
+                <div className="text-sm font-bold text-gray-800">{(displaySolarEstimate.annualKwh / 1000).toFixed(1)}k kWh</div>
               </div>
               <div>
                 <div className="text-xs text-gray-500">Coste</div>
-                <div className="text-sm font-bold text-gray-800">{(measureSolarEstimate.installationCost / 1000).toFixed(0)}k €</div>
+                <div className="text-sm font-bold text-gray-800">{(displaySolarEstimate.installationCost / 1000).toFixed(0)}k €</div>
               </div>
               <div>
                 <div className="text-xs text-gray-500">Ahorro/año</div>
-                <div className="text-sm font-bold text-green-600">{(measureSolarEstimate.annualSavingsEur / 1000).toFixed(1)}k €</div>
+                <div className="text-sm font-bold text-green-600">{(displaySolarEstimate.annualSavingsEur / 1000).toFixed(1)}k €</div>
               </div>
               <div>
                 <div className="text-xs text-gray-500">Amortización</div>
-                <div className="text-sm font-bold text-blue-600">{measureSolarEstimate.paybackYears} años</div>
+                <div className="text-sm font-bold text-blue-600">{displaySolarEstimate.paybackYears} años</div>
               </div>
             </div>
             {/* Send to Lead button */}
@@ -3493,7 +3529,7 @@ export function ProspectMap({
             </div>
 
             {/* Footer with summary */}
-            {measureSolarEstimate && (
+            {displaySolarEstimate && (
               <div className="mt-3 pt-3 border-t text-xs text-gray-500">
                 <div className="flex justify-between">
                   <span>Área medida:</span>
@@ -3501,11 +3537,11 @@ export function ProspectMap({
                 </div>
                 <div className="flex justify-between">
                   <span>Sistema:</span>
-                  <span className="font-medium text-gray-700">{measureSolarEstimate.systemKwp.toFixed(1)} kWp</span>
+                  <span className="font-medium text-gray-700">{displaySolarEstimate.systemKwp.toFixed(1)} kWp</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Ahorro estimado:</span>
-                  <span className="font-medium text-green-600">{measureSolarEstimate.annualSavingsEur.toFixed(0)} €/año</span>
+                  <span className="font-medium text-green-600">{displaySolarEstimate.annualSavingsEur.toFixed(0)} €/año</span>
                 </div>
               </div>
             )}

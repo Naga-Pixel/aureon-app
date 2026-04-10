@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { BuildingResult, AssessmentType, GrantCategory, DataProvenance } from './types';
 import { downloadBuildingReport, type ApartmentBuildingInput } from '@/lib/services/building-report';
+import { ASSESSMENT_CONFIG } from '@/lib/config/assessment-config';
 
 type Tab = 'physical' | 'financial' | 'action';
 
@@ -139,6 +140,95 @@ function InfoRow({
 }
 
 /**
+ * Editable info row component with inline number input
+ */
+function EditableInfoRow({
+  label,
+  value,
+  onChange,
+  unit,
+  min = 0,
+  max = 100,
+  step = 5,
+}: {
+  label: string;
+  value: number;
+  onChange: (value: number) => void;
+  unit?: string;
+  min?: number;
+  max?: number;
+  step?: number;
+}) {
+  return (
+    <div className="flex justify-between items-center py-2 border-b border-gray-100 last:border-b-0">
+      <span className="text-gray-600 text-sm">{label}</span>
+      <div className="flex items-center gap-2">
+        <input
+          type="number"
+          value={value}
+          onChange={(e) => {
+            const newVal = Math.min(max, Math.max(min, Number(e.target.value) || min));
+            onChange(newVal);
+          }}
+          min={min}
+          max={max}
+          step={step}
+          className="w-16 px-2 py-1 text-right font-medium text-[#222f30] border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-[#a7e26e] focus:border-transparent"
+        />
+        {unit && <span className="text-sm text-gray-500">{unit}</span>}
+        <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-100 text-blue-700">
+          Editable
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Recalculate solar metrics based on usable area percentage
+ */
+function recalculateSolarMetrics(
+  building: BuildingResult,
+  usableAreaPercent: number,
+  electricityPrice: number
+): {
+  systemSizeKw: number;
+  annualProductionKwh: number;
+  annualSavingsEur: number;
+} {
+  const roofAreaM2 = building.roofAreaM2 || 0;
+
+  // Derive kwhPerKwp from original values (if available)
+  const originalSystemKw = building.systemSizeKw || 0;
+  const originalProductionKwh = building.annualProductionKwh || 0;
+  const kwhPerKwp = originalSystemKw > 0 ? originalProductionKwh / originalSystemKw : 1500; // fallback
+
+  // Calculate new system size based on usable area
+  const usableRoofArea = roofAreaM2 * (usableAreaPercent / 100);
+  const panelCount = Math.floor(usableRoofArea / 2); // 2m² per panel
+  const systemSizeKw = (panelCount * ASSESSMENT_CONFIG.PANEL_WATTS) / 1000;
+
+  // Calculate new production
+  const annualProductionKwh = Math.round(systemSizeKw * kwhPerKwp);
+
+  // Calculate savings (simplified: use self-consumption ratio from original if available)
+  const selfConsumptionRatio = building.selfConsumptionRatio || 0.6;
+  const selfConsumedKwh = annualProductionKwh * selfConsumptionRatio;
+  const exportedKwh = annualProductionKwh * (1 - selfConsumptionRatio);
+  const exportPrice = electricityPrice * 0.5; // ~50% of retail for export
+
+  const annualSavingsEur = Math.round(
+    (selfConsumedKwh * electricityPrice) + (exportedKwh * exportPrice)
+  );
+
+  return {
+    systemSizeKw: Math.round(systemSizeKw * 100) / 100,
+    annualProductionKwh,
+    annualSavingsEur,
+  };
+}
+
+/**
  * Loading spinner for inline use
  */
 function InlineSpinner() {
@@ -237,17 +327,28 @@ function PhysicalTab({
 function FinancialTab({
   building,
   assessmentType,
+  usableAreaPercent,
+  onUsableAreaChange,
+  electricityPrice,
 }: {
   building: BuildingResult;
   assessmentType: AssessmentType;
+  usableAreaPercent: number;
+  onUsableAreaChange: (value: number) => void;
+  electricityPrice: number;
 }) {
   const showSolar = assessmentType === 'solar' || assessmentType === 'combined';
   const showBattery = assessmentType === 'battery' || assessmentType === 'combined';
 
-  // Calculate simple payback
-  const totalSavings = (building.annualSavingsEur || 0) + (building.arbitrageSavingsEur || 0);
+  // Recalculate solar metrics when usable area changes
+  const solarMetrics = useMemo(() => {
+    return recalculateSolarMetrics(building, usableAreaPercent, electricityPrice);
+  }, [building, usableAreaPercent, electricityPrice]);
+
+  // Calculate simple payback with recalculated values
+  const totalSavings = (solarMetrics.annualSavingsEur || 0) + (building.arbitrageSavingsEur || 0);
   const estimatedCost =
-    (building.systemSizeKw || 0) * 1200 + (building.batteryKwh || 0) * 500;
+    (solarMetrics.systemSizeKw || 0) * 1200 + (building.batteryKwh || 0) * 500;
   const paybackYears = totalSavings > 0 ? estimatedCost / totalSavings : null;
 
   return (
@@ -278,15 +379,24 @@ function FinancialTab({
       {/* Solar metrics */}
       {showSolar && (
         <div>
-          <div className="text-xs font-medium text-gray-500 mb-2">SOLAR</div>
+          <div className="text-xs font-medium text-gray-500 mb-2">ESTIMACIÓN SOLAR</div>
+          <EditableInfoRow
+            label="% Área útil"
+            value={usableAreaPercent}
+            onChange={onUsableAreaChange}
+            unit="%"
+            min={10}
+            max={100}
+            step={5}
+          />
           <InfoRow
             label="Potencia instalable"
-            value={building.systemSizeKw?.toFixed(1)}
+            value={solarMetrics.systemSizeKw.toFixed(1)}
             unit="kWp"
           />
           <InfoRow
             label="Producción anual"
-            value={formatNumber(building.annualProductionKwh)}
+            value={formatNumber(solarMetrics.annualProductionKwh)}
             unit="kWh"
           />
           <InfoRow
@@ -295,7 +405,7 @@ function FinancialTab({
           />
           <InfoRow
             label="Ahorro anual"
-            value={formatCurrency(building.annualSavingsEur)}
+            value={formatCurrency(solarMetrics.annualSavingsEur)}
           />
         </div>
       )}
@@ -361,6 +471,9 @@ export function PropertySidebar({
   const [enrichedData, setEnrichedData] = useState<{ floors: number; units: number } | null>(null);
   const [isLoadingEnriched, setIsLoadingEnriched] = useState(false);
 
+  // Editable usable roof area percentage (default 70%)
+  const [usableAreaPercent, setUsableAreaPercent] = useState(70);
+
   // Apartment building modal state
   const [apartmentModal, setApartmentModal] = useState<{
     open: boolean;
@@ -377,6 +490,8 @@ export function PropertySidebar({
   useEffect(() => {
     if (building) {
       setActiveTab('physical');
+      // Reset usable area percentage to default
+      setUsableAreaPercent(70);
       // Reset enriched data and start fetching
       setEnrichedData(null);
       setIsLoadingEnriched(true);
@@ -622,7 +737,13 @@ export function PropertySidebar({
                   />
                 )}
               {activeTab === 'financial' && (
-                <FinancialTab building={building} assessmentType={assessmentType} />
+                <FinancialTab
+                  building={building}
+                  assessmentType={assessmentType}
+                  usableAreaPercent={usableAreaPercent}
+                  onUsableAreaChange={setUsableAreaPercent}
+                  electricityPrice={electricityPrice}
+                />
               )}
               {activeTab === 'action' && (
                 <div className="space-y-4">
