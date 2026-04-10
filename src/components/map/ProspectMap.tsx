@@ -201,6 +201,8 @@ export function ProspectMap({
   const [measureSolarEstimate, setMeasureSolarEstimate] = useState<SolarEstimate | null>(null);
   // Editable usable area percentage for measurement tool (default 60%)
   const [measureUsablePercent, setMeasureUsablePercent] = useState(60);
+  // Editable self-consumption for calculating surplus/homes served (default 60,000 kWh/year)
+  const [measureSelfConsumption, setMeasureSelfConsumption] = useState(60000);
   // Lead picker modal for sending measurement to lead
   const [showLeadPicker, setShowLeadPicker] = useState(false);
   const [leadSearchQuery, setLeadSearchQuery] = useState('');
@@ -219,6 +221,14 @@ export function ProspectMap({
     const centerLat = measureVertices.reduce((sum, v) => sum + v[1], 0) / measureVertices.length;
     return computeSolarEstimate(measuredAreaM2, centerLat, measureUsablePercent);
   }, [measureClosed, measuredAreaM2, measureVertices, measureUsablePercent, measureSolarEstimate]);
+
+  // Calculate surplus energy and homes served
+  const surplusCalculation = useMemo(() => {
+    if (!displaySolarEstimate) return null;
+    const surplus = Math.max(0, displaySolarEstimate.annualKwh - measureSelfConsumption);
+    const homesServed = Math.floor(surplus / 3500); // Average Spanish home: 3,500 kWh/year
+    return { surplus, homesServed };
+  }, [displaySolarEstimate, measureSelfConsumption]);
 
   // Keep ref in sync with selectedVvGroup state
   useEffect(() => {
@@ -1003,6 +1013,7 @@ export function ProspectMap({
     setMeasureClosed(false);
     setMeasureSolarEstimate(null);
     setMeasureUsablePercent(60); // Reset to default
+    setMeasureSelfConsumption(60000); // Reset to default
     setShowMeasureMethodology(false);
     measureVerticesRef.current = [];
     measureCursorRef.current = null;
@@ -2859,23 +2870,42 @@ export function ProspectMap({
                 i
               </button>
             </div>
-            {/* Editable usable area percentage */}
-            <div className="mb-3 flex items-center justify-between bg-blue-50 rounded-lg px-3 py-2">
-              <span className="text-xs text-gray-600">% Área útil</span>
-              <div className="flex items-center gap-2">
-                <input
-                  type="number"
-                  value={measureUsablePercent}
-                  onChange={(e) => {
-                    const val = Math.min(100, Math.max(10, Number(e.target.value) || 10));
-                    setMeasureUsablePercent(val);
-                  }}
-                  min={10}
-                  max={100}
-                  step={5}
-                  className="w-14 px-2 py-1 text-right text-sm font-medium text-[#222f30] border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-[#a7e26e] focus:border-transparent"
-                />
-                <span className="text-xs text-gray-500">%</span>
+            {/* Editable parameters */}
+            <div className="mb-3 space-y-2">
+              <div className="flex items-center justify-between bg-blue-50 rounded-lg px-3 py-2">
+                <span className="text-xs text-gray-600">% Área útil</span>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    value={measureUsablePercent}
+                    onChange={(e) => {
+                      const val = Math.min(100, Math.max(10, Number(e.target.value) || 10));
+                      setMeasureUsablePercent(val);
+                    }}
+                    min={10}
+                    max={100}
+                    step={5}
+                    className="w-14 px-2 py-1 text-right text-sm font-medium text-[#222f30] border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-[#a7e26e] focus:border-transparent"
+                  />
+                  <span className="text-xs text-gray-500">%</span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between bg-amber-50 rounded-lg px-3 py-2">
+                <span className="text-xs text-gray-600">Consumo propio</span>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    value={measureSelfConsumption}
+                    onChange={(e) => {
+                      const val = Math.max(0, Number(e.target.value) || 0);
+                      setMeasureSelfConsumption(val);
+                    }}
+                    min={0}
+                    step={1000}
+                    className="w-20 px-2 py-1 text-right text-sm font-medium text-[#222f30] border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-[#a7e26e] focus:border-transparent"
+                  />
+                  <span className="text-xs text-gray-500">kWh/año</span>
+                </div>
               </div>
             </div>
             {showMeasureMethodology && (
@@ -2915,6 +2945,34 @@ export function ProspectMap({
                 <div className="text-sm font-bold text-blue-600">{displaySolarEstimate.paybackYears} años</div>
               </div>
             </div>
+            {/* Surplus and homes served */}
+            {surplusCalculation && (
+              <div className="mt-3 pt-3 border-t border-gray-200">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-green-50 rounded-lg p-2 text-center">
+                    <div className="text-xs text-gray-500">Excedente</div>
+                    <div className="text-sm font-bold text-green-600">
+                      {surplusCalculation.surplus > 0
+                        ? `${(surplusCalculation.surplus / 1000).toFixed(1)}k kWh`
+                        : '0 kWh'}
+                    </div>
+                  </div>
+                  <div className="bg-purple-50 rounded-lg p-2 text-center">
+                    <div className="text-xs text-gray-500">Hogares</div>
+                    <div className="text-sm font-bold text-purple-600">
+                      {surplusCalculation.homesServed > 0
+                        ? `${surplusCalculation.homesServed} viviendas`
+                        : '-'}
+                    </div>
+                  </div>
+                </div>
+                {surplusCalculation.surplus <= 0 && (
+                  <div className="mt-2 text-[10px] text-amber-600 text-center">
+                    La producción no cubre el consumo propio
+                  </div>
+                )}
+              </div>
+            )}
             {/* Send to Lead button */}
             <button
               onClick={openLeadPicker}
