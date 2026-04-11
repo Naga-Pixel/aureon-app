@@ -1109,15 +1109,27 @@ export function ProspectMap({
       // Recalculate with current usable percent
       const estimate = computeSolarEstimate(measuredAreaM2, centerLat, measureUsablePercent);
 
-      // Create the lead (using quick endpoint with minimal required fields)
-      const createRes = await fetch('/api/leads/quick', {
+      // Build building data from selectedBuilding if available
+      const buildingData = selectedBuilding ? {
+        island: selectedBuilding.island,
+        streetAddress: selectedBuilding.streetAddress,
+        cadastralReference: selectedBuilding.cadastralReference,
+        numberOfDwellings: selectedBuilding.numberOfDwellings,
+        currentUseLabel: selectedBuilding.currentUseLabel,
+        annualSavingsEur: estimate.annualSavingsEur,
+      } : {
+        annualSavingsEur: estimate.annualSavingsEur,
+      };
+
+      // Create the lead using from-location endpoint with lat/lon
+      const createRes = await fetch('/api/leads/from-location', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          lat: centerLat,
+          lon: centerLng,
           name: newLeadName,
-          email: newLeadEmail || null,
-          phone: newLeadPhone || null,
-          source: 'prospecting_tool',
+          buildingData,
         }),
       });
 
@@ -1163,7 +1175,7 @@ export function ProspectMap({
     } finally {
       setIsCreatingLead(false);
     }
-  }, [measuredAreaM2, measureVertices, measureUsablePercent, newLeadName, newLeadEmail, newLeadPhone]);
+  }, [measuredAreaM2, measureVertices, measureUsablePercent, newLeadName, newLeadEmail, newLeadPhone, selectedBuilding]);
 
   // Open lead picker and load initial results
   const openLeadPicker = useCallback(() => {
