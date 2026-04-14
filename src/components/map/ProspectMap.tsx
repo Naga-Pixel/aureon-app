@@ -3052,13 +3052,19 @@ export function ProspectMap({
                   <input
                     type="number"
                     inputMode="numeric"
-                    value={measureUsablePercent}
+                    value={measureUsablePercent === 0 ? '' : measureUsablePercent}
                     onChange={(e) => {
-                      const val = e.target.value === '' ? 0 : Math.min(100, Math.max(0, Number(e.target.value)));
-                      setMeasureUsablePercent(val);
+                      const rawVal = e.target.value;
+                      if (rawVal === '') {
+                        setMeasureUsablePercent(0);
+                      } else {
+                        const val = Math.min(100, Math.max(0, Number(rawVal)));
+                        setMeasureUsablePercent(val);
+                      }
                     }}
-                    onBlur={() => {
-                      if (measureUsablePercent < 10) setMeasureUsablePercent(10);
+                    onBlur={(e) => {
+                      const val = Number(e.target.value) || 0;
+                      if (val < 10) setMeasureUsablePercent(10);
                     }}
                     min={0}
                     max={100}
