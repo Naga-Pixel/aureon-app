@@ -219,6 +219,7 @@ export function ProspectMap({
   const [measureSolarEstimate, setMeasureSolarEstimate] = useState<SolarEstimate | null>(null);
   // Editable usable area percentage for measurement tool (default 60%)
   const [measureUsablePercent, setMeasureUsablePercent] = useState(60);
+  const [measureUsablePercentInput, setMeasureUsablePercentInput] = useState('60');
   // Editable self-consumption for calculating surplus/homes served (default 60,000 kWh/year)
   const [measureSelfConsumption, setMeasureSelfConsumption] = useState(60000);
   // Lead picker modal for sending measurement to lead
@@ -1104,6 +1105,7 @@ export function ProspectMap({
     setMeasureClosed(false);
     setMeasureSolarEstimate(null);
     setMeasureUsablePercent(60); // Reset to default
+    setMeasureUsablePercentInput('60');
     setMeasureSelfConsumption(60000); // Reset to default
     setShowMeasureMethodology(false);
     measureVerticesRef.current = [];
@@ -3050,24 +3052,20 @@ export function ProspectMap({
                 <span className="text-xs text-gray-600">% Área útil</span>
                 <div className="flex items-center gap-1">
                   <input
-                    type="number"
+                    type="text"
                     inputMode="numeric"
-                    value={measureUsablePercent === 0 ? '' : measureUsablePercent}
+                    value={measureUsablePercentInput}
                     onChange={(e) => {
-                      const rawVal = e.target.value;
-                      if (rawVal === '') {
-                        setMeasureUsablePercent(0);
-                      } else {
-                        const val = Math.min(100, Math.max(0, Number(rawVal)));
-                        setMeasureUsablePercent(val);
-                      }
+                      const rawVal = e.target.value.replace(/[^0-9]/g, '');
+                      setMeasureUsablePercentInput(rawVal);
                     }}
-                    onBlur={(e) => {
-                      const val = Number(e.target.value) || 0;
-                      if (val < 10) setMeasureUsablePercent(10);
+                    onBlur={() => {
+                      const num = parseInt(measureUsablePercentInput, 10);
+                      const val = isNaN(num) ? 60 : Math.min(100, Math.max(10, num));
+                      setMeasureUsablePercent(val);
+                      setMeasureUsablePercentInput(String(val));
                     }}
-                    min={0}
-                    max={100}
+                    onFocus={(e) => e.target.select()}
                     className="w-14 px-2 py-1.5 text-center text-sm font-semibold text-[#222f30] bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#a7e26e] focus:border-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                   <span className="text-xs text-gray-500">%</span>
