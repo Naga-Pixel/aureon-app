@@ -16,8 +16,7 @@ const footerLinks = {
   ],
   contact: [
     { href: "mailto:info@aureon.es", label: "info@aureon.es" },
-    { href: "tel:+34922000000", label: "922 000 000" },
-    { href: "#", label: "Santa Cruz de Tenerife" },
+    { href: "#", label: "Las Palmas de Gran Canaria" },
   ],
 };
 
