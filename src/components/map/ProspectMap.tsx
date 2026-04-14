@@ -3066,6 +3066,7 @@ export function ProspectMap({
                       setMeasureUsablePercentInput(String(val));
                     }}
                     onFocus={(e) => e.target.select()}
+                    onKeyDown={(e) => e.stopPropagation()}
                     className="w-14 px-2 py-1.5 text-center text-sm font-semibold text-[#222f30] bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#a7e26e] focus:border-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                   <span className="text-xs text-gray-500">%</span>
@@ -3081,6 +3082,7 @@ export function ProspectMap({
                       const val = Math.max(0, Number(e.target.value) || 0);
                       setMeasureSelfConsumption(val);
                     }}
+                    onKeyDown={(e) => e.stopPropagation()}
                     min={0}
                     step={1000}
                     className="w-20 px-2 py-1 text-right text-sm font-medium text-[#222f30] border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-[#a7e26e] focus:border-transparent"
