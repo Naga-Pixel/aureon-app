@@ -124,7 +124,7 @@ export function ProspectMap({
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
-  const [subsidyHeatmapMode, setSubsidyHeatmapMode] = useState<SubsidyHeatmapMode>('off');
+  // subsidyHeatmapMode is now derived from layerToggles (defined below)
   const isDrawingRef = useRef(false);
   const buildingMarkers = useRef<maplibregl.Marker[]>([]);
   const closeButtonMarker = useRef<maplibregl.Marker | null>(null);
@@ -177,7 +177,7 @@ export function ProspectMap({
   const [savePinName, setSavePinName] = useState('');
   const [isSavingPin, setIsSavingPin] = useState(false);
 
-  // Layer visibility toggles (8 categories)
+  // Layer visibility toggles
   // All toggles start false - user enables the ones they want to see
   const [layerToggles, setLayerToggles] = useState({
     supermarkets: false,
@@ -190,10 +190,24 @@ export function ProspectMap({
     gasStations: false,
     saved: true,
     partners: true,
+    ibi: false,
+    icio: false,
   });
   const toggleLayer = (layer: keyof typeof layerToggles) => {
-    setLayerToggles(prev => ({ ...prev, [layer]: !prev[layer] }));
+    setLayerToggles(prev => {
+      // IBI and ICIO are mutually exclusive
+      if (layer === 'ibi' && !prev.ibi) {
+        return { ...prev, ibi: true, icio: false };
+      }
+      if (layer === 'icio' && !prev.icio) {
+        return { ...prev, icio: true, ibi: false };
+      }
+      return { ...prev, [layer]: !prev[layer] };
+    });
   };
+
+  // Derive subsidyHeatmapMode from layerToggles
+  const subsidyHeatmapMode: SubsidyHeatmapMode = layerToggles.ibi ? 'ibi' : layerToggles.icio ? 'icio' : 'off';
 
   // Measurement tool state
   const [isMeasuring, setIsMeasuring] = useState(false);
@@ -3160,44 +3174,20 @@ export function ProspectMap({
           </div>
         )}
 
-        {/* Subsidy heatmap and EPC toggle */}
-        {showSubsidyHeatmap && mapLoaded && (
+        {/* EPC toggle */}
+        {buildings.length > 0 && mapLoaded && (
           <div className="flex gap-1 bg-white rounded-lg shadow-md p-1">
             <button
-              onClick={() => setSubsidyHeatmapMode(subsidyHeatmapMode === 'ibi' ? 'off' : 'ibi')}
+              onClick={() => setEpcColorMode(!epcColorMode)}
               className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
-                subsidyHeatmapMode === 'ibi'
-                  ? 'bg-emerald-500 text-white'
+                epcColorMode
+                  ? 'bg-gradient-to-r from-green-500 via-yellow-400 to-red-500 text-white'
                   : 'text-gray-600 hover:bg-gray-100'
               }`}
-              title="Mostrar bonificaciones IBI (Impuesto sobre Bienes Inmuebles)"
+              title="Modo EPC: Colorea edificios por potencial de mejora energética (rojo = mejor prospecto)"
             >
-              IBI
+              EPC
             </button>
-            <button
-              onClick={() => setSubsidyHeatmapMode(subsidyHeatmapMode === 'icio' ? 'off' : 'icio')}
-              className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
-                subsidyHeatmapMode === 'icio'
-                  ? 'bg-emerald-500 text-white'
-                  : 'text-gray-600 hover:bg-gray-100'
-              }`}
-              title="Mostrar bonificaciones ICIO (Impuesto sobre Construcciones)"
-            >
-              ICIO
-            </button>
-            {buildings.length > 0 && (
-              <button
-                onClick={() => setEpcColorMode(!epcColorMode)}
-                className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
-                  epcColorMode
-                    ? 'bg-gradient-to-r from-green-500 via-yellow-400 to-red-500 text-white'
-                    : 'text-gray-600 hover:bg-gray-100'
-                }`}
-                title="Modo EPC: Colorea edificios por potencial de mejora energética (rojo = mejor prospecto)"
-              >
-                EPC
-              </button>
-            )}
           </div>
         )}
 
@@ -3233,6 +3223,10 @@ export function ProspectMap({
               icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>` },
             { key: 'partners' as const, color: '#3b82f6', count: installerLocations.length, title: 'Partners Instaladores', isLoading: false, showCount: layerToggles.partners,
               icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>` },
+            { key: 'ibi' as const, color: '#10b981', count: 0, title: 'Bonificación IBI', isLoading: false, showCount: false,
+              icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>` },
+            { key: 'icio' as const, color: '#10b981', count: 0, title: 'Bonificación ICIO', isLoading: false, showCount: false,
+              icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 20h20M5 20V8l7-4 7 4v12"/><path d="M9 20v-4h6v4"/></svg>` },
           ];
 
           // Auto-enable anchors/VVs when any toggle is clicked
