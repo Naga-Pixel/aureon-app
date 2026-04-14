@@ -169,6 +169,9 @@ export function ProspectMap({
   const gasStationMarkers = useRef<maplibregl.Marker[]>([]);
   // Saved locations markers
   const savedLocationMarkers = useRef<maplibregl.Marker[]>([]);
+  // Partner installer locations
+  const [installerLocations, setInstallerLocations] = useState<Array<{ id: string; name: string; address: string; phone?: string; email?: string; lat: number; lon: number }>>([]);
+  const installerMarkers = useRef<maplibregl.Marker[]>([]);
   // Save pin prompt state
   const [savePinPrompt, setSavePinPrompt] = useState<{ lat: number; lon: number } | null>(null);
   const [savePinName, setSavePinName] = useState('');
@@ -186,6 +189,7 @@ export function ProspectMap({
     ctZones: false,
     gasStations: false,
     saved: true,
+    partners: true,
   });
   const toggleLayer = (layer: keyof typeof layerToggles) => {
     setLayerToggles(prev => ({ ...prev, [layer]: !prev[layer] }));
@@ -578,6 +582,73 @@ export function ProspectMap({
       savedLocationMarkers.current.push(marker);
     });
   }, [mapLoaded, savedLocations, layerToggles.saved]);
+
+  // Fetch partner installer locations on mount
+  useEffect(() => {
+    const fetchInstallerLocations = async () => {
+      try {
+        const res = await fetch('/api/installer-locations');
+        if (res.ok) {
+          const data = await res.json();
+          setInstallerLocations(data.locations || []);
+        }
+      } catch (err) {
+        console.error('[ProspectMap] Failed to fetch installer locations:', err);
+      }
+    };
+    fetchInstallerLocations();
+  }, []);
+
+  // Render partner installer markers
+  useEffect(() => {
+    // Clear old markers
+    installerMarkers.current.forEach(m => m.remove());
+    installerMarkers.current = [];
+
+    if (!map.current || !mapLoaded || !layerToggles.partners) return;
+
+    installerLocations.forEach(loc => {
+      const el = document.createElement('div');
+      el.style.cssText = `
+        width: 32px;
+        height: 32px;
+        background: #3b82f6;
+        border: 3px solid white;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      `;
+      // Wrench/tool icon for installers
+      el.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>`;
+
+      const marker = new maplibregl.Marker({ element: el })
+        .setLngLat([loc.lon, loc.lat])
+        .addTo(map.current!);
+
+      const popupHtml = `
+        <div style="padding:10px;min-width:200px">
+          <h4 style="font-weight:700;margin:0 0 6px 0;font-size:14px;color:#3b82f6">${loc.name}</h4>
+          <p style="font-size:12px;color:#444;margin:0 0 4px 0">${loc.address}</p>
+          ${loc.phone ? `<p style="font-size:12px;margin:4px 0"><a href="tel:${loc.phone.replace(/\s/g, '')}" style="color:#3b82f6;text-decoration:none">📞 ${loc.phone}</a></p>` : ''}
+          ${loc.email ? `<p style="font-size:12px;margin:4px 0"><a href="mailto:${loc.email}" style="color:#3b82f6;text-decoration:none">✉️ ${loc.email}</a></p>` : ''}
+          <p style="font-size:10px;color:#22c55e;margin:8px 0 0 0;font-weight:500">Partner Instalador</p>
+        </div>
+      `;
+
+      const popup = new maplibregl.Popup({ offset: 18, closeButton: true })
+        .setHTML(popupHtml);
+
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        marker.setPopup(popup).togglePopup();
+      });
+
+      installerMarkers.current.push(marker);
+    });
+  }, [mapLoaded, installerLocations, layerToggles.partners]);
 
   // Listen for delete-saved-location custom events from popup buttons
   useEffect(() => {
@@ -2963,18 +3034,21 @@ export function ProspectMap({
             <div className="mb-3 space-y-2">
               <div className="flex items-center justify-between bg-blue-50 rounded-lg px-3 py-2">
                 <span className="text-xs text-gray-600">% Área útil</span>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                   <input
                     type="number"
+                    inputMode="numeric"
                     value={measureUsablePercent}
                     onChange={(e) => {
-                      const val = Math.min(100, Math.max(10, Number(e.target.value) || 10));
+                      const val = e.target.value === '' ? 0 : Math.min(100, Math.max(0, Number(e.target.value)));
                       setMeasureUsablePercent(val);
                     }}
-                    min={10}
+                    onBlur={() => {
+                      if (measureUsablePercent < 10) setMeasureUsablePercent(10);
+                    }}
+                    min={0}
                     max={100}
-                    step={5}
-                    className="w-14 px-2 py-1 text-right text-sm font-medium text-[#222f30] border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-[#a7e26e] focus:border-transparent"
+                    className="w-14 px-2 py-1.5 text-center text-sm font-semibold text-[#222f30] bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#a7e26e] focus:border-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                   <span className="text-xs text-gray-500">%</span>
                 </div>
@@ -3157,6 +3231,8 @@ export function ProspectMap({
               icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 22V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/><path d="M3 22h12"/><path d="M18 7l3-3v8a2 2 0 0 1-2 2h-1"/><rect x="6" y="8" width="6" height="4" rx="1"/></svg>` },
             { key: 'saved' as const, color: '#eab308', count: savedLocations.length, title: 'Ubicaciones Guardadas', isLoading: false, showCount: layerToggles.saved,
               icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>` },
+            { key: 'partners' as const, color: '#3b82f6', count: installerLocations.length, title: 'Partners Instaladores', isLoading: false, showCount: layerToggles.partners,
+              icon: `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>` },
           ];
 
           // Auto-enable anchors/VVs when any toggle is clicked
