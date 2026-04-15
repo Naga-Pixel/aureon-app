@@ -8,6 +8,7 @@ import { ISLANDS } from "@/lib/constants/islands";
 import { LeadStatusForm } from "./lead-status-form";
 import { DeleteLeadButton } from "./delete-lead-button";
 import { InlineEditField, InlineEditSelect } from "./inline-edit-field";
+import { ViewOnMapButton } from "./view-on-map-button";
 import { SavingsSummary } from "./savings-summary";
 import type { Lead, Installer } from "@/lib/supabase/types";
 
@@ -243,6 +244,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                   </svg>
                   <span className="font-medium">Enviar email</span>
                 </a>
+                <ViewOnMapButton notes={lead.notes} />
                 <DeleteLeadButton leadId={lead.id} leadName={lead.name} />
               </div>
             </CardContent>

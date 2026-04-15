@@ -506,6 +506,17 @@ export function ProspectMap({
     };
   }, []);
 
+  // Fly to location when URL params change (e.g., coming from lead detail page)
+  useEffect(() => {
+    if (!map.current || !mapLoaded || !initialLat || !initialLon) return;
+
+    map.current.flyTo({
+      center: [initialLon, initialLat],
+      zoom: initialZoom || 18,
+      duration: 1500,
+    });
+  }, [mapLoaded, initialLat, initialLon, initialZoom]);
+
   // Right-click to save pin
   useEffect(() => {
     if (!map.current || !mapLoaded || !onSavePin) return;

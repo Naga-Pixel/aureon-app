@@ -42,10 +42,13 @@ export default function ProspectingPage() {
   });
 
   // Read initial position from URL params (from Gestoras/Leads page links)
-  // Only use URL params if no stored map position exists
-  const initialLat = !mapCenter && searchParams.get('lat') ? parseFloat(searchParams.get('lat')!) : mapCenter?.lat;
-  const initialLon = !mapCenter && searchParams.get('lon') ? parseFloat(searchParams.get('lon')!) : mapCenter?.lon;
-  const initialZoom = !mapZoom && searchParams.get('zoom') ? parseFloat(searchParams.get('zoom')!) : mapZoom || undefined;
+  // URL params always take priority over stored position
+  const urlLat = searchParams.get('lat') ? parseFloat(searchParams.get('lat')!) : null;
+  const urlLon = searchParams.get('lon') ? parseFloat(searchParams.get('lon')!) : null;
+  const urlZoom = searchParams.get('zoom') ? parseFloat(searchParams.get('zoom')!) : null;
+  const initialLat = urlLat ?? mapCenter?.lat;
+  const initialLon = urlLon ?? mapCenter?.lon;
+  const initialZoom = urlZoom ?? mapZoom ?? undefined;
   const gestoraFilter = searchParams.get('gestora') || undefined;
 
   // Find selected building from ID
