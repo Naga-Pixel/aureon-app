@@ -236,6 +236,8 @@ export function ProspectMap({
   const [isCreatingLead, setIsCreatingLead] = useState(false);
   const measureCursorRef = useRef<[number, number] | null>(null);
   const [showMeasureMethodology, setShowMeasureMethodology] = useState(false);
+  // Track if we've already flown to initial URL position (prevents infinite loop)
+  const hasFlownToInitialRef = useRef(false);
 
   // Recalculate solar estimate when usable percent changes
   const displaySolarEstimate = useMemo(() => {
@@ -506,10 +508,13 @@ export function ProspectMap({
     };
   }, []);
 
-  // Fly to location when URL params change (e.g., coming from lead detail page)
+  // Fly to location when URL params provided (e.g., coming from lead detail page)
+  // Only run once on initial load to prevent infinite loop with onViewChange
   useEffect(() => {
     if (!map.current || !mapLoaded || !initialLat || !initialLon) return;
+    if (hasFlownToInitialRef.current) return;
 
+    hasFlownToInitialRef.current = true;
     map.current.flyTo({
       center: [initialLon, initialLat],
       zoom: initialZoom || 18,
