@@ -249,12 +249,21 @@ export function ProspectMap({
     return computeSolarEstimate(measuredAreaM2, centerLat, measureUsablePercent);
   }, [measureClosed, measuredAreaM2, measureVertices, measureUsablePercent, measureSolarEstimate]);
 
-  // Calculate surplus energy and homes served
+  // Calculate surplus energy, homes served, and community vs grid revenue
   const surplusCalculation = useMemo(() => {
     if (!displaySolarEstimate) return null;
     const surplus = Math.max(0, displaySolarEstimate.annualKwh - measureSelfConsumption);
     const homesServed = Math.floor(surplus / 3500); // Average Spanish home: 3,500 kWh/year
-    return { surplus, homesServed };
+
+    // Revenue comparison: Community vs Grid
+    const GRID_RATE = 0.05; // €/kWh - compensación simplificada
+    const COMMUNITY_RATE = 0.11; // €/kWh - energy community sale price
+    const gridRevenue = surplus * GRID_RATE;
+    const communityRevenue = surplus * COMMUNITY_RATE;
+    const extraProfit = communityRevenue - gridRevenue;
+    const extraProfitPercent = gridRevenue > 0 ? ((extraProfit / gridRevenue) * 100) : 0;
+
+    return { surplus, homesServed, gridRevenue, communityRevenue, extraProfit, extraProfitPercent };
   }, [displaySolarEstimate, measureSelfConsumption]);
 
   // Keep ref in sync with selectedVvGroup state
@@ -3168,6 +3177,48 @@ export function ProspectMap({
                 {surplusCalculation.surplus <= 0 && (
                   <div className="mt-2 text-[10px] text-amber-600 text-center">
                     La producción no cubre el consumo propio
+                  </div>
+                )}
+                {/* Energy Community revenue comparison */}
+                {surplusCalculation.surplus > 0 && (
+                  <div className="mt-3 pt-3 border-t border-gray-200">
+                    <div className="text-xs font-semibold text-gray-700 mb-2 flex items-center gap-1">
+                      <svg className="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" />
+                      </svg>
+                      Comunidad Energética
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div className="bg-gray-50 rounded p-2">
+                        <div className="text-gray-500">Venta a red</div>
+                        <div className="font-semibold text-gray-600">
+                          {surplusCalculation.gridRevenue >= 1000
+                            ? `${(surplusCalculation.gridRevenue / 1000).toFixed(1)}k €/año`
+                            : `${surplusCalculation.gridRevenue.toFixed(0)} €/año`}
+                        </div>
+                        <div className="text-[10px] text-gray-400">@0.05 €/kWh</div>
+                      </div>
+                      <div className="bg-amber-50 rounded p-2">
+                        <div className="text-gray-500">Venta a comunidad</div>
+                        <div className="font-semibold text-amber-600">
+                          {surplusCalculation.communityRevenue >= 1000
+                            ? `${(surplusCalculation.communityRevenue / 1000).toFixed(1)}k €/año`
+                            : `${surplusCalculation.communityRevenue.toFixed(0)} €/año`}
+                        </div>
+                        <div className="text-[10px] text-gray-400">@0.11 €/kWh</div>
+                      </div>
+                    </div>
+                    <div className="mt-2 bg-green-100 rounded-lg p-2 text-center">
+                      <div className="text-xs text-green-700">Beneficio extra con Comunidad</div>
+                      <div className="text-lg font-bold text-green-600">
+                        +{surplusCalculation.extraProfit >= 1000
+                          ? `${(surplusCalculation.extraProfit / 1000).toFixed(1)}k`
+                          : surplusCalculation.extraProfit.toFixed(0)} €/año
+                      </div>
+                      <div className="text-[10px] text-green-600 font-medium">
+                        +{surplusCalculation.extraProfitPercent.toFixed(0)}% más que venta a red
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
