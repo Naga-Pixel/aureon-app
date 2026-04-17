@@ -287,7 +287,30 @@ export function ProspectMap({
     const extraProfit = communityRevenue - gridRevenue;
     const extraProfitPercent = gridRevenue > 0 ? ((extraProfit / gridRevenue) * 100) : 0;
 
-    return { surplus, homesServed, gridRevenue, communityRevenue, extraProfit, extraProfitPercent };
+    // Payback with incentives (typical 40% reduction from grants + IBI + IRPF)
+    const TYPICAL_INCENTIVE_RATE = 0.40; // 40% cost reduction from combined incentives
+    const costWithIncentives = displaySolarEstimate.installationCost * (1 - TYPICAL_INCENTIVE_RATE);
+    let cumulativeSavings = 0;
+    let paybackWithIncentives: number = ASSESSMENT_CONFIG.SYSTEM_LIFETIME_YEARS;
+    for (let y = 1; y <= ASSESSMENT_CONFIG.SYSTEM_LIFETIME_YEARS; y++) {
+      const degraded = displaySolarEstimate.annualSavingsEur * Math.pow(1 - ASSESSMENT_CONFIG.PANEL_DEGRADATION_RATE, y - 1);
+      cumulativeSavings += degraded;
+      if (cumulativeSavings >= costWithIncentives) {
+        paybackWithIncentives = y;
+        break;
+      }
+    }
+
+    return {
+      surplus,
+      homesServed,
+      gridRevenue,
+      communityRevenue,
+      extraProfit,
+      extraProfitPercent,
+      costWithIncentives,
+      paybackWithIncentives,
+    };
   }, [displaySolarEstimate, measureSelfConsumption]);
 
   // Keep ref in sync with selectedVvGroup state
@@ -3165,16 +3188,24 @@ export function ProspectMap({
                 <div className="text-sm font-bold text-gray-800">{(displaySolarEstimate.annualKwh / 1000).toFixed(1)}k kWh</div>
               </div>
               <div>
-                <div className="text-xs text-gray-500">Coste</div>
-                <div className="text-sm font-bold text-gray-800">{(displaySolarEstimate.installationCost / 1000).toFixed(0)}k €</div>
-              </div>
-              <div>
-                <div className="text-xs text-gray-500">Ahorro/año</div>
+                <div className="text-xs text-gray-500">Beneficio/año</div>
                 <div className="text-sm font-bold text-green-600">{(displaySolarEstimate.annualSavingsEur / 1000).toFixed(1)}k €</div>
               </div>
-              <div>
-                <div className="text-xs text-gray-500">Amortización</div>
-                <div className="text-sm font-bold text-blue-600">{displaySolarEstimate.paybackYears} años</div>
+              <div className="col-span-2">
+                <div className="text-xs text-gray-500 mb-1">Coste / Amortización</div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="bg-gray-50 rounded p-1.5 text-center">
+                    <div className="text-[10px] text-gray-400">Sin ayudas</div>
+                    <div className="text-xs font-bold text-gray-600">{(displaySolarEstimate.installationCost / 1000).toFixed(0)}k € / {displaySolarEstimate.paybackYears} años</div>
+                  </div>
+                  {surplusCalculation && (
+                    <div className="bg-green-50 rounded p-1.5 text-center">
+                      <div className="text-[10px] text-green-600">Con ayudas*</div>
+                      <div className="text-xs font-bold text-green-600">{(surplusCalculation.costWithIncentives / 1000).toFixed(0)}k € / {surplusCalculation.paybackWithIncentives} años</div>
+                    </div>
+                  )}
+                </div>
+                <div className="text-[9px] text-gray-400 mt-1">*Estimación con ~40% ayudas típicas (subvenciones + IBI + IRPF)</div>
               </div>
             </div>
             {/* Surplus and homes served */}
