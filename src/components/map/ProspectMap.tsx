@@ -3295,8 +3295,8 @@ export function ProspectMap({
                 })}
               </div>
 
-              {/* Radius selector and cluster finder when anchors visible */}
-              {anchorsVisible && (
+              {/* Radius selector and cluster finder when anchors or gas stations visible */}
+              {(anchorsVisible || layerToggles.gasStations) && (
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-2 bg-white rounded-lg shadow-md px-2 py-1">
                   <span className="text-xs text-gray-500">Radio:</span>
