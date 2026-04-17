@@ -239,15 +239,39 @@ export function ProspectMap({
   // Track if we've already flown to initial URL position (prevents infinite loop)
   const hasFlownToInitialRef = useRef(false);
 
-  // Recalculate solar estimate when usable percent changes
+  // Recalculate solar estimate when usable percent or self-consumption changes
   const displaySolarEstimate = useMemo(() => {
     if (!measureClosed || !measuredAreaM2 || measureVertices.length < 3) {
       return measureSolarEstimate;
     }
     // Calculate center latitude from vertices
     const centerLat = measureVertices.reduce((sum, v) => sum + v[1], 0) / measureVertices.length;
-    return computeSolarEstimate(measuredAreaM2, centerLat, measureUsablePercent);
-  }, [measureClosed, measuredAreaM2, measureVertices, measureUsablePercent, measureSolarEstimate]);
+    const baseEstimate = computeSolarEstimate(measuredAreaM2, centerLat, measureUsablePercent);
+
+    // Recalculate savings and payback based on self-consumption + community revenue
+    const ELECTRICITY_PRICE = 0.20; // €/kWh - avoided cost for self-consumption
+    const COMMUNITY_RATE = 0.11; // €/kWh - energy community sale price
+
+    const actualSelfConsumption = Math.min(measureSelfConsumption, baseEstimate.annualKwh);
+    const surplus = Math.max(0, baseEstimate.annualKwh - measureSelfConsumption);
+
+    // Annual savings = avoided electricity cost + community revenue from surplus
+    const annualSavingsEur = (actualSelfConsumption * ELECTRICITY_PRICE) + (surplus * COMMUNITY_RATE);
+
+    // Recalculate payback with degradation
+    let cumulativeSavings = 0;
+    let paybackYears: number = ASSESSMENT_CONFIG.SYSTEM_LIFETIME_YEARS;
+    for (let y = 1; y <= ASSESSMENT_CONFIG.SYSTEM_LIFETIME_YEARS; y++) {
+      const degraded = annualSavingsEur * Math.pow(1 - ASSESSMENT_CONFIG.PANEL_DEGRADATION_RATE, y - 1);
+      cumulativeSavings += degraded;
+      if (cumulativeSavings >= baseEstimate.installationCost) {
+        paybackYears = y;
+        break;
+      }
+    }
+
+    return { ...baseEstimate, annualSavingsEur, paybackYears };
+  }, [measureClosed, measuredAreaM2, measureVertices, measureUsablePercent, measureSolarEstimate, measureSelfConsumption]);
 
   // Calculate surplus energy, homes served, and community vs grid revenue
   const surplusCalculation = useMemo(() => {
