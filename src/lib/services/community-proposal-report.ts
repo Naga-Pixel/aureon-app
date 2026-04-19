@@ -4,6 +4,40 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
+// Aureon star logo - simplified path points (normalized 0-1)
+const LOGO_POINTS = [
+  [0.901, 0.171], [1.0, 0.345], [0.616, 0.500], [1.0, 0.652],
+  [0.895, 0.831], [0.560, 0.596], [0.604, 1.0], [0.397, 1.0],
+  [0.438, 0.596], [0.103, 0.834], [0, 0.653], [0.384, 0.498],
+  [0, 0.348], [0.102, 0.169], [0.445, 0.407], [0.401, 0],
+  [0.611, 0], [0.564, 0.407]
+];
+
+function drawAureonLogo(doc: jsPDF, x: number, y: number, size: number, color: [number, number, number]): void {
+  doc.setFillColor(color[0], color[1], color[2]);
+
+  // Scale and translate points
+  const points = LOGO_POINTS.map(([px, py]) => [
+    x + px * size,
+    y + py * size
+  ]);
+
+  // Draw as filled polygon
+  doc.setDrawColor(color[0], color[1], color[2]);
+
+  // Move to first point
+  let path = `${points[0][0]} ${points[0][1]} m `;
+  // Line to remaining points
+  for (let i = 1; i < points.length; i++) {
+    path += `${points[i][0]} ${points[i][1]} l `;
+  }
+  path += 'h f'; // close and fill
+
+  // Use internal API to draw path
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (doc as any).internal.write(path);
+}
+
 export interface CommunityProposalData {
   // Lead info
   leadName: string;
@@ -88,7 +122,12 @@ export function generateCommunityProposalReport(data: CommunityProposalData): js
   const pageHeight = doc.internal.pageSize.getHeight();
   let y = 20;
 
-  // ============ HEADER ============
+  // ============ HEADER WITH LOGO ============
+  // Draw Aureon logo centered
+  const logoSize = 20;
+  drawAureonLogo(doc, (pageWidth - logoSize) / 2, y, logoSize, [167, 226, 110]); // Aureon green
+  y += logoSize + 8;
+
   doc.setFontSize(22);
   doc.setTextColor(34, 47, 48);
   doc.text('Propuesta Comunidad Energética', pageWidth / 2, y, { align: 'center' });
