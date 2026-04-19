@@ -40,7 +40,7 @@ function drawEnergyFlowChart(
   const margin = 20;
   const chartWidth = pageWidth - margin * 2;
   const total = selfConsumption + surplus;
-  const barHeight = 24;
+  const barHeight = 18;
 
   const selfWidth = (selfConsumption / total) * chartWidth;
   const surplusWidth = (surplus / total) * chartWidth;
@@ -54,66 +54,66 @@ function drawEnergyFlowChart(
   doc.roundedRect(margin + selfWidth, y, surplusWidth, barHeight, 3, 3, 'F');
 
   // Labels inside bars
-  doc.setFontSize(9);
+  doc.setFontSize(8);
   doc.setTextColor(34, 47, 48);
 
   const selfPercent = Math.round((selfConsumption / total) * 100);
   const surplusPercent = 100 - selfPercent;
 
-  if (selfWidth > 60) {
-    doc.text(`Autoconsumo ${selfPercent}%`, margin + 5, y + 15);
+  if (selfWidth > 50) {
+    doc.text(`Autoconsumo ${selfPercent}%`, margin + 4, y + 11);
   }
-  if (surplusWidth > 60) {
-    doc.text(`Excedente ${surplusPercent}%`, margin + selfWidth + 5, y + 15);
+  if (surplusWidth > 50) {
+    doc.text(`Excedente ${surplusPercent}%`, margin + selfWidth + 4, y + 11);
   }
 
   // Legend
-  y += barHeight + 8;
-  doc.setFontSize(8);
+  y += barHeight + 5;
+  doc.setFontSize(7);
   doc.setTextColor(100, 100, 100);
 
   doc.setFillColor(167, 226, 110);
-  doc.rect(margin, y, 8, 8, 'F');
-  doc.text(`Autoconsumo: ${selfConsumption.toLocaleString('es-ES')} kWh/año`, margin + 12, y + 6);
+  doc.rect(margin, y, 6, 6, 'F');
+  doc.text(`Autoconsumo: ${selfConsumption.toLocaleString('es-ES')} kWh/año`, margin + 9, y + 5);
 
   doc.setFillColor(251, 191, 36);
-  doc.rect(margin + 100, y, 8, 8, 'F');
-  doc.text(`Excedente: ${surplus.toLocaleString('es-ES')} kWh/año`, margin + 112, y + 6);
+  doc.rect(margin + 90, y, 6, 6, 'F');
+  doc.text(`Excedente: ${surplus.toLocaleString('es-ES')} kWh/año`, margin + 99, y + 5);
 
-  return y + 15;
+  return y + 10;
 }
 
 export function generateCommunityProposalReport(data: CommunityProposalData): jsPDF {
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
-  let y = 20;
+  let y = 15;
 
   // ============ HEADER ============
 
-  doc.setFontSize(22);
+  doc.setFontSize(20);
   doc.setTextColor(34, 47, 48);
   doc.text('Propuesta Comunidad Energética', pageWidth / 2, y, { align: 'center' });
-  y += 12;
+  y += 10;
 
   // Lead name
-  doc.setFontSize(14);
+  doc.setFontSize(12);
   doc.setTextColor(100, 100, 100);
   doc.text(data.leadName, pageWidth / 2, y, { align: 'center' });
-  y += 7;
+  y += 6;
 
   // Address
   if (data.address) {
-    doc.setFontSize(10);
+    doc.setFontSize(9);
     const addressLines = doc.splitTextToSize(data.address, pageWidth - 40);
     doc.text(addressLines[0], pageWidth / 2, y, { align: 'center' });
-    y += 6;
+    y += 5;
   }
-  y += 8;
+  y += 5;
 
   // ============ SOLAR SYSTEM SUMMARY ============
   doc.setFillColor(247, 247, 245); // Light gray background
-  doc.roundedRect(15, y, pageWidth - 30, 28, 3, 3, 'F');
+  doc.roundedRect(15, y, pageWidth - 30, 22, 3, 3, 'F');
 
   const cols = [
     { label: 'Potencia', value: `${data.systemKwp.toFixed(1)} kWp` },
@@ -123,83 +123,83 @@ export function generateCommunityProposalReport(data: CommunityProposalData): js
   ];
 
   const colWidth = (pageWidth - 30) / cols.length;
-  doc.setFontSize(8);
+  doc.setFontSize(7);
   doc.setTextColor(100, 100, 100);
   cols.forEach((col, i) => {
     const x = 15 + colWidth * i + colWidth / 2;
-    doc.text(col.label, x, y + 10, { align: 'center' });
-    doc.setFontSize(12);
+    doc.text(col.label, x, y + 8, { align: 'center' });
+    doc.setFontSize(10);
     doc.setTextColor(34, 47, 48);
     doc.setFont('helvetica', 'bold');
-    doc.text(col.value, x, y + 20, { align: 'center' });
+    doc.text(col.value, x, y + 16, { align: 'center' });
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
+    doc.setFontSize(7);
     doc.setTextColor(100, 100, 100);
   });
 
-  y += 38;
+  y += 28;
 
   // ============ ENERGY FLOW SECTION ============
-  doc.setFontSize(13);
+  doc.setFontSize(11);
   doc.setTextColor(34, 47, 48);
   doc.text('Distribución de la Energía', 20, y);
-  y += 8;
+  y += 6;
 
   y = drawEnergyFlowChart(doc, y, data.selfConsumptionKwh, data.surplusKwh, pageWidth);
-  y += 5;
+  y += 3;
 
   // ============ HOMES SERVED CALLOUT ============
   if (data.homesServed > 0) {
     doc.setFillColor(237, 233, 254); // Light purple
-    doc.roundedRect(15, y, pageWidth - 30, 26, 3, 3, 'F');
+    doc.roundedRect(15, y, pageWidth - 30, 20, 3, 3, 'F');
 
-    doc.setFontSize(11);
+    doc.setFontSize(9);
     doc.setTextColor(109, 40, 217); // Purple
-    doc.text('Tu excedente puede abastecer a', 25, y + 11);
+    doc.text('Tu excedente puede abastecer a', 25, y + 8);
 
-    doc.setFontSize(18);
+    doc.setFontSize(14);
     doc.setFont('helvetica', 'bold');
-    doc.text(`${data.homesServed} viviendas`, 25, y + 21);
+    doc.text(`${data.homesServed} viviendas`, 25, y + 16);
     doc.setFont('helvetica', 'normal');
 
-    doc.setFontSize(8);
+    doc.setFontSize(7);
     doc.setTextColor(140, 140, 140);
-    doc.text('(consumo medio: 3.500 kWh/año)', pageWidth - 25, y + 21, { align: 'right' });
+    doc.text('(consumo medio: 3.500 kWh/año)', pageWidth - 25, y + 16, { align: 'right' });
 
-    y += 34;
+    y += 26;
   }
 
   // ============ COMMUNITY REVENUE ============
-  doc.setFontSize(13);
+  doc.setFontSize(11);
   doc.setTextColor(34, 47, 48);
   doc.text('Ingresos por Comunidad Energética', 20, y);
-  y += 8;
+  y += 6;
 
   // Revenue highlight box
   doc.setFillColor(255, 251, 235); // Light amber background
-  doc.roundedRect(15, y, pageWidth - 30, 32, 3, 3, 'F');
+  doc.roundedRect(15, y, pageWidth - 30, 24, 3, 3, 'F');
 
-  doc.setFontSize(10);
+  doc.setFontSize(9);
   doc.setTextColor(120, 80, 0);
-  doc.text('Vendiendo tu excedente a la comunidad energética:', 25, y + 12);
+  doc.text('Vendiendo tu excedente a la comunidad energética:', 25, y + 9);
 
-  doc.setFontSize(20);
+  doc.setFontSize(16);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(180, 130, 0); // Amber
-  doc.text(`${data.communityRevenue.toLocaleString('es-ES')} €/año`, 25, y + 26);
+  doc.text(`${data.communityRevenue.toLocaleString('es-ES')} €/año`, 25, y + 19);
   doc.setFont('helvetica', 'normal');
 
-  doc.setFontSize(8);
+  doc.setFontSize(7);
   doc.setTextColor(140, 140, 140);
-  doc.text('@0,11 €/kWh', pageWidth - 25, y + 26, { align: 'right' });
+  doc.text('@0,11 €/kWh', pageWidth - 25, y + 19, { align: 'right' });
 
-  y += 42;
+  y += 30;
 
   // ============ INVESTMENT COMPARISON TABLE ============
-  doc.setFontSize(13);
+  doc.setFontSize(11);
   doc.setTextColor(34, 47, 48);
   doc.text('Inversión y Amortización', 20, y);
-  y += 5;
+  y += 4;
 
   const incentivePercent = Math.round((1 - data.costWithIncentives / data.installationCost) * 100);
 
@@ -215,12 +215,12 @@ export function generateCommunityProposalReport(data: CommunityProposalData): js
       ['Amortización con ayudas', `${data.paybackWithIncentives.toFixed(1)} años`, 'Recuperas tu inversión antes'],
     ],
     theme: 'striped',
-    headStyles: { fillColor: [34, 47, 48], fontSize: 9 },
-    bodyStyles: { fontSize: 10 },
+    headStyles: { fillColor: [34, 47, 48], fontSize: 8 },
+    bodyStyles: { fontSize: 9, cellPadding: 2 },
     columnStyles: {
-      0: { cellWidth: 55, textColor: [80, 80, 80] },
-      1: { cellWidth: 50, fontStyle: 'bold', halign: 'right', textColor: [34, 47, 48] },
-      2: { cellWidth: 'auto', fontSize: 8, textColor: [120, 120, 120], fontStyle: 'italic' },
+      0: { cellWidth: 50, textColor: [80, 80, 80] },
+      1: { cellWidth: 45, fontStyle: 'bold', halign: 'right', textColor: [34, 47, 48] },
+      2: { cellWidth: 'auto', fontSize: 7, textColor: [120, 120, 120], fontStyle: 'italic' },
     },
     margin: { left: 15, right: 15 },
     didParseCell: (cellData) => {
@@ -235,48 +235,52 @@ export function generateCommunityProposalReport(data: CommunityProposalData): js
   });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  y = (doc as any).lastAutoTable.finalY + 6;
+  y = (doc as any).lastAutoTable.finalY + 4;
 
-  doc.setFontSize(7);
+  doc.setFontSize(6);
   doc.setTextColor(120, 120, 120);
   doc.text('*Subvenciones estimadas: Next Generation EU, IBI, IRPF. Sujeto a disponibilidad y requisitos.', 20, y);
-  y += 12;
+  y += 8;
 
   // ============ METHODOLOGY ============
-  doc.setFontSize(11);
+  doc.setFontSize(9);
   doc.setTextColor(34, 47, 48);
   doc.text('Metodología y Supuestos', 20, y);
-  y += 6;
+  y += 5;
 
-  doc.setFontSize(7);
+  doc.setFontSize(6);
   doc.setTextColor(100, 100, 100);
   const methodology = [
     'Producción solar: Basada en irradiación local (PVGIS) y área útil de cubierta (70% del total)',
     'Paneles: 400W por panel, 2m² por panel, degradación 0,5%/año',
-    'Autoconsumo: Energía consumida directamente en el edificio',
-    'Excedente: Energía sobrante vertida a la comunidad energética',
-    'Precio comunidad: 0,11 €/kWh (venta entre miembros de comunidad energética)',
-    'Viviendas abastecidas: Consumo medio español 3.500 kWh/año por hogar',
-    'Subvenciones: ~40% reducción combinando Next Generation EU, bonificación IBI y deducción IRPF',
+    'Autoconsumo: Energía consumida directamente en el edificio • Excedente: Energía vertida a comunidad',
+    'Precio comunidad: 0,11 €/kWh • Viviendas: consumo medio 3.500 kWh/año',
+    'Subvenciones: ~40% reducción combinando Next Generation EU, IBI y deducción IRPF',
   ];
   for (const line of methodology) {
     doc.text(`• ${line}`, 20, y);
-    y += 4;
+    y += 3.5;
   }
-  y += 6;
+  y += 4;
 
   // ============ CALL TO ACTION ============
-  doc.setFillColor(34, 47, 48);
-  doc.roundedRect(15, y, pageWidth - 30, 35, 3, 3, 'F');
+  // Check if we need a new page
+  if (y + 30 > pageHeight - 15) {
+    doc.addPage();
+    y = 20;
+  }
 
-  doc.setFontSize(12);
+  doc.setFillColor(34, 47, 48);
+  doc.roundedRect(15, y, pageWidth - 30, 28, 3, 3, 'F');
+
+  doc.setFontSize(11);
   doc.setTextColor(255, 255, 255);
   doc.setFont('helvetica', 'bold');
-  doc.text('Siguiente paso:', 25, y + 12);
+  doc.text('Siguiente paso:', 25, y + 10);
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(10);
-  doc.text('Únete a una comunidad energética y maximiza el valor de tus excedentes.', 25, y + 22);
-  doc.text('Contáctanos para un estudio personalizado sin compromiso.', 25, y + 30);
+  doc.setFontSize(9);
+  doc.text('Únete a una comunidad energética y maximiza el valor de tus excedentes.', 25, y + 18);
+  doc.text('Contáctanos para un estudio personalizado sin compromiso.', 25, y + 25);
 
   // ============ FOOTER ============
   doc.setFontSize(7);
