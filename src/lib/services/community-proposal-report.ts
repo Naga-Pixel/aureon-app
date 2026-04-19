@@ -28,56 +28,6 @@ export interface CommunityProposalData {
   paybackWithIncentives: number;
 }
 
-// Draw a horizontal bar chart comparing two values
-function drawComparisonBar(
-  doc: jsPDF,
-  y: number,
-  label1: string,
-  value1: number,
-  color1: [number, number, number],
-  label2: string,
-  value2: number,
-  color2: [number, number, number],
-  pageWidth: number
-): number {
-  const margin = 20;
-  const chartWidth = pageWidth - margin * 2;
-  const maxValue = Math.max(value1, value2);
-  const barHeight = 16;
-  const labelWidth = 50;
-  const barMaxWidth = chartWidth - labelWidth - 60;
-
-  // Bar 1
-  doc.setFontSize(9);
-  doc.setTextColor(80, 80, 80);
-  doc.text(label1, margin, y + 10);
-
-  const width1 = (value1 / maxValue) * barMaxWidth;
-  doc.setFillColor(color1[0], color1[1], color1[2]);
-  doc.roundedRect(margin + labelWidth, y, width1, barHeight, 2, 2, 'F');
-
-  doc.setFontSize(10);
-  doc.setTextColor(255, 255, 255);
-  doc.text(`${value1.toLocaleString('es-ES')} EUR/ano`, margin + labelWidth + 5, y + 11);
-
-  y += barHeight + 6;
-
-  // Bar 2
-  doc.setFontSize(9);
-  doc.setTextColor(80, 80, 80);
-  doc.text(label2, margin, y + 10);
-
-  const width2 = (value2 / maxValue) * barMaxWidth;
-  doc.setFillColor(color2[0], color2[1], color2[2]);
-  doc.roundedRect(margin + labelWidth, y, width2, barHeight, 2, 2, 'F');
-
-  doc.setFontSize(10);
-  doc.setTextColor(255, 255, 255);
-  doc.text(`${value2.toLocaleString('es-ES')} EUR/ano`, margin + labelWidth + 5, y + 11);
-
-  return y + barHeight + 10;
-}
-
 // Draw energy flow visualization
 function drawEnergyFlowChart(
   doc: jsPDF,
@@ -123,11 +73,11 @@ function drawEnergyFlowChart(
 
   doc.setFillColor(167, 226, 110);
   doc.rect(margin, y, 8, 8, 'F');
-  doc.text(`Autoconsumo: ${selfConsumption.toLocaleString('es-ES')} kWh/ano`, margin + 12, y + 6);
+  doc.text(`Autoconsumo: ${selfConsumption.toLocaleString('es-ES')} kWh/año`, margin + 12, y + 6);
 
   doc.setFillColor(251, 191, 36);
   doc.rect(margin + 100, y, 8, 8, 'F');
-  doc.text(`Excedente: ${surplus.toLocaleString('es-ES')} kWh/ano`, margin + 112, y + 6);
+  doc.text(`Excedente: ${surplus.toLocaleString('es-ES')} kWh/año`, margin + 112, y + 6);
 
   return y + 15;
 }
@@ -141,7 +91,7 @@ export function generateCommunityProposalReport(data: CommunityProposalData): js
   // ============ HEADER ============
   doc.setFontSize(22);
   doc.setTextColor(34, 47, 48);
-  doc.text('Propuesta Comunidad Energetica', pageWidth / 2, y, { align: 'center' });
+  doc.text('Propuesta Comunidad Energética', pageWidth / 2, y, { align: 'center' });
   y += 12;
 
   // Lead name
@@ -166,8 +116,8 @@ export function generateCommunityProposalReport(data: CommunityProposalData): js
   const cols = [
     { label: 'Potencia', value: `${data.systemKwp.toFixed(1)} kWp` },
     { label: 'Paneles', value: `${data.panelCount}` },
-    { label: 'Produccion', value: `${(data.annualProductionKwh / 1000).toFixed(1)} MWh/ano` },
-    { label: 'Ahorro', value: `${data.annualSavingsEur.toLocaleString('es-ES')} EUR/ano` },
+    { label: 'Producción', value: `${(data.annualProductionKwh / 1000).toFixed(1)} MWh/año` },
+    { label: 'Ahorro', value: `${data.annualSavingsEur.toLocaleString('es-ES')} €/año` },
   ];
 
   const colWidth = (pageWidth - 30) / cols.length;
@@ -190,7 +140,7 @@ export function generateCommunityProposalReport(data: CommunityProposalData): js
   // ============ ENERGY FLOW SECTION ============
   doc.setFontSize(13);
   doc.setTextColor(34, 47, 48);
-  doc.text('Distribucion de la Energia', 20, y);
+  doc.text('Distribución de la Energía', 20, y);
   y += 8;
 
   y = drawEnergyFlowChart(doc, y, data.selfConsumptionKwh, data.surplusKwh, pageWidth);
@@ -212,47 +162,41 @@ export function generateCommunityProposalReport(data: CommunityProposalData): js
 
     doc.setFontSize(8);
     doc.setTextColor(140, 140, 140);
-    doc.text('(consumo medio: 3.500 kWh/ano)', pageWidth - 25, y + 21, { align: 'right' });
+    doc.text('(consumo medio: 3.500 kWh/año)', pageWidth - 25, y + 21, { align: 'right' });
 
     y += 34;
   }
 
-  // ============ REVENUE COMPARISON ============
+  // ============ COMMUNITY REVENUE ============
   doc.setFontSize(13);
   doc.setTextColor(34, 47, 48);
-  doc.text('Comparativa de Ingresos por Excedentes', 20, y);
-  y += 10;
+  doc.text('Ingresos por Comunidad Energética', 20, y);
+  y += 8;
 
-  y = drawComparisonBar(
-    doc, y,
-    'Venta a red', data.gridRevenue,
-    [156, 163, 175], // Gray
-    'Comunidad', data.communityRevenue,
-    [251, 191, 36], // Amber
-    pageWidth
-  );
-
-  // Extra profit highlight
-  doc.setFillColor(240, 253, 244); // Light green
-  doc.roundedRect(15, y, pageWidth - 30, 22, 3, 3, 'F');
+  // Revenue highlight box
+  doc.setFillColor(255, 251, 235); // Light amber background
+  doc.roundedRect(15, y, pageWidth - 30, 32, 3, 3, 'F');
 
   doc.setFontSize(10);
-  doc.setTextColor(34, 47, 48);
-  doc.text('Beneficio adicional con comunidad energetica:', 25, y + 10);
+  doc.setTextColor(120, 80, 0);
+  doc.text('Vendiendo tu excedente a la comunidad energética:', 25, y + 12);
 
-  doc.setFontSize(14);
+  doc.setFontSize(20);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(22, 101, 52); // Green
-  const percentMore = data.gridRevenue > 0 ? Math.round((data.extraProfit / data.gridRevenue) * 100) : 0;
-  doc.text(`+${data.extraProfit.toLocaleString('es-ES')} EUR/ano (+${percentMore}%)`, pageWidth - 25, y + 14, { align: 'right' });
+  doc.setTextColor(180, 130, 0); // Amber
+  doc.text(`${data.communityRevenue.toLocaleString('es-ES')} €/año`, 25, y + 26);
   doc.setFont('helvetica', 'normal');
 
-  y += 32;
+  doc.setFontSize(8);
+  doc.setTextColor(140, 140, 140);
+  doc.text('@0,11 €/kWh', pageWidth - 25, y + 26, { align: 'right' });
+
+  y += 42;
 
   // ============ INVESTMENT COMPARISON TABLE ============
   doc.setFontSize(13);
   doc.setTextColor(34, 47, 48);
-  doc.text('Inversion y Amortizacion', 20, y);
+  doc.text('Inversión y Amortización', 20, y);
   y += 5;
 
   const incentivePercent = Math.round((1 - data.costWithIncentives / data.installationCost) * 100);
@@ -260,10 +204,10 @@ export function generateCommunityProposalReport(data: CommunityProposalData): js
   autoTable(doc, {
     startY: y,
     body: [
-      ['Coste instalacion', `${data.installationCost.toLocaleString('es-ES')} EUR`, 'Precio base'],
-      ['Con subvenciones*', `${data.costWithIncentives.toLocaleString('es-ES')} EUR`, `-${incentivePercent}% de ayudas`],
-      ['Amortizacion sin ayudas', `${data.paybackYears.toFixed(1)} anos`, ''],
-      ['Amortizacion con ayudas', `${data.paybackWithIncentives.toFixed(1)} anos`, 'Recuperas tu inversion antes'],
+      ['Coste instalación', `${data.installationCost.toLocaleString('es-ES')} €`, 'Precio base'],
+      ['Con subvenciones*', `${data.costWithIncentives.toLocaleString('es-ES')} €`, `-${incentivePercent}% de ayudas`],
+      ['Amortización sin ayudas', `${data.paybackYears.toFixed(1)} años`, ''],
+      ['Amortización con ayudas', `${data.paybackWithIncentives.toFixed(1)} años`, 'Recuperas tu inversión antes'],
     ],
     theme: 'striped',
     headStyles: { fillColor: [34, 47, 48], fontSize: 9 },
@@ -293,6 +237,29 @@ export function generateCommunityProposalReport(data: CommunityProposalData): js
   doc.text('*Subvenciones estimadas: Next Generation EU, IBI, IRPF. Sujeto a disponibilidad y requisitos.', 20, y);
   y += 12;
 
+  // ============ METHODOLOGY ============
+  doc.setFontSize(11);
+  doc.setTextColor(34, 47, 48);
+  doc.text('Metodología y Supuestos', 20, y);
+  y += 6;
+
+  doc.setFontSize(7);
+  doc.setTextColor(100, 100, 100);
+  const methodology = [
+    'Producción solar: Basada en irradiación local (PVGIS) y área útil de cubierta (70% del total)',
+    'Paneles: 400W por panel, 2m² por panel, degradación 0,5%/año',
+    'Autoconsumo: Energía consumida directamente en el edificio',
+    'Excedente: Energía sobrante vertida a la comunidad energética',
+    'Precio comunidad: 0,11 €/kWh (venta entre miembros de comunidad energética)',
+    'Viviendas abastecidas: Consumo medio español 3.500 kWh/año por hogar',
+    'Subvenciones: ~40% reducción combinando Next Generation EU, bonificación IBI y deducción IRPF',
+  ];
+  for (const line of methodology) {
+    doc.text(`• ${line}`, 20, y);
+    y += 4;
+  }
+  y += 6;
+
   // ============ CALL TO ACTION ============
   doc.setFillColor(34, 47, 48);
   doc.roundedRect(15, y, pageWidth - 30, 35, 3, 3, 'F');
@@ -303,14 +270,14 @@ export function generateCommunityProposalReport(data: CommunityProposalData): js
   doc.text('Siguiente paso:', 25, y + 12);
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(10);
-  doc.text('Unete a una comunidad energetica y maximiza el valor de tus excedentes.', 25, y + 22);
-  doc.text('Contactanos para un estudio personalizado sin compromiso.', 25, y + 30);
+  doc.text('Únete a una comunidad energética y maximiza el valor de tus excedentes.', 25, y + 22);
+  doc.text('Contáctanos para un estudio personalizado sin compromiso.', 25, y + 30);
 
   // ============ FOOTER ============
   doc.setFontSize(7);
   doc.setTextColor(150, 150, 150);
   doc.text(`Generado el ${new Date().toLocaleDateString('es-ES')}`, 15, pageHeight - 10);
-  doc.text('Aureon - Comunidades Energeticas', pageWidth - 15, pageHeight - 10, { align: 'right' });
+  doc.text('Aureon - Comunidades Energéticas', pageWidth - 15, pageHeight - 10, { align: 'right' });
 
   return doc;
 }
