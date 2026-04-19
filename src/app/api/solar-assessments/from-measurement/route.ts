@@ -2,6 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import type { SolarAssessmentInsert } from "@/lib/supabase/types";
 
+interface CommunityEnergyData {
+  selfConsumptionKwh: number;
+  surplusKwh: number;
+  homesServed: number;
+  gridRevenue: number;
+  communityRevenue: number;
+  extraProfit: number;
+  costWithIncentives: number;
+  paybackWithIncentives: number;
+}
+
 interface MeasurementData {
   leadId: string;
   areaM2: number;
@@ -16,6 +27,8 @@ interface MeasurementData {
   longitude: number;
   // Polygon vertices for reference
   vertices: [number, number][];
+  // Community energy data
+  communityEnergy?: CommunityEnergyData;
 }
 
 export async function POST(request: NextRequest) {
@@ -92,6 +105,7 @@ export async function POST(request: NextRequest) {
         source: 'manual_measurement',
         vertices: body.vertices,
         installationCost: body.installationCost,
+        communityEnergy: body.communityEnergy,
       },
     };
 

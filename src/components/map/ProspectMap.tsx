@@ -1217,6 +1217,27 @@ export function ProspectMap({
       // Recalculate with current usable percent
       const estimate = computeSolarEstimate(measuredAreaM2, centerLat, measureUsablePercent);
 
+      // Calculate community energy metrics
+      const selfConsumptionKwh = measureSelfConsumption;
+      const surplusKwh = Math.max(0, estimate.annualKwh - selfConsumptionKwh);
+      const homesServed = Math.floor(surplusKwh / 3500);
+      const GRID_RATE = 0.05;
+      const COMMUNITY_RATE = 0.11;
+      const gridRevenue = surplusKwh * GRID_RATE;
+      const communityRevenue = surplusKwh * COMMUNITY_RATE;
+      const extraProfit = communityRevenue - gridRevenue;
+      const TYPICAL_INCENTIVE_RATE = 0.40;
+      const costWithIncentives = estimate.installationCost * (1 - TYPICAL_INCENTIVE_RATE);
+      let paybackWithIncentives: number = ASSESSMENT_CONFIG.SYSTEM_LIFETIME_YEARS;
+      let cumSavings = 0;
+      for (let y = 1; y <= ASSESSMENT_CONFIG.SYSTEM_LIFETIME_YEARS; y++) {
+        cumSavings += estimate.annualSavingsEur * Math.pow(1 - ASSESSMENT_CONFIG.PANEL_DEGRADATION_RATE, y - 1);
+        if (cumSavings >= costWithIncentives) {
+          paybackWithIncentives = y;
+          break;
+        }
+      }
+
       const res = await fetch('/api/solar-assessments/from-measurement', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1233,6 +1254,16 @@ export function ProspectMap({
           longitude: centerLng,
           vertices: measureVertices,
           usablePercent: measureUsablePercent,
+          communityEnergy: {
+            selfConsumptionKwh,
+            surplusKwh,
+            homesServed,
+            gridRevenue,
+            communityRevenue,
+            extraProfit,
+            costWithIncentives,
+            paybackWithIncentives,
+          },
         }),
       });
 
@@ -1251,7 +1282,7 @@ export function ProspectMap({
     } finally {
       setIsSendingToLead(false);
     }
-  }, [measuredAreaM2, measureVertices, measureUsablePercent]);
+  }, [measuredAreaM2, measureVertices, measureUsablePercent, measureSelfConsumption]);
 
   // Create a new lead and send measurement to it
   const createLeadAndSendMeasurement = useCallback(async () => {

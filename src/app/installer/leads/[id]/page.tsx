@@ -10,6 +10,7 @@ import { DeleteLeadButton } from "./delete-lead-button";
 import { InlineEditField, InlineEditSelect } from "./inline-edit-field";
 import { ViewOnMapButton } from "./view-on-map-button";
 import { SavingsSummary } from "./savings-summary";
+import { CommunityProposalButton } from "./community-proposal-button";
 import type { Lead, Installer } from "@/lib/supabase/types";
 
 interface LeadDetailPageProps {
@@ -245,6 +246,11 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                   <span className="font-medium">Enviar email</span>
                 </a>
                 <ViewOnMapButton notes={lead.notes} />
+                <CommunityProposalButton
+                  leadId={lead.id}
+                  leadName={lead.name}
+                  address={lead.address}
+                />
                 <DeleteLeadButton leadId={lead.id} leadName={lead.name} />
               </div>
             </CardContent>
